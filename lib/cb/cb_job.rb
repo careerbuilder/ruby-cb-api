@@ -5,7 +5,7 @@ module Cb
 		#############################################################
 		### 
 		#############################################################
-    def initialize(*args)
+    def initialize(args = {})
       self.did = args[:DID] || ""
       self.title = args[:JobTitle] || ""
       self.description = args[:JobDescription] || ""
