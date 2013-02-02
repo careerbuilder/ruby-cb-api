@@ -3,7 +3,7 @@ module Cb
     attr_accessor :did, :title, :description, :requirements, :begin_date, :end_date
 
 		#############################################################
-		### 
+		### Comments incoming
 		#############################################################
     def initialize(args = {})
       self.did = args[:DID] || ""
