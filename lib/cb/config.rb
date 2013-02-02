@@ -1,16 +1,24 @@
 module Cb
   class Config
-    attr_accessor :dev_key, :time_out, :use_json
+    attr_accessor :dev_key, :time_out, :use_json, 
+                  :uri_job_search, :uri_job_find
 
     def initialize
       set_defaults
     end
 
+    def set_default_api_uris
+      @uri_job_search       ||= "/v1/JobSearch"
+      @uri_job_find         ||= "/v1/Job"
+    end
+
     def to_hash
       {
-        :dev_key      => @dev_key,
-        :time_out  	  => @time_out,
-        :use_json     => @use_json
+        :dev_key            => @dev_key,
+        :time_out  	        => @time_out,
+        :use_json           => @use_json,
+        :uri_job_search     => @uri_job_search,
+        :uri_job_find       => @uri_job_find
       }
     end
 
@@ -20,9 +28,11 @@ module Cb
     private
 
     def set_defaults
-      @dev_key      = "WDHH6P96RQD9FSDCZ0G7" # "ruby-cb-api"  # Get a developer key at http://api.careerbuilder.com/RequestDevKey.aspx
-      @time_out     = 5
-      @use_json     = true
+      @dev_key              = "ruby-cb-api"  # Get a developer key at http://api.careerbuilder.com
+      @time_out             = 5
+      @use_json             = true
+
+      set_default_api_uris
     end
   end
 end
