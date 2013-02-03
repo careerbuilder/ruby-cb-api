@@ -10,7 +10,7 @@ module Cb
 		##############################################################
 		## This general purpose object stores anything having to do
     ## with a job. The API objects dealing with job, will populate
-    ## one or many of these objects.
+    ## one or many of this objects.
 		##############################################################
     def initialize(args = {})
       # General
