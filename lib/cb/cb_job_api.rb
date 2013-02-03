@@ -27,7 +27,6 @@ module Cb
 			http_response = self.class.get(Cb.configuration.uri_job_find, :query => attributes)
 			http_response.response.body = http_response.response.body.gsub(/#cdata-section/, 'JobSkin')
 			json_hash = JSON.parse(http_response.response.body)
-
 		end
 	end
 end
