@@ -12,9 +12,9 @@ module Cb
         end_date = Date.today + 1
 
 
-        job = Cb::CbJob.new(:DID => did, :JobTitle => title, :JobDescription => description, 
-                            :JobRequirements => requirements, :BeginDate => begin_date, 
-                            :EndDate => end_date)
+        job = Cb::CbJob.new("DID" => did, "JobTitle" => title, "Description" => description, 
+                            "JobRequirements" => requirements, "BeginDate" => begin_date, 
+                            "EndDate" => end_date)
 
         job.did.should == did
         job.title.should == title
