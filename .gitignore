@@ -3,3 +3,5 @@ log/*.log
 .DS_Store
 *.gem
 coverage/
+spec/cassettes
+spec/cassettes/*
