@@ -3,7 +3,7 @@ require 'spec_helper'
 module Cb
   describe Cb::CbJobApi do
     context ".search" do
-        it "should perform a blank search", :vcr => {:cassette_name => "search/blank"} do
+        it "should perform a blank search", :vcr => { :cassette_name => "job/search/blank" } do
             search = Cb::CbJobApi.search()
 
             # make sure we have results, and they're of the correct type
@@ -19,5 +19,16 @@ module Cb
             job.posted_date.length.should > 1
         end
     end
-  end
+
+    context ".find_by_did"
+        it "should load a job in a blank search", :vcr => { :cassette_name => "job/find" } do
+            # run a job search, so we can load a job
+            search = Cb::CbJobApi.search()
+
+            job = Cb::CbJobApi.find_by_did(search[rand(0..24)].did)
+
+            puts job
+
+        end
+    end
 end

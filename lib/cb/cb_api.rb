@@ -4,6 +4,7 @@ module Cb
 	class CbApi
 	    include HTTParty
 			base_uri "http://api.careerbuilder.com"
+		attr_accessor :errors, :time_elapsed, :time_sent
 
 		def initialize
 			self.class.default_params :developerkey => Cb.configuration.dev_key, 
@@ -11,9 +12,21 @@ module Cb
 							   		  
 			self.class.default_timeout Cb.configuration.time_out
 		end
+
+		def self.api_get(*args, &block)
+		  response = self.get(*args, &block)
+		  populate_from response
+
+		  return response
+		end
+
+		private
+		#############################################################################
+
+		def self.populate_from(response)
+      		@errors 		= response["Errors"] || ""
+      		@time_elapsed	= response["TimeResponseSent"] || ""
+      		@time_sent		= response["TimeElapsed"] || ""
+		end
 	end
 end
-
-#"Errors"=>nil, "TimeResponseSent"=>"2/2/2013 5:30:35 PM", "TimeElapsed"=>"0.311988", 
-#"TotalPages"=>"15317", "TotalCount"=>"382902", "FirstItemIndex"=>"1", 
-#"LastItemIndex"=>"25"
