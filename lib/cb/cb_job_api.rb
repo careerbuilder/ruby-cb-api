@@ -11,7 +11,7 @@ module Cb
 		## http://api.careerbuilder.com/JobSearchInfo.aspx
 		#############################################################
 		def self.search(*args)
-	    	cb_response = self.get(Cb.configuration.uri_job_search, :query => args)
+	    	cb_response = self.api_get(Cb.configuration.uri_job_search, :query => args)
 	    	json_hash = JSON.parse(cb_response.response.body)
 
 	    	jobs = []
@@ -26,9 +26,12 @@ module Cb
 		### Retrieve a job by did
 		#############################################################
 		def self.find_by_did(did)
-			http_response = self.class.get(Cb.configuration.uri_job_find, :query => attributes)
-			http_response.response.body = http_response.response.body.gsub(/#cdata-section/, 'JobSkin')
+			http_response = self.api_get(Cb.configuration.uri_job_find, :query => {:DID => did})
 			json_hash = JSON.parse(http_response.response.body)
+
+puts json_hash
+
+			CbJob.new(json_hash["ResponseJob"]["Job"])
 		end
 	end
 end
