@@ -1,6 +1,8 @@
 require "cb/cb_api"
 require "cb/cb_job"
 require "cb/cb_job_api"
+require "cb/cb_company"
+require "cb/cb_company_api"
 require "cb/config"
 
 module Cb

@@ -13,9 +13,8 @@ module Cb
 			self.class.default_timeout Cb.configuration.time_out
 		end
 
-		def self.api_get(*args, &block)
-		  response = self.get(*args, &block)
-		  populate_from response
+		def api_get(*args, &block)
+		  response = self.class.get(*args, &block)
 
 		  return response
 		end
@@ -23,10 +22,10 @@ module Cb
 		private
 		#############################################################################
 
-		def self.populate_from(response)
-      		@errors 		= response["Errors"] || ""
-      		@time_elapsed	= response["TimeResponseSent"] || ""
-      		@time_sent		= response["TimeElapsed"] || ""
+		def populate_from(response, node = "")
+      		@errors 		= response[node]["Errors"] || ""
+      		@time_elapsed	= response[node]["TimeResponseSent"] || ""
+      		@time_sent		= response[node]["TimeElapsed"] || ""
 		end
 	end
 end
