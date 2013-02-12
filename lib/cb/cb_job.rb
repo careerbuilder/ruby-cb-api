@@ -1,7 +1,7 @@
 module Cb
 	class CbJob
     attr_accessor :did, :title, :pay,
-                  :company, :company_did, :company_details_url, :company_image_url,
+                  :company_name, :company_did, :company_details_url, :company_image_url,
                   :description_teaser, :location, :distance, :latitude, :longitude,
                   :description, :requirements, :employment_type,
                   :details_url, :service_url, :similar_jobs_url,
@@ -37,10 +37,21 @@ module Cb
       @end_date                     = args["EndDate"] || ""
 
       # Company related
-      @company                      = args["Company"] || ""
+      @company_name                 = args["Company"] || ""
       @company_did                  = args["CompanyDID"] || ""
       @company_details_url          = args["CompanyDetailsURL"] || ""
       @company_image_url            = args["CompanyImageURL"] || ""
+    end
+
+    def find_company
+      if @company
+        return @company
+      else
+        company_api = Cb::CbCompanyApi.new()
+        @company = company_api.find_for self
+
+        return @company
+      end
     end
 	end
 end

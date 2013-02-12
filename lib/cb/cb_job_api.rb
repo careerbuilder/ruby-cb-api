@@ -10,9 +10,11 @@ module Cb
 		## For detailed information around this API please visit:
 		## http://api.careerbuilder.com/JobSearchInfo.aspx
 		#############################################################
-		def self.search(*args)
+		def search(*args)
 	    	cb_response = self.api_get(Cb.configuration.uri_job_search, :query => args)
 	    	json_hash = JSON.parse(cb_response.response.body)
+
+	    	populate_from json_hash, "ResponseJobSearch"
 
 	    	jobs = []
 	    	json_hash["ResponseJobSearch"]["Results"]["JobSearchResult"].each do |cur_job|
@@ -23,15 +25,30 @@ module Cb
 		end
 
 		#############################################################
-		### Retrieve a job by did
+		## Retrieve a job by did
+		## 
+		## For detailed information around this API please visit:
+		## http://api.careerbuilder.com/JobInfo.aspx
 		#############################################################
-		def self.find_by_did(did)
-			http_response = self.api_get(Cb.configuration.uri_job_find, :query => {:DID => did})
-			json_hash = JSON.parse(http_response.response.body)
+		def find_by_did(did)
+			cb_response = self.api_get(Cb.configuration.uri_job_find, :query => {:DID => did})
+			json_hash = JSON.parse(cb_response.response.body)
 
-puts json_hash
+			populate_from json_hash, "ResponseJob"
 
 			CbJob.new(json_hash["ResponseJob"]["Job"])
+		end
+
+		private
+		#############################################################################
+
+		def populate_from(response, node = "ResponseJobSearch")
+			super response, node
+
+      		@total_pages 		= response[node]["TotalPages"].to_i || 0
+      		@total_count		= response[node]["TotalCount"].to_i || 0
+      		@first_item_index	= response[node]["FirstItemIndex"].to_i || 0
+      		@last_item_index 	= response[node]["LastItemIndex"].to_i || 0
 		end
 	end
 end
