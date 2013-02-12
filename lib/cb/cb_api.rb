@@ -4,6 +4,7 @@ module Cb
 	class CbApi
 	    include HTTParty
 			base_uri "http://api.careerbuilder.com"
+			#debug_output $stderr
 		attr_accessor :errors, :time_elapsed, :time_sent
 
 		def initialize
