@@ -20,8 +20,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec", ">= 2.11"
   s.add_development_dependency "rake", ">= 0.8.7"
   s.add_development_dependency "simplecov", ">=0.7.1"
-  s.add_development_dependency "vcr", "~> 2.4.0"
-  s.add_development_dependency "webmock", "~> 1.9.0"
+  #s.add_development_dependency "vcr", "~> 2.4.0"
+  #s.add_development_dependency "webmock", "~> 1.9.0"
   s.add_dependency "httparty", ">= 0.8.1"
   s.add_dependency "json", "~> 1.7.6"
 end

@@ -24,8 +24,7 @@ module Cb
             job.company_name.length.nil?.should == false
             job.posted_date.length.should > 1
 
-            a = job.find_company
-            puts a
+            #a = job.find_company
         end
     end
 
@@ -41,7 +40,7 @@ module Cb
             job_api.last_item_index.should >= 1
 
             job = job_api.find_by_did(search[rand(0..24)].did)
-
+            
             job.did.length.should >= 19
             job.title.length.should > 1
             job.company_name.length.nil?.should == false
