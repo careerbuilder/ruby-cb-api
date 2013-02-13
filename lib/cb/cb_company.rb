@@ -18,7 +18,6 @@ module Cb
                   :my_content_tabs, :info_tabs, :is_enhance, :is_military, :is_premium 
 
     def initialize(args = {})
-      puts args
       # General
       ################################################################
       @did                         = args['CompanyDID'] || ''
@@ -80,7 +79,7 @@ module Cb
       @addresses = []
       if args.has_key?('CompanyAddress')
         args['CompanyAddress']['AddressList'].each do |cur_addr|
-          @addresses << CbCompany::CbAddress.new(cur_addr[1])
+          @addresses << CbCompany::CbAddress.new(cur_addr)
         end
       end
       @college                     = args['CollegeBody'] || ''

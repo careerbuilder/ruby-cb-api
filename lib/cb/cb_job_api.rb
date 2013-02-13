@@ -11,6 +11,8 @@ module Cb
 		## http://api.careerbuilder.com/JobSearchInfo.aspx
 		#############################################################
 		def search(*args)
+			args = args[0] if args.is_a?(Array) && args.count == 1
+
 	    	cb_response = self.api_get(Cb.configuration.uri_job_search, :query => args)
 	    	json_hash = JSON.parse(cb_response.response.body)
 
@@ -50,5 +52,5 @@ module Cb
       		@first_item_index	= response[node]["FirstItemIndex"].to_i || 0
       		@last_item_index 	= response[node]["LastItemIndex"].to_i || 0
 		end
-	end
-end
+	end # CbJobApi
+end # Cb
