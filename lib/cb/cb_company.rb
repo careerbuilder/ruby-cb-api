@@ -18,89 +18,92 @@ module Cb
                   :my_content_tabs, :info_tabs, :is_enhance, :is_military, :is_premium 
 
     def initialize(args = {})
+      puts args
       # General
       ################################################################
-      @did                         = args["CompanyDID"] || ""
-      @name                        = args["CompanyName"] || ""
-      @hh_name                     = args["HHName"] || ""
-      @url                         = args["URL"] || ""
-      @size                        = args["CompanySize"] || ""
-      @type                        = args["CompanyType"] || ""
-      @year_founded                = args["YearFounded"] || ""
-      @news_feed                   = args["NewsFeed"] || ""
-      @overview                    = args["Overview"] || ""
-      @total_jobs                  = args["TotalNumberJobs"] || ""
-      @headquarters                = args["Headquarter"] || ""
-      @host_sites                  = args["HostSites"] || ""
-      @s_drive                     = args["SDrive"] || ""
-      @industry                    = args["IndustryType"] || ""
+      @did                         = args['CompanyDID'] || ''
+      @name                        = args['CompanyName'] || ''
+      @hh_name                     = args['HHName'] || ''
+      @url                         = args['URL'] || ''
+      @size                        = args['CompanySize'] || ''
+      @type                        = args['CompanyType'] || ''
+      @year_founded                = args['YearFounded'] || ''
+      @news_feed                   = args['NewsFeed'] || ''
+      @overview                    = args['Overview'] || ''
+      @total_jobs                  = args['TotalNumberJobs'] || ''
+      @headquarters                = args['Headquarter'] || ''
+      @host_sites                  = args['HostSites'] || ''
+      @s_drive                     = args['SDrive'] || ''
+      @industry                    = args['IndustryType'] || ''
 
       # Images
       ################################################################
-      @logo                        = args["CompanyLogo"] || ""
-      @header_image                = args["HeaderImage"] || ""
-      @footer_image                = args["FooterImage"] || ""
-      @image_file                  = args["ImageFile"] || ""
-      @photos                      = args["CompanyPhotos"]["PhotoList"] || ""
-      @my_photos                   = args["MyPhotos"] || ""
+      @logo                        = args['CompanyLogo'] || ''
+      @header_image                = args['HeaderImage'] || ''
+      @footer_image                = args['FooterImage'] || ''
+      @image_file                  = args['ImageFile'] || ''
+      @photos                      = args['CompanyPhotos']['PhotoList'] || ''
+      @my_photos                   = args['MyPhotos'] || ''
 
       # Videos
       ################################################################
-      @bright_cove_video           = args["BrightcoveVideo"] || ""
+      @bright_cove_video           = args['BrightcoveVideo'] || ''
 
       # Social sites
       ################################################################
-      @facebook_url                = args["FBPageURL"] || args["FacebookURL"] || ""
-      @facebook_widget             = args["FacebookWidget"] || ""
-      @twitter_url                 = args["TwitterURL"] || ""
-      @twitter_widget              = args["TwitterWidget"] || ""
-      @linked_in_url               = args["LinkedURL"] || ""
-      @linked_in_widget            = args["LinkedInWidget"] || ""
+      @facebook_url                = args['FBPageURL'] || args['FacebookURL'] || ''
+      @facebook_widget             = args['FacebookWidget'] || ''
+      @twitter_url                 = args['TwitterURL'] || ''
+      @twitter_widget              = args['TwitterWidget'] || ''
+      @linked_in_url               = args['LinkedURL'] || ''
+      @linked_in_widget            = args['LinkedInWidget'] || ''
 
       # Detailed information (blobs)
       ################################################################
-      @history                     = args["HistoryBody"] || ""
-      @people                      = args["PeopleBody"] || ""
-      @people_label                = args["PeopleLabel"] || ""
-      @contact                     = args["ContactBody"] || ""
-      @contact_label               = args["ContactLabel"] || ""
-      @benefits                    = args["BenefitsBody"] || ""
-      @benefits_label              = args["BenefitsLabel"] || ""
-      @vision                      = args["VisionBody"] || ""
-      @vision_label                = args["VisionLabel"] || ""
-      @products                    = args["ProductsBody"] || ""
-      @products_label              = args["ProductsLabel"] || ""
-      @career_opps                 = args["CareerOpportunitiesBody"] || ""
-      @career_opps_label           = args["CareerOpportunitiesLabel"] || ""
-      @culture                     = args["CultureBody"] || ""
-      @culture_label               = args["CultureLabel"] || ""
-      @bulletin_board              = args["CompanyBulletinBoard"]["bulletinboards"] || ""
-      @testimonials                = args["Testimonials"]["Testimonials"] || ""
+      @history                     = args['HistoryBody'] || ''
+      @people                      = args['PeopleBody'] || ''
+      @people_label                = args['PeopleLabel'] || ''
+      @contact                     = args['ContactBody'] || ''
+      @contact_label               = args['ContactLabel'] || ''
+      @benefits                    = args['BenefitsBody'] || ''
+      @benefits_label              = args['BenefitsLabel'] || ''
+      @vision                      = args['VisionBody'] || ''
+      @vision_label                = args['VisionLabel'] || ''
+      @products                    = args['ProductsBody'] || ''
+      @products_label              = args['ProductsLabel'] || ''
+      @career_opps                 = args['CareerOpportunitiesBody'] || ''
+      @career_opps_label           = args['CareerOpportunitiesLabel'] || ''
+      @culture                     = args['CultureBody'] || ''
+      @culture_label               = args['CultureLabel'] || ''
+      @bulletin_board              = args['CompanyBulletinBoard']['bulletinboards'] || ''
+      @testimonials                = args['Testimonials']['Testimonials'] || ''
       @addresses = []
-      args["CompanyAddress"]["AddressList"].each do |cur_addr|
-        @addresses << CbCompany::CbAddress.new(cur_addr)
+      if args.has_key?('CompanyAddress')
+        args['CompanyAddress']['AddressList'].each do |cur_addr|
+          @addresses << CbCompany::CbAddress.new(cur_addr[1])
+        end
       end
-      @college                     = args["CollegeBody"] || ""
-      @college_label               = args["CollegeLabel"] || ""
-      @diversity                   = args["DiversityBody"] || ""
-      @diversity_label             = args["DiversityLabel"] || ""
-      @links                       = args["CompanyLinksCollection"]["companylinks"] || ""
+      @college                     = args['CollegeBody'] || ''
+      @college_label               = args['CollegeLabel'] || ''
+      @diversity                   = args['DiversityBody'] || ''
+      @diversity_label             = args['DiversityLabel'] || ''
+      @links                       = args['CompanyLinksCollection']['companylinks'] || ''
 
       # tabs, colors, buttons, headers, etc
       ################################################################
-      @extra_custom_tab            = args["ExtraCustomTab"] || ""
-      @tab_header_bg_color         = args["TabHeaderBGColor"] || ""
-      @tab_header_text_color       = args["TabHeaderTextColor"] || ""
-      @tab_header_hover_color      = args["TabHeaderHoverColor"] || ""
-      @side_bar_header_color       = args["SidebarHeaderColor"] || ""
-      @button_color                = args["ButtonColor"] || ""
-      @button_text_color           = args["ButtonTextColor"] || ""
-      @gutter_bg_color             = args["GutterBGColor"] || ""
-      @my_content_tabs             = args["MyContent"]["MyContentTabs"] || ""
-      @info_tabs                   = args["InfoTabs"]["InfoTabs"] || ""
-      @is_enhance                  = args["isEnhance"] || ""
-      @is_military                 = args["MilitaryIcon"] || ""
-      @is_premium                  = args["PremiumProfile"] || ""
+      @extra_custom_tab            = args['ExtraCustomTab'] || ''
+      @tab_header_bg_color         = args['TabHeaderBGColor'] || ''
+      @tab_header_text_color       = args['TabHeaderTextColor'] || ''
+      @tab_header_hover_color      = args['TabHeaderHoverColor'] || ''
+      @side_bar_header_color       = args['SidebarHeaderColor'] || ''
+      @button_color                = args['ButtonColor'] || ''
+      @button_text_color           = args['ButtonTextColor'] || ''
+      @gutter_bg_color             = args['GutterBGColor'] || ''
+      @my_content_tabs             = args['MyContent']['MyContentTabs'] || ''
+      @info_tabs                   = args['InfoTabs']['InfoTabs'] || ''
+      @is_enhance                  = args['isEnhance'] || ''
+      @is_military                 = args['MilitaryIcon'] || ''
+      @is_premium                  = args['PremiumProfile'] || ''
     end
 
     # CbAddress               # CbCompany has a collection of these
@@ -109,11 +112,11 @@ module Cb
       attr_accessor :street, :city, :state, :country, :zip
 
       def initialize(args = {})
-        @street                    = args["Street"] || ""
-        @city                      = args["City"] || ""
-        @state                     = args["State"] || ""
-        @country                   = args["Country"] || ""
-        @zip                       = args["ZIPCode"] || ""
+        @street                    = args['Street'] || ''
+        @city                      = args['City'] || ''
+        @state                     = args['State'] || ''
+        @country                   = args['Country'] || ''
+        @zip                       = args['ZIPCode'] || ''
       end
     end #CbAddress
 	end #CbCompany

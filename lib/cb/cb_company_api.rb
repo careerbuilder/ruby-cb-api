@@ -21,10 +21,10 @@ module Cb
 			if obj.is_a?(String)
 				did = obj
 			elsif obj.is_a?(Cb::CbJob)
-				did = obj.did
+				did = obj.company_did
 			end
 
-			find_by_did did
+			find_by_did did unless did.empty?
 		end
 
 		private
