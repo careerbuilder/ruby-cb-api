@@ -12,7 +12,7 @@ module Cb
       @uri_job_search       ||= "/v1/JobSearch"
       @uri_job_find         ||= "/v1/Job"
 
-      @uri_company_find     ||= "/CompanyDetailsInfo.aspx"
+      @uri_company_find     ||= "/Employer/CompanyDetails"
     end
 
     def to_hash
