@@ -24,8 +24,12 @@ module Cb
             job.company_name.length.nil?.should == false
             job.posted_date.length.should > 1
 
-            a = job.find_company
-            puts a
+            #a = job.find_company
+            #a = Cb::CbCompanyApi.new()
+            #b = a.find_for "CHV5Z673YRLV70KH5SX"
+
+            b = Cb::JobSearchCriteria.new().location('Atlanta, GA').radius(10)
+            jj = job_api.search(b.to_hash)
         end
     end
 
@@ -34,6 +38,16 @@ module Cb
             # run a job search, so we can load a job
             job_api = Cb::CbJobApi.new()
             search = job_api.search()
+
+            
+            # seach = Cb::CbJobApi.page_num(5).location("atlanta, ga").radius(30).search()
+
+            # a = JobSearchCriteria.new()
+            # a.page_num = 5
+            # a.location = "Atlanta, GA"
+
+            # seach = CB::CbJobApi.search(a)
+
 
             job_api.total_pages.should >= 1
             job_api.total_count.should >= 1
