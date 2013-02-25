@@ -5,3 +5,4 @@ log/*.log
 coverage/
 spec/cassettes
 spec/cassettes/*
+.idea

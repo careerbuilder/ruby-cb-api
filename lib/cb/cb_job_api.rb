@@ -1,4 +1,4 @@
-require "json"
+require 'json'
 
 module Cb
 	class CbJobApi < CbApi
@@ -10,16 +10,16 @@ module Cb
 		## For detailed information around this API please visit:
 		## http://api.careerbuilder.com/JobSearchInfo.aspx
 		#############################################################
-		def search(*args)
+		def self.search(*args)
 			args = args[0] if args.is_a?(Array) && args.count == 1
 
 	    	cb_response = self.api_get(Cb.configuration.uri_job_search, :query => args)
 	    	json_hash = JSON.parse(cb_response.response.body)
 
-	    	populate_from json_hash, "ResponseJobSearch"
+	    	#populate_from json_hash, 'ResponseJobSearch'
 
 	    	jobs = []
-	    	json_hash["ResponseJobSearch"]["Results"]["JobSearchResult"].each do |cur_job|
+	    	json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do |cur_job|
 	    		jobs << CbJob.new(cur_job)
 	    	end
 
@@ -36,21 +36,21 @@ module Cb
 			cb_response = self.api_get(Cb.configuration.uri_job_find, :query => {:DID => did})
 			json_hash = JSON.parse(cb_response.response.body)
 
-			populate_from json_hash, "ResponseJob"
+			populate_from json_hash, 'ResponseJob'
 
-			CbJob.new(json_hash["ResponseJob"]["Job"])
+			CbJob.new(json_hash['ResponseJob']['Job'])
 		end
 
 		private
 		#############################################################################
 
-		def populate_from(response, node = "ResponseJobSearch")
+		def populate_from(response, node = 'ResponseJobSearch')
 			super response, node
 
-      		@total_pages 		= response[node]["TotalPages"].to_i || 0
-      		@total_count		= response[node]["TotalCount"].to_i || 0
-      		@first_item_index	= response[node]["FirstItemIndex"].to_i || 0
-      		@last_item_index 	= response[node]["LastItemIndex"].to_i || 0
+      		@total_pages 		= response[node]['TotalPages'].to_i || 0
+      		@total_count		= response[node]['TotalCount'].to_i || 0
+      		@first_item_index	= response[node]['FirstItemIndex'].to_i || 0
+      		@last_item_index 	= response[node]['LastItemIndex'].to_i || 0
 		end
 	end # CbJobApi
 end # Cb
