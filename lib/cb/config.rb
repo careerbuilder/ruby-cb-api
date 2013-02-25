@@ -9,10 +9,10 @@ module Cb
     end
 
     def set_default_api_uris
-      @uri_job_search       ||= "/v1/JobSearch"
-      @uri_job_find         ||= "/v1/Job"
+      @uri_job_search       ||= '/v1/JobSearch'
+      @uri_job_find         ||= '/v1/Job'
 
-      @uri_company_find     ||= "/Employer/CompanyDetails"
+      @uri_company_find     ||= '/Employer/CompanyDetails'
     end
 
     def to_hash
@@ -30,7 +30,7 @@ module Cb
     #################################################################
 
     def set_defaults
-      @dev_key              = "ruby-cb-api"  # Get a developer key at http://api.careerbuilder.com
+      @dev_key              = 'ruby-cb-api'  # Get a developer key at http://api.careerbuilder.com
       @time_out             = 5
       @use_json             = true
 

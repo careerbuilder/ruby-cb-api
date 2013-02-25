@@ -1,4 +1,4 @@
-require "json"
+require 'json'
 
 module Cb
 	class CbCompanyApi < CbApi
@@ -12,9 +12,9 @@ module Cb
 			cb_response = self.api_get(Cb.configuration.uri_company_find, :query => {:CompanyDID => did})
 			json_hash = JSON.parse(cb_response.response.body)
 
-			populate_from json_hash, "Results"
+			populate_from json_hash, 'Results'
 
-			CbCompany.new(json_hash["Results"]["CompanyProfileDetail"])
+			CbCompany.new(json_hash['Results']['CompanyProfileDetail'])
 		end
 
 		def find_for(obj)
@@ -30,7 +30,7 @@ module Cb
 		private
 		#############################################################################
 
-		def populate_from(response, node = "Results")
+		def populate_from(response, node = 'Results')
 			super response, node
 		end
 	end

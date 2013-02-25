@@ -14,33 +14,33 @@ module Cb
 		##############################################################
     def initialize(args = {})
       # General
-      @did                          = args["DID"] || ""
-      @title                        = args["JobTitle"] || ""
-      @employment_type              = args["EmploymentType"] || ""
-      @latitude                     = args["LocationLatitude"] || ""
-      @longitude                    = args["LocationLongitude"] || ""
-      @pay                          = args["Pay"] || ""
+      @did                          = args['DID'] || ''
+      @title                        = args['JobTitle'] || ''
+      @employment_type              = args['EmploymentType'] || ''
+      @latitude                     = args['LocationLatitude'] || ''
+      @longitude                    = args['LocationLongitude'] || ''
+      @pay                          = args['Pay'] || ''
 
       # Job Search related
-      @description_teaser           = args["DescriptionTeaser"] || ""
-      @posted_date                  = args["PostedDate"] || ""
-      @distance                     = args["Distance"] || ""
-      @details_url                  = args["JobDetailsURL"] || ""
-      @service_url                  = args["JobServiceURL"] || ""
-      @location                     = args["Location"] || ""
-      @similar_jobs_url             = args["SimilarJobsURL"] || ""
+      @description_teaser           = args['DescriptionTeaser'] || ''
+      @posted_date                  = args['PostedDate'] || ''
+      @distance                     = args['Distance'] || ''
+      @details_url                  = args['JobDetailsURL'] || ''
+      @service_url                  = args['JobServiceURL'] || ''
+      @location                     = args['Location'] || ''
+      @similar_jobs_url             = args['SimilarJobsURL'] || ''
 
       # Job Details related
-      @description                  = args["Description"] || ""
-      @requirements                 = args["JobRequirements"] || ""
-      @begin_date                   = args["BeginDate"] || ""
-      @end_date                     = args["EndDate"] || ""
+      @description                  = args['Description'] || ''
+      @requirements                 = args['JobRequirements'] || ''
+      @begin_date                   = args['BeginDate'] || ''
+      @end_date                     = args['EndDate'] || ''
 
       # Company related
-      @company_name                 = args["Company"] || ""
-      @company_did                  = args["CompanyDID"] || ""
-      @company_details_url          = args["CompanyDetailsURL"] || ""
-      @company_image_url            = args["CompanyImageURL"] || ""
+      @company_name                 = args['Company'] || ''
+      @company_did                  = args['CompanyDID'] || ''
+      @company_details_url          = args['CompanyDetailsURL'] || ''
+      @company_image_url            = args['CompanyImageURL'] || ''
     end
 
     def find_company
