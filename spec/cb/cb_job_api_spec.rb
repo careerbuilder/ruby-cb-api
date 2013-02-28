@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::CbJobApi do
+  describe Cb::JobApi do
     context '.search' do
         it 'should perform a blank search', :vcr => { :cassette_name => 'job/search/blank' } do
-            # job_api = Cb::CbJobApi.new()
-            # search = job_api.search()
+            search = Cb::JobSearchCriteria.new().location('Atlanta, GA').radius(10).search()
 
             # job_api.total_pages.should >= 1
             # job_api.total_count.should >= 1
@@ -13,25 +12,19 @@ module Cb
             # job_api.last_item_index.should >= 1
 
             # # make sure we have results, and they're of the correct type
-            # search.count.should == 25
-            # search[0].is_a?(Cb::CbJob).should == true
-            # search[24].is_a?(Cb::CbJob).should == true
+            search.count.should == 25
+            search[0].is_a?(Cb::CbJob).should == true
+            search[24].is_a?(Cb::CbJob).should == true
 
             # # make sure our jobs are properly populated
-            # job = search[rand(0..24)]
-            # job.did.length.should >= 19
-            # job.title.length.should > 1
-            # job.company_name.length.nil?.should == false
-            # job.posted_date.length.should > 1
+            job = search[rand(0..24)]
+            job.did.length.should >= 19
+            job.title.length.should > 1
+            job.company_name.length.nil?.should == false
+            job.posted_date.length.should > 1
 
-            #a = job.find_company
-            #a = Cb::CbCompanyApi.new()
-            #b = a.find_for 'CHV5Z673YRLV70KH5SX'
-
-            b = Cb::JobSearchCriteria.new().location('Atlanta, GA').radius(10).search()
-            #jj = job_api.search(b.to_hash)
-            p b
-
+            company = job.find_company
+            p company
         end
     end
 
