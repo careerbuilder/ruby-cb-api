@@ -34,17 +34,10 @@ module Cb
 			cb_response = my_api.cb_get(Cb.configuration.uri_job_find, :query => {:DID => did})
 			json_hash = JSON.parse(cb_response.response.body)
 
-			CbJob.new(json_hash['ResponseJob']['Job'])
-		end
+			job = CbJob.new(json_hash['ResponseJob']['Job'])
+      my_api.append_api_responses(job, json_hash['ResponseJob'])
 
-		private
-		#############################################################################
-
-		def populate_from(response, node = 'ResponseJobSearch')
-      		@total_pages 		= response[node]['TotalPages'].to_i || 0
-      		@total_count		= response[node]['TotalCount'].to_i || 0
-      		@first_item_index	= response[node]['FirstItemIndex'].to_i || 0
-      		@last_item_index 	= response[node]['LastItemIndex'].to_i || 0
+      return job
 		end
 	end # JobApi
 end # Cb

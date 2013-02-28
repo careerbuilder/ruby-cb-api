@@ -13,7 +13,10 @@ module Cb
 			cb_response = my_api.cb_get(Cb.configuration.uri_company_find, :query => {:CompanyDID => did})
 			json_hash = JSON.parse(cb_response.response.body)
 
-			CbCompany.new(json_hash['Results']['CompanyProfileDetail'])
+			company = CbCompany.new(json_hash['Results']['CompanyProfileDetail'])
+      my_api.append_api_responses(company, json_hash['Results'])
+
+      return company
 		end
 
 		def self.find_for(obj)

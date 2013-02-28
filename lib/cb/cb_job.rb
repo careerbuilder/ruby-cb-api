@@ -47,7 +47,7 @@ module Cb
       if @company
         return @company
       else
-        @company = Cb.company_api.find_for self
+        @company = Cb::CompanyApi.find_for self
 
         return @company
       end
