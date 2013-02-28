@@ -21,7 +21,7 @@ module Cb::Utils
       meta_class = Cb::Utils::MetaValues.new()
 
       resp.each do | api_key, api_value |
-        meta_name = get_meta_name api_key
+        meta_name = get_meta_name_for api_key
         unless meta_name.empty?
           meta_class.class.send(:attr_reader, meta_name)
           meta_class.instance_variable_set(:"@#{meta_name}", api_value)
@@ -34,7 +34,7 @@ module Cb::Utils
 
     private
     #############################################################################
-    def get_meta_name(api_key)
+    def get_meta_name_for(api_key)
       map = {
               'Errors' =>              'errors',
               'TimeResponseSent' =>    'time_sent',
