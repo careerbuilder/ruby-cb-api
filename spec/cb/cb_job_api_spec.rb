@@ -24,7 +24,6 @@ module Cb
             job.posted_date.length.should > 1
 
             company = job.find_company
-            p company
         end
     end
 
