@@ -26,6 +26,10 @@ module Cb
     Cb::JobApi
   end
 
+  def self.job_search_criteria
+    Cb::JobSearchCriteria.new()
+  end
+
   def self.company
     Cb::CompanyApi
   end

@@ -4,7 +4,7 @@ module Cb
   describe Cb::JobApi do
     context '.search' do
         it 'should perform a blank search', :vcr => { :cassette_name => 'job/search/blank' } do
-          search = Cb::JobSearchCriteria.new().location('Atlanta, GA').radius(10).search()
+          search = Cb.job_search_criteria.location('Atlanta, GA').radius(10).search()
 
           # job_api.total_pages.should >= 1
           # job_api.total_count.should >= 1
