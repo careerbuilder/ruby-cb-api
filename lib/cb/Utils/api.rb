@@ -14,18 +14,38 @@ module Cb::Utils
     end
 
     def cb_get(*args, &block)
-      response = self.class.get(*args, &block)
+      self.class.get(*args, &block)
+    end
 
-      return response
+    def append_api_responses(obj, resp)
+      meta_class = Cb::Utils::MetaValues.new()
+
+      resp.each do | api_key, api_value |
+        meta_name = get_meta_name api_key
+        unless meta_name.empty?
+          meta_class.class.send(:attr_reader, meta_name)
+          meta_class.instance_variable_set(:"@#{meta_name}", api_value)
+        end
+      end
+
+      obj.class.send(:attr_reader, 'cb_response')
+      obj.instance_variable_set(:@cb_response, meta_class)
     end
 
     private
     #############################################################################
+    def get_meta_name(api_key)
+      map = {
+              'Errors' =>              'errors',
+              'TimeResponseSent' =>    'time_sent',
+              'TimeElapsed' =>         'time_elapsed',
+              'TotalPages' =>          'total_pages',
+              'TotalCount' =>          'total_count',
+              'FirstItemIndex' =>      'first_item_index',
+              'LastItemIndex' =>       'last_item_index'
+      }
 
-    def populate_from(response, node = '')
-      @errors 		= response[node]['Errors'] || ''
-      @time_elapsed	= response[node]['TimeResponseSent'] || ''
-      @time_sent		= response[node]['TimeElapsed'] || ''
+      map["#{api_key}"] ||= ''
     end
   end
 end
