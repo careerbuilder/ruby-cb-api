@@ -78,8 +78,10 @@ module Cb
       @testimonials                = args['Testimonials']['Testimonials'] || ''
       @addresses = []
       if args.has_key?('CompanyAddress')
-        args['CompanyAddress']['AddressList'].each do |cur_addr|
-          @addresses << CbCompany::CbAddress.new(cur_addr)
+        unless args['CompanyAddress'].empty? || args['CompanyAddress']['AddressList'].nil?
+          args['CompanyAddress']['AddressList']['Address'].each do |cur_addr|
+            @addresses << CbCompany::CbAddress.new(cur_addr)
+          end
         end
       end
       @college                     = args['CollegeBody'] || ''
@@ -111,11 +113,15 @@ module Cb
       attr_accessor :street, :city, :state, :country, :zip
 
       def initialize(args = {})
-        @street                    = args['Street'] || ''
-        @city                      = args['City'] || ''
-        @state                     = args['State'] || ''
-        @country                   = args['Country'] || ''
-        @zip                       = args['ZIPCode'] || ''
+        begin
+          @street                    = args['Street'] || ''
+          @city                      = args['City'] || ''
+          @state                     = args['State'] || ''
+          @country                   = args['Country'] || ''
+          @zip                       = args['ZIPCode'] || ''
+        rescue
+          # failed to load address
+        end
       end
     end #CbAddress
 	end #CbCompany

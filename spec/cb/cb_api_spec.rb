@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::CbApi do
-    context ".new" do
-      it "should create an empty new api object" do
-        api = Cb::CbApi.new()
+  describe Cb::Utils::Api do
+    context '.new' do
+      it 'should create an empty new api object' do
+        api = Cb::Utils::Api.new()
         
-        api.is_a?(Cb::CbApi).should == true
+        api.is_a?(Cb::Utils::Api).should == true
       end
     end
   end
