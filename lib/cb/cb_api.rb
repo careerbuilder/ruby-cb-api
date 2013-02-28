@@ -4,7 +4,7 @@ module Cb
 	class CbApi
 	    include HTTParty
 			base_uri "http://api.careerbuilder.com"
-			#debug_output $stderr
+			# debug_output $stderr
 		attr_accessor :errors, :time_elapsed, :time_sent
 
 		def initialize
@@ -12,11 +12,12 @@ module Cb
 							   		  :outputjson => Cb.configuration.use_json.to_s
 							   		  
 			self.class.default_timeout Cb.configuration.time_out
+		
 		end
 
-		def api_get(*args, &block)
+		def api_get(*args, &block)	
 		  response = self.class.get(*args, &block)
-
+		  
 		  return response
 		end
 
