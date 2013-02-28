@@ -1,7 +1,7 @@
 module Cb
 	class CbJob
     attr_accessor :did, :title, :pay,
-                  :company_name, :company_did, :company_details_url, :company_image_url,
+                  :company_name, :company_did, :company_details_url, :company_image_url, :company,
                   :description_teaser, :location, :distance, :latitude, :longitude,
                   :description, :requirements, :employment_type,
                   :details_url, :service_url, :similar_jobs_url,
@@ -47,8 +47,7 @@ module Cb
       if @company
         return @company
       else
-        company_api = Cb::CbCompanyApi.new()
-        @company = company_api.find_for self
+        @company = Cb.company_api.find_for self
 
         return @company
       end

@@ -78,8 +78,11 @@ module Cb
       @testimonials                = args['Testimonials']['Testimonials'] || ''
       @addresses = []
       if args.has_key?('CompanyAddress')
-        args['CompanyAddress']['AddressList'].each do |cur_addr|
-          @addresses << CbCompany::CbAddress.new(cur_addr)
+        unless args['CompanyAddress'].empty? && args['AddressList'].empty?
+          #p args['CompanyAddress']
+          args['CompanyAddress']['AddressList'].each do |cur_addr|
+            @addresses << CbCompany::CbAddress.new(cur_addr)
+          end
         end
       end
       @college                     = args['CollegeBody'] || ''
