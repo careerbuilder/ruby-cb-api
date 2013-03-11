@@ -4,7 +4,7 @@ module Cb
                   :company_name, :company_did, :company_details_url, :company_image_url, :company,
                   :description_teaser, :location, :distance, :latitude, :longitude,
                   :description, :requirements, :employment_type,
-                  :details_url, :service_url, :similar_jobs_url, :apply_url
+                  :details_url, :service_url, :similar_jobs_url, :apply_url,
                   :begin_date, :end_date, :posted_date
 
 		##############################################################
