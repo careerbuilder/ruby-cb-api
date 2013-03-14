@@ -7,7 +7,6 @@ require 'rubygems'
 require 'cb'
 
 Cb.configure do |config|
-<<<<<<< HEAD
 	config.use_json 	= true
 	config.dev_key 		= "WDHF7PC72784BJ0NFBZC"  ########################################################
 	#config.dev_key  	= "WDhd88S735S3V2NWZKPD"  #"WDHH6P96RQD9FSDCZ0G7" # CB Ruby API key for unit tests

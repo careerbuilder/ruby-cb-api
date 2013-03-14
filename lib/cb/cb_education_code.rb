@@ -1,6 +1,7 @@
 module Cb
 	class CbEducationCode
-		attr_accessor :education_code, :education_name
+		extend FluidAttributes
+		fluid_attr_accessor :education_code, :education_name
 
 
     ##############################################################
@@ -15,10 +16,6 @@ module Cb
 
     end
 
-    # @country_code = ["UK","US","IN"]
- #    ['AH','BE','CA','CC','CE','CH','CN','CP','CS','CY','DE','DK','E1','ER','ES','EU','F1'
-	# ,'FR','GC','GR','I1','IE','IN','IT','J1','JC','JS','LJ','M1','MY','NL','NO','PD','PI','PL','RM','RO','RX'
-	# ,'S1','SE','SF','SG','T1','T2','UK','US','WH','WM','WR']
 
   end
 end
