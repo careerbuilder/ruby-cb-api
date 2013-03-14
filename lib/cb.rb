@@ -1,15 +1,4 @@
-<<<<<<< HEAD
-require "cb/cb_api"
-require "cb/cb_job"
-require "cb/cb_job_api"
-require "cb/cb_company"
-require "cb/cb_company_api"
-require "cb/cb_education_code"
-require "cb/cb_education_code_api"
-require "cb/config"
-require "fluid_attributes"
-require "cb/job_search_criteria"
-=======
+
 require 'cb/config'
 require 'cb/utils/api'
 require 'cb/utils/meta_values'
@@ -19,7 +8,9 @@ require 'cb/job_api'
 require 'cb/job_search_criteria'
 require 'cb/cb_company'
 require 'cb/company_api'
->>>>>>> 8f3d1e0e9a7c5b75a7a338269615c5bae7c9d734
+require "cb/cb_education_code"
+require "cb/education_code_api"
+require "cb/cb_country_code"
 
 module Cb
 	def self.configure
