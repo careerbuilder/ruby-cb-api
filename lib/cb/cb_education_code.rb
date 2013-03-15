@@ -1,7 +1,7 @@
 module Cb
 	class CbEducationCode
 		extend FluidAttributes
-		fluid_attr_accessor :education_code, :education_name
+		fluid_attr_accessor :education_code, :education_name, :education_language
 
 
     ##############################################################
@@ -12,6 +12,7 @@ module Cb
 		def initialize(args = {})
 
 			@education_code                         = args["Code"] || ""
+			@education_language											=	args["Name"]["@language"] || ""
       @education_name                         = args["Name"]["#text"] || ""
 
     end
