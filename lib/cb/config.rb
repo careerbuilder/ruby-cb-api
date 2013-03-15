@@ -37,7 +37,7 @@ module Cb
 
     def set_defaults
 
-      @dev_key              = "WDHF7PC72784BJ0NFBZC"  # Get a developer key at http://api.careerbuilder.com
+      @dev_key              = 'ruby-cb-api'  # Get a developer key at http://api.careerbuilder.com
       @time_out             = 5
       @use_json             = true
 
