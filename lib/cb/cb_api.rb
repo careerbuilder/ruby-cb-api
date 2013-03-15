@@ -25,7 +25,7 @@ module Cb
 		#############################################################################
 
 		def populate_from(response, node = "")
-      		@errors 		= response[node]["Errors"] || ""
+      		@errors 		  = response[node]["Errors"] || ""
       		@time_elapsed	= response[node]["TimeResponseSent"] || ""
       		@time_sent		= response[node]["TimeElapsed"] || ""
 		end
