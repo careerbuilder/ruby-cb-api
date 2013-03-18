@@ -19,15 +19,16 @@ module Cb::Utils
 
     def append_api_responses(obj, resp)
       meta_class = Cb::Utils::MetaValues.new()
-
+     
       resp.each do | api_key, api_value |
         meta_name = get_meta_name_for api_key
+    
         unless meta_name.empty?
           meta_class.class.send(:attr_reader, meta_name)
           meta_class.instance_variable_set(:"@#{meta_name}", api_value)
         end
       end
-
+      
       obj.class.send(:attr_reader, 'cb_response')
       obj.instance_variable_set(:@cb_response, meta_class)
     end

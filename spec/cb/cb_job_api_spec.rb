@@ -15,9 +15,10 @@ module Cb
           search.count.should == 25
           search[0].is_a?(Cb::CbJob).should == true
           search[24].is_a?(Cb::CbJob).should == true
-
+          
           # # make sure our jobs are properly populated
-          job = search[rand(0..24)]
+          job = search[Random.new.rand(0..24)]
+          
           job.did.length.should >= 19
           job.title.length.should > 1
           job.company_name.length.nil?.should == false
@@ -37,7 +38,7 @@ module Cb
           # job_api.first_item_index.should == 1
           # job_api.last_item_index.should >= 1
 
-          job = Cb.job.find_by_did(search[rand(0..24)].did)
+          job = Cb.job.find_by_did(search[Random.new.rand(0..24)].did)
 
           job.did.length.should >= 19
           job.title.length.should > 1
