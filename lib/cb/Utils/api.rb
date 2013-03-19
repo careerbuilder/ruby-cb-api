@@ -37,14 +37,20 @@ module Cb::Utils
     #############################################################################
     def get_meta_name_for(api_key)
       map = {
-              'Errors' =>              'errors',
-              'TimeResponseSent' =>    'time_sent',
-              'TimeElapsed' =>         'time_elapsed',
-              'TotalPages' =>          'total_pages',
-              'TotalCount' =>          'total_count',
-              'FirstItemIndex' =>      'first_item_index',
-              'LastItemIndex' =>       'last_item_index',
-              'CountryCode' =>         'country_code'
+              'Errors' =>                     'errors',
+              'TimeResponseSent' =>           'time_sent',
+              'TimeElapsed' =>                'time_elapsed',
+              'TotalPages' =>                 'total_pages',
+              'TotalCount' =>                 'total_count',
+              'FirstItemIndex' =>             'first_item_index',
+              'LastItemIndex' =>              'last_item_index',
+              'CountryCode' =>                'country_code',
+              'DeveloperKey' =>               'developer_key',
+              'SiteID' =>                     'site_id',
+              'CoBrand' =>                    'co_brand',
+              'CountLimit' =>                 'count_limit',
+              'MinQualityLimit' =>            'min_quality',
+              'RecommendationsAvailable' =>   'recs_available'
       }
 
       map["#{api_key}"] ||= ''

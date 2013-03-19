@@ -8,7 +8,7 @@ module Cb
 		## For detailed information around this API please visit:
 		## http://api.careerbuilder.com/EducationCodes.aspx
 		#############################################################
-		def get_for(country)
+		def self.get_for(country)
 			Cb::Utils::Country.is_valid? country ? country : 'US'
 
 			my_api = Cb::Utils::Api.new()
