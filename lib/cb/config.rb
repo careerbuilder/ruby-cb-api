@@ -13,8 +13,8 @@ module Cb
       @uri_job_find         ||= '/v1/Job'
 
 
-      @uri_company_find     ||= "/Employer/CompanyDetails"
-      @uri_education_code   ||= "/v1/educationcodes"
+      @uri_company_find     ||= '/Employer/CompanyDetails'
+      @uri_education_code   ||= '/v1/educationcodes'
 
       @uri_company_find     ||= '/Employer/CompanyDetails'
 

@@ -3,7 +3,7 @@ require 'cb/config'
 require 'cb/utils/api'
 require 'cb/utils/meta_values'
 require 'cb/utils/country'
-require 'fluid_attributes'
+require 'cb/utils/fluid_attributes'
 require 'cb/cb_job'
 require 'cb/job_api'
 require 'cb/job_search_criteria'
@@ -37,5 +37,13 @@ module Cb
 
   def self.company
     Cb::CompanyApi
+  end
+
+  def self.education_code
+    Cb::EducationCodeApi.new()
+  end
+
+  def self.country
+    Cb::Utils::Country
   end
 end
