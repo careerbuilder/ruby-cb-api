@@ -6,18 +6,14 @@ module Cb
 
     def initialize
       set_defaults
+      Cb::Utils::Country.inject_convenience_methods
     end
 
     def set_default_api_uris
       @uri_job_search       ||= '/v1/JobSearch'
       @uri_job_find         ||= '/v1/Job'
-
-
       @uri_company_find     ||= '/Employer/CompanyDetails'
-      @uri_education_code   ||= '/v1/educationcodes'
-
-      @uri_company_find     ||= '/Employer/CompanyDetails'
-
+      @uri_education_code   ||= '/v1/EducationCodes'
     end
 
     def to_hash
