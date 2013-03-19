@@ -6,10 +6,10 @@ module Cb
         it 'should perform a blank search', :vcr => { :cassette_name => 'job/search/blank' } do
           search = Cb.job_search_criteria.location('Atlanta, GA').radius(10).search()
 
-          # job_api.total_pages.should >= 1
-          # job_api.total_count.should >= 1
-          # job_api.first_item_index.should == 1
-          # job_api.last_item_index.should >= 1
+          search.cb_response.total_pages.to_i.should >= 1
+          search.cb_response.total_count.to_i.should >= 1
+          search.cb_response.first_item_index.to_i.should == 1
+          search.cb_response.last_item_index.to_i.should >= 1
 
           # # make sure we have results, and they're of the correct type
           search.count.should == 25
@@ -25,6 +25,7 @@ module Cb
           job.posted_date.length.should > 1
 
           company = job.find_company
+          company.is_a?(Cb::CbCompany).should == true unless company.nil?
         end
     end
 
@@ -33,10 +34,10 @@ module Cb
           # run a job search, so we can load a job
           search = Cb.job.search()
 
-          # job_api.total_pages.should >= 1
-          # job_api.total_count.should >= 1
-          # job_api.first_item_index.should == 1
-          # job_api.last_item_index.should >= 1
+          search.cb_response.total_pages.to_i.should >= 1
+          search.cb_response.total_count.to_i.should >= 1
+          search.cb_response.first_item_index.to_i.should == 1
+          search.cb_response.last_item_index.to_i.should >= 1
 
           job = Cb.job.find_by_did(search[Random.new.rand(0..24)].did)
 
