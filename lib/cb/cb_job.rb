@@ -5,7 +5,8 @@ module Cb
                   :description_teaser, :location, :distance, :latitude, :longitude,
                   :description, :requirements, :employment_type,
                   :details_url, :service_url, :similar_jobs_url, :apply_url,
-                  :begin_date, :end_date, :posted_date
+                  :begin_date, :end_date, :posted_date,
+                  :relevancy, :state, :city
 
 		##############################################################
 		## This general purpose object stores anything having to do
@@ -14,8 +15,8 @@ module Cb
 		##############################################################
     def initialize(args = {})
       # General
-      @did                          = args['DID'] || ''
-      @title                        = args['JobTitle'] || ''
+      @did                          = args['DID'] || args['JobDID'] || ''
+      @title                        = args['JobTitle'] || args['Title'] || ''
       @employment_type              = args['EmploymentType'] || ''
       @latitude                     = args['LocationLatitude'] || ''
       @longitude                    = args['LocationLongitude'] || ''
@@ -42,6 +43,13 @@ module Cb
       @company_did                  = args['CompanyDID'] || ''
       @company_details_url          = args['CompanyDetailsURL'] || ''
       @company_image_url            = args['CompanyImageURL'] || ''
+
+      # Recommendations related
+      @relevancy                    = args['Relevancy'] || ''
+      @state                        = args['Location']['State'] unless args['Location'].nil? || args['Location']['State'].nil?
+      @city                         = args['Location']['City'] unless args['Location'].nil? || args['Location']['City'].nil?
+      @company_name                 = args['Company']['CompanyName'] unless args['Company'].nil? || args['Company']['CompanyName'].nil?
+      @company_details_url          = args['Company']['CompanyDetailsURL'] unless args['Company'].nil? || args['Company']['CompanyDetailsURL'].nil?
     end
 
     def find_company
