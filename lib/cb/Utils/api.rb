@@ -43,7 +43,8 @@ module Cb::Utils
               'TotalPages' =>          'total_pages',
               'TotalCount' =>          'total_count',
               'FirstItemIndex' =>      'first_item_index',
-              'LastItemIndex' =>       'last_item_index'
+              'LastItemIndex' =>       'last_item_index',
+              'CountryCode' =>         'country_code'
       }
 
       map["#{api_key}"] ||= ''
