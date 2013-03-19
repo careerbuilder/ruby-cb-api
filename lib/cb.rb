@@ -6,6 +6,7 @@ require 'cb/utils/fluid_attributes'
 require 'cb/cb_job'
 require 'cb/job_api'
 require 'cb/job_search_criteria'
+require 'cb/recommendation_api'
 require 'cb/cb_company'
 require 'cb/company_api'
 require 'cb/cb_education'
@@ -38,7 +39,11 @@ module Cb
   end
 
   def self.education_code
-    Cb::EducationApi.new()
+    Cb::EducationApi
+  end
+
+  def self.recommendation
+    Cb::RecommendationApi
   end
 
   def self.country
