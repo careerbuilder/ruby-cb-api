@@ -1,6 +1,6 @@
 module Cb
-  class CbEducationCode
-    attr_accessor :education_code, :education_name, :education_language
+  class CbEducation
+    attr_accessor :code, :text, :language
 
     ##############################################################
     ## This object stores Education Codes having to do with a
@@ -8,10 +8,13 @@ module Cb
     ## one or many of this object.
     ##############################################################
     def initialize(args = {})
+      @code          = args['Code'] || ''
+      @language			 = args['Name']['@language'] unless args['Name'].nil?
+      @text          = args['Name']['#text'] unless args['Name'].nil?
 
-      @education_code          = args['Code'] || ''
-      @education_language			 = args['Name']['@language'] || ''
-      @education_name          = args['Name']['#text'] || ''
+      # I have got to find a better way to do this
+      @language ||= ''
+      @text ||= ''
     end
   end
 end

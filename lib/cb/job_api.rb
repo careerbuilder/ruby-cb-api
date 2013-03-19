@@ -18,7 +18,8 @@ module Cb
 	    	jobs = []
 	    	json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do |cur_job|
 	    		jobs << CbJob.new(cur_job)
-	    	end
+        end
+        my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
 
 	    	return jobs
 		end
