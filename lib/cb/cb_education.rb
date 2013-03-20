@@ -8,6 +8,8 @@ module Cb
     ## one or many of this object.
     ##############################################################
     def initialize(args = {})
+      return if args.nil?
+
       @code          = args['Code'] || ''
       @language			 = args['Name']['@language'] unless args['Name'].nil?
       @text          = args['Name']['#text'] unless args['Name'].nil?

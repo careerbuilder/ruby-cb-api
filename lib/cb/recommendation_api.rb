@@ -15,8 +15,10 @@ module Cb
       json_hash = JSON.parse(cb_response.response.body)
 
       jobs = []
-      json_hash['ResponseRecommendJob']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
-        jobs << CbJob.new(cur_job)
+      unless json_hash['ResponseRecommendJob']['RecommendJobResults'].nil?
+        json_hash['ResponseRecommendJob']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
+          jobs << CbJob.new(cur_job)
+        end
       end
       my_api.append_api_responses(jobs, json_hash['ResponseRecommendJob'])
       my_api.append_api_responses(jobs, json_hash['ResponseRecommendJob']['Request'])
@@ -32,14 +34,16 @@ module Cb
     #############################################################
     def self.for_user(external_id, site_id = '', co_brand = '')
       my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_get(Cb.configuration.uri_recommendation_for_job,
+      cb_response = my_api.cb_get(Cb.configuration.uri_recommendation_for_user,
                                   :query => {:ExternalID => external_id, :SiteID => site_id, :CoBrand => co_brand,
                                              :HostSite => Cb.configuration.host_site})
       json_hash = JSON.parse(cb_response.response.body)
 
       jobs = []
-      json_hash['ResponseRecommendUser']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
-        jobs << CbJob.new(cur_job)
+      unless json_hash['ResponseRecommendUser']['RecommendJobResults'].nil?
+        json_hash['ResponseRecommendUser']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
+          jobs << CbJob.new(cur_job)
+        end
       end
       my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser'])
       my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser']['Request'])
@@ -60,11 +64,13 @@ module Cb
       json_hash = JSON.parse(cb_response.response.body)
 
       jobs = []
-      json_hash['ResponseRecommendUser']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
-        jobs << CbJob.new(cur_job)
+      unless json_hash['Results']['JobRecommendation'].nil?
+        json_hash['Results']['JobRecommendation']['Jobs'].each do |cur_job|
+          jobs << CbJob.new(cur_job)
+        end
       end
-      my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser'])
-      my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser']['Request'])
+      my_api.append_api_responses(jobs, json_hash['Results'])
+      my_api.append_api_responses(jobs, json_hash['Results']['JobRecommendation'])
 
       return jobs
     end
