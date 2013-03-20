@@ -16,8 +16,10 @@ module Cb
         json_hash = JSON.parse(cb_response.response.body)
 
         jobs = []
-        json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do | cur_job |
-          jobs << CbJob.new(cur_job)
+        unless json_hash['ResponseJobSearch']['Results'].nil?
+          json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do | cur_job |
+            jobs << CbJob.new(cur_job)
+          end
         end
         my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
 
