@@ -18,6 +18,8 @@ module Cb
                   :my_content_tabs, :info_tabs, :is_enhance, :is_military, :is_premium 
 
     def initialize(args = {})
+      return if args.nil?
+
       # General
       ################################################################
       @did                         = args['CompanyDID'] || ''

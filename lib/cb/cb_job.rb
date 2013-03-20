@@ -14,6 +14,8 @@ module Cb
     ## one or many of this object.
 		##############################################################
     def initialize(args = {})
+      return if args.nil?
+
       # General
       @did                          = args['DID'] || args['JobDID'] || ''
       @title                        = args['JobTitle'] || args['Title'] || ''
