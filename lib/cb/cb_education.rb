@@ -6,6 +6,9 @@ module Cb
     ## This object stores Education Codes having to do with a
     ## country. The API objects dealing with job, will populate
     ## one or many of this object.
+    ##
+    ## For more information, please visit:
+    ## http://api.careerbuilder.com/v1/educationcodes
     ##############################################################
     def initialize(args = {})
       return if args.nil?
