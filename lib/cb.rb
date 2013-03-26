@@ -11,6 +11,8 @@ require 'cb/cb_company'
 require 'cb/company_api'
 require 'cb/cb_education'
 require 'cb/education_api'
+require 'cb/job_application_api'
+require 'cb/cb_job_application'
 
 module Cb
 	def self.configure
@@ -44,6 +46,10 @@ module Cb
 
   def self.recommendation
     Cb::RecommendationApi
+  end
+  
+  def self.job_application
+    Cb::JobApplicationApi
   end
 
   def self.country
