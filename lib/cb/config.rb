@@ -4,7 +4,9 @@ module Cb
                   :uri_job_search, :uri_job_find,
                   :uri_company_find, :uri_education_code,
                   :uri_recommendation_for_job, :uri_recommendation_for_user,
-                  :uri_recommendation_for_company
+                  :uri_recommendation_for_company,
+                  :uri_job_application
+                  #:uri_job_application_submit
 
     def initialize
       Cb::Utils::Country.inject_convenience_methods
@@ -19,6 +21,8 @@ module Cb
       @uri_recommendation_for_job         ||= '/v1/Recommendations/ForJob'
       @uri_recommendation_for_user        ||= '/v1/Recommendations/ForUser'
       @uri_recommendation_for_company     ||= '/Employer/JobRecommendation'
+      @uri_job_application            ||= '/v1/application/blank'
+      #@uri_job_application_submit        ||= '/v1/application/submit'
     end
 
     def to_hash
@@ -33,7 +37,9 @@ module Cb
         :uri_education_code               => @uri_education_code,
         :uri_recommendation_for_job       => @uri_recommendation_for_job,
         :uri_recommendation_for_user      => @uri_recommendation_for_user,
-        :uri_recommendation_for_company   => @uri_recommendation_for_company
+        :uri_recommendation_for_company   => @uri_recommendation_for_company,
+        :uri_job_application              => @uri_job_application
+        # :uri_job_application_submit       => @uri_job_application_submit
       }
     end
 
