@@ -15,8 +15,8 @@ module Cb
     end
 
     def set_default_api_uris
-      @uri_job_category_search  ||= '/v1/categories'
-      @uri_company_find     ||= '/Employer/CompanyDetails'
+      @uri_job_category_search            ||= '/v1/categories'
+      @uri_company_find                   ||= '/Employer/CompanyDetails'
       @uri_job_search                     ||= '/v1/JobSearch'
       @uri_job_find                       ||= '/v1/Job'
       @uri_company_find                   ||= '/Employer/CompanyDetails'
@@ -24,19 +24,13 @@ module Cb
       @uri_recommendation_for_job         ||= '/v1/Recommendations/ForJob'
       @uri_recommendation_for_user        ||= '/v1/Recommendations/ForUser'
       @uri_recommendation_for_company     ||= '/Employer/JobRecommendation'
-      @uri_job_application            ||= '/v1/application/blank'
+      @uri_job_application                ||= '/v1/application/blank'
       #@uri_job_application_submit        ||= '/v1/application/submit'
     end
 
     def to_hash
       {
-        :dev_key            => @dev_key,
-        :time_out  	        => @time_out,
-        :use_json           => @use_json,
-        :uri_job_search     => @uri_job_search,
-        :uri_job_find       => @uri_job_find,
-        :uri_company_find   => @uri_company_find,
-        :uri_job_category_search  => @uri_job_category_search
+        :uri_job_category_search          => @uri_job_category_search,
         :dev_key                          => @dev_key,
         :host_site                        => @host_site,
         :time_out  	                      => @time_out,
