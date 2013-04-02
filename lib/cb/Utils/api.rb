@@ -18,11 +18,22 @@ module Cb::Utils
     end
 
     def append_api_responses(obj, resp)
-      meta_class = Cb::Utils::MetaValues.new()
+      if obj.respond_to?('cb_response')
+        meta_class = obj.cb_response
+      else
+        meta_class = Cb::Utils::MetaValues.new()
+      end
 
       resp.each do | api_key, api_value |
         meta_name = get_meta_name_for api_key
+
         unless meta_name.empty?
+          if meta_name == 'errors' && api_value.is_a?(Hash)
+            api_value = api_value.values
+          elsif is_numeric?(api_value)
+            api_value = api_value.to_i
+          end
+
           meta_class.class.send(:attr_reader, meta_name)
           meta_class.instance_variable_set(:"@#{meta_name}", api_value)
         end
@@ -34,18 +45,30 @@ module Cb::Utils
 
     private
     #############################################################################
+
+    def is_numeric?(obj)
+      true if Float(obj) rescue false
+    end
+
     def get_meta_name_for(api_key)
-      map = {
-              'Errors' =>              'errors',
-              'TimeResponseSent' =>    'time_sent',
-              'TimeElapsed' =>         'time_elapsed',
-              'TotalPages' =>          'total_pages',
-              'TotalCount' =>          'total_count',
-              'FirstItemIndex' =>      'first_item_index',
-              'LastItemIndex' =>       'last_item_index'
+      key_map = {
+                  'Errors' =>                     'errors',
+                  'TimeResponseSent' =>           'time_sent',
+                  'TimeElapsed' =>                'time_elapsed',
+                  'TotalPages' =>                 'total_pages',
+                  'TotalCount' =>                 'total_count',
+                  'FirstItemIndex' =>             'first_item_index',
+                  'LastItemIndex' =>              'last_item_index',
+                  'CountryCode' =>                'country_code',
+                  'DeveloperKey' =>               'developer_key',
+                  'SiteID' =>                     'site_id',
+                  'CoBrand' =>                    'co_brand',
+                  'CountLimit' =>                 'count_limit',
+                  'MinQualityLimit' =>            'min_quality',
+                  'RecommendationsAvailable' =>   'recs_available'
       }
 
-      map["#{api_key}"] ||= ''
+      key_map["#{api_key}"] ||= ''
     end
   end
 end

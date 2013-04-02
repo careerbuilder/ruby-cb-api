@@ -4,7 +4,7 @@ module Cb
 	# http://api.careerbuilder.com/JobSearchInfo.aspx
 	####################################################################################
 	class JobSearchCriteria
-		extend FluidAttributes
+		extend Cb::Utils::FluidAttributes
 
 		fluid_attr_accessor :advanced_grouping, :boolean_operator, :category, :co_brand, :company_did,
                         :company_did_csv, :company_name, :company_name_boost, :country_code,

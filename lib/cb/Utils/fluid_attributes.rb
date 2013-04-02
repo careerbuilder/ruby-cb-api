@@ -1,4 +1,4 @@
-module FluidAttributes
+module Cb::Utils::FluidAttributes
 	def fluid_attr_accessor(*names)
 		names.each do |name|
 			define_method :"#{name}" do | *args |
