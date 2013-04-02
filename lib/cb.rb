@@ -7,6 +7,8 @@ require 'cb/job_api'
 require 'cb/job_search_criteria'
 require 'cb/cb_company'
 require 'cb/company_api'
+require 'cb/cb_category'
+require 'cb/cb_category_api'
 
 module Cb
 	def self.configure
@@ -28,6 +30,10 @@ module Cb
 
   def self.job_search_criteria
     Cb::JobSearchCriteria.new()
+  end
+
+  def self.category
+    Cb::CategoryApi
   end
 
   def self.company

@@ -2,7 +2,7 @@ module Cb
   class Config
     attr_accessor :dev_key, :time_out, :use_json, 
                   :uri_job_search, :uri_job_find,
-                  :uri_company_find
+                  :uri_company_find, :uri_job_category_search
 
     def initialize
       set_defaults
@@ -11,7 +11,7 @@ module Cb
     def set_default_api_uris
       @uri_job_search       ||= '/v1/JobSearch'
       @uri_job_find         ||= '/v1/Job'
-
+      @uri_job_category_search  ||= '/v1/categories'
       @uri_company_find     ||= '/Employer/CompanyDetails'
     end
 
@@ -22,7 +22,8 @@ module Cb
         :use_json           => @use_json,
         :uri_job_search     => @uri_job_search,
         :uri_job_find       => @uri_job_find,
-        :uri_company_find   => @uri_company_find
+        :uri_company_find   => @uri_company_find,
+        :uri_job_category_search  => @uri_job_category_search
       }
     end
 
