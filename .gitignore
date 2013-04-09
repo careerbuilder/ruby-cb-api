@@ -2,6 +2,7 @@
 log/*.log
 .DS_Store
 *.gem
+pkg/
 coverage/
 spec/cassettes
 spec/cassettes/*
