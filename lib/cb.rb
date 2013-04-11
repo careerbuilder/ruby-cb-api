@@ -1,20 +1,27 @@
+# require 'cb/config'
+# require 'cb/utils/api'
+# require 'cb/utils/meta_values'
+# require 'cb/utils/country'
+# require 'cb/utils/fluid_attributes'
+# require 'cb/cb_job'
+# require 'cb/job_api'
+# require 'cb/job_search_criteria'
+# require 'cb/recommendation_api'
+# require 'cb/cb_company'
+# require 'cb/company_api'
+# require 'cb/cb_category'
+# require 'cb/category_api'
+# require 'cb/cb_employee_type'
+# require 'cb/employee_types_api'
+# require 'cb/cb_education'
+# require 'cb/education_api'
+# require 'cb/job_application_api'
+# require 'cb/cb_job_application'
+
 require 'cb/config'
-require 'cb/utils/api'
-require 'cb/utils/meta_values'
-require 'cb/utils/country'
-require 'cb/utils/fluid_attributes'
-require 'cb/cb_job'
-require 'cb/job_api'
-require 'cb/job_search_criteria'
-require 'cb/recommendation_api'
-require 'cb/cb_company'
-require 'cb/company_api'
-require 'cb/cb_category'
-require 'cb/cb_category_api'
-require 'cb/cb_education'
-require 'cb/education_api'
-require 'cb/job_application_api'
-require 'cb/cb_job_application'
+Dir[File.dirname(__FILE__) + '/cb/utils/*.rb'].each {| file| require file }
+Dir[File.dirname(__FILE__) + '/cb/clients/*.rb'].each {| file| require file }
+Dir[File.dirname(__FILE__) + '/cb/models/*.rb'].each {| file| require file }
 
 module Cb
 	def self.configure
