@@ -1,6 +1,9 @@
 ## This file is loaded by irb -r
 ## So, setup any necessary configuration variables / executables here
 
+## Remove previous gem installation
+`rm -rf pkg/`
+
 ## Install local source code as gem
 `rake install`
 

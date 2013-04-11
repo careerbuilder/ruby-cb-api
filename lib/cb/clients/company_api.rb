@@ -24,8 +24,8 @@ module Cb
 				did = obj
 			elsif obj.is_a?(Cb::CbJob)
 				did = obj.company_did
-     end
-     did ||= ''
+			end
+			did ||= ''
 
 			find_by_did did unless did.empty?
 		end
