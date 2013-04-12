@@ -6,7 +6,9 @@ module Cb
 
                   :image_file, :header_image, :footer_image, :logo, :photos, :my_photos,
                   :bright_cove_video,
-                  :fb_url, :twitter_url, :linked_in_url, :fb_widget, :linked_in_widget, :twitter_widget,
+
+                  :twitter_url, :linked_in_url, :facebook_url, :facebook_widget,
+                  :linked_in_widget, :twitter_widget,
 
                   :benefits, :benefits_label, :history, :contact, :contact_label, :links,
                   :vision, :vision_label, :products, :products_label, :career_opps, :career_opps_label,
@@ -43,6 +45,7 @@ module Cb
       @header_image                = args['HeaderImage'] || ''
       @footer_image                = args['FooterImage'] || ''
       @image_file                  = args['ImageFile'] || ''
+      
       @photos                      = args['CompanyPhotos']['PhotoList'] || ''
       @my_photos                   = args['MyPhotos'] || ''
 
@@ -52,7 +55,7 @@ module Cb
 
       # Social sites
       ################################################################
-      @facebook_url                = args['FBPageURL'] || args['FacebookURL'] || ''
+      @facebook_url                = args['FBPageURL'] || args['FacebookURL'] || '' 
       @facebook_widget             = args['FacebookWidget'] || ''
       @twitter_url                 = args['TwitterURL'] || ''
       @twitter_widget              = args['TwitterWidget'] || ''
