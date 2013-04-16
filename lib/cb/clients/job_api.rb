@@ -35,7 +35,7 @@ module Cb
     def self.find_by_did(did, params = {})
       my_api = Cb::Utils::Api.new()
       params[:did] = did
-      unless params["showjobskin"].nil?
+      if params["showjobskin"].nil?
         params["showjobskin"] = "Full"
       end
       cb_response = my_api.cb_get(Cb.configuration.uri_job_find, :query => params)
