@@ -32,9 +32,13 @@ module Cb
     ## For detailed information around this API please visit:
     ## http://api.careerbuilder.com/JobInfo.aspx
     #############################################################
-    def self.find_by_did(did)
+    def self.find_by_did(did, params = {})
       my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_get(Cb.configuration.uri_job_find, :query => {:DID => did})
+      params[:did] = did
+      unless params["showjobskin"].nil?
+        params["showjobskin"] = "Full"
+      end
+      cb_response = my_api.cb_get(Cb.configuration.uri_job_find, :query => params)
       json_hash = JSON.parse(cb_response.response.body)
 
       job = CbJob.new(json_hash['ResponseJob']['Job'])
