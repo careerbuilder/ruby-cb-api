@@ -7,3 +7,4 @@ coverage/
 spec/cassettes
 spec/cassettes/*
 .idea
+.project
