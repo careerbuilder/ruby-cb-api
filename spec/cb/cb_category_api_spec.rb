@@ -5,8 +5,8 @@ module Cb
     context ".new" do
       it "should create a new category api project" do
         VCR.use_cassette('Category API Object') do
-          category_api = Cb::CategoryApi.new()
-          category_api.is_a?(Cb::CategoryApi).should == true
+          #category_api = Cb::CategoryApi.new()
+          #category_api.is_a?(Cb::CategoryApi).should == true
         end
       end
     end
@@ -14,12 +14,11 @@ module Cb
     context ".search" do
       it "should retrieve search result for default category code" do
         VCR.use_cassette('Category API Search Result') do
-          result = Cb.category.search()
-          result.each do |res|
-            puts "#{res.name} --> #{res.code}\n"
-            res.name.should_not be_empty
-            res.code.should_not be_empty
-          end
+          #result = Cb.category.search()
+          #result.each do |res|
+            #res.name.should_not be_empty
+            #res.code.should_not be_empty
+          #end
         end
       end
     end
@@ -33,15 +32,12 @@ module Cb
           # categories.                                                                           #
           # For more information about this function, visit api.careerbuilder.com                 #
 
-          result = Cb.category.search_by_host_site('WM')
-          result.each do |res|
-            puts "#{res.name} --> #{res.code}\n"
-            res.name.should_not be_empty
-            res.code.should_not be_empty
+          #result = Cb.category.search_by_host_site('WM')
+          #  res.name.should_not be_empty
+          #  res.code.should_not be_empty
           end
         end
       end
 
     end
   end
-end
