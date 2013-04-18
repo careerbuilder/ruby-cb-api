@@ -3,7 +3,6 @@ module Cb::Utils::FluidAttributes
 	def fluid_attr_accessor(*names)
 		names.each do |name|
 
-			puts "Iterating through names: #{name}, about to define"
 			define_method :"#{name}" do | *args |				
 				return instance_variable_get(:"@#{name}") if args.length == 0
 
