@@ -43,6 +43,18 @@ module Cb::Utils
       obj.instance_variable_set(:@cb_response, meta_class)
     end
 
+    def self.get_criteria_params(criteria)
+      params = Hash.new
+      criteria.instance_variables.each do |var|
+        var_name = var.to_s
+        var_name.slice!(0)
+        var_name_hash_safe = var_name.camelize
+        params["#{var_name_hash_safe}"] = criteria.instance_variable_get(var)
+      end
+
+      return params
+    end
+
     private
     #############################################################################
 
