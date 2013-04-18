@@ -63,5 +63,5 @@ module Cb
         return @company
       end
     end
-	end
+  end
 end
