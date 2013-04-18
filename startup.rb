@@ -1,7 +1,8 @@
 ## This file is loaded by irb -r
 ## So, setup any necessary configuration variables / executables here
 
-## Remove previous gem installation
+## Remove all previous gem installations
+`gem uninstall -Ia cb-api`
 `rm -rf pkg/`
 
 ## Install local source code as gem
