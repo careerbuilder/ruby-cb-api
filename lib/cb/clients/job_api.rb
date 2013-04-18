@@ -21,7 +21,6 @@ module Cb
     #############################################################
     def self.search(*args)
         args = args[0] if args.is_a?(Array) && args.count == 1
-
         my_api = Cb::Utils::Api.new()
         cb_response = my_api.cb_get(Cb.configuration.uri_job_search, :query => args)
         json_hash = JSON.parse(cb_response.response.body)
@@ -50,12 +49,9 @@ module Cb
       end
 
       my_api = Cb::Utils::Api.new()
-      params = Cb::Utils::Api.get_criteria_params(details_criteria)
+      params = Cb::Utils::Api.criteria_to_hash(details_criteria)
 
-      params[:did] = did
-      if params["ShowJobSkin"].nil?
-        params["ShowJobSkin"] = "Full"
-      end
+      params[:did] = did if params[:did].empty?
 
       cb_response = my_api.cb_get(Cb.configuration.uri_job_find, :query => params)
       json_hash = JSON.parse(cb_response.response.body)
@@ -67,7 +63,11 @@ module Cb
     end
 
     class DetailsCriteria
-      attr_accessor :show_job_skin, :site_id, :cobrand, :show_apply_requirements    
+      attr_accessor :did, :show_job_skin, :site_id, :cobrand, :show_apply_requirements
+
+      def find
+        Cb.job.find_by_did(Cb::Utils::Api.criteria_to_hash(self)) 
+      end 
     end
 
   end # JobApi
