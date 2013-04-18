@@ -43,7 +43,7 @@ module Cb::Utils
       obj.instance_variable_set(:@cb_response, meta_class)
     end
 
-    def self.get_criteria_params(criteria)
+    def self.criteria_to_hash(criteria)
       params = Hash.new
       criteria.instance_variables.each do |var|
         var_name = var.to_s
