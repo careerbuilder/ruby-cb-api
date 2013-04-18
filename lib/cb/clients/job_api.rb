@@ -51,7 +51,7 @@ module Cb
       my_api = Cb::Utils::Api.new()
       params = Cb::Utils::Api.criteria_to_hash(details_criteria)
 
-      params[:did] = did if params[:did].empty?
+      params[:did] = did if params[:did].nil?
 
       cb_response = my_api.cb_get(Cb.configuration.uri_job_find, :query => params)
       json_hash = JSON.parse(cb_response.response.body)
