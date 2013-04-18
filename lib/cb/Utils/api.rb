@@ -4,7 +4,7 @@ module Cb::Utils
   class Api
     include HTTParty
     base_uri 'http://api.careerbuilder.com'
-    debug_output $stderr
+    #debug_output $stderr
 
     def initialize
       self.class.default_params :developerkey => Cb.configuration.dev_key,
