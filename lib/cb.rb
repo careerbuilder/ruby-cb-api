@@ -45,6 +45,10 @@ module Cb
     Cb::JobSearchCriteria.new()
   end
 
+  def self.job_detail_criteria
+    Cb::JobApi::DetailsCriteria.new()
+  end
+
   def self.category
     Cb::CategoryApi
   end
