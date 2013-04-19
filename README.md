@@ -2,6 +2,9 @@ First things first. You're going to need to get a developer key from Careerbuild
 
 Now that you have a key, lets get to the good stuff.
 
+You can find an example rails site that uses the gem here:
+https://github.com/cbdr/ruby-cb-api-demo
+
 Configuration
 ================
 Set your dev key, and any other configuration settings in a place that will run prior to your API calls.
