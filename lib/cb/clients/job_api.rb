@@ -3,16 +3,6 @@ require 'json'
 module Cb
   class JobApi
 
-    # @@search_criteria = nil
-    # @@details_criteria = nil
-
-    # def self.details_criteria
-    #   @@details_criteria
-    # end
-    # def self.details_criteria=(value)
-    #   @@details_criteria = value
-    # end
-
     #############################################################
     ## Run a job search against the given criteria
     ##
@@ -42,16 +32,9 @@ module Cb
     ## For detailed information around this API please visit:
     ## http://api.careerbuilder.com/JobInfo.aspx
     #############################################################
-    def self.find_by_did(did, *criteria)
-      # If criteria is a valid DetailsCriteria, use it.  Otherwise, throw it away
-      if !criteria.nil? && !criteria.empty? && criteria[0].kind_of?(Cb::JobApi::DetailsCriteria)
-        details_criteria = criteria[0]
-      end
-
+    def self.find_by_criteria(criteria)
       my_api = Cb::Utils::Api.new()
-      params = Cb::Utils::Api.criteria_to_hash(details_criteria)
-
-      params[:did] = did if params[:did].nil?
+      params = my_api.class.criteria_to_hash(criteria)
 
       cb_response = my_api.cb_get(Cb.configuration.uri_job_find, :query => params)
       json_hash = JSON.parse(cb_response.response.body)
@@ -62,13 +45,21 @@ module Cb
       return job
     end
 
-    class DetailsCriteria
-      attr_accessor :did, :show_job_skin, :site_id, :cobrand, :show_apply_requirements
-
-      def find
-        Cb.job.find_by_did(Cb::Utils::Api.criteria_to_hash(self)) 
-      end 
+    def self.find_by_did(did)
+      criteria = Cb::JobDetailsCriteria.new()
+      criteria.did = did
+      return find_by_criteria(criteria)
     end
-
   end # JobApi
+  
+  class JobDetailsCriteria
+    extend Cb::Utils::FluidAttributes
+
+    fluid_attr_accessor :did, :show_job_skin, :site_id, :cobrand, :show_apply_requirements
+
+    def find
+      Cb.job.find_by_did(self.did, self) 
+    end 
+  end
+
 end # Cb

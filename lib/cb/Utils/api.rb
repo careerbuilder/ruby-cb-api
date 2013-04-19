@@ -45,13 +45,14 @@ module Cb::Utils
 
     def self.criteria_to_hash(criteria)
       params = Hash.new
-      criteria.instance_variables.each do |var|
-        var_name = var.to_s
-        var_name.slice!(0)
-        var_name_hash_safe = var_name.camelize
-        params["#{var_name_hash_safe}"] = criteria.instance_variable_get(var)
+      if criteria.respond_to?(:instance_variables)
+        criteria.instance_variables.each do |var|
+          var_name = var.to_s
+          var_name.slice!(0)
+          var_name_hash_safe = var_name.camelize
+          params["#{var_name_hash_safe}"] = criteria.instance_variable_get(var)
+        end
       end
-
       return params
     end
 
