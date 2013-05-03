@@ -49,7 +49,8 @@ module Cb::Utils
         criteria.instance_variables.each do |var|
           var_name = var.to_s
           var_name.slice!(0)
-          var_name_hash_safe = var_name.camelize
+          # var_name_hash_safe = var_name.camelize
+          var_name_hash_safe = var_name
           params["#{var_name_hash_safe}"] = criteria.instance_variable_get(var)
         end
       end
