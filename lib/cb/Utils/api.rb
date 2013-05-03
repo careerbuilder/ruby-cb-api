@@ -1,4 +1,4 @@
-require 'HTTParty'
+require 'httparty'
 
 module Cb::Utils
   class Api
