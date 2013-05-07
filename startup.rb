@@ -10,5 +10,6 @@
 
 require 'Cb'
 Cb.configuration.dev_key = "WDHH6P96RQD9FSDCZ0G7"
+Cb.configuration.debug_api = true
 
 ## more configuration options to follow...
