@@ -46,8 +46,8 @@ module Cb
     Cb::RecommendationApi
   end
   
-  def self.job_application
-    Cb::JobApplicationApi
+  def self.application
+    Cb::ApplicationApi
   end
 
   def self.country
