@@ -6,6 +6,7 @@ group :test do
 	gem 'simplecov', '>=0.7.1'
 	gem 'vcr', '~> 2.4.0'
 	gem 'webmock', '~> 1.9.0'
+	gem 'json', '~> 1.7.7'
 end
 
 gemspec
