@@ -54,7 +54,6 @@ module Cb::Utils
           var_name = var.to_s
           var_name.slice!(0)
           var_name_hash_safe = camelize(var_name)
-          var_name_hash_safe = var_name
           params["#{var_name_hash_safe}"] = criteria.instance_variable_get(var)
         end
       end
