@@ -17,6 +17,11 @@ module Cb::Utils
       self.class.get(*args, &block)
     end
 
+    def cb_post(*args, &block)
+      self.class.base_uri 'https://api.careerbuilder.com'
+      self.class.post(*args, &block)
+    end
+
     def append_api_responses(obj, resp)
       if obj.respond_to?('cb_response')
         meta_class = obj.cb_response
