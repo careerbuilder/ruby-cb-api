@@ -9,7 +9,8 @@ require 'cb'
 Cb.configure do |config|
 	config.use_json 	= true                    ########################################################
 	config.dev_key  	= 'WDHH6P96RQD9FSDCZ0G7'  # CB Ruby API key for unit tests
-	config.time_out 	= 5					 	            # Register for your own key at http://api.careerbuilder.com/
+	config.time_out 	= 5						  # Register for your own key at http://api.careerbuilder.com/
+	config.job_did    	= 'JHQ2156C7Z9L3YX2371'   
 end
 
 require 'vcr'
@@ -20,6 +21,7 @@ VCR.configure do |c|
   c.hook_into                	:webmock
   c.default_cassette_options 	= { :record => :new_episodes }
   c.configure_rspec_metadata!
+  c.allow_http_connections_when_no_cassette = true
 end
 
 RSpec.configure do |c|
