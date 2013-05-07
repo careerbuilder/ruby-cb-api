@@ -4,9 +4,9 @@ module Cb::Utils
   class Api
     include HTTParty
     base_uri 'http://api.careerbuilder.com'
-    #debug_output $stderr
 
     def initialize
+      self.class.debug_output $stderr if Cb.configuration.debug_api
       self.class.default_params :developerkey => Cb.configuration.dev_key,
                                 :outputjson => Cb.configuration.use_json.to_s
 
@@ -33,7 +33,6 @@ module Cb::Utils
           elsif is_numeric?(api_value)
             api_value = api_value.to_i
           end
-
           meta_class.class.send(:attr_reader, meta_name)
           meta_class.instance_variable_set(:"@#{meta_name}", api_value)
         end
@@ -49,7 +48,7 @@ module Cb::Utils
         criteria.instance_variables.each do |var|
           var_name = var.to_s
           var_name.slice!(0)
-          # var_name_hash_safe = var_name.camelize
+          var_name_hash_safe = camelize(var_name)
           var_name_hash_safe = var_name
           params["#{var_name_hash_safe}"] = criteria.instance_variable_get(var)
         end
@@ -59,6 +58,11 @@ module Cb::Utils
 
     private
     #############################################################################
+    def self.camelize(input)
+      input.sub!(/^[a-z\d]*/) { $&.capitalize }
+      output = input.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$2.capitalize}" }.gsub('/', '::')
+      return output
+    end
 
     def is_numeric?(obj)
       true if Float(obj) rescue false
