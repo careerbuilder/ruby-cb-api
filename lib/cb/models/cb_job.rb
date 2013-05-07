@@ -1,6 +1,6 @@
 module Cb
 	class CbJob
-    attr_accessor :did, :title, :pay,
+    attr_accessor :did, :title, :pay, :job_skin,
                   :company_name, :company_did, :company_details_url, :company_image_url, :company,
                   :description_teaser, :location, :distance, :latitude, :longitude,
                   :description, :requirements, :employment_type,
@@ -23,7 +23,7 @@ module Cb
       @latitude                     = args['LocationLatitude'] || ''
       @longitude                    = args['LocationLongitude'] || ''
       @pay                          = args['Pay'] || ''
-      @jobskin                      = args['JobSkin'] || ''
+      @job_skin                     = args['JobSkin'] || ''
 
       # Job Search related
       @description_teaser           = args['DescriptionTeaser'] || ''
