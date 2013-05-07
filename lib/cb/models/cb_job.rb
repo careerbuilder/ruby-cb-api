@@ -23,6 +23,7 @@ module Cb
       @latitude                     = args['LocationLatitude'] || ''
       @longitude                    = args['LocationLongitude'] || ''
       @pay                          = args['Pay'] || ''
+      @jobskin                      = args['JobSkin'] || ''
 
       # Job Search related
       @description_teaser           = args['DescriptionTeaser'] || ''
