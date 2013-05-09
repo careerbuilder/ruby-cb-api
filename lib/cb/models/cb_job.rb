@@ -1,6 +1,6 @@
 module Cb
 	class CbJob
-    attr_accessor :did, :title, :pay, :job_skin,
+    attr_accessor :did, :title, :pay, :job_skin, :external_application,
                   :company_name, :company_did, :company_details_url, :company_image_url, :company,
                   :description_teaser, :location, :distance, :latitude, :longitude, :location_formatted,
                   :description, :requirements, :employment_type,
@@ -41,6 +41,7 @@ module Cb
       @begin_date                   = args['BeginDate'] || ''
       @end_date                     = args['EndDate'] || ''
       @apply_url                    = args['ApplyURL'] || ''
+      @external_application         = args['ExternalApplication'] || ''
 
       # Company related
       @company_name                 = args['Company'] || ''
@@ -64,6 +65,10 @@ module Cb
 
         return @company
       end
+    end
+
+    def external_application?
+      @external_application.downcase == 'true' ? true : false
     end
   end
 end
