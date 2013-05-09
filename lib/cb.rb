@@ -1,5 +1,7 @@
 module Cb
   module Utils
+    module FluidAttributes
+    end
   end
 end
 
