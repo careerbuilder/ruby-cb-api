@@ -1,7 +1,7 @@
 module Cb
 	class CbJob
     attr_accessor :did, :title, :job_skin, :external_application,
-                  :pay, :pay_per, :commission, :bonus, 
+                  :pay, :pay_per, :commission, :bonus, :categories, :category_codes,
                   :company_name, :company_did, :company_details_url, :company_image_url, :company,
                   :description_teaser, :location, :distance, :latitude, :longitude, :location_formatted,
                   :description, :requirements, :employment_type,
@@ -40,6 +40,8 @@ module Cb
       @service_url                  = args['JobServiceURL'] || ''
       @location                     = args['Location'] || ''
       @similar_jobs_url             = args['SimilarJobsURL'] || ''
+      @categories                   = args['Categories'] || ''
+      @category_codes               = args['CategoriesCodes'] || ''
 
       # Job Details related
       @description                  = args['Description'] || args['JobDescription'] || ''
