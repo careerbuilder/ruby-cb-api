@@ -4,6 +4,9 @@ Dir[File.dirname(__FILE__) + '/cb/clients/*.rb'].each {| file| require file }
 Dir[File.dirname(__FILE__) + '/cb/models/*.rb'].each {| file| require file }
 require 'cb/job_search_criteria'
 
+module Cb::Utils
+end
+
 module Cb
 	def self.configure
 		yield configuration
