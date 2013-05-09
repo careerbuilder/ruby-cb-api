@@ -6,7 +6,7 @@ module Cb
                   :description, :requirements, :employment_type,
                   :details_url, :service_url, :similar_jobs_url, :apply_url,
                   :begin_date, :end_date, :posted_date,
-                  :relevancy, :state, :city
+                  :relevancy, :state, :city, :zip
 
 		##############################################################
 		## This general purpose object stores anything having to do
@@ -51,8 +51,9 @@ module Cb
 
       # Recommendations related
       @relevancy                    = args['Relevancy'] || ''
-      @state                        = args['Location']['State'] unless args['Location'].nil? || args['Location']['State'].nil?
-      @city                         = args['Location']['City'] unless args['Location'].nil? || args['Location']['City'].nil?
+      @state                        = args['LocationState'] || ''
+      @city                         = args['LocationCity'] || ''
+      @zip                          = args['LocationPostalCode'] || ''
       @company_name                 = args['Company']['CompanyName'] unless args['Company'].nil? || args['Company']['CompanyName'].nil?
       @company_details_url          = args['Company']['CompanyDetailsURL'] unless args['Company'].nil? || args['Company']['CompanyDetailsURL'].nil?
     end
