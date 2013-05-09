@@ -14,6 +14,7 @@ module Cb::Utils
     end
 
     def cb_get(*args, &block)
+      self.class.base_uri 'http://api.careerbuilder.com'
       self.class.get(*args, &block)
     end
 
@@ -35,7 +36,7 @@ module Cb::Utils
         unless meta_name.empty?
           if meta_name == 'errors' && api_value.is_a?(Hash)
             api_value = api_value.values
-          elsif is_numeric?(api_value)
+          elsif self.class.is_numeric?(api_value)
             api_value = api_value.to_i
           end
           meta_class.class.send(:attr_reader, meta_name)
@@ -60,16 +61,15 @@ module Cb::Utils
       return params
     end
 
+    def self.is_numeric?(obj)
+      true if Float(obj) rescue false
+    end
+
     private
     #############################################################################
     def self.camelize(input)
       input.sub!(/^[a-z\d]*/) { $&.capitalize }
-      output = input.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$2.capitalize}" }.gsub('/', '::')
-      return output
-    end
-
-    def is_numeric?(obj)
-      true if Float(obj) rescue false
+      input.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$2.capitalize}" }.gsub('/', '::')
     end
 
     def get_meta_name_for(api_key)
