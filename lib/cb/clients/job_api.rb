@@ -1,5 +1,4 @@
 require 'json'
-require 'cb/Utils/fluid_attributes.rb'
 
 module Cb
   class JobApi
