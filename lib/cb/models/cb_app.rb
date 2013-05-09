@@ -1,10 +1,8 @@
 module Cb
 	class CbApp
-		attr_accessor :response_blank_app, :blank_app, :did, :submit_service_url,
-                  :apply_url, :title,
-                  :total_questions, :total_required_questions,
-                  :question_id, :is_required, :question_type, :expected_response_format,
-                  :question_text
+		attr_accessor :did, :title, :requirements,
+                  :apply_url, :submit_service_url, :is_shared_apply,
+                  :total_questions, :total_required_questions, :questions
 		#################################################################
 		## This general purpose object stores anything having to do with 
     ## an application. The API objects dealing with application,
@@ -12,27 +10,64 @@ module Cb
 		#################################################################
 
 		def initialize(args = {})
-			# App related
-			@response_blank_app			  = args['ResponseBlankApplication'] || ''
-			@blank_app  				      = args['BlankApplication'] || ''
+      return if args.nil?
 
 			# Job Info related
-			@did                      = args['DID'] || args['JobDID'] || ''
+			@did                      = args['JobDID'] || ''
 			@title       			        = args['JobTitle'] || ''
+      @requirements             = args['Requirements'] || ''
 
-			# Job Details related
+			# Apply URL related
 			@submit_service_url       = args['ApplicationSubmitServiceURL'] || ''
-			@apply_url       			    = args['ApplyURL'] || ''
-			
+			@apply_url       			    = (args['ApplyURL'].downcase == 'true')
+      @is_shared_apply          = args['IsSharedApply'] || ''
 
 			# Question related
 			@total_questions       		= args['TotalQuestions'] || ''
 			@total_required_questions	= args['TotalRequiredQuestions'] || ''
-			@question_id				      = args['QuestionID'] || ''
-			@is_required				      = args['IsRequired'] || ''
-			@question_type				    = args['QuestionType'] || ''
-			@question_text				    = args['QuestionText'] || ''
-			@expected_response_format	= args['ExpectedResponseFormat'] || ''
-		end
-	end
+      @total_questions = @total_questions.to_i if Cb::Utils::Api.is_numeric? @total_questions
+      @total_required_questions = @total_required_questions.to_i if Cb::Utils::Api.is_numeric? @total_required_questions
+
+      @questions = []
+      if args.has_key?('Questions')
+        unless args['Questions'].empty?
+          args['Questions']['Question'].each do | qq |
+            @questions << CbApp::CbQuestion.new(qq)
+          end
+        end
+      end
+		end # Initialize
+  end # CbApp
+
+  class CbApp::CbQuestion
+    attr_accessor :id, :type, :required, :format, :text
+
+    def initialize(args = {})
+      return if args.nil?
+
+      @id       = args['QuestionID'] || ''
+      @type     = args['QuestionType'] || ''
+      @required = (args['IsRequired'].downcase == 'true')
+      @format   = args['ExpectedResponseFormat'] || ''
+      @text     = args['QuestionText'] || ''
+    end
+  end # CbQuestion
+
+  class CbApp::CbAnswer
+
+
+  end # CbAnswer
 end
+#
+#<Answers>
+#<Answer>
+#<QuestionID>MeetsRequirements</QuestionID>
+#            <AnswerID>Yes</AnswerID>
+#<AnswerText>Yes</AnswerText>
+#          </Answer>
+#<Answer>
+#<QuestionID>MeetsRequirements</QuestionID>
+#            <AnswerID>No</AnswerID>
+#<AnswerText>No</AnswerText>
+#          </Answer>
+#</Answers>
