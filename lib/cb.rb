@@ -1,4 +1,6 @@
-module Cb::Utils
+module Cb
+  module Utils
+  end
 end
 
 require 'cb/config'
