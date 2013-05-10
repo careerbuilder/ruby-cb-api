@@ -1,7 +1,8 @@
 module Cb
 	class CbJob
-    attr_accessor :did, :title, :job_skin, :external_application,
-                  :pay, :pay_per, :commission, :bonus, :categories, :category_codes, :degree_required
+    attr_accessor :did, :title, :job_skin, :external_application, 
+                  :pay, :pay_per, :commission, :bonus, :categories, :category_codes, :degree_required,
+                  :experience_required, :travel_required, :relocation_covered,
                   :company_name, :company_did, :company_details_url, :company_image_url, :company,
                   :description_teaser, :location, :distance, :latitude, :longitude, :location_formatted,
                   :description, :requirements, :employment_type,
@@ -29,8 +30,8 @@ module Cb
       # Compensation
       @pay                          = args['PayHighLowFormatted'] || ''
       @pay_per                      = args['PayPer'] || ''
-      @pay_commission               = args['PayCommission']['Money']['FormattedAmount'] || ''
-      @pay_bonus                    = args['PayBonus']['Money']['FormattedAmount'] || ''
+      @commission                   = args['PayCommission']['Money']['FormattedAmount'] || ''
+      @bonus                        = args['PayBonus']['Money']['FormattedAmount'] || ''
 
       # Job Search related
       @description_teaser           = args['DescriptionTeaser'] || ''
@@ -45,6 +46,9 @@ module Cb
       @categories                   = args['Categories'] || ''
       @category_codes               = args['CategoriesCodes'] || ''
       @degree_required              = args['DegreeRequiredCode'] || ''
+      @experience_required          = args['ExperienceRequiredCode'] || ''
+      @travel_required              = args['TravelRequiredCode'] || ''
+      @relocation_covered           = args['RelocationCovered'] || ''
 
       # Job Details related
       @description                  = args['Description'] || args['JobDescription'] || ''
@@ -81,6 +85,10 @@ module Cb
 
     def external_application?
       @external_application.downcase == 'true' ? true : false
+    end
+
+    def relocation_covered?
+      @relocation_covered.downcase == 'true' ? true : false
     end
   end
 end
