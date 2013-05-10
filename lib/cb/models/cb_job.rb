@@ -1,14 +1,17 @@
 module Cb
 	class CbJob
-    attr_accessor :did, :title, :job_skin, :external_application, :pay, :pay_per, :commission, :bonus,
+    attr_accessor :did, :title, :job_skin, :pay, :pay_per, :commission, :bonus,
                   :categories, :category_codes, :degree_required, :experience_required, :travel_required,
-                  :relocation_covered, :industry_codes, :manages_others, :manages_others_code,
+                  :industry_codes, :manages_others_code,
                   :company_name, :company_did, :company_details_url, :company_image_url, :company,
                   :description_teaser, :location, :distance, :latitude, :longitude, :location_formatted,
                   :description, :requirements, :employment_type,
                   :details_url, :service_url, :similar_jobs_url, :apply_url,
                   :begin_date, :end_date, :posted_date,
                   :relevancy, :state, :city, :zip
+
+    attr_writer   :external_application, :relocation_covered, :manages_others, :is_screener_apply,
+                  :is_shared_job
 
 		##############################################################
 		## This general purpose object stores anything having to do
@@ -58,8 +61,12 @@ module Cb
       @requirements                 = args['JobRequirements'] || ''
       @begin_date                   = args['BeginDate'] || ''
       @end_date                     = args['EndDate'] || ''
+
+      # Application
       @apply_url                    = args['ApplyURL'] || ''
       @external_application         = args['ExternalApplication'] || ''
+      @is_screener_apply            = args['IsScreenerApply'] || ''
+      @is_shared_job                = args['IsSharedJob'] || ''
 
       # Company related
       @company_name                 = args['Company'] || ''
@@ -96,6 +103,14 @@ module Cb
 
     def manages_others?
       @manages_others.downcase == 'true' ? true : false
+    end
+
+    def screener_apply?
+      @is_screener_apply.downcase == 'true' ? true : false
+    end
+
+    def shared_job?
+      @is_shared_job.downcase == 'true' ? true : false
     end
   end
 end
