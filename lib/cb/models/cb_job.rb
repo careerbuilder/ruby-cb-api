@@ -56,6 +56,12 @@ module Cb
       @manages_others               = args['ManagesOthers'] || ''
       @manages_others_code          = args['ManagesOthersCode'] || ''
 
+      # Contact Info
+      @contact_email_url            = args['ContactInfoEmailURL'] || ''
+      @contact_fax                  = args['ContactInfoFax'] || ''
+      @contact_name                 = args['ContactInfoName'] || ''
+      @contact_phone                = args['ContactInfoPhone'] || ''
+
       # Job Details related
       @description                  = args['Description'] || args['JobDescription'] || ''
       @requirements                 = args['JobRequirements'] || ''
