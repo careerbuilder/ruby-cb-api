@@ -1,8 +1,8 @@
 module Cb
 	class CbJob
-    attr_accessor :did, :title, :job_skin, :external_application, 
-                  :pay, :pay_per, :commission, :bonus, :categories, :category_codes, :degree_required,
-                  :experience_required, :travel_required, :relocation_covered,
+    attr_accessor :did, :title, :job_skin, :external_application, :pay, :pay_per, :commission, :bonus,
+                  :categories, :category_codes, :degree_required, :experience_required, :travel_required,
+                  :relocation_covered, :industry_codes, :manages_others, :manages_others_code,
                   :company_name, :company_did, :company_details_url, :company_image_url, :company,
                   :description_teaser, :location, :distance, :latitude, :longitude, :location_formatted,
                   :description, :requirements, :employment_type,
@@ -49,6 +49,9 @@ module Cb
       @experience_required          = args['ExperienceRequiredCode'] || ''
       @travel_required              = args['TravelRequiredCode'] || ''
       @relocation_covered           = args['RelocationCovered'] || ''
+      @industry_codes               = args['IndustryCodes'] || ''
+      @manages_others               = args['ManagesOthers'] || ''
+      @manages_others_code          = args['ManagesOthersCode'] || ''
 
       # Job Details related
       @description                  = args['Description'] || args['JobDescription'] || ''
@@ -89,6 +92,10 @@ module Cb
 
     def relocation_covered?
       @relocation_covered.downcase == 'true' ? true : false
+    end
+
+    def manages_others?
+      @manages_others.downcase == 'true' ? true : false
     end
   end
 end
