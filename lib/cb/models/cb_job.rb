@@ -3,6 +3,7 @@ module Cb
     attr_accessor :did, :title, :job_skin, :pay, :pay_per, :commission, :bonus,
                   :categories, :category_codes, :degree_required, :experience_required, :travel_required,
                   :industry_codes, :manages_others_code,
+                  :contact_email_url, :contact_fax, :contact_name, :contact_phone
                   :company_name, :company_did, :company_details_url, :company_image_url, :company,
                   :description_teaser, :location, :distance, :latitude, :longitude, :location_formatted,
                   :description, :requirements, :employment_type,
