@@ -29,7 +29,7 @@ module Cb
       @latitude                     = args['LocationLatitude'] || ''
       @longitude                    = args['LocationLongitude'] || ''
       @location_formatted           = args['LocationFormatted'] || ''
-      @job_skin                     = args['JobSkin']['#cdata-section'] || ''
+      @job_skin                     = args['JobSkin']['#cdata-section'] unless args['JobSkin'].blank? || ''
 
       # Compensation
       @pay                          = args['PayHighLowFormatted'] || ''
