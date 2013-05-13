@@ -7,7 +7,7 @@ module Cb
                   :uri_recommendation_for_job, :uri_recommendation_for_user,
                   :uri_recommendation_for_company,
                   :uri_application, :uri_application_submit,
-                  :uri_application_registered, :job_did
+                  :uri_application_registered
 
     def initialize
       Cb::Utils::Country.inject_convenience_methods
@@ -46,8 +46,7 @@ module Cb
         :uri_recommendation_for_company   => @uri_recommendation_for_company,
         :uri_application                  => @uri_application,
         :uri_application_submit           => @uri_application_submit,
-        :uri_application_registered       => @uri_application_registered,
-        :job_did                          => @job_did
+        :uri_application_registered       => @uri_application_registered
       }
     end
 
