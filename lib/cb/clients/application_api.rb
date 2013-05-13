@@ -14,10 +14,10 @@ module Cb
       my_api = Cb::Utils::Api.new()
       cb_response = my_api.cb_get(Cb.configuration.uri_application, :query => {:JobDID => did})
       json_hash = JSON.parse(cb_response.response.body)
-      app_info = CbApp.new(json_hash['ResponseBlankApplication']['BlankApplication'])
-      my_api.append_api_responses(app_info, json_hash['ResponseBlankApplication'])
+      app = Cb::CbApplicationSchema.new(json_hash['ResponseBlankApplication']['BlankApplication'])
+      my_api.append_api_responses(app, json_hash['ResponseBlankApplication'])
 
-      return app_info
+      return app
     end
 
     #############################################################
@@ -28,7 +28,7 @@ module Cb
     #############################################################
     def self.submit_registered_app(app)
       my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_post(Cb.configuration.uri_application_registered, :body => application_xml)
+      cb_response = my_api.cb_post(Cb.configuration.uri_application_registered, :body => app)
 
       json_hash = JSON.parse(cb_response.response.body)
       begin
@@ -49,7 +49,7 @@ module Cb
     #############################################################
     def self.submit_app(app)
       my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_post(Cb.configuration.uri_application_submit, :body => application_xml)
+      cb_response = my_api.cb_post(Cb.configuration.uri_application_submit, :body => app)
       json_hash = cb_response.parsed_response
       status = json_hash['ResponseApplication']['ApplicationStatus'] == 'Complete (Test)'
     end
