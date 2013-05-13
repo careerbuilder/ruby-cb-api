@@ -1,13 +1,13 @@
 module Cb
-	class CbApp
+  #################################################################
+  ## This general purpose object stores anything having to do with
+  ## an application. The API objects dealing with application,
+  ## will populate one or many of this object.
+  #################################################################
+	class CbApplicationSchema
 		attr_accessor :did, :title, :requirements,
                   :apply_url, :submit_service_url, :is_shared_apply,
                   :total_questions, :total_required_questions, :questions
-		#################################################################
-		## This general purpose object stores anything having to do with 
-    ## an application. The API objects dealing with application,
-    ## will populate one or many of this object.
-		#################################################################
 
 		def initialize(args = {})
       return if args.nil?
@@ -25,22 +25,23 @@ module Cb
 			# Question related
 			@total_questions       		= args['TotalQuestions'] || ''
 			@total_required_questions	= args['TotalRequiredQuestions'] || ''
-      @total_questions = @total_questions.to_i if Cb::Utils::Api.is_numeric? @total_questions
+      @total_questions          = @total_questions.to_i if Cb::Utils::Api.is_numeric? @total_questions
       @total_required_questions = @total_required_questions.to_i if Cb::Utils::Api.is_numeric? @total_required_questions
 
       @questions = []
       if args.has_key?('Questions')
         unless args['Questions'].empty?
           args['Questions']['Question'].each do | qq |
-            @questions << CbApp::CbQuestion.new(qq)
+            @questions << CbApplicationSchema::CbQuestionSchema.new(qq)
           end
         end
       end
 		end # Initialize
-  end # CbApp
+  end # CbApplicationSchema
 
-  class CbApp::CbQuestion
-    attr_accessor :id, :type, :required, :format, :text
+  #################################################################
+  class CbApplicationSchema::CbQuestionSchema
+    attr_accessor :id, :type, :required, :format, :text, :answers
 
     def initialize(args = {})
       return if args.nil?
@@ -50,24 +51,28 @@ module Cb
       @required = (args['IsRequired'].downcase == 'true')
       @format   = args['ExpectedResponseFormat'] || ''
       @text     = args['QuestionText'] || ''
+
+      @answers = []
+      if args.has_key?('Answers')
+        unless args['Answers'].empty?
+          args['Answers']['Answer'].each do | aa |
+            @answers << CbApplicationSchema::CbAnswerSchema.new(aa)
+          end
+        end
+      end
     end
-  end # CbQuestion
+  end # CbQuestionSchema
 
-  class CbApp::CbAnswer
+  #################################################################
+  class CbApplicationSchema::CbAnswerSchema
+    attr_accessor :question_id, :id, :text
 
+    def initialize(args = {})
+      return if args.nil?
 
-  end # CbAnswer
+      @question_id    = args['QuestionID']
+      @id             = args['AnswerID']
+      @text           = args['AnswerText']
+    end
+  end # CbAnswerSchema
 end
-#
-#<Answers>
-#<Answer>
-#<QuestionID>MeetsRequirements</QuestionID>
-#            <AnswerID>Yes</AnswerID>
-#<AnswerText>Yes</AnswerText>
-#          </Answer>
-#<Answer>
-#<QuestionID>MeetsRequirements</QuestionID>
-#            <AnswerID>No</AnswerID>
-#<AnswerText>No</AnswerText>
-#          </Answer>
-#</Answers>
