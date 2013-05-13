@@ -34,8 +34,8 @@ module Cb
       # Compensation
       @pay                          = args['PayHighLowFormatted'] || ''
       @pay_per                      = args['PayPer'] || ''
-      @commission                   = args['PayCommission']['Money']['FormattedAmount'] || ''
-      @bonus                        = args['PayBonus']['Money']['FormattedAmount'] || ''
+      @commission                   = args.has_key?("PayCommission") && !args["PayCommission"].nil? ? args['PayCommission']['Money']['FormattedAmount'] : ''
+      @bonus                        = args.has_key?("PayBonus") && !args["PayBonus"].nil? ? args['PayBonus']['Money']['FormattedAmount'] : ''
 
       # Job Search related
       @description_teaser           = args['DescriptionTeaser'] || ''
