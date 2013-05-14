@@ -11,6 +11,7 @@ module Cb
     #############################################################
     def self.for_job(job)
       did = job.did if job.is_a?(Cb::CbJob) else did = job
+
       my_api = Cb::Utils::Api.new()
       cb_response = my_api.cb_get(Cb.configuration.uri_application, :query => {:JobDID => did})
       json_hash = JSON.parse(cb_response.response.body)
@@ -27,8 +28,10 @@ module Cb
     ## http://api.careerbuilder.com/ApplicationInfo.aspx
     #############################################################
     def self.submit_registered_app(app)
+      raise Cb::IncomingParamIsWrongTypeException unless app.is_a?(Cb::CbApplication)
+
       my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_post(Cb.configuration.uri_application_registered, :body => app)
+      cb_response = my_api.cb_post(Cb.configuration.uri_application_registered, :body => app.to_xml)
 
       json_hash = JSON.parse(cb_response.response.body)
       begin
@@ -48,8 +51,10 @@ module Cb
     ## http://api.careerbuilder.com/ApplicationInfo.aspx
     #############################################################
     def self.submit_app(app)
+      raise Cb::IncomingParamIsWrongTypeException unless app.is_a?(Cb::CbApplication)
+puts app.to_xml
       my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_post(Cb.configuration.uri_application_submit, :body => app)
+      cb_response = my_api.cb_post(Cb.configuration.uri_application_submit, :body => app.to_xml)
       json_hash = cb_response.parsed_response
       status = json_hash['ResponseApplication']['ApplicationStatus'] == 'Complete (Test)'
     end

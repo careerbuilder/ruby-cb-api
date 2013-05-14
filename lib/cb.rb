@@ -12,6 +12,8 @@ Dir[File.dirname(__FILE__) + '/cb/criteria/*.rb'].each {| file| require file }
 Dir[File.dirname(__FILE__) + '/cb/models/*.rb'].each {| file| require file }
 
 module Cb
+  class IncomingParamIsWrongTypeException < StandardError; end
+
 	def self.configure
 		yield configuration
 	end
