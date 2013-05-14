@@ -87,7 +87,8 @@ module Cb::Utils
                   'CoBrand' =>                    'co_brand',
                   'CountLimit' =>                 'count_limit',
                   'MinQualityLimit' =>            'min_quality',
-                  'RecommendationsAvailable' =>   'recs_available'
+                  'RecommendationsAvailable' =>   'recs_available',
+                  'ApplicationStatus' =>          'application_status'
       }
 
       key_map["#{api_key}"] ||= ''

@@ -35,7 +35,6 @@ module Cb
 
       json_hash = JSON.parse(cb_response.response.body)
       begin
-        json_hash = JSON.parse(cb_response.response.body)
         status = json_hash['ResponseApplication']['ApplicationStatus'] == 'Complete (Test)' unless json_hash.empty?
       rescue
           status = false
@@ -52,11 +51,12 @@ module Cb
     #############################################################
     def self.submit_app(app)
       raise Cb::IncomingParamIsWrongTypeException unless app.is_a?(Cb::CbApplication)
-puts app.to_xml
+
       my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_post(Cb.configuration.uri_application_submit, :body => app.to_xml)
-      json_hash = cb_response.parsed_response
-      status = json_hash['ResponseApplication']['ApplicationStatus'] == 'Complete (Test)'
+      xml_hash = my_api.cb_post(Cb.configuration.uri_application_submit, :body => app.to_xml)
+      my_api.append_api_responses(app, xml_hash['ResponseApplication'])
+
+      return app
     end
   end
 end
