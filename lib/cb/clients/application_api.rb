@@ -10,7 +10,7 @@ module Cb
     ## http://api.careerbuilder.com/ApplicationInfo.aspx
     #############################################################
     def self.for_job(job)
-      did = job.did if job.is_a?(Cb::CbJob) else did = job
+      job.is_a?(Cb::CbJob) ? did = job.did : did = job
 
       my_api = Cb::Utils::Api.new()
       cb_response = my_api.cb_get(Cb.configuration.uri_application, :query => {:JobDID => did})
