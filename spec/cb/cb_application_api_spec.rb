@@ -28,7 +28,7 @@ module Cb
         app.add_answer('ApplicantEmail', 'DontSpamMeBro@gmail.com')
 
         status = Cb.application.submit_app(app)
-        status.should == true
+        status.cb_response.application_status.should == 'Incomplete'
       end
     end
   end
