@@ -37,7 +37,7 @@ module Cb
       end
 
       "#{ret}</RequestApplication>"
-    end
+    end # to_xml
   end # CbApplication
 
   ############################################################
@@ -45,8 +45,8 @@ module Cb
     attr_accessor :id, :text
 
     def initialize(id, text)
-      @id               = id
-      @text             = text
+      @id   = id
+      @text = text
     end
 
     def to_xml
