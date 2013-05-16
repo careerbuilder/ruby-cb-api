@@ -15,6 +15,7 @@ module Cb
       my_api = Cb::Utils::Api.new()
       cb_response = my_api.cb_get(Cb.configuration.uri_application, :query => {:JobDID => did})
       json_hash = JSON.parse(cb_response.response.body)
+
       app = Cb::CbApplicationSchema.new(json_hash['ResponseBlankApplication']['BlankApplication'])
       my_api.append_api_responses(app, json_hash['ResponseBlankApplication'])
 
