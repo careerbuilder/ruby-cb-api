@@ -19,8 +19,8 @@ module Cb
 
 			# Apply URL related
 			@submit_service_url       = args['ApplicationSubmitServiceURL'] || ''
-			@apply_url       			    = (args['ApplyURL'].downcase == 'true')
-      @is_shared_apply          = args['IsSharedApply'] || ''
+			@apply_url       			    = args['ApplyURL'] || ''
+      @is_shared_apply          = (args['IsSharedApply'].downcase == 'true')
 
 			# Question related
 			@total_questions       		= args['TotalQuestions'] || ''
