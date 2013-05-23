@@ -62,4 +62,8 @@ module Cb
   def self.country
     Cb::Utils::Country
   end
+
+  def self.user
+    Cb::UserApi
+  end
 end

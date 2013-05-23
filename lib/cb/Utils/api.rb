@@ -39,6 +39,7 @@ module Cb::Utils
           elsif self.class.is_numeric?(api_value)
             api_value = api_value.to_i
           end
+
           meta_class.class.send(:attr_reader, meta_name)
           meta_class.instance_variable_set(:"@#{meta_name}", api_value)
         end
@@ -88,7 +89,8 @@ module Cb::Utils
                   'CountLimit' =>                 'count_limit',
                   'MinQualityLimit' =>            'min_quality',
                   'RecommendationsAvailable' =>   'recs_available',
-                  'ApplicationStatus' =>          'application_status'
+                  'ApplicationStatus' =>          'application_status',
+                  'Status' =>                     'status'
       }
 
       key_map["#{api_key}"] ||= ''
