@@ -82,6 +82,51 @@ module Cb
 				xml.include?('<Test>true</Test>').should == true
 				xml.include?("<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>").should == true
 			end
-		end
+    end
+
+    context '.delete' do
+      external_id = 'XRHN2RH6K4CVZR19H00Z'
+      password = '!QA2ws3ed'
+
+      it 'should delete a user', :vcr => { :cassette_name => 'user/delete/success' } do
+        result = Cb.user.delete external_id, password, true
+
+        result.cb_response.errors.nil?.should == true
+        result.cb_response.status.should == 'Success (Test)'
+        result.should == true
+      end
+
+      it 'should fail with no password', :vcr => { :cassette_name => 'user/delete/no_password' } do
+        result = Cb.user.delete external_id, nil, true
+
+        result.cb_response.errors.nil?.should == false
+        result.cb_response.status.should == 'Fail (Test)'
+        result.should == false
+      end
+
+      it 'should fail with no external_id', :vcr => { :cassette_name => 'user/delete/no_external_id' } do
+        result = Cb.user.delete nil, password, true
+
+        result.cb_response.errors.nil?.should == false
+        result.cb_response.status.should == 'Fail (Test)'
+        result.should == false
+      end
+    end
+
+    context '.build_delete_request' do
+      it 'should build delete xml' do
+        xml = Cb.user.send :build_delete_request, 'a', 'b', true
+
+        xml_wrapper = Nokogiri::XML.parse(xml).elements
+
+        xml_wrapper.count.should == 1 # Assert one root node.
+        xml_wrapper[0].name.should == 'Request' # Assert root node name.
+
+        xml.include?('<ExternalID>a</ExternalID>').should == true
+        xml.include?('<Password>b</Password>').should == true
+        xml.include?('<Test>true</Test>').should == true
+        xml.include?("<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>").should == true
+      end
+    end
 	end
 end

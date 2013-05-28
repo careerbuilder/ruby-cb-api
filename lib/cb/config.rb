@@ -7,7 +7,8 @@ module Cb
                   :uri_recommendation_for_job, :uri_recommendation_for_user,
                   :uri_recommendation_for_company,
                   :uri_application, :uri_application_submit,
-                  :uri_application_registered, :uri_user_change_password
+                  :uri_application_registered, :uri_user_change_password,
+                  :uri_user_delete
 
     def initialize
       Cb::Utils::Country.inject_convenience_methods
@@ -28,6 +29,7 @@ module Cb
       @uri_application_submit             ||= '/v1/Application/submit'
       @uri_application_registered         ||= '/v3/Application/registered'
       @uri_user_change_password           ||= '/v2/User/ChangePW'
+      @uri_user_delete                    ||= '/v2/User/delete'
     end
 
     def to_hash
