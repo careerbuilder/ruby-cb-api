@@ -2,6 +2,12 @@ require 'spec_helper'
 
 module Cb
 	describe Cb::UserApi do
+        context '.retrieve' do 
+            it 'should retrieve a user', :vcr => { :cassette_name => 'user/retrieve/success' } do
+                # user = Cb.user.retrieve 'test_user_external_id', 'test_user_password', true
+            end
+        end
+
 		context '.change_password' do
 			# Needs Test node respected in API. Will change password to same password for now.
 			it 'should change a user password', :vcr => { :cassette_name => 'user/change_password/success' } do
