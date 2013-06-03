@@ -3,8 +3,8 @@ module Cb
 	    attr_accessor :user_status, :password, :email, :address_1, :address_2, :city, :state,
 	                  :province, :postal_code, :zip, :country_code, :first_name,
 	                  :last_name, :phone, :fax, :last_login, :created, :allow_partner_emails,
-	                  :allow_newsletter_emails, :allow_email_from_headhunter, :domain, :registration_path, :gender,
-	                  :birth_date, :cobrand_code, :resume_stats, :custom_values
+	                  :allow_newsletter_emails, :allow_email_from_headhunter, :domain, :registration_path, 
+	                  :user_type, :gender, :birth_date, :cobrand_code, :resume_stats, :custom_values
 
 	    def initialize(args = {})
 			return if args.nil?
