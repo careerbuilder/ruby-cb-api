@@ -40,9 +40,13 @@ module Cb
 	    end
 
 	    def custom_value custom_value_key
+	    	custom_value_value = nil
+	    	
 	    	@custom_values['CustomValue'].each do |custom_value|
-	    		return custom_value['Value'] if custom_value['Key'] == custom_value_key
+	    		custom_value_value = custom_value['Value'] if custom_value['Key'] == custom_value_key
 	    	end
+
+	    	return custom_value_value
 	    end
 	end
 end
