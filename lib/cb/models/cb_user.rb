@@ -40,13 +40,17 @@ module Cb
 	    end
 
 	    def custom_value custom_value_key
-	    	custom_value_value = nil
-	    	
-	    	@custom_values['CustomValue'].each do |custom_value|
-	    		custom_value_value = custom_value['Value'] if custom_value['Key'] == custom_value_key
-	    	end
+	    	custom_value = nil
 
-	    	return custom_value_value
+	    	if @custom_values['CustomValue'].is_a? Array
+		    	@custom_values['CustomValue'].each do |cv|
+		    		custom_value = cv['Value'] if cv['Key'] == custom_value_key
+		    	end
+		    elsif @custom_values['CustomValue'].is_a? Hash
+		    	custom_value = @custom_values['CustomValue']['Value'] if @custom_values['CustomValue']['Key'] == custom_value_key
+		    end
+
+	    	return custom_value
 	    end
 	end
 end
