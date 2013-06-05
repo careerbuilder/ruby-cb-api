@@ -52,13 +52,23 @@ module Cb
     end
 
     context '.custom_value' do
-        user = Cb::CbUser.new('CustomValues' => {'CustomValue'=>[{'Key' => 'CustomKey', 'Value' => 'CustomVal'}]})
-        
         it 'should successfully find custom value' do
+            user = Cb::CbUser.new('CustomValues' => { 'CustomValue' => { 'Key' => 'CustomKey', 'Value' => 'CustomVal' } })
+
             expect(user.custom_value('CustomKey')).to be == 'CustomVal'
+            expect(user.custom_value('CustomKeyDoesNotExist').nil?).to be true
+        end
+        
+        it 'should successfully find custom value in user with multiple custom values' do
+            user = Cb::CbUser.new('CustomValues' => { 'CustomValue' => [{ 'Key' => 'CustomKey', 'Value' => 'CustomVal' }, { 'Key' => 'CustomKey2', 'Value' => 'CustomVal2' }] })
+
+            expect(user.custom_value('CustomKey')).to be == 'CustomVal'
+            expect(user.custom_value('CustomKey2')).to be == 'CustomVal2'
         end
 
         it 'should fail to find custom value because key does not exist' do
+            user = Cb::CbUser.new
+
             expect(user.custom_value('CustomKeyDoesNotExist').nil?).to be true
         end
     end
