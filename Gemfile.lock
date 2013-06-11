@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cb-api (0.1.4)
+    cb-api (0.1.6)
       httparty (~> 0.11.0)
       json (~> 1.7.6)
 
@@ -16,7 +16,7 @@ GEM
       multi_xml (>= 0.5.2)
     json (1.7.7)
     multi_json (1.7.4)
-    multi_xml (0.5.3)
+    multi_xml (0.5.4)
     nokogiri (1.5.9)
     rake (10.0.4)
     rspec (2.13.0)
@@ -42,7 +42,7 @@ PLATFORMS
 DEPENDENCIES
   cb-api!
   json (~> 1.7.7)
-  nokogiri
+  nokogiri (~> 1.5.9)
   rake (>= 0.8.7)
   rspec (>= 2.11)
   simplecov (>= 0.7.1)
