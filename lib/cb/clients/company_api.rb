@@ -10,7 +10,7 @@ module Cb
 		#############################################################
 		def self.find_by_did(did)
       my_api = Cb::Utils::Api.new()
-			cb_response = my_api.cb_get(Cb.configuration.uri_company_find, :query => {:CompanyDID => did})
+			cb_response = my_api.cb_get(Cb.configuration.uri_company_find, :query => {:CompanyDID => did, :hostsite=> Cb.configuration.host_site})
 			json_hash = JSON.parse(cb_response.response.body)
 
 			company = CbCompany.new(json_hash['Results']['CompanyProfileDetail'])
