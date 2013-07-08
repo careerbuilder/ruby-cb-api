@@ -31,7 +31,7 @@ Option 2:
 
 Either way, you will get back an array of CbJob.
 
-    search.each |job| do
+    search.each do |job|
       puts job.title
       puts job.company_name
       puts job.instance_variables
