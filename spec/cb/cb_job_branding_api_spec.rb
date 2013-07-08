@@ -11,8 +11,8 @@ module Cb
 		  	it 'should not return valid job branding schema', :vcr => {:cassette_name => 'job/job_branding/find_by_id_bad_id'} do
 		    	job_branding = Cb.job_branding.find_by_id 'BAD'
 
-		    	job_branding.cb_response.errors.empty?.should == false
-		    	job_branding.cb_response.errors.include?({ 'Message' => 'No branding exists with this Id.' }).should == true
+		    	job_branding.errors.empty?.should == false
+		    	job_branding.errors.values.include?({ 'Message' => 'No branding exists with this Id.' }).should == true
 		  	end
 		end
 	end
