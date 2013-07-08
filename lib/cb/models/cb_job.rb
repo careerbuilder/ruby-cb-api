@@ -33,8 +33,6 @@ module Cb
       @job_skin_did                 = args['JobSkinDID'] || ''
       @job_branding                 = @job_skin_did == '' ? '' : Cb.job_branding.find_by_id(@job_skin_did)
 
-      p @job_branding
-
       # Compensation
       @pay                          = args['PayHighLowFormatted'] || ''
       @pay_per                      = args['PayPer'] || ''
