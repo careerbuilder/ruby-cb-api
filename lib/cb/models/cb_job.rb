@@ -1,6 +1,6 @@
 module Cb
 	class CbJob
-    attr_accessor :did, :title, :job_skin, :job_skin_did, :job_branding, :pay, :pay_per, :commission, :bonus,
+    attr_accessor :did, :title, :job_skin, :job_skin_did, :job_branding, :pay, :pay_per, :commission, :bonus, :pay_other,
                   :categories, :category_codes, :degree_required, :experience_required, :travel_required,
                   :industry_codes, :manages_others_code,
                   :contact_email_url, :contact_fax, :contact_name, :contact_phone,
@@ -38,7 +38,8 @@ module Cb
       @pay_per                      = args['PayPer'] || ''
       @commission                   = args.has_key?("PayCommission") && !args["PayCommission"].nil? ? args['PayCommission']['Money']['FormattedAmount'] : ''
       @bonus                        = args.has_key?("PayBonus") && !args["PayBonus"].nil? ? args['PayBonus']['Money']['FormattedAmount'] : ''
-
+      @pay_other                    = args.has_key?("PayOther") && !args["PayOther"].nil? ? args['PayOther'] : ''
+      
       # Job Search related
       @description_teaser           = args['DescriptionTeaser'] || ''
       @posted_date                  = args['PostedDate'] || ''
