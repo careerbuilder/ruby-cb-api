@@ -1,4 +1,4 @@
-require 'active_support/core_ext/hash/conversions' # For from_xml on Hash
+require 'nori'
 
 module Cb
 
@@ -9,9 +9,9 @@ module Cb
 
 		    cb_response = my_api.cb_get Cb.configuration.uri_job_branding, :query => { :id => id }
 
-		    json_hash = Hash.from_xml cb_response.response.body
+		    xml_hash = Nori.new.parse cb_response.response.body
 
-		    return CbJobBranding.new json_hash['Branding']
+		    return CbJobBranding.new xml_hash['Branding']
 		end
 
 	end
