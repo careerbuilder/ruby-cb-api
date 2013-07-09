@@ -60,6 +60,10 @@ module Cb
     Cb::ApplicationApi
   end
 
+  def self.application_external
+    Cb::ApplicationExternalApi
+  end
+
   def self.country
     Cb::Utils::Country
   end
