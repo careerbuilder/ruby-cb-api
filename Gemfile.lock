@@ -1,9 +1,10 @@
 PATH
   remote: .
   specs:
-    cb-api (0.1.9)
+    cb-api (0.1.10)
       httparty (~> 0.11.0)
       json (~> 1.7.6)
+      nori (~> 2.2.0)
 
 GEM
   remote: http://rubygems.org/
@@ -46,7 +47,6 @@ DEPENDENCIES
   cb-api!
   json (~> 1.7.7)
   nokogiri (~> 1.5.9)
-  nori (~> 2.2.0)
   rake (>= 0.8.7)
   rspec (>= 2.11)
   simplecov (>= 0.7.1)
