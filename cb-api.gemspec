@@ -19,4 +19,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'httparty', '~> 0.11.0'
   s.add_dependency 'json', '~> 1.7.6'
+
+  s.add_dependency 'nori', '~> 2.2.0'
 end
