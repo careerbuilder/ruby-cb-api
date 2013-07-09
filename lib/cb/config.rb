@@ -7,6 +7,7 @@ module Cb
                   :uri_recommendation_for_job, :uri_recommendation_for_user,
                   :uri_recommendation_for_company,
                   :uri_application, :uri_application_submit,
+                  :uri_application_external,
                   :uri_application_registered, :uri_user_change_password,
                   :uri_user_delete, :uri_user_retrieve
 
@@ -28,6 +29,7 @@ module Cb
       @uri_application                    ||= '/v1/application/blank'
       @uri_application_submit             ||= '/v1/Application/submit'
       @uri_application_registered         ||= '/v3/Application/registered'
+      @uri_application_external           ||= '/v1/application/external'
       @uri_user_change_password           ||= '/v2/User/ChangePW'
       @uri_user_delete                    ||= '/v2/User/delete'
       @uri_user_retrieve                  ||= '/v2/user/retrieve'
