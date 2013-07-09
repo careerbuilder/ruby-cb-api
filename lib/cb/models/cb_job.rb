@@ -1,6 +1,6 @@
 module Cb
 	class CbJob
-    attr_accessor :did, :title, :job_skin, :pay, :pay_per, :commission, :bonus,
+    attr_accessor :did, :title, :job_skin, :job_skin_did, :job_branding, :pay, :pay_per, :commission, :bonus,
                   :categories, :category_codes, :degree_required, :experience_required, :travel_required,
                   :industry_codes, :manages_others_code,
                   :contact_email_url, :contact_fax, :contact_name, :contact_phone,
@@ -30,6 +30,8 @@ module Cb
       @longitude                    = args['LocationLongitude'] || ''
       @location_formatted           = args['LocationFormatted'] || ''
       @job_skin                     = args.has_key?("JobSkin") && !args["JobSkin"].nil? ? args['JobSkin']['#cdata-section'] : ''
+      @job_skin_did                 = args['JobSkinDID'] || ''
+      @job_branding                 = @job_skin_did.blank? ? '' : Cb.job_branding.find_by_id(@job_skid_did) 
 
       # Compensation
       @pay                          = args['PayHighLowFormatted'] || ''
