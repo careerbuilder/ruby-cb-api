@@ -10,6 +10,7 @@ Dir[File.dirname(__FILE__) + '/cb/utils/*.rb'].each {| file| require file }
 Dir[File.dirname(__FILE__) + '/cb/clients/*.rb'].each {| file| require file }
 Dir[File.dirname(__FILE__) + '/cb/criteria/*.rb'].each {| file| require file }
 Dir[File.dirname(__FILE__) + '/cb/models/*.rb'].each {| file| require file }
+Dir[File.dirname(__FILE__) + '/cb/models/**/*.rb'].each {| file| require file }
 
 module Cb
   class IncomingParamIsWrongTypeException < StandardError; end
@@ -69,5 +70,9 @@ module Cb
 
   def self.user
     Cb::UserApi
+  end
+
+  def self.job_branding
+    Cb::JobBrandingApi
   end
 end
