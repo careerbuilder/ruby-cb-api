@@ -1,5 +1,5 @@
 require 'cb/config'
-Dir[File.dirname(__FILE__) + '/cb/utils/*.rb'].each {| file| require file }
+Dir[File.dirname(__FILE__) + '/cb/utils_/*.rb'].each {| file| require file }
 Dir[File.dirname(__FILE__) + '/cb/clients/*.rb'].each {| file| require file }
 Dir[File.dirname(__FILE__) + '/cb/criteria/*.rb'].each {| file| require file }
 Dir[File.dirname(__FILE__) + '/cb/models/*.rb'].each {| file| require file }
