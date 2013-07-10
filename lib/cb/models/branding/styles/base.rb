@@ -1,15 +1,19 @@
-module Cb::Branding::Styles
+module Cb
+  module Branding
+    module Styles
 
-	class Base
-		attr_writer :styles
+      class Base
+        attr_writer :styles
 
-		def initialize args = {}
-			@styles = args
-		end
+        def initialize args = {}
+          @styles = args
+        end
 
-		def raw
-			@styles
-		end
-	end
+        def raw
+          @styles
+        end
+      end
+    end
+  end
 
 end
