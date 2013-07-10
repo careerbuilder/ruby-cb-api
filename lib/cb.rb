@@ -1,10 +1,3 @@
-module Cb
-  module Utils
-    module FluidAttributes
-    end
-  end
-end
-
 require 'cb/config'
 Dir[File.dirname(__FILE__) + '/cb/utils/*.rb'].each {| file| require file }
 Dir[File.dirname(__FILE__) + '/cb/clients/*.rb'].each {| file| require file }
