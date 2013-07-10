@@ -1,16 +1,19 @@
-module Cb::Branding::Styles
+module Cb
+  module Branding
+    module Styles
 
-	class CompanyInfo < Base
-		attr_accessor :buttons, :container, :content, :headings
+      class CompanyInfo < Base
+        attr_accessor :buttons, :container, :content, :headings
 
-		def initialize args = {}
-			super
+        def initialize args = {}
+          super
 
-			@buttons = Buttons.new args
-			@container = Container.new args
-			@content = Content.new args
-			@headings = Headings.new args
-		end
-	end
-
+          @buttons = Buttons.new args
+          @container = Container.new args
+          @content = Content.new args
+          @headings = Headings.new args
+        end
+      end
+    end
+  end
 end
