@@ -3,7 +3,7 @@ require 'cb/models/branding/styles/css_adapter' # Path load errors in cb.rb - ju
 module Cb
 	class CbJobBranding
 
-		attr_accessor :name, :media, :sections, :styles, :widgets, :id, :account_id, :type, :errors
+		attr_accessor :name, :media, :sections, :styles, :widgets, :id, :account_id, :type, :errors, :show_widgets
 
 		def initialize args = {}
 			@name = args['Name'] || ''
@@ -21,7 +21,11 @@ module Cb
 			end
 
 			args['Widgets'].each do |type, url|
-				@widgets << Cb::Branding::Widget.new(type, url) unless url.nil?
+				if type == 'ShowWidgets'
+					@show_widgets = url == 'true'
+				else
+					@widgets << Cb::Branding::Widget.new(type, url) unless url.nil?
+				end
 			end
 		end
 
