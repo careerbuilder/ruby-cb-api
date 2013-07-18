@@ -4,6 +4,7 @@ module Cb
 	describe Cb::JobBrandingApi do
 		context '.find_by_id' do
 			it 'should return valid job branding schema', :vcr => {:cassette_name => 'job/job_branding/find_by_id'} do
+				pending 'This is awaiting basic job brandings to exist in production.'
 				job = Cb.job.find_by_did 'J3F0RG6NPQGD5K6BNNF'
 
 			  	job_branding = job.job_branding
