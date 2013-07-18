@@ -8,10 +8,10 @@ module Cb
         def initialize args = {}
           super
 
-          @buttons = Buttons.new args
-          @container = Container.new args
-          @content = Content.new args
-          @headings = Headings.new args
+          @buttons = Buttons.new args['Buttons']
+          @container = Container.new args['Container']
+          @content = Content.new args['Content']
+          @headings = Headings.new args['Headings']
         end
       end
     end
