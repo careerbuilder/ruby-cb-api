@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cb-api (0.1.11)
+    cb-api (0.1.13)
       httparty (~> 0.11.0)
       json (~> 1.7.6)
       nori (~> 2.2.0)
