@@ -35,6 +35,8 @@ module Cb
       @uri_user_delete                    ||= '/v2/User/delete'
       @uri_user_retrieve                  ||= '/v2/user/retrieve'
       @uri_job_branding                   ||= '/branding'
+      @uri_subscription_retrieve          ||= '/v1/user/subscription/retrieve'
+      @uri_subscription_modify            ||= '/v1/user/subscription'
     end
 
     def to_hash
@@ -57,7 +59,9 @@ module Cb
         :uri_application_registered       => @uri_application_registered,
         :uri_user_change_password         => @uri_user_change_password,
         :uri_user_retrieve                => @uri_user_retrieve,
-        :uri_job_branding                 => @uri_job_branding
+        :uri_job_branding                 => @uri_job_branding,
+        :uri_subscription_retrieve        => @uri_subscription_retrieve,
+        :uri_subscription_modify          => @uri_subscription_modify
       }
     end
 
