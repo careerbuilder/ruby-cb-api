@@ -10,7 +10,7 @@ module Cb
                   :uri_application_external,
                   :uri_application_registered, :uri_user_change_password,
                   :uri_user_delete, :uri_user_retrieve,
-                  :uri_job_branding
+                  :uri_job_branding, :uri_saved_job_search_create
 
     def initialize
       Cb::Utils::Country.inject_convenience_methods
@@ -34,9 +34,10 @@ module Cb
       @uri_user_change_password           ||= '/v2/User/ChangePW'
       @uri_user_delete                    ||= '/v2/User/delete'
       @uri_user_retrieve                  ||= '/v2/user/retrieve'
-      @uri_job_branding                   ||= '/branding'
+      @uri_job_branding                   ||= '/branding'=
       @uri_subscription_retrieve          ||= '/v1/user/subscription/retrieve'
       @uri_subscription_modify            ||= '/v1/user/subscription'
+      @uri_saved_job_search_create        ||= '/v2/savedsearch/create'
     end
 
     def to_hash
@@ -61,7 +62,8 @@ module Cb
         :uri_user_retrieve                => @uri_user_retrieve,
         :uri_job_branding                 => @uri_job_branding,
         :uri_subscription_retrieve        => @uri_subscription_retrieve,
-        :uri_subscription_modify          => @uri_subscription_modify
+        :uri_subscription_modify          => @uri_subscription_modify,
+        :uri_saved_job_search_create      => @uri_saved_job_search_create
       }
     end
 
