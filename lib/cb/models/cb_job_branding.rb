@@ -1,5 +1,3 @@
-require 'cb/models/branding/styles/css_adapter' # Path load errors in cb.rb - just doing this here for the time being.
-
 module Cb
 	class CbJobBranding
 

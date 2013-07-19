@@ -31,7 +31,7 @@ module Cb
       @location_formatted           = args['LocationFormatted'] || ''
       @job_skin                     = args.has_key?("JobSkin") && !args["JobSkin"].nil? ? args['JobSkin']['#cdata-section'] : ''
       @job_skin_did                 = args['JobSkinDID'] || ''
-      @job_branding                 = @job_skin_did.blank? ? '' : Cb.job_branding.find_by_id(@job_skid_did) 
+      @job_branding                 = @job_skin_did.blank? ? '' : Cb.job_branding.find_by_id(job_skin_did)
 
       # Compensation
       @pay                          = args['PayHighLowFormatted'] || ''
