@@ -70,4 +70,8 @@ module Cb
   def self.job_branding
     Cb::JobBrandingApi
   end
+
+  def self.email_subscription
+    Cb::EmailSubscriptionApi
+  end
 end
