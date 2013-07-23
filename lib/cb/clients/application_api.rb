@@ -2,6 +2,7 @@ require 'json'
 
 module Cb
 	class ApplicationApi
+
 	  #############################################################
     ## Get an application for a job
     ## Takes in either a Cb::CbJob, or a string (which should contain a did)
@@ -29,19 +30,7 @@ module Cb
     ## http://api.careerbuilder.com/ApplicationInfo.aspx
     #############################################################
     def self.submit_registered_app(app)
-      raise Cb::IncomingParamIsWrongTypeException unless app.is_a?(Cb::CbApplication)
-
-      my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_post(Cb.configuration.uri_application_registered, :body => app.to_xml)
-
-      json_hash = JSON.parse(cb_response.response.body)
-      begin
-        status = json_hash['ResponseApplication']['ApplicationStatus'] == 'Complete (Test)' unless json_hash.empty?
-      rescue
-          status = false
-      end
-
-      return status
+      return send_to_api(Cb.configuration.uri_application_registered, app)
     end
 
     #############################################################
@@ -51,11 +40,19 @@ module Cb
     ## http://api.careerbuilder.com/ApplicationInfo.aspx
     #############################################################
     def self.submit_app(app)
+      return send_to_api(Cb.configuration.uri_application_submit, app)
+    end
+
+    def self.send_to_api(uri, app)
       raise Cb::IncomingParamIsWrongTypeException unless app.is_a?(Cb::CbApplication)
 
       my_api = Cb::Utils::Api.new()
-      xml_hash = my_api.cb_post(Cb.configuration.uri_application_submit, :body => app.to_xml)
-      my_api.append_api_responses(app, xml_hash['ResponseApplication'])
+      cb_response = my_api.cb_post("#{uri}?ipath=#{app.ipath}", :body => app.to_xml)
+      my_api.append_api_responses(app, cb_response['ResponseApplication'])
+
+      begin
+        app.redirect_url = cb_response['ResponseApplication']['RedirectURL'] || ''
+      end
 
       return app
     end
