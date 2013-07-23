@@ -25,9 +25,15 @@ module Cb
     ## http://api.careerbuilder.com/usersubscriptionretrieve.aspx
     #############################################################
     def self.modify_subscription ext_id, career_resources, product_sponsor_info, applicant_survey_invites, job_recs, unsubscribe_all
-      if unsubscribe_all
+      if unsubscribe_all && unsubscribe_all != 'false'
         career_resources = product_sponsor_info = applicant_survey_invites = job_recs = false.to_s
       end
+
+      career_resources = career_resources.nil? ? 'false' : career_resources
+      product_sponsor_info = product_sponsor_info.nil? ? 'false' : product_sponsor_info
+      applicant_survey_invites = applicant_survey_invites.nil? ? 'false' : applicant_survey_invites
+      job_recs = job_recs.nil? ? 'false' : job_recs
+      unsubscribe_all = unsubscribe_all.nil? ? 'false' : unsubscribe_all
 
       my_api = Cb::Utils::Api.new()
 
