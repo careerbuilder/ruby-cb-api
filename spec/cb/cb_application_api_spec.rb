@@ -49,6 +49,7 @@ module Cb
       it 'should return error for bogus job did', :vcr => {:cassette_name => 'job/application/for_job'} do
         result = Cb.application.for_job 'bogus-job-did'
 
+        puts result.cb_response.errors[0]
         expect(result.cb_response.errors).to be_an_instance_of Array
         expect(result.cb_response.errors[0].length).to be >= 1
       end
@@ -60,13 +61,14 @@ module Cb
       end
 
       it 'should get incomplete status message from api' do
-        app = Cb::CbApplication.new('bogus-did', 'bogus', 'bogus', 'bogus-resume', 'this-should-be-encoded')
+        app = Cb::CbApplication.new({:job_did => 'bogus-did', :site_id => 'bogus', :co_brand => 'bogus', :resume_file_name => 'bogus-resume', :resume => 'this-should-be-encoded'})
         app.test = true
-        app.add_answer('ApplicantName', 'Jesse Retchko, PMP')
+        app.add_answer('ApplicantName', 'Foo Bar')
         app.add_answer('ApplicantEmail', 'DontSpamMeBro@gmail.com')
 
-        app = Cb.application.submit_app(app)
+        app = app.submit
         app.cb_response.application_status.should == 'Incomplete'
+        app.complete?.should == false
       end
     end
   end
