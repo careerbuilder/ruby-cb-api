@@ -12,7 +12,8 @@ module Cb
                   :uri_user_delete, :uri_user_retrieve,
                   :uri_job_branding,
                   :uri_saved_search_retrieve, :uri_saved_search_create, :uri_saved_search_update, :uri_saved_search_list,
-                  :uri_saved_job_search_create
+                  :uri_saved_job_search_create,
+                  :uri_subscription_retrieve, :uri_subscription_modify
 
     def initialize
       Cb::Utils::Country.inject_convenience_methods
@@ -31,7 +32,7 @@ module Cb
       @uri_recommendation_for_company     ||= '/Employer/JobRecommendation'
       @uri_application                    ||= '/v1/application/blank'
       @uri_application_submit             ||= '/v1/Application/submit'
-      @uri_application_registered         ||= '/v3/Application/registered'
+      @uri_application_registered         ||= '/v3/application/registered'
       @uri_application_external           ||= '/v1/application/external'
       @uri_user_change_password           ||= '/v2/User/ChangePW'
       @uri_user_delete                    ||= '/v2/User/delete'
@@ -41,6 +42,8 @@ module Cb
       @uri_saved_search_create            ||= '/v1/savedsearch/create'
       @uri_saved_search_update            ||= '/v1/savedsearch/update'
       @uri_saved_search_list              ||= '/v1/savedsearch/list'
+      @uri_subscription_retrieve          ||= '/v1/user/subscription/retrieve'
+      @uri_subscription_modify            ||= '/v1/user/subscription'
       @uri_saved_job_search_create        ||= '/v2/savedsearch/create'
     end
 
@@ -69,6 +72,8 @@ module Cb
         :uri_saved_search_create          => @uri_saved_search_create,
         :uri_saved_search_update          => @uri_saved_search_update,
         :uri_saved_search_list            => @uri_saved_search_list,
+        :uri_subscription_retrieve        => @uri_subscription_retrieve,
+        :uri_subscription_modify          => @uri_subscription_modify,
         :uri_saved_job_search_create      => @uri_saved_job_search_create
       }
     end

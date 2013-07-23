@@ -4,6 +4,7 @@ Dir[File.dirname(__FILE__) + '/cb/clients/*.rb'].each {| file| require file }
 Dir[File.dirname(__FILE__) + '/cb/criteria/*.rb'].each {| file| require file }
 Dir[File.dirname(__FILE__) + '/cb/models/*.rb'].each {| file| require file }
 require 'cb/models/branding/styles/base'
+require 'cb/models/branding/styles/css_adapter'
 Dir[File.dirname(__FILE__) + '/cb/models/**/*.rb'].each {| file| require file }
 
 module Cb
@@ -68,5 +69,9 @@ module Cb
 
   def self.job_branding
     Cb::JobBrandingApi
+  end
+
+  def self.email_subscription
+    Cb::EmailSubscriptionApi
   end
 end
