@@ -10,7 +10,7 @@ module Cb
                   :uri_application_external,
                   :uri_application_registered, :uri_user_change_password,
                   :uri_user_delete, :uri_user_retrieve,
-                  :uri_job_branding, :uri_saved_job_search_create,
+                  :uri_job_branding, :uri_tn_join_questions, :uri_saved_job_search_create,
                   :uri_subscription_retrieve, :uri_subscription_modify
 
     def initialize
