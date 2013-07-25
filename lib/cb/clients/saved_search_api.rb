@@ -19,7 +19,7 @@ module Cb
 
       saved_search = SavedSearchApi.new json_hash['SavedJobSearch']['SavedSearch']
 
-      my_api.append_api_responses user, json_hash['SavedJobSearch']
+      my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
 
       return saved_search
     end
@@ -39,7 +39,7 @@ module Cb
 
       saved_search = SavedSearchApi.new json_hash['SavedJobSearch']['SavedSearch']
 
-      my_api.append_api_responses user, json_hash['SavedJobSearch']
+      my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
 
       return saved_search
     end
@@ -73,21 +73,18 @@ module Cb
     ## For detailed information around this API please visit:
     ## http://api.careerbuilder.com/savedsearchinfo.aspx
     #############################################################
-    def self.all external_user_id
-      result = false
-
+    def self.all external_id, external_user_id
       my_api = Cb::Utils::Api.new
-      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_list, :body => build_list_request(external_user_id)
+
+      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_retrieve, :body => build_retrieve_request(external_id, external_user_id)
+
       json_hash = JSON.parse cb_response.response.body
 
-      my_api.append_api_responses result, json_hash['SavedJobSearch']
+      saved_search = SavedSearchApi.new json_hash['SavedJobSearch']['SavedSearch']
 
-      if result.cb_response.status.include? 'Success'
-        result = true
-        my_api.append_api_responses result, json_hash['SavedJobSearch']
-      end
+      my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
 
-      result
+      return saved_search
     end
 
     private
