@@ -13,13 +13,10 @@ module Cb
 
       my_api = Cb::Utils::Api.new()
       xml_hash = my_api.cb_post(Cb.configuration.uri_application_external, :body => app.to_xml)
-      my_api.append_api_responses(app, xml_hash["ResponseExternalApplication"])
-      puts xml_hash
+      my_api.append_api_responses(app, xml_hash)
 
       begin
-        unless xml_hash["ResponseExternalApplication"].nil?
-          app.apply_url = xml_hash["ResponseExternalApplication"]["ApplyUrl"] || ''
-        end
+        app.apply_url = xml_hash["ApplyUrl"] || ''
       end
 
       return app
