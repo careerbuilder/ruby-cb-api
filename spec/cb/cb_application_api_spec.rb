@@ -49,7 +49,6 @@ module Cb
       it 'should return error for bogus job did', :vcr => {:cassette_name => 'job/application/for_job'} do
         result = Cb.application.for_job 'bogus-job-did'
 
-        puts result.cb_response.errors[0]
         expect(result.cb_response.errors).to be_an_instance_of Array
         expect(result.cb_response.errors[0].length).to be >= 1
       end
