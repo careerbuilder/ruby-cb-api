@@ -100,16 +100,5 @@ module Cb
       builder.to_xml
     end
 
-    def self.build_list_request external_user_id
-      builder = Nokogiri::XML::Builder.new do
-        Request {
-          ExternalUserID_ external_user_id
-          DeveloperKey_ Cb.configuration.dev_key
-        }
-      end
-
-      builder.to_xml
-    end
-
   end
 end
