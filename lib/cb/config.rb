@@ -13,6 +13,7 @@ module Cb
                   :uri_job_branding,
                   :uri_saved_search_retrieve, :uri_saved_search_create, :uri_saved_search_update, :uri_saved_search_list,
                   :uri_saved_job_search_create,
+                  :uri_job_branding, :uri_tn_join_questions,
                   :uri_subscription_retrieve, :uri_subscription_modify
 
     def initialize
@@ -42,6 +43,7 @@ module Cb
       @uri_saved_search_create            ||= '/v1/savedsearch/create'
       @uri_saved_search_update            ||= '/v1/savedsearch/update'
       @uri_saved_search_list              ||= '/v1/savedsearch/list'
+      @uri_tn_join_questions              ||= '/talentnetwork/config/join/questions'
       @uri_subscription_retrieve          ||= '/v1/user/subscription/retrieve'
       @uri_subscription_modify            ||= '/v1/user/subscription'
       @uri_saved_job_search_create        ||= '/v2/savedsearch/create'
@@ -72,6 +74,7 @@ module Cb
         :uri_saved_search_create          => @uri_saved_search_create,
         :uri_saved_search_update          => @uri_saved_search_update,
         :uri_saved_search_list            => @uri_saved_search_list,
+        :uri_tn_join_questions            => @uri_tn_join_questions,
         :uri_subscription_retrieve        => @uri_subscription_retrieve,
         :uri_subscription_modify          => @uri_subscription_modify,
         :uri_saved_job_search_create      => @uri_saved_job_search_create
