@@ -74,4 +74,8 @@ module Cb
   def self.email_subscription
     Cb::EmailSubscriptionApi
   end
+
+  def self.saved_job_search_api
+    Cb::SavedJobSearchApi
+  end
 end
