@@ -36,7 +36,7 @@ module Cb
       @state                      = args[:State] || ''
       @is_daily_email             = args[:IsDailyEmail] || ''
       @external_id                = args[:ExternalID] || ''
-      @external_user_id           = args[:ExternalUserId] || ''
+      @external_user_id           = args[:ExternalUserID] || ''
       @dev_key                    = args[:DeveloperKey] || "#{Cb.configuration.dev_key}"
     end
 
@@ -70,6 +70,16 @@ module Cb
       ret += "<State>#{@state}</State>"
       ret += "</SearchParameters>"
       ret += "<IsDailyEmail>#{@is_daily_email}</IsDailyEmail>"
+      ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
+      ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
+      ret += "</Request>"
+
+      ret
+    end
+
+    def delete_request_xml
+      ret =  "<Request>"
+      ret += "<HostSite>#{@hostsite}</HostSite>"
       ret += "<ExternalID>#{@external_id}</ExternalID>"
       ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
       ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
@@ -77,5 +87,6 @@ module Cb
 
       ret
     end
+
   end
 end
