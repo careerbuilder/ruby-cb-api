@@ -1,5 +1,4 @@
 require 'json'
-require 'nokogiri'
 
 module Cb
   class SavedSearchApi
@@ -38,28 +37,19 @@ module Cb
 
     #############################################################
     ## Delete a Saved Search
-    ## (Returns Boolean: Cb::SavedSearchApi.delete? => true/false)
     ##
     ## For detailed information around this API please visit:
     ## http://api.careerbuilder.com/savedsearchinfo.aspx
     #############################################################
 
-    def self.delete params #developer_key, external_user_id, external_id, host_site
-      result = false
-
+    def self.delete params
       my_api = Cb::Utils::Api.new
-      #cb_response = my_api.cb_post Cb.configuration.uri_saved_search_delete, :query => {:developerkey=> developer_key, :externaluserid=> external_user_id, :externalid=> external_id, :hostsite=> host_site}
-      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_delete, CbSavedSearch.new(params).to_xml
+      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_delete, :body=>CbSavedSearch.new(params).delete_request_xml
       json_hash = JSON.parse cb_response.response.body
+      saved_search = CbSavedSearch.new json_hash
+      my_api.append_api_responses saved_search, json_hash
 
-      my_api.append_api_responses result, json_hash['SavedJobSearch']
-
-      if result.cb_response.status.include? 'Success'
-        result = true
-        my_api.append_api_responses result, json_hash['SavedJobSearch']
-      end
-
-      result
+      return saved_search
     end
 
     #############################################################
@@ -71,6 +61,7 @@ module Cb
     ## 64 character long ID.
     ##
     ## HostSite (From Saved Search List) Required*
+    ## Developer Key of the owning site for the User is Required*
     ##
     ## For detailed information around this API please visit:
     ## http://api.careerbuilder.com/savedsearchinfo.aspx
