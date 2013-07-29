@@ -13,31 +13,11 @@ module Cb
     def self.create params
       my_api = Cb::Utils::Api.new
 
-      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_create, :body => CbSavedSearch.new(params)
+      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_create, :body => CbSavedSearch.new(params).to_xml
 
       json_hash = JSON.parse cb_response.response.body
 
-      saved_search = SavedSearchApi.new json_hash['SavedJobSearch']['SavedSearch']
-
-      my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
-
-      return saved_search
-    end
-
-    #############################################################
-    ## Retrieve a Saved Search
-    ##
-    ## For detailed information around this API please visit:
-    ## http://api.careerbuilder.com/savedsearchinfo.aspx
-    #############################################################
-    def self.retrieve external_id, external_user_id
-      my_api = Cb::Utils::Api.new
-
-      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_retrieve, :body => build_retrieve_request(external_id, external_user_id)
-
-      json_hash = JSON.parse cb_response.response.body
-
-      saved_search = SavedSearchApi.new json_hash['SavedJobSearch']['SavedSearch']
+      saved_search = CbSavedSearch.new json_hash['SavedJobSearch']
 
       my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
 
@@ -54,17 +34,39 @@ module Cb
       result = false
 
       my_api = Cb::Utils::Api.new
-      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_update, :body => CbSavedSearch.new(params)
+      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_update, :body => CbSavedSearch.new(params).to_xml
       json_hash = JSON.parse cb_response.response.body
 
-      my_api.append_api_responses result, json_hash['SavedJobSearch']
+      saved_search = CbSavedSearch.new json_hash['SavedJobSearch']
 
-      if result.cb_response.status.include? 'Success'
-        result = true
-        my_api.append_api_responses result, json_hash['SavedJobSearch']
-      end
+      my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
 
       result
+    end
+
+    #############################################################
+    ## Retrieve a Saved Search
+    ##
+    ## external_id is the unique ID for the specific Saved Search
+    ## that is being requested from the API. This External_id is
+    ## found from running a SavedSearchApi.all call. This is a
+    ## 64 character long ID.
+    ##
+    ## For detailed information around this API please visit:
+    ## http://api.careerbuilder.com/savedsearchinfo.aspx
+    #############################################################
+    def self.retrieve developer_key, external_user_id, external_id
+      my_api = Cb::Utils::Api.new
+
+      cb_response = my_api.cb_get Cb.configuration.uri_saved_search_retrieve, :query => {:developerkey=> developer_key, :externaluserid=> external_user_id, :externalid=> external_id}
+
+      json_hash = JSON.parse cb_response.response.body
+
+      saved_search = CbSavedSearch.new json_hash['SavedJobSearch']
+
+      my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
+
+      return saved_search
     end
 
     #############################################################
@@ -73,31 +75,20 @@ module Cb
     ## For detailed information around this API please visit:
     ## http://api.careerbuilder.com/savedsearchinfo.aspx
     #############################################################
-    def self.all external_id, external_user_id
+    def self.list developer_key=Cb.configuration.dev_key, external_user_id
       my_api = Cb::Utils::Api.new
 
-      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_retrieve, :body => build_retrieve_request(external_id, external_user_id)
+      Cb.configuration.dev_key = developer_key
+
+      cb_response = my_api.cb_get Cb.configuration.uri_saved_search_list, :query => {:developerkey=>developer_key, :ExternalUserId=>external_user_id}
 
       json_hash = JSON.parse cb_response.response.body
 
-      saved_search = SavedSearchApi.new json_hash['SavedJobSearch']['SavedSearch']
+      saved_search = CbSavedSearch.new json_hash['SavedJobSearches']
 
-      my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
+      my_api.append_api_responses saved_search, json_hash['SavedJobSearches']
 
       return saved_search
-    end
-
-    private
-    def self.build_retrieve_request external_id, external_user_id
-      builder = Nokogiri::XML::Builder.new do
-        Request {
-          ExternalID_ external_id
-          ExternalUserID_ external_user_id
-          DeveloperKey_ Cb.configuration.dev_key
-        }
-      end
-
-      builder.to_xml
     end
 
   end
