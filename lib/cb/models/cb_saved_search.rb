@@ -4,8 +4,8 @@ module Cb
     attr_accessor :hostsite, :cobrand, :site_id, :search_name, :boolean_operator, :category, :education_code, :specific_education,
                   :emp_type, :exclude_company_names, :exclude_job_titles, :exclude_national, :industry_codes,
                   :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within, 
-                  :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_user_id, 
-                  :dev_key
+                  :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_id,
+                  :external_user_id, :dev_key
 
     def initialize(args={})
       @hostsite                   = args[:HostSite] || ''
@@ -35,6 +35,7 @@ module Cb
       @city                       = args[:City] || ''
       @state                      = args[:State] || ''
       @is_daily_email             = args[:IsDailyEmail] || ''
+      @external_id                = args[:ExternalID] || ''
       @external_user_id           = args[:ExternalUserId] || ''
       @dev_key                    = args[:DeveloperKey] || "#{Cb.configuration.dev_key}"
     end
@@ -69,6 +70,7 @@ module Cb
       ret += "<State>#{@state}</State>"
       ret += "</SearchParameters>"
       ret += "<IsDailyEmail>#{@is_daily_email}</IsDailyEmail>"
+      ret += "<ExternalID>#{@external_id}</ExternalID>"
       ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
       ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
       ret += "</Request>"
