@@ -11,7 +11,7 @@ module Cb
                   :uri_application_registered, :uri_user_change_password,
                   :uri_user_delete, :uri_user_retrieve,
                   :uri_job_branding,
-                  :uri_saved_search_retrieve, :uri_saved_search_create, :uri_saved_search_update, :uri_saved_search_list,
+                  :uri_saved_search_retrieve, :uri_saved_search_create, :uri_saved_search_update, :uri_saved_search_list, :uri_saved_search_delete,
                   :uri_saved_job_search_create,
                   :uri_job_branding, :uri_tn_join_questions,
                   :uri_subscription_retrieve, :uri_subscription_modify
@@ -42,6 +42,7 @@ module Cb
       @uri_saved_search_retrieve          ||= '/v1/savedsearch/retrieve'
       @uri_saved_search_create            ||= '/v2/savedsearch/create'
       @uri_saved_search_update            ||= '/v1/savedsearch/update'
+      @uri_saved_search_delete            ||= '/v1/savedsearch/delete'
       @uri_saved_search_list              ||= '/v1/savedsearch/list'
       @uri_tn_join_questions              ||= '/talentnetwork/config/join/questions'
       @uri_subscription_retrieve          ||= '/v1/user/subscription/retrieve'
@@ -73,6 +74,7 @@ module Cb
         :uri_saved_search_retrieve        => @uri_saved_search_retrieve,
         :uri_saved_search_create          => @uri_saved_search_create,
         :uri_saved_search_update          => @uri_saved_search_update,
+        :uri_saved_search_delete          => @uri_saved_search_delete,
         :uri_saved_search_list            => @uri_saved_search_list,
         :uri_tn_join_questions            => @uri_tn_join_questions,
         :uri_subscription_retrieve        => @uri_subscription_retrieve,
