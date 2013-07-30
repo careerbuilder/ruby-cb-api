@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::CbSavedJobSearch do 
+  describe Cb::CbSavedSearch do
     context '.new' do 
       it 'should create a new saved job search object with at least minimum required params' do
 
@@ -11,11 +11,11 @@ module Cb
         host_site = 'WR'
         search_name = 'Fake Job Search 2' 
 
-        user_saved_search = Cb::CbSavedJobSearch.new(:DeveloperKey=>dev_key, :IsDailyEmail=>email_frequency, 
-                                                      :ExternalUserId=>external_id, :SearchName=>search_name,
+        user_saved_search = Cb::CbSavedSearch.new(:DeveloperKey=>dev_key, :IsDailyEmail=>email_frequency,
+                                                      :ExternalUserID=>external_id, :SearchName=>search_name,
                                                       :HostSite=>host_site)
         
-        user_saved_search.should be_a_kind_of(Cb::CbSavedJobSearch)
+        user_saved_search.should be_a_kind_of(Cb::CbSavedSearch)
         user_saved_search.dev_key.should == dev_key
         user_saved_search.is_daily_email.should == email_frequency
         user_saved_search.hostsite.should == host_site
