@@ -89,7 +89,7 @@ module Cb
       saved_search = CbSavedSearch.new json_hash['SavedJobSearches']
       my_api.append_api_responses saved_search, json_hash['SavedJobSearches']
 
-      return saved_search
+      return json_hash
     end
 
   end
