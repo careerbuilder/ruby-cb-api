@@ -5,7 +5,7 @@ module Cb
 
     @@dev_key = 'WDHS47J77WLS2Y0N102H'
     @@external_user_id = 'XRHL79L6RX5QKDDJRKVF'
-
+    @@host_site = 'WR'
     context '.new' do
       it 'should create a new saved job search api object' do
         saved_search_request = Cb::SavedSearchApi.new
@@ -17,12 +17,11 @@ module Cb
       it 'should send a successful request to the saved search api v2' do
         #VCR.use_cassette('saved_search/successful_create_saved_search') do
           email_frequency = 'None'
-          host_site = 'WR'
           search_name = 'Fake Job Search 1'
 
           user_saved_search = Cb.saved_search_api.create({:DeveloperKey=>@@dev_key, :IsDailyEmail=>email_frequency,
                                :ExternalUserID=>@@external_user_id, :SearchName=>search_name,
-                               :HostSite=>host_site})
+                               :HostSite=>@@host_site})
 
           p "//// .create Errors: #{user_saved_search.cb_response.errors}"
 
@@ -34,12 +33,11 @@ module Cb
       it 'should fail to send a request to the saved search api v2' do
         #VCR.use_cassette('saved_search/unsuccessful_create_saved_search') do
           email_frequency = 'None'
-          host_site = 'WR'
           search_name = 'Fake Job Search 2'
 
           user_saved_search = Cb.saved_search_api.create({:IsDailyEmail=>email_frequency,
                                                           :ExternalUserID=>@@external_user_id, :SearchName=>search_name,
-                                                          :HostSite=>host_site})
+                                                          :HostSite=>@@host_site})
 
           p "//// .create2 Errors: #{user_saved_search.cb_response.errors}"
           expect(user_saved_search.cb_response.errors.nil?).to eq(false)
@@ -53,12 +51,11 @@ module Cb
         #VCR.use_cassette('saved_search/successful_create_saved_search') do
           external_id = Cb::SavedSearchApi.list(@@dev_key, @@external_user_id)
           email_frequency = 'None'
-          host_site = 'WR'
           search_name = 'Fake Job Search Update'
 
           user_saved_search = Cb.saved_search_api.update({:DeveloperKey=>@@dev_key, :IsDailyEmail=>email_frequency,
                                                           :ExternalUserID=>@@external_user_id, :SearchName=>search_name,
-                                                          :HostSite=>host_site, :ExternalID=>external_id})
+                                                          :HostSite=>@@host_site, :ExternalID=>external_id})
 
           p "//// .update Errors: #{user_saved_search.cb_response.errors}"
           expect(user_saved_search.cb_response.errors.nil?).to eq(true)
@@ -85,9 +82,8 @@ module Cb
           saved_search_list = Cb::SavedSearchApi.list(@@dev_key, @@external_user_id)
           external_id = saved_search_list['SavedJobSearches']['SavedSearches']['SavedSearch'][0]['ExternalID']
           p "////// ------- External ID: #{external_id}"
-          host_site = 'WR'
 
-          user_saved_search = Cb::SavedSearchApi.retrieve(@@dev_key, @@external_user_id, external_id, host_site)
+          user_saved_search = Cb::SavedSearchApi.retrieve(@@dev_key, @@external_user_id, external_id, @@host_site)
 
           p "//// .retrieve Errors: #{user_saved_search.cb_response.errors}"
           expect(user_saved_search.cb_response.errors.nil?).to eq(true)
@@ -100,13 +96,12 @@ module Cb
       it 'should delete the first saved search' do
         #VCR.use_cassette('saved_search/successful_create_saved_search') do
           saved_search_list = Cb::SavedSearchApi.list(@@dev_key, @@external_user_id)
-          p "////// ------- External ID: #{saved_search_list['SavedJobSearches']}"
+          p "////// ------- SavedSearch List: #{saved_search_list['SavedJobSearches']}"
           external_id = saved_search_list['SavedJobSearches']['SavedSearches']['SavedSearch'][0]['ExternalID']
           p "////// ------- External ID: #{external_id}"
-          host_site = 'WR'
 
           user_saved_search = Cb.saved_search_api.delete({:DeveloperKey=>@@dev_key, :ExternalID=>external_id,
-                                                          :ExternalUserID=>@@external_user_id, :HostSite=>host_site})
+                                                          :ExternalUserID=>@@external_user_id, :HostSite=>@@host_site})
 
           p "//// .delete Errors: #{user_saved_search.cb_response.errors}"
           expect(user_saved_search.cb_response.errors.nil?).to eq(true)
