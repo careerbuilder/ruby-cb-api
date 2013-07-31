@@ -6,6 +6,7 @@ module Cb
     @@dev_key = 'WDHS47J77WLS2Y0N102H'
     @@external_user_id = 'XRHL79L6RX5QKDDJRKVF'
     @@host_site = 'WR'
+
     context '.new' do
       it 'should create a new saved job search api object' do
         saved_search_request = Cb::SavedSearchApi.new
@@ -43,24 +44,23 @@ module Cb
       end
     end
 
-    # TODO: API Team needs to Update the update call to change IsDailyEmail to a string instead of Boolean.
-    #context '.update' do
-    #  it 'should update the saved search created in this test' do
-    #    #VCR.use_cassette('saved_search/successful_create_saved_search') do
-    #      external_id = Cb::SavedSearchApi.list(@@dev_key, @@external_user_id)
-    #      email_frequency = 'None'
-    #      search_name = 'Fake Job Search Update'
-    #
-    #      user_saved_search = Cb.saved_search_api.update({:DeveloperKey=>@@dev_key, :IsDailyEmail=>email_frequency,
-    #                                                      :ExternalUserID=>@@external_user_id, :SearchName=>search_name,
-    #                                                      :HostSite=>@@host_site, :ExternalID=>external_id})
-    #
-    #      p "//// .update Errors: #{user_saved_search.cb_response.errors}"
-    #      expect(user_saved_search.cb_response.errors.nil?).to eq(true)
-    #
-    #    #end
-    #  end
-    #end
+    context '.update' do
+      it 'should update the saved search created in this test' do
+        VCR.use_cassette('saved_search/successful_update_saved_search') do
+          saved_search_list = Cb::SavedSearchApi.list(@@dev_key, @@external_user_id)
+          external_id = saved_search_list['SavedJobSearches']['SavedSearches']['SavedSearch'][0]['ExternalID']
+          email_frequency = 'None'
+          search_name = 'Fake Job Search Update'
+
+          user_saved_search = Cb.saved_search_api.update({:DeveloperKey=>@@dev_key, :IsDailyEmail=>email_frequency,
+                                                          :ExternalUserID=>@@external_user_id, :SearchName=>search_name,
+                                                          :HostSite=>@@host_site, :ExternalID=>external_id})
+
+          expect(user_saved_search.cb_response.errors.nil?).to eq(true)
+
+        end
+      end
+    end
 
     context '.list' do
       it 'should retrieve a list of saved searches' do
