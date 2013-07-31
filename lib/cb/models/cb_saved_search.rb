@@ -40,7 +40,7 @@ module Cb
       @dev_key                    = args[:DeveloperKey] || "#{Cb.configuration.dev_key}"
     end
 
-    def to_xml
+    def create_to_xml
       ret =  "<Request>"
       ret += "<HostSite>#{@hostsite}</HostSite>"
       ret += "<Cobrand>#{@cobrand}</Cobrand>"
@@ -77,7 +77,45 @@ module Cb
       ret
     end
 
-    def delete_request_xml
+    def update_to_xml
+      ret =  "<Request>"
+      ret += "<HostSite>#{@hostsite}</HostSite>"
+      ret += "<Cobrand>#{@cobrand}</Cobrand>"
+      ret += "<SearchName>#{@search_name}</SearchName>"
+      ret += "<SearchParameters>"
+      ret += "<BooleanOperator>#{@boolean_operator}</BooleanOperator>"
+      ret += "<Category>#{@category}</Category>"
+      ret += "<EducationCode>#{@education_code}</EducationCode>"
+      ret += "<SpecificEducation>#{@specific_education}</SpecificEducation>"
+      ret += "<EmpType>#{@emp_type}</EmpType>"
+      ret += "<ExcludeCompanyNames>#{@exclude_company_names}</ExcludeCompanyNames>"
+      ret += "<ExcludeJobTitles>#{@exclude_job_titles}</ExcludeJobTitles>"
+      ret += "<ExcludeNational>#{@exclude_national}</ExcludeNational>"
+      ret += "<IndustryCodes>#{@industry_codes}</IndustryCodes>"
+      ret += "<Keywords>#{@keywords}</Keywords>"
+      ret += "<OrderBy>#{@order_by}</OrderBy>"
+      ret += "<OrderDirection>#{@order_direction}</OrderDirection>"
+      ret += "<Radius>#{@radius}</Radius>"
+      ret += "<PayHigh>#{@pay_high}</PayHigh>"
+      ret += "<PayLow>#{@pay_high}</PayLow>"
+      ret += "<PostedWithin>#{@posted_within}</PostedWithin>"
+      ret += "<PayInfoOnly>#{@pay_info_only}</PayInfoOnly>"
+      ret += "<Location>#{@location}</Location>"
+      ret += "<JobCategory>#{@job_category}</JobCategory>"
+      ret += "<Company>#{@company}</Company>"
+      ret += "<City>#{@city}</City>"
+      ret += "<State>#{@state}</State>"
+      ret += "</SearchParameters>"
+      ret += "<IsDailyEmail>#{@is_daily_email}</IsDailyEmail>"
+      ret += "<ExternalID>#{@external_id}</ExternalID>"
+      ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
+      ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
+      ret += "</Request>"
+
+      ret
+    end
+
+    def delete_to_xml
       ret =  "<Request>"
       ret += "<HostSite>#{@hostsite}</HostSite>"
       ret += "<ExternalID>#{@external_id}</ExternalID>"
