@@ -11,7 +11,7 @@ module Cb
     #############################################################
     def self.create params
       my_api = Cb::Utils::Api.new
-      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_create, :body => CbSavedSearch.new(params).to_xml
+      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_create, :body => CbSavedSearch.new(params).create_to_xml
       json_hash = JSON.parse cb_response.response.body
       saved_search = CbSavedSearch.new json_hash['SavedJobSearch']
       my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
@@ -27,7 +27,7 @@ module Cb
     #############################################################
     def self.update params
       my_api = Cb::Utils::Api.new
-      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_update, :body => CbSavedSearch.new(params).to_xml
+      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_update, :body => CbSavedSearch.new(params).update_to_xml
       json_hash = JSON.parse cb_response.response.body
       saved_search = CbSavedSearch.new json_hash['SavedJobSearch']
       my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
@@ -44,7 +44,7 @@ module Cb
 
     def self.delete params
       my_api = Cb::Utils::Api.new
-      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_delete, :body=>CbSavedSearch.new(params).delete_request_xml
+      cb_response = my_api.cb_post Cb.configuration.uri_saved_search_delete, :body=>CbSavedSearch.new(params).delete_to_xml
       json_hash = JSON.parse cb_response.response.body
       saved_search = CbSavedSearch.new json_hash
       my_api.append_api_responses saved_search, json_hash
