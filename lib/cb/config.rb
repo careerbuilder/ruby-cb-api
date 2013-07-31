@@ -41,7 +41,7 @@ module Cb
       @uri_job_branding                   ||= '/branding'
       @uri_saved_search_retrieve          ||= '/v1/savedsearch/retrieve'
       @uri_saved_search_create            ||= '/v2/savedsearch/create'
-      @uri_saved_search_update            ||= '/v1/savedsearch/update'
+      @uri_saved_search_update            ||= '/v2/savedsearch/update'
       @uri_saved_search_delete            ||= '/v1/savedsearch/delete'
       @uri_saved_search_list              ||= '/v1/savedsearch/list'
       @uri_tn_join_questions              ||= '/talentnetwork/config/join/questions'
