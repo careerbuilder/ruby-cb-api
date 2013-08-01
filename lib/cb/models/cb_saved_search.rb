@@ -5,39 +5,40 @@ module Cb
                   :emp_type, :exclude_company_names, :exclude_job_titles, :exclude_national, :industry_codes,
                   :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within, 
                   :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_id,
-                  :external_user_id, :dev_key
+                  :external_user_id, :dev_key, :jrdid
 
     def initialize(args={})
-      @hostsite                   = args[:HostSite] || ''
-      @cobrand                    = args[:Cobrand] || ''
-      @search_name                = args[:SearchName] || ''
-      @site_id                    = args[:SiteId] || ''
-      @boolean_operator           = args[:BooleanOperator] || ''
-      @category                   = args[:Category] || ''
-      @education_code             = args[:EducationCode] || ''
-      @specific_education         = args[:SpecificEducation] || false
-      @emp_type                   = args[:EmpType] || ''
-      @exclude_company_names      = args[:ExcludeCompanyNames] || ''
-      @exclude_job_titles         = args[:ExcludeJobTitles] || ''
-      @exclude_national           = args[:ExcludeNational] || false
-      @industry_codes             = args[:IndustryCodes] || ''
-      @keywords                   = args[:Keywords] || ''
-      @order_by                   = args[:OrderBy] || ''
-      @order_direction            = args[:OrderDirection] || ''
-      @radius                     = args[:Radius] || 30
-      @pay_high                   = args[:PayHigh] || 0
-      @pay_low                    = args[:PayLow] ||  0
-      @posted_within              = args[:PostedWithin] || 30
-      @pay_info_only              = args[:PayInfoOnly] || false
-      @location                   = args[:Location] || ''
-      @job_category               = args[:JobCategory] || ''
-      @company                    = args[:Company] || ''
-      @city                       = args[:City] || ''
-      @state                      = args[:State] || ''
-      @is_daily_email             = args[:IsDailyEmail] || ''
-      @external_id                = args[:ExternalID] || ''
-      @external_user_id           = args[:ExternalUserID] || ''
-      @dev_key                    = args[:DeveloperKey] || "#{Cb.configuration.dev_key}"
+      @hostsite                   = args['HostSite'] || ''
+      @cobrand                    = args['Cobrand'] || ''
+      @search_name                = args['SearchName'] || ''
+      @site_id                    = args['SiteId'] || ''
+      @boolean_operator           = args['BooleanOperator'] || ''
+      @category                   = args['Category'] || ''
+      @education_code             = args['EducationCode'] || ''
+      @specific_education         = args['SpecificEducation'] || false
+      @emp_type                   = args['EmpType'] || ''
+      @exclude_company_names      = args['ExcludeCompanyNames'] || ''
+      @exclude_job_titles         = args['ExcludeJobTitles'] || ''
+      @exclude_national           = args['ExcludeNational'] || false
+      @industry_codes             = args['IndustryCodes'] || ''
+      @keywords                   = args['Keywords'] || ''
+      @order_by                   = args['OrderBy'] || ''
+      @order_direction            = args['OrderDirection'] || ''
+      @radius                     = args['Radius'] || 30
+      @pay_high                   = args['PayHigh'] || 0
+      @pay_low                    = args['PayLow'] ||  0
+      @posted_within              = args['PostedWithin'] || 30
+      @pay_info_only              = args['PayInfoOnly'] || false
+      @location                   = args['Location'] || ''
+      @job_category               = args['JobCategory'] || ''
+      @company                    = args['Company'] || ''
+      @city                       = args['City'] || ''
+      @state                      = args['State'] || ''
+      @is_daily_email             = args['IsDailyEmail'] || ''
+      @external_id                = args['ExternalID'] || ''
+      @external_user_id           = args['ExternalUserID'] || ''
+      @dev_key                    = args['DeveloperKey'] || ''
+      @jrdid                      = args['JRDID'] || ''
     end
 
     def create_to_xml
