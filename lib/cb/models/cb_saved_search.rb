@@ -5,7 +5,7 @@ module Cb
                   :emp_type, :exclude_company_names, :exclude_job_titles, :exclude_national, :industry_codes,
                   :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within, 
                   :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_id,
-                  :external_user_id, :dev_key, :jrdid
+                  :external_user_id, :dev_key, :job_search_url, :jrdid
 
     def initialize(args={})
       @hostsite                   = args['HostSite'] || ''
@@ -38,6 +38,7 @@ module Cb
       @external_id                = args['ExternalID'] || ''
       @external_user_id           = args['ExternalUserID'] || ''
       @dev_key                    = args['DeveloperKey'] || ''
+      @job_search_url             = args['JobSearchUrl'] || ''
       @jrdid                      = args['JRDID'] || ''
     end
 
