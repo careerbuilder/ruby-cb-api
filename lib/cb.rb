@@ -50,6 +50,10 @@ module Cb
   def self.recommendation
     Cb::RecommendationApi
   end
+
+  def self.resume
+    Cb::ResumeApi
+  end
   
   def self.application
     Cb::ApplicationApi
