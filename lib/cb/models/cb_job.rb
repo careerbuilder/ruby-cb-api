@@ -5,7 +5,7 @@ module Cb
                   :industry_codes, :manages_others_code,
                   :contact_email_url, :contact_fax, :contact_name, :contact_phone,
                   :company_name, :company_did, :company_details_url, :company_image_url, :company,
-                  :description_teaser, :location, :distance, :latitude, :longitude, :location_formatted,
+                  :description_teaser, :external_apply_url, :job_tracking_url, :location, :distance, :latitude, :longitude, :location_formatted,
                   :description, :requirements, :employment_type,
                   :details_url, :service_url, :similar_jobs_url, :apply_url,
                   :begin_date, :end_date, :posted_date,
@@ -29,9 +29,12 @@ module Cb
       @latitude                     = args['LocationLatitude'] || ''
       @longitude                    = args['LocationLongitude'] || ''
       @location_formatted           = args['LocationFormatted'] || ''
+
+      # Job Skin Related
       @job_skin                     = args.has_key?("JobSkin") && !args["JobSkin"].nil? ? args['JobSkin']['#cdata-section'] : ''
       @job_skin_did                 = args['JobSkinDID'] || ''
       @job_branding                 = @job_skin_did.blank? ? '' : Cb.job_branding.find_by_id(job_skin_did)
+      @job_tracking_url             = args['JobTrackingURL'] || ''
 
       # Compensation
       @pay                          = args['PayHighLowFormatted'] || ''
@@ -74,6 +77,7 @@ module Cb
 
       # Application
       @apply_url                    = args['ApplyURL'] || ''
+      @external_apply_url           = args['ExternalApplyURL'] || ''
       @external_application         = args['ExternalApplication'] || ''
       @is_screener_apply            = args['IsScreenerApply'] || ''
       @is_shared_job                = args['IsSharedJob'] || ''
