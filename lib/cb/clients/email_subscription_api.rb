@@ -8,9 +8,9 @@ module Cb
     ## For detailed information around this API please visit:
     ## http://api.careerbuilder.com/usersubscriptionretrieve.aspx
     #############################################################
-    def self.retrieve_by_did(did)
+    def self.retrieve_by_did(did, host_site = '')
       my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_get(Cb.configuration.uri_subscription_retrieve, :query => {:ExternalID => did})
+      cb_response = my_api.cb_get(Cb.configuration.uri_subscription_retrieve, :query => {:ExternalID => did, :Hostsite => host_site})
       json_hash = JSON.parse(cb_response.response.body)
       subscription = CbEmailSubscription.new(json_hash['SubscriptionValues'])
 
@@ -24,7 +24,7 @@ module Cb
     ## For detailed information around this API please visit:
     ## http://api.careerbuilder.com/usersubscriptionretrieve.aspx
     #############################################################
-    def self.modify_subscription ext_id, career_resources, product_sponsor_info, applicant_survey_invites, job_recs, unsubscribe_all
+    def self.modify_subscription ext_id, host_site, career_resources, product_sponsor_info, applicant_survey_invites, job_recs, unsubscribe_all
       if unsubscribe_all && unsubscribe_all != 'false'
         career_resources = product_sponsor_info = applicant_survey_invites = job_recs = false.to_s
       end
@@ -40,6 +40,7 @@ module Cb
       xml_body = "<Request>"
       xml_body += "<DeveloperKey>" + Cb.configuration.dev_key.to_s + "</DeveloperKey>"
       xml_body += "<ExternalID>" + ext_id.to_s + "</ExternalID>"
+      xml_body += "<Hostsite>" + host_site.to_s + "</Hostsite>"
       xml_body += "<CareerResources>" + career_resources.to_s + "</CareerResources>"
       xml_body += "<ProductSponsorInfo>" + product_sponsor_info.to_s + "</ProductSponsorInfo>"
       xml_body += "<ApplicantSurveyInvites>" + applicant_survey_invites.to_s + "</ApplicantSurveyInvites>"
