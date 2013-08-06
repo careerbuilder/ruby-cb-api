@@ -5,10 +5,11 @@ module Cb
     context '.retrieve_by_did' do
       it 'retrieve a users email subscription and update it' do
         did = 'XRHS6FP78P5H30WLMB4G'
-        subscription = Cb.email_subscription.retrieve_by_did(did)
+        subscription = Cb.email_subscription.retrieve_by_did(did, 'WR')
 
         test_subscription = Cb.email_subscription.modify_subscription(
             did,
+            'WR',
             subscription.career_resources,
             subscription.product_sponsor_info,
             subscription.applicant_survey_invites,
@@ -25,10 +26,11 @@ module Cb
       end
       it 'retrieve a users email subscription and unsubscribe to all' do
         did = 'XRHS6FP78P5H30WLMB4G'
-        subscription = Cb.email_subscription.retrieve_by_did(did)
+        subscription = Cb.email_subscription.retrieve_by_did(did, 'WR')
 
         test_subscription = Cb.email_subscription.modify_subscription(
             did,
+            'WR',
             subscription.career_resources,
             subscription.product_sponsor_info,
             subscription.applicant_survey_invites,
@@ -45,12 +47,13 @@ module Cb
       end
       it 'retrieve a users email subscription and update it' do
         did = 'XRHS6FP78P5H30WLMB4G'
-        subscription = Cb.email_subscription.retrieve_by_did(did)
+        subscription = Cb.email_subscription.retrieve_by_did(did, 'WR')
         subscription.applicant_survey_invites = true
         subscription.career_resources = true
 
         test_subscription = Cb.email_subscription.modify_subscription(
             did,
+            'WR',
             subscription.career_resources,
             subscription.product_sponsor_info,
             subscription.applicant_survey_invites,
