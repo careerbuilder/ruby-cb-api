@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.name        = 'cb-api'
   s.version     = Cb::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ['Jesse Retchko', 'Chris Little', 'Matthew Moldavan', 'Miriam Williams', 'David Posey', 'Kyle Bumpus', 'Ben Schmaltz']
-  s.email       = ['Jesse.Retchko@Careerbuilder.com', 'Chris.Little@Careerbuilder.com', 'Matt.Moldavan@Careerbuilder.com' 'MiriamDeana@gmail.com', 'David.Posey@Careerbuilder.com', 'Kyle.Bumpus@Careerbuilder.com', 'Ben.Schmaltz@Careerbuilder.com']
+  s.authors     = ['Jesse Retchko', 'Chris Little', 'Matthew Moldavan', 'Miriam Williams', 'David Posey', 'Kyle Bumpus', 'Jon Molinaro', 'Ben Schmaltz']
+  s.email       = ['Jesse.Retchko@Careerbuilder.com', 'Chris.Little@Careerbuilder.com', 'Matt.Moldavan@Careerbuilder.com', 'Jon.Molinaro@careerbuilder.com', 'MiriamDeana@gmail.com', 'David.Posey@Careerbuilder.com', 'Kyle.Bumpus@Careerbuilder.com', 'Ben.Schmaltz@Careerbuilder.com']
   s.homepage    = 'http://api.careerbuilder.com'
   s.summary     = 'Ruby wrapper around Careerbuilder Public API.'
   s.description = 'Ruby wrapper for Careerbuilder Public API.'
