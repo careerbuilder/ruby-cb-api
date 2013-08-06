@@ -11,7 +11,9 @@ module Cb
                   :uri_application_registered, :uri_user_change_password,
                   :uri_user_delete, :uri_user_retrieve,
                   :uri_job_branding,
-                  :uri_saved_search_retrieve, :uri_saved_search_create, :uri_saved_search_update, :uri_saved_search_list,
+                  :uri_resume_own_all, :uri_resume_retrieve,
+                  :uri_resume_create, :uri_resume_update, :uri_resume_delete,
+                  :uri_saved_search_retrieve, :uri_saved_search_create, :uri_saved_search_update, :uri_saved_search_list, :uri_saved_search_delete,
                   :uri_saved_job_search_create,
                   :uri_job_branding, :uri_tn_join_questions,
                   :uri_subscription_retrieve, :uri_subscription_modify
@@ -39,9 +41,15 @@ module Cb
       @uri_user_delete                    ||= '/v2/User/delete'
       @uri_user_retrieve                  ||= '/v2/user/retrieve'
       @uri_job_branding                   ||= '/branding'
+      @uri_resume_own_all                 ||= '/v2/resume/ownall'
+      @uri_resume_retrieve                ||= '/v2/resume/retrieve'
+      @uri_resume_create                  ||= '/v2/resume/create'
+      @uri_resume_update                  ||= '/v2/resume/update'
+      @uri_resume_delete                  ||= '/v2/resume/delete'
       @uri_saved_search_retrieve          ||= '/v1/savedsearch/retrieve'
-      @uri_saved_search_create            ||= '/v1/savedsearch/create'
-      @uri_saved_search_update            ||= '/v1/savedsearch/update'
+      @uri_saved_search_create            ||= '/v2/savedsearch/create'
+      @uri_saved_search_update            ||= '/v2/savedsearch/update'
+      @uri_saved_search_delete            ||= '/v1/savedsearch/delete'
       @uri_saved_search_list              ||= '/v1/savedsearch/list'
       @uri_tn_join_questions              ||= '/talentnetwork/config/join/questions'
       @uri_subscription_retrieve          ||= '/v1/user/subscription/retrieve'
@@ -67,12 +75,19 @@ module Cb
         :uri_application                  => @uri_application,
         :uri_application_submit           => @uri_application_submit,
         :uri_application_registered       => @uri_application_registered,
+        :uri_application_external         => @uri_application_external,
         :uri_user_change_password         => @uri_user_change_password,
         :uri_user_retrieve                => @uri_user_retrieve,
         :uri_job_branding                 => @uri_job_branding,
+        :uri_resume_own_all               => @uri_resume_own_all,
+        :uri_resume_retrieve              => @uri_resume_retrieve,
+        :uri_resume_create                => @uri_resume_create,
+        :uri_resume_update                => @uri_resume_update,
+        :uri_resume_delete                => @uri_resume_delete,
         :uri_saved_search_retrieve        => @uri_saved_search_retrieve,
         :uri_saved_search_create          => @uri_saved_search_create,
         :uri_saved_search_update          => @uri_saved_search_update,
+        :uri_saved_search_delete          => @uri_saved_search_delete,
         :uri_saved_search_list            => @uri_saved_search_list,
         :uri_tn_join_questions            => @uri_tn_join_questions,
         :uri_subscription_retrieve        => @uri_subscription_retrieve,
