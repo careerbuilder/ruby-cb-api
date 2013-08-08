@@ -5,7 +5,6 @@ module Cb
     class Api
       include HTTParty
       base_uri 'http://api.careerbuilder.com'
-      debug_output $stderr
 
       def initialize
         self.class.debug_output $stderr if Cb.configuration.debug_api
