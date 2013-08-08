@@ -34,7 +34,6 @@ module Cb
       @modified_dt              = args['ModifiedDT'] || ''
       @categories               = args['Categories'] || ''
       @resume_text              = args['ResumeText'] || ''
-      @languages                = !args['Languages'].nil? ? args['Languages']['Language'] : ''
       @stats_searches           = !args['Stats'].nil? ? args['Stats']['Searches'] : -1
       @stats_clicks             = !args['Stats'].nil? ? args['Stats']['Clicks'] : -1
       @stats_applications       = !args['Stats'].nil? ? args['Stats']['Applications'] : -1
@@ -46,29 +45,50 @@ module Cb
       @test = false
 
       @company_experiences = []
-      if args.has_key?('CompanyExperiences')
-        unless args['CompanyExperiences'].empty?
-          args['CompanyExperiences']['CompanyExperience'].each do | qq |
-            @company_experiences << CbResume::CbCompanyExperience.new(qq)
+      if args.has_key?('CompanyExperiences') && !args['CompanyExperiences'].blank?
+        ce = args['CompanyExperiences']['CompanyExperience']
+        if ce.is_a? Array
+          ce.each do | hi |
+            @company_experiences << CbResume::CbCompanyExperience.new(hi)
           end
+        elsif ce.is_a? Hash
+          @company_experiences << CbResume::CbCompanyExperience.new(ce)
         end
       end
 
       @educations = []
-      if args.has_key?('Educations')
-        unless args['Educations'].empty?
-          args['Educations']['Education'].each do | qq |
-            @educations << CbResume::CbEducation.new(qq)
+      if args.has_key?('Educations') && !args['Educations'].blank?
+        ed = args['Educations']['Education']
+        if ed.is_a? Array
+          ed.each do | hello |
+            @educations << CbResume::CbEducation.new(hello)
           end
+        elsif ed.is_a? Hash
+          @educations << CbResume::CbEducation.new(ed)
+        end
+      end
+
+      @languages = []
+      if args.has_key?('Languages') && !args['Languages'].blank?
+        la = args['Languages']['Language']
+        if la.is_a? Array
+          la.each do | greetings |
+            @languages << CbResume::CbLanguage.new(greetings)
+          end
+        elsif la.is_a? String
+          @languages << CbResume::CbLanguage.new(la)
         end
       end
 
       @custom_values = []
-      if args.has_key?('CustomValues')
-        unless args['CustomValues'].empty?
-          args['CustomValues']['CustomValue'].each do | qq |
-            @custom_values << CbResume::CbCustomValue.new(qq)
+      if args.has_key?('CustomValues') && !args['CustomValues'].blank?
+        cv = args['CustomValues']['CustomValue']
+        if cv.is_a? Array
+          cv.each do | hola |
+            @custom_values << CbResume::CbCustomValue.new(hola)
           end
+        elsif cv.is_a? Hash
+          @custom_values << CbResume::CbCustomValue.new(cv)
         end
       end
     end
@@ -85,8 +105,74 @@ module Cb
       @educations << CbResume::CbEducation.new(params)
     end
 
+    def add_language(params)
+      @languages << CbResume::CbLanguage.new(params)
+    end
+
     def add_custom_value(params)
       @custom_values << CbResume::CbCustomValue.new(params)
+    end
+
+    def custom_value custom_value_key
+      custom_value = ""
+
+      @custom_values.each do |cv|
+        custom_value = cv.value if cv.key == custom_value_key
+      end
+
+      return custom_value
+    end
+
+    def current_employed
+      custom_value "CURR_EMPLYD"
+    end
+
+    def desired_job_type
+      custom_value "DES_JOB_TYP"
+    end
+
+    def experience_in_months
+      custom_value "EXP_MNS"
+    end
+
+    def job_type
+      custom_value "JOB_TYP"
+    end
+
+    def recent_income
+      custom_value "RCNT_INCM"
+    end
+
+    def recent_income_currency_type
+      custom_value "RCNT_INCM_CRCY_TYP"
+    end
+
+    def recent_income_type
+      custom_value "RCNT_INCM_TYP"
+    end
+
+    def it_skill
+      custom_value "IT_SKILLS"
+    end
+
+    def certifications
+      custom_value "CERTS"
+    end
+
+    def management_experience
+      custom_value "MGMT_EXP"
+    end
+
+    def lang_prof(id_lang)
+      custom_value "LANG_PROF" + id_lang
+    end
+
+    def langs
+      custom_value "LANGS"
+    end
+
+    def lang(id_lang)
+      custom_value "LANG" + id_lang
     end
   end
 
@@ -113,6 +199,14 @@ module Cb
       @degree_code      = args['DegreeCode'] || ''
       @graduation_date  = args['GraduationDate'] || ''
       @gpa              = args['GPA'] || ''
+    end
+  end
+
+  class CbResume::CbLanguage
+    attr_accessor :name
+
+    def initialize(code = '')
+      @name             = code
     end
   end
 
