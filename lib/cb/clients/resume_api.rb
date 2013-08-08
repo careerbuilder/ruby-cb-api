@@ -49,8 +49,8 @@ module Cb
       cb_response = my_api.cb_get(Cb.configuration.uri_resume_retrieve, :query => params)
       json_hash = JSON.parse(cb_response.response.body)
 
-      resume = Cb::CbResume.new json_hash
-      my_api.append_api_responses resume, json_hash
+      resume = Cb::CbResume.new json_hash['ResponseRetrieve']['Resume']
+      my_api.append_api_responses resume, json_hash['ResponseRetrieve']
 
       return resume
     end
@@ -67,8 +67,8 @@ module Cb
       cb_response = my_api.cb_get(Cb.configuration.uri_resume_retrieve, :query => params)
       json_hash = JSON.parse(cb_response.response.body)
 
-      resume = resume.set_attributes json_hash
-      my_api.append_api_responses resume, json_hash
+      resume = resume.set_attributes json_hash['ResponseRetrieve']['Resume']
+      my_api.append_api_responses resume, json_hash['ResponseRetrieve']
 
       return resume
     end
