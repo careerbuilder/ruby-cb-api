@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cb-api (0.2.2)
+    cb-api (0.2.5)
       httparty (~> 0.11.0)
       json (~> 1.7.6)
       nori (~> 2.2.0)
@@ -18,7 +18,7 @@ GEM
       multi_xml (>= 0.5.2)
     json (1.7.7)
     multi_json (1.7.7)
-    multi_xml (0.5.4)
+    multi_xml (0.5.5)
     nokogiri (1.5.10)
     nori (2.2.0)
     rake (10.1.0)
