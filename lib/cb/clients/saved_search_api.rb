@@ -89,15 +89,16 @@ module Cb
       my_api = Cb::Utils::Api.new
       cb_response = my_api.cb_get Cb.configuration.uri_saved_search_list, :query => {:developerkey=>developer_key, :ExternalUserId=>external_user_id}
       json_hash = JSON.parse cb_response.response.body
+      saved_search_hash = json_hash['SavedJobSearches']['SavedSearches']
 
       saved_searches = []
-      unless json_hash.empty?
-        if json_hash['SavedJobSearches']['SavedSearches']['SavedSearch'].is_a?(Array)
-          json_hash['SavedJobSearches']['SavedSearches']['SavedSearch'].each do |saved_search|
+      if saved_search_hash.present?
+        if saved_search_hash['SavedSearch'].is_a?(Array)
+          saved_search_hash['SavedSearch'].each do |saved_search|
             saved_searches << CbSavedSearch.new(saved_search)
           end
-        elsif json_hash['SavedJobSearches']['SavedSearches']['SavedSearch'].is_a?(Hash) && json_hash.length < 2
-          saved_searches << CbSavedSearch.new(json_hash['SavedJobSearches']['SavedSearches']['SavedSearch'])
+        elsif saved_search_hash['SavedSearch'].is_a?(Hash) && json_hash.length < 2
+          saved_searches << CbSavedSearch.new(saved_search_hash['SavedSearch'])
         end
       end
 
