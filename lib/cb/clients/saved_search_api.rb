@@ -92,7 +92,7 @@ module Cb
       saved_search_hash = json_hash['SavedJobSearches']['SavedSearches']
 
       saved_searches = []
-      if saved_search_hash.present?
+      unless saved_search_hash.nil?
         if saved_search_hash['SavedSearch'].is_a?(Array)
           saved_search_hash['SavedSearch'].each do |saved_search|
             saved_searches << CbSavedSearch.new(saved_search)
