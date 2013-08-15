@@ -14,8 +14,13 @@ module Cb
       my_api = Cb::Utils::Api.new
       cb_response = my_api.cb_post Cb.configuration.uri_saved_search_create, :body => CbSavedSearch.new(args).create_to_xml
       json_hash = JSON.parse cb_response.response.body
-      saved_search = CbSavedSearch.new json_hash['SavedJobSearch']['SavedSearch']
-      my_api.append_api_responses saved_search, json_hash['SavedJobSearch']['SavedSearch']
+      unless json_hash['SavedJobSearch']['SavedSearch'].nil?
+        saved_search = CbSavedSearch.new json_hash['SavedJobSearch']['SavedSearch']
+      else
+        saved_search = CbSavedSearch.new json_hash['SavedJobSearch']
+      end
+
+      my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
 
       return saved_search
     end
@@ -31,8 +36,8 @@ module Cb
       my_api = Cb::Utils::Api.new
       cb_response = my_api.cb_post Cb.configuration.uri_saved_search_update, :body => CbSavedSearch.new(args).update_to_xml
       json_hash = JSON.parse cb_response.response.body
-      saved_search = CbSavedSearch.new json_hash['SavedJobSearch']['SavedSearch']
-      my_api.append_api_responses saved_search, json_hash['SavedJobSearch']['SavedSearch']
+      saved_search = CbSavedSearch.new json_hash['SavedJobSearch']
+      my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
 
       return saved_search
     end
