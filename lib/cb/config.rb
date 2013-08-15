@@ -15,7 +15,8 @@ module Cb
                   :uri_resume_create, :uri_resume_update, :uri_resume_delete,
                   :uri_saved_search_retrieve, :uri_saved_search_create, :uri_saved_search_update, :uri_saved_search_list, :uri_saved_search_delete,
                   :uri_saved_job_search_create,
-                  :uri_job_branding, :uri_tn_join_questions,
+                  :uri_job_branding, :uri_tn_join_questions, :uri_tn_job_info, :uri_tn_join_form_geo,
+                  :uri_tn_join_form_branding, :uri_tn_member_create,
                   :uri_subscription_retrieve, :uri_subscription_modify
 
     def initialize
@@ -52,6 +53,10 @@ module Cb
       @uri_saved_search_delete            ||= '/v1/savedsearch/delete'
       @uri_saved_search_list              ||= '/v1/savedsearch/list'
       @uri_tn_join_questions              ||= '/talentnetwork/config/join/questions'
+      @uri_tn_job_info                    ||= '/talentnetwork/internal/job'
+      @uri_tn_join_form_geo               ||= '/tn/JoinForm/Geo'
+      @uri_tn_join_form_branding          ||= '/talentnetwork/config/layout/branding'
+      @uri_tn_member_create               ||= '/talentnetwork/member/create'
       @uri_subscription_retrieve          ||= '/v1/user/subscription/retrieve'
       @uri_subscription_modify            ||= '/v1/user/subscription'
       @uri_saved_job_search_create        ||= '/v2/savedsearch/create'
