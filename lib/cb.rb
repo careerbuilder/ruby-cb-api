@@ -86,4 +86,8 @@ module Cb
   def self.saved_search_api
     Cb::SavedSearchApi
   end
+
+  def self.talent_network_api
+    Cb::TalentNetworkApi
+  end
 end
