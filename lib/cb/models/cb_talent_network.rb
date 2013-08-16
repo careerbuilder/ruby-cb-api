@@ -49,7 +49,7 @@ module Cb
     def initialize(args={})
       @join_form_url                    = args['JoinFormUrl'] || ''
       @tn_did                           = args['sTNDID'] || ''
-      @join_form_intercept_enabled      = args['JoinFormInterceptEnabled'] || ''
+      @join_form_intercept_enabled      = args['JoinFormInterceptEnabled'].to_s || ''
     end
   end
 end
