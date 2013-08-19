@@ -11,9 +11,9 @@ module Cb
         host_site = 'WR'
         search_name = 'Fake Job Search 2' 
 
-        user_saved_search = Cb::CbSavedSearch.new(:DeveloperKey=>dev_key, :IsDailyEmail=>email_frequency,
-                                                      :ExternalUserID=>external_id, :SearchName=>search_name,
-                                                      :HostSite=>host_site)
+        user_saved_search = Cb::CbSavedSearch.new('DeveloperKey'=>dev_key, 'IsDailyEmail'=>email_frequency,
+                                                      'ExternalUserID'=>external_id, 'SearchName'=>search_name,
+                                                      'HostSite'=>host_site)
         
         user_saved_search.should be_a_kind_of(Cb::CbSavedSearch)
         user_saved_search.dev_key.should == dev_key
