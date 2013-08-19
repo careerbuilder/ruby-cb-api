@@ -20,8 +20,15 @@ module Cb
 		def self.join_form_branding(tndid)
 			## Gets branding information (stylesheets, copytext, etc...) for the join form.
 			my_api = Cb::Utils::Api.new
-			cb_response = my_api.cb_get("#{Cb.configuration.uri_tn_join_form_branding}/#{tndid}")
+
+			cb_response = my_api.cb_get("#{Cb.configuration.uri_tn_join_form_branding}/#{tndid}/json")
 			json_hash = JSON.parse(cb_response.response.body)
+
+			tn_join_form_branding = TalentNetwork::JoinFormBranding.new(json_hash['Branding'])
+			my_api.append_api_responses(tn_join_form_branding, json_hash)
+
+			return tn_join_form_branding
+
 		end
 
 		def self.join_form_geography(tnlanguage="USEnglish")
@@ -31,6 +38,9 @@ module Cb
 			json_hash = JSON.parse(cb_response.response.body)
 
 			geo_dropdown = TalentNetwork::JoinFormGeo.new(json_hash)
+			my_api.append_api_responses(geo_dropdown, json_hash)
+
+			return geo_dropdown
 		end
 
 		def self.member_create
