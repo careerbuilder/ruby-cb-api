@@ -185,4 +185,39 @@ module Cb
       end
     end
   end
+
+  describe TalentNetwork::JoinFormBranding do 
+    context '.new' do 
+      it 'should create a new join form branding object' do 
+        jfb_obj = TalentNetwork::JoinFormBranding.new
+        expect(jfb_obj.class).to be == TalentNetwork::JoinFormBranding
+      end
+
+      it 'should return no branding information when args are not supplied' do 
+        jfb_obj = TalentNetwork::JoinFormBranding.new
+        jfb_obj.stylesheet_url.should == ''
+        jfb_obj.join_logo_image_url.should == ''
+        jfb_obj.join_custom_msg_html.should == ''
+        jfb_obj.button_color.should == ''
+        jfb_obj.mobile_logo_image_url.should == ''
+        jfb_obj.nav_color.should == ''
+        jfb_obj.site_path.should == ''
+      end
+
+      it 'should return branding info when args supplied' do 
+        args = Hash.new
+        args['StylesheetURL'] = 'https://blah.com/my.css'
+        args['JoinLogoImageURL'] = 'https://secure.com/my.png'
+
+        jfb_obj = TalentNetwork::JoinFormBranding.new(args)
+        jfb_obj.stylesheet_url.should == args['StylesheetURL']
+        jfb_obj.join_logo_image_url.should == args['JoinLogoImageURL']
+        jfb_obj.join_custom_msg_html.should == ''
+        jfb_obj.button_color.should == ''
+        jfb_obj.mobile_logo_image_url.should == ''
+        jfb_obj.nav_color.should == ''
+        jfb_obj.site_path.should == ''
+      end
+    end
+  end
 end
