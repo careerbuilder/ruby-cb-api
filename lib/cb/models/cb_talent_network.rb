@@ -75,7 +75,7 @@ module Cb
       value = Array.new
       display_val = Array.new
       @geo_hash = Hash.new
-      
+
       if args.has_key?('Value')
         args['Value'].each do |val|
           value << val
@@ -102,4 +102,18 @@ module Cb
     end
   end
 
+  class TalentNetwork::JoinFormBranding
+    attr_accessor :stylesheet_url, :join_logo_image_url, :join_custom_msg_html, :button_color, 
+                  :mobile_logo_image_url, :nav_color, :site_path
+
+    def initialize(args={})
+      @stylesheet_url                   = args['StylesheetURL'] || ''
+      @join_logo_image_url              = args['JoinLogoImageURL'] || ''
+      @join_custom_msg_html             = args['JoinCustomMsgHTML'] || ''
+      @button_color                     = args['ButtonColor'] || ''
+      @mobile_logo_image_url            = args['MobileLogoImageURL'] || ''
+      @nav_color                        = args['NavColor'] || ''
+      @site_path                        = args['SitePath'] || ''
+    end
+  end
 end
