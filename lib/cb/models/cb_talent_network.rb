@@ -20,7 +20,7 @@ module Cb
       @form_value           = args['Form'] || ''
       @option_display_type  = args['OptionDisplayType'] || ''
       @order                = args['Order'] || ''
-      @required             = args['Required'] || ''
+      @required             = args['Required'].to_s || ''
       @options              = Array.new
       if args.has_key?('Options')
         args['Options'].each do |option_values|
