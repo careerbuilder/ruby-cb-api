@@ -5,7 +5,7 @@ module Cb
   describe Cb::ApplicationApi do
     context '.for_job' do
       it 'should return valid application schema', :vcr => {:cassette_name => 'job/application/for_job'} do
-          search = Cb.job_search_criteria.location('Atlanta, GA').radius(10).keywords('customcodes:CBDEV_applyurlno').search()
+          search = Cb.job_search_criteria.location('Atlanta, GA').radius(150).keywords('customcodes:CBDEV_applyurlno').search()
           job = search[Random.new.rand(0..24)]
 
           result = Cb.application.for_job job
