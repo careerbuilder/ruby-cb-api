@@ -10,7 +10,7 @@ module Cb
 
       it 'should return no join questions on create' do 
         tn_obj = Cb::TalentNetwork.new
-        tn_obj.join_form_questions.size == 0
+        tn_obj.join_form_questions.size.should == 0
       end
 
       it 'should return at least one join question' do 
@@ -27,7 +27,7 @@ module Cb
         ]
 
         tn_obj = Cb::TalentNetwork.new(args)
-        tn_obj.join_form_questions.size > 0
+        tn_obj.join_form_questions.size.should > 0
       end
     end
   end
@@ -46,7 +46,7 @@ module Cb
         q_obj.option_display_type.should == ''
         q_obj.order.should == ''
         q_obj.required.should == ''
-        q_obj.options.size == 0
+        q_obj.options.size.should == 0
       end
 
       it 'should return tn questions supplied into args' do 
@@ -61,7 +61,7 @@ module Cb
         q_obj.option_display_type.should == args['OptionDisplayType']
         q_obj.order.should == ''
         q_obj.required.should == ''
-        q_obj.options.size == 0
+        q_obj.options.size.should == 0
       end
 
       it 'should return at least one tn option' do
@@ -75,7 +75,7 @@ module Cb
         ]
 
         q_obj = TalentNetwork::Questions.new(args)
-        q_obj.options.size > 0
+        q_obj.options.size.should > 0
       end
     end
   end
@@ -133,4 +133,56 @@ module Cb
     end
   end
 
+  describe TalentNetwork::JoinFormGeo do 
+    context '.new' do 
+      it 'should create a join form geo object' do 
+        jfgeo_obj = TalentNetwork::JoinFormGeo.new
+        expect(jfgeo_obj.class).to be == TalentNetwork::JoinFormGeo
+      end
+
+      it 'should return empty countries and states when no args supplied' do
+        jfgeo_obj = TalentNetwork::JoinFormGeo.new
+        jfgeo_obj.countries.size.should == 0
+        jfgeo_obj.states.size.should == 0
+      end
+
+      it 'should return countries and states as a hash when args supplied' do 
+        args = Hash.new
+        args['Countries'] = {
+          "Value" => ['aa', 'bb', 'cc'],
+          "Display" => ['aaaaa', 'bbbbb', 'ccccc']
+        }
+        args['States'] = {
+          "Value" => ['aa', 'bb', 'cc'],
+          "Display" => ['aaaaa', 'bbbbb', 'ccccc']
+        }
+
+        jfgeo_obj = TalentNetwork::JoinFormGeo.new(args)
+        jfgeo_obj.countries.geo_hash.length.should > 0
+        jfgeo_obj.states.geo_hash.length.should > 0
+      end
+    end
+  end
+
+  describe TalentNetwork::JoinFormGeoLocation do 
+    context '.new' do 
+      it 'should create a new join form geo location object' do 
+        jfgl_obj = TalentNetwork::JoinFormGeoLocation.new
+        expect(jfgl_obj.class).to be == TalentNetwork::JoinFormGeoLocation
+      end
+
+      it 'should return empty geo hash when no args supplied' do 
+        jfgl_obj = TalentNetwork::JoinFormGeoLocation.new
+        jfgl_obj.geo_hash.length.should == 0
+      end
+
+      it 'should return a filled hash when args are supplied' do 
+        args = Hash.new
+        args['Value'] = ['aa', 'bb', 'cc']
+        args['Display'] = ['aaa', 'bbb', 'ccc']
+        jfgl_obj = TalentNetwork::JoinFormGeoLocation.new(args)
+        jfgl_obj.geo_hash.length.should > 0
+      end
+    end
+  end
 end
