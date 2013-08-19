@@ -29,6 +29,8 @@ module Cb
 			my_api = Cb::Utils::Api.new
 			cb_response = my_api.cb_get("#{Cb.configuration.uri_tn_join_form_geo}", :query=>{:TNLanguage=>"#{tnlanguage}"})
 			json_hash = JSON.parse(cb_response.response.body)
+
+			geo_dropdown = TalentNetwork::JoinFormGeo.new(json_hash)
 		end
 
 		def self.member_create
