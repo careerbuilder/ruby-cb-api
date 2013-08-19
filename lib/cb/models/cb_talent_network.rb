@@ -9,7 +9,6 @@ module Cb
         end
       end
     end
-
   end
 
 
@@ -28,7 +27,6 @@ module Cb
           @options << TalentNetwork::Options.new(option_values)
         end
       end
-
     end
   end
 
@@ -40,7 +38,6 @@ module Cb
       @order          = args['Order'] || ''
       @display_text   = args['DisplayText'] || ''
     end
-
   end
 
   class TalentNetwork::JobInfo
@@ -52,4 +49,57 @@ module Cb
       @join_form_intercept_enabled      = args['JoinFormInterceptEnabled'].to_s || ''
     end
   end
+
+  class TalentNetwork::JoinFormGeo
+    attr_accessor :countries, :states
+
+    def initialize(args={})
+      @countries = Hash.new
+      @states = Hash.new
+
+      if args.has_key?('Countries')
+        @countries = TalentNetwork::JoinFormGeoLocation.new(args['Countries'])
+      end
+
+      if args.has_key?('States')
+        @states = TalentNetwork::JoinFormGeoLocation.new(args['States'])
+      end
+
+    end
+  end
+
+  class TalentNetwork::JoinFormGeoLocation
+    attr_accessor :geo_hash
+
+    def initialize(args={})
+      value = Array.new
+      display_val = Array.new
+      @geo_hash = Hash.new
+      
+      if args.has_key?('Value')
+        args['Value'].each do |val|
+          value << val
+        end
+      end
+
+      if args.has_key?('Display')
+        args['Display'].each do |display|
+          display_val << display
+        end
+      end
+
+      unless value.nil? || display_val.nil?
+        @geo_hash = convert_to_hash(value, display_val)
+      end
+    end
+
+    private
+    def convert_to_hash(keys, values)
+      geo_hash = Hash.new
+      geo_hash = Hash[keys.zip(values)]
+
+      return geo_hash
+    end
+  end
+
 end
