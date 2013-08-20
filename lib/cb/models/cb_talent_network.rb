@@ -19,8 +19,8 @@ module Cb
       @dev_key                = args['DeveloperKey'] || Cb.configuration.dev_key
       @tn_did                 = args['TNDID'] || ''
       @preferred_language     = args['PreferredLanguage'] || 'USEnglish'
-      @accept_privacy         = args['AcceptPrivacy'] || ''
-      @accept_terms           = args['AcceptTerms'] || ''
+      @accept_privacy         = args['AcceptPrivacy'] || true
+      @accept_terms           = args['AcceptTerms'] || true
       @resume_word_doc        = args['ResumeWordDoc'] || ''
       @join_values            = Hash.new
       if args.has_key?('JoinValues') 
@@ -34,8 +34,17 @@ module Cb
       ret += "<TalentNetworkDID>#{@tn_did}</TalentNetworkDID>"
       ret += "<PreferredLanguage>#{@preferred_language}</PreferredLanguage>"
       ret += "<AcceptPrivacy>#{@accept_privacy}</AcceptPrivacy>"
+      ret += "<AcceptTerms>#{@accept_terms}</AcceptTerms>"
       ret += "<ResumeWordDoc>#{@resume_word_doc}</ResumeWordDoc>"
-
+      ret += "<JoinValues>"
+      @join_values.each { | k,v | 
+        ret += "<JoinValue>"
+        ret += "<Key>#{k}</Key>"
+        ret += "<Value>#{v}</Value>"
+        ret += "</JoinValue>"
+      }
+      ret += "</JoinValues>"
+      ret += "</Request>"
     end
   end
 
