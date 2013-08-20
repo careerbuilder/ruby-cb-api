@@ -6,5 +6,7 @@ pkg/
 coverage/
 spec/cassettes
 spec/cassettes/*
+!spec/cassettes/persist
+!spec/cassettes/persist/*
 .idea
 .project
