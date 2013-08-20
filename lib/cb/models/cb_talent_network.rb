@@ -17,7 +17,7 @@ module Cb
                   
     def initialize(args={})
       @text                 = args['Text'] || ''
-      @form_value           = args['Form'] || ''
+      @form_value           = args['FormValue'] || ''
       @option_display_type  = args['OptionDisplayType'] || ''
       @order                = args['Order'] || ''
       @required             = args['Required'].to_s || ''
