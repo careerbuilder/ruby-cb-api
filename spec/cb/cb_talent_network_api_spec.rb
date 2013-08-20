@@ -41,5 +41,40 @@ module Cb
         join_form_geo.states.geo_hash.length > 0
       end
     end
+
+    context '.member_create' do 
+      it 'should successfully create a tn member' do 
+        VCR.use_cassette('talent_network/api/member_create_successful') do 
+          args1 = Hash.new
+          args1['TNDID'] = 'CB000000000000000001'
+          args1['JoinValues'] = ["MxDOTalentNetworkMemberInfo_EmailAddress", "niche_10_test@test.com",
+                                "MxDOTalentNetworkMemberInfo_FirstName","Niche1",
+                                  "MxDOTalentNetworkMemberInfo_LastName", "Tester1",
+                                    "MxDOTalentNetworkMemberInfo_ZipCode","30092",
+                                    "JQJBF32R79L0SH6H3K2D","Software Enginner",
+                                    "ddlCountries","us"]
+
+          member = Cb.talent_network_api.member_create(args1)
+          member.should_not == "EmailInUse"
+          member.nil?.should_not == true
+        end
+      end
+
+      it 'should not allow an existing user to join the talent network' do 
+        VCR.use_cassette('talent_network/api/member_create_unsuccessful_existing') do 
+          args1 = Hash.new
+          args1['TNDID'] = 'CB000000000000000001'
+          args1['JoinValues'] = ["MxDOTalentNetworkMemberInfo_EmailAddress", "niche_1_test@test.com",
+                                "MxDOTalentNetworkMemberInfo_FirstName","Niche1",
+                                  "MxDOTalentNetworkMemberInfo_LastName", "Tester1",
+                                    "MxDOTalentNetworkMemberInfo_ZipCode","30092",
+                                    "JQJBF32R79L0SH6H3K2D","Software Enginner",
+                                    "ddlCountries","us"]
+
+          member = Cb.talent_network_api.member_create(args1)
+          member.should == "EmailInUse"
+        end
+      end
+    end
   end
 end
