@@ -11,7 +11,8 @@ module Cb
     def self.for_job(did, countlimit = '25', site_id = '', co_brand = '')
       my_api = Cb::Utils::Api.new()
       cb_response = my_api.cb_get(Cb.configuration.uri_recommendation_for_job,
-                                  :query => {:JobDID => did, :CountLimit => countlimit, :SiteID => site_id, :CoBrand => co_brand})
+                                  :query => {:JobDID => did, :CountLimit => countlimit, :SiteID => site_id,
+                                             :CoBrand => co_brand, :HostSite => Cb.configuration.host_site})
       json_hash = JSON.parse(cb_response.response.body)
 
       jobs = []

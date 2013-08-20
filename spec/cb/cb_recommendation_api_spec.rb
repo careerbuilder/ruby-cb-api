@@ -11,6 +11,8 @@ module Cb
         recs.cb_response.errors.nil?.should == true
         recs.count.should > 0
         recs[0].is_a?(Cb::CbJob).should == true
+        recs[0].city.empty?.should == false
+        recs[0].state.empty?.should == false
       end
 
       it 'should get no recommendations for bogus job', :vcr => { :cassette_name => 'job/recommendation/for_job_bad_job' } do
@@ -23,7 +25,7 @@ module Cb
 
     context '.for_user' do
       it 'should get recommendations for a user', :vcr => { :cassette_name => 'job/recommendation/for_user' } do
-        #recs = Cb.recommendation.for_job job.did
+        #recs = Cb.recommendation.for_user 'XRHP3Y575P9K5N6LCM0B'
         #
         #recs.cb_response.errors.nil?.should == true
         #recs.count.should > 0
