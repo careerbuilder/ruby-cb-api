@@ -45,8 +45,6 @@ module Cb
 
         m_obj = TalentNetwork::Member.new(args)
         expect(m_obj.join_values.class).to be == Hash 
-
-
       end
     end
 
