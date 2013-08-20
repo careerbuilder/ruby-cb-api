@@ -11,6 +11,34 @@ module Cb
     end
   end
 
+  class TalentNetwork::Member
+    attr_accessor :dev_key, :tn_did, :preferred_language, :accept_privacy, :accept_terms, :resume_word_doc,
+                  :join_values
+
+    def initialize(args={})
+      @dev_key                = args['DeveloperKey'] || Cb.configuration.dev_key
+      @tn_did                 = args['TNDID'] || ''
+      @preferred_language     = args['PreferredLanguage'] || 'USEnglish'
+      @accept_privacy         = args['AcceptPrivacy'] || ''
+      @accept_terms           = args['AcceptTerms'] || ''
+      @resume_word_doc        = args['ResumeWordDoc'] || ''
+      @join_values            = Hash.new
+      if args.has_key?('JoinValues') 
+        @join_values = Hash[args['JoinValues'].each_slice(2).to_a]
+      end
+    end
+
+    def to_xml
+      ret =  "<Request>"
+      ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
+      ret += "<TalentNetworkDID>#{@tn_did}</TalentNetworkDID>"
+      ret += "<PreferredLanguage>#{@preferred_language}</PreferredLanguage>"
+      ret += "<AcceptPrivacy>#{@accept_privacy}</AcceptPrivacy>"
+      ret += "<ResumeWordDoc>#{@resume_word_doc}</ResumeWordDoc>"
+
+    end
+  end
+
 
   class TalentNetwork::Questions
     attr_accessor :text, :form_value, :option_display_type, :order, :required, :options
@@ -89,7 +117,7 @@ module Cb
       end
 
       unless value.nil? || display_val.nil?
-        @geo_hash = convert_to_hash(value, display_val)
+        @geo_hash = convert_to_hash(display_val,value)
       end
     end
 
@@ -116,4 +144,6 @@ module Cb
       @site_path                        = args['SitePath'] || ''
     end
   end
+
+
 end
