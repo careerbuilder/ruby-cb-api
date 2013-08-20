@@ -77,6 +77,7 @@ module Cb
       def get_meta_name_for(api_key)
         key_map = {
                     'Errors' =>                     'errors',
+                    'ApiError' =>                   'api_error',
                     'TimeResponseSent' =>           'time_sent',
                     'TimeElapsed' =>                'time_elapsed',
                     'TotalPages' =>                 'total_pages',
