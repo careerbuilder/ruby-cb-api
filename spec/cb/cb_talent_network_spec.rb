@@ -32,6 +32,25 @@ module Cb
     end
   end
 
+  describe TalentNetwork::Member do
+    context '.new' do 
+      it 'should create a member object' do 
+        m_obj = TalentNetwork::Member.new
+        expect(m_obj.class).to be == TalentNetwork::Member
+      end
+
+      it 'should be able to give back join values' do 
+        args = Hash.new
+        args['JoinValues'] = ['blah', 'bla1', 'hello', 'world']
+
+        m_obj = TalentNetwork::Member.new(args)
+        expect(m_obj.join_values.class).to be == Hash 
+
+
+      end
+    end
+
+  end
   describe TalentNetwork::Questions do 
     context '.new' do 
       it 'should create a new question object' do 
