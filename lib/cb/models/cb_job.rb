@@ -9,7 +9,8 @@ module Cb
                   :description, :requirements, :employment_type,
                   :details_url, :service_url, :similar_jobs_url, :apply_url,
                   :begin_date, :end_date, :posted_date,
-                  :relevancy, :state, :city, :zip
+                  :relevancy, :state, :city, :zip,
+                  :can_be_quick_applied
 
     attr_writer   :external_application, :relocation_covered, :manages_others, :is_screener_apply,
                   :is_shared_job
@@ -81,6 +82,7 @@ module Cb
       @external_application         = args['ExternalApplication'] || ''
       @is_screener_apply            = args['IsScreenerApply'] || ''
       @is_shared_job                = args['IsSharedJob'] || ''
+      @can_be_quick_applied         = args['CanBeQuickApplied'] || ''
 
       # Company related
       @company_name                 = args['Company'] || ''
@@ -125,6 +127,26 @@ module Cb
 
     def shared_job?
       @is_shared_job.downcase == 'true' ? true : false
+    end
+
+    def can_be_quick_applied?
+      @can_be_quick_applied.downcase == 'true' ? true : false
+    end
+
+    def city
+      if @city.empty?
+        return @location['City']
+      else
+        return @city
+      end
+    end
+
+    def state
+      if @state.empty?
+        return @location['State']
+      else
+        return @state
+      end
     end
   end
 end
