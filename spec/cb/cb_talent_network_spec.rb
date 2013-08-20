@@ -52,12 +52,13 @@ module Cb
       it 'should return tn questions supplied into args' do 
         args = Hash.new
         args['Text'] = 'Hello'
+        args['FormValue'] = 'MxDot_Whatever'
         args['OptionDisplayType'] = 'World'
 
         q_obj = TalentNetwork::Questions.new(args)
         
         q_obj.text.should == args['Text']
-        q_obj.form_value.should == ''
+        q_obj.form_value.should == args['FormValue']
         q_obj.option_display_type.should == args['OptionDisplayType']
         q_obj.order.should == ''
         q_obj.required.should == ''
