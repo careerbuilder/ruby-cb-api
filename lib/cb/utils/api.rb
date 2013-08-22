@@ -4,6 +4,7 @@ module Cb
   module Utils
     class Api
       include HTTParty
+
       base_uri 'http://api.careerbuilder.com'
 
       def initialize
@@ -16,12 +17,18 @@ module Cb
 
       def cb_get(*args, &block)
         self.class.base_uri 'http://api.careerbuilder.com'
-        self.class.get(*args, &block)
+        response = self.class.get(*args, &block)
+        @api_error = !ResponseValidator.validate(response)
+
+        return response
       end
 
       def cb_post(*args, &block)
         self.class.base_uri 'https://api.careerbuilder.com'
-        self.class.post(*args, &block)
+        response = self.class.post(*args, &block)
+        @api_error = !ResponseValidator.validate(response)
+
+        return response
       end
 
       def append_api_responses(obj, resp)
@@ -45,6 +52,9 @@ module Cb
             meta_class.instance_variable_set(:"@#{meta_name}", api_value)
           end
         end
+
+        obj.class.send(:attr_reader, 'api_error')
+        obj.instance_variable_set(:@api_error, @api_error)
 
         obj.class.send(:attr_reader, 'cb_response')
         obj.instance_variable_set(:@cb_response, meta_class)

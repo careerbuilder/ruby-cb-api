@@ -10,6 +10,8 @@ module Cb
 
         recs.cb_response.errors.nil?.should == true
         recs.count.should > 0
+        recs.api_error.should == false
+
         recs[0].is_a?(Cb::CbJob).should == true
         recs[0].city.empty?.should == false
         recs[0].state.empty?.should == false
@@ -20,6 +22,7 @@ module Cb
 
         #recs.cb_response.errors.nil?.should == true
         recs.count.should == 0
+        recs.api_error.should == false
       end
     end
 
@@ -37,6 +40,7 @@ module Cb
 
         #recs.cb_response.errors.nil?.should == true
         recs.count.should == 0
+        recs.api_error.should == false
       end
     end
   end
