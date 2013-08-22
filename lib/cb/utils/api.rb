@@ -25,7 +25,7 @@ module Cb
 
       def cb_post(*args, &block)
         self.class.base_uri Cb.configuration.base_uri
-        self.class.get(*args, &block)
+        self.class.post(*args, &block)
         response = self.class.get(*args, &block)
         #@api_error = !ResponseValidator.validate(response)
 
