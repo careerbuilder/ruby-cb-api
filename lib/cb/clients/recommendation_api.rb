@@ -13,6 +13,7 @@ module Cb
       cb_response = my_api.cb_get(Cb.configuration.uri_recommendation_for_job,
                                   :query => {:JobDID => did, :CountLimit => countlimit, :SiteID => site_id,
                                              :CoBrand => co_brand, :HostSite => Cb.configuration.host_site})
+
       json_hash = JSON.parse(cb_response.response.body)
 
       jobs = []
