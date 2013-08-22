@@ -16,8 +16,6 @@ module Cb
         json = JSON.parse(response.response.body)
         if json.keys.any?
           return true
-        else
-          return false
         end
       rescue JSON::ParserError
         return false
