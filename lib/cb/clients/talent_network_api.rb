@@ -8,7 +8,7 @@ module Cb
 		def self.join_form_questions(tndid)
 			## Load the join form questions for a TalentNetworkDID
 			my_api = Cb::Utils::Api.new()
-			cb_response = my_api.cb_get("#{Cb.configuration.uri_tn_join_questions}/#{tndid}/json")
+			cb_response = my_api.cb_get_secure("#{Cb.configuration.uri_tn_join_questions}/#{tndid}/json")
 			json_hash = JSON.parse(cb_response.response.body)
 
 			tn_questions_collection = TalentNetwork.new(json_hash)
@@ -21,7 +21,7 @@ module Cb
 			## Gets branding information (stylesheets, copytext, etc...) for the join form.
 			my_api = Cb::Utils::Api.new
 
-			cb_response = my_api.cb_get("#{Cb.configuration.uri_tn_join_form_branding}/#{tndid}/json")
+			cb_response = my_api.cb_get_secure("#{Cb.configuration.uri_tn_join_form_branding}/#{tndid}/json")
 			json_hash = JSON.parse(cb_response.response.body)
 
 			tn_join_form_branding = TalentNetwork::JoinFormBranding.new(json_hash['Branding'])
@@ -34,7 +34,7 @@ module Cb
 		def self.join_form_geography(tnlanguage="USEnglish")
 			## Gets locations needed to fill the Geography question from the Join Form Question API
 			my_api = Cb::Utils::Api.new
-			cb_response = my_api.cb_get("#{Cb.configuration.uri_tn_join_form_geo}", :query=>{:TNLanguage=>"#{tnlanguage}"})
+			cb_response = my_api.cb_get_secure("#{Cb.configuration.uri_tn_join_form_geo}", :query=>{:TNLanguage=>"#{tnlanguage}"})
 			json_hash = JSON.parse(cb_response.response.body)
 
 			geo_dropdown = TalentNetwork::JoinFormGeo.new(json_hash)
@@ -61,7 +61,7 @@ module Cb
 
 		def self.tn_job_information(job_did, join_form_intercept="true")
 			my_api = Cb::Utils::Api.new
-			cb_response = my_api.cb_get("#{Cb.configuration.uri_tn_job_info}/#{job_did}/json", :query=> {
+			cb_response = my_api.cb_get_secure("#{Cb.configuration.uri_tn_job_info}/#{job_did}/json", :query=> {
 				 :RequestJoinFormIntercept=>join_form_intercept})
 			json_hash = JSON.parse(cb_response.response.body)
 		
