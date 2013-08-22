@@ -18,25 +18,28 @@ module Cb
       def cb_get(*args, &block)
         self.class.base_uri Cb.configuration.base_uri_secure
         response = self.class.get(*args, &block)
-        #@api_error = !ResponseValidator.validate(response)
+        validated_response = ResponseValidator.validate(response)
+        set_api_error(validated_response)
 
-        return response
+        return validated_response
       end
 
       def cb_post(*args, &block)
         self.class.base_uri Cb.configuration.base_uri_secure
         self.class.post(*args, &block)
         response = self.class.post(*args, &block)
-        #@api_error = !ResponseValidator.validate(response)
+        validated_response = ResponseValidator.validate(response)
+        set_api_error(validated_response)
 
-        return response
+        return validated_response
       end
 
       def cb_get_secure(*args, &block)
         self.class.base_uri Cb.configuration.base_uri_secure
         self.class.get(*args, &block)
         response = self.class.get(*args, &block)
-        #@api_error = !ResponseValidator.validate(response)
+        validated_response = ResponseValidator.validate(response)
+        set_api_error(validated_response)
 
         return response
       end
@@ -92,6 +95,14 @@ module Cb
       def self.camelize(input)
         input.sub!(/^[a-z\d]*/) { $&.capitalize }
         input.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$2.capitalize}" }.gsub('/', '::')
+      end
+
+      def set_api_error(validated_response)
+        if validated_response.keys.any?
+          @api_error = false
+        else
+          @api_error = true
+        end
       end
 
       def get_meta_name_for(api_key)
