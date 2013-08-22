@@ -5,24 +5,28 @@ module Cb
 
     def self.validate(response)
       if response.blank? || response.response.body.blank?
-        return false
+        return self.get_empty_json_hash
       end
 
       if response.code != 200
-        return false
+        return self.get_empty_json_hash
       end
 
       begin
         json = JSON.parse(response.response.body)
         if json.keys.any?
-          return true
+          return json
+        else
+          return self.get_empty_json_hash
         end
       rescue JSON::ParserError
-        return false
+        return self.get_empty_json_hash
       end
-
-      return true
-
     end
+
+    def self.get_empty_json_hash
+      return JSON.parse('{}')
+    end
+
   end
 end
