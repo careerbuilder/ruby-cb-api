@@ -15,17 +15,17 @@ module Cb
       end
 
       def cb_get(*args, &block)
-        self.class.base_uri 'http://api.careerbuilder.com'
+        self.class.base_uri Cb.configuration.base_uri
         self.class.get(*args, &block)
       end
 
       def cb_get_secure(*args, &block)
-        self.class.base_uri 'https://api.careerbuilder.com'
+        self.class.base_uri Cb.configuration.base_uri_secure
         self.class.get(*args, &block)
       end
 
       def cb_post(*args, &block)
-        self.class.base_uri 'https://api.careerbuilder.com'
+        self.class.base_uri Cb.configuration.base_uri_secure
         self.class.post(*args, &block)
       end
 
