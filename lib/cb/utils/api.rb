@@ -16,17 +16,27 @@ module Cb
       end
 
       def cb_get(*args, &block)
-        self.class.base_uri 'http://api.careerbuilder.com'
+        self.class.base_uri Cb.configuration.base_uri_secure
         response = self.class.get(*args, &block)
-        @api_error = !ResponseValidator.validate(response)
+        #@api_error = !ResponseValidator.validate(response)
 
         return response
       end
 
       def cb_post(*args, &block)
-        self.class.base_uri 'https://api.careerbuilder.com'
-        response = self.class.post(*args, &block)
-        @api_error = !ResponseValidator.validate(response)
+        self.class.base_uri Cb.configuration.base_uri
+        self.class.get(*args, &block)
+        response = self.class.get(*args, &block)
+        #@api_error = !ResponseValidator.validate(response)
+
+        return response
+      end
+
+      def cb_get_secure(*args, &block)
+        self.class.base_uri Cb.configuration.base_uri_secure
+        self.class.get(*args, &block)
+        response = self.class.get(*args, &block)
+        #@api_error = !ResponseValidator.validate(response)
 
         return response
       end
