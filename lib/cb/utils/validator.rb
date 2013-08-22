@@ -9,10 +9,6 @@ module Cb
         return self.get_empty_json_hash
       end
 
-      if response.code != 200
-        return self.get_empty_json_hash
-      end
-
       begin
         json = JSON.parse(response.response.body)
         if json.keys.any?
