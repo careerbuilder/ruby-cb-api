@@ -12,13 +12,14 @@ module Cb
     def self.retrieve external_id, test_mode = false
       my_api = Cb::Utils::Api.new
 
-      cb_response = my_api.cb_post Cb.configuration.uri_user_retrieve, :body => build_retrieve_request(external_id, test_mode)
+      json_hash = my_api.cb_post Cb.configuration.uri_user_retrieve, :body => build_retrieve_request('XRHP5HT66R55L6RVP6R9', true)
 
-      json_hash = JSON.parse cb_response.response.body
-
-      user = CbUser.new json_hash['ResponseUserInfo']['UserInfo']
-
-      my_api.append_api_responses user, json_hash['ResponseUserInfo']
+      if json_hash.has_key? 'ResponseUserInfo'
+        if json_hash['ResponseUserInfo'].has_key? 'UserInfo'
+          user = CbUser.new json_hash['ResponseUserInfo']['UserInfo']
+        end
+        my_api.append_api_responses user, json_hash['ResponseUserInfo']
+      end
 
       return user
     end
@@ -33,14 +34,14 @@ module Cb
       result = false
 
       my_api = Cb::Utils::Api.new
-      cb_response = my_api.cb_post Cb.configuration.uri_user_change_password, :body => build_change_password_request(external_id, old_password, new_password, test_mode)
-      json_hash = JSON.parse cb_response.response.body
+      json_hash = my_api.cb_post Cb.configuration.uri_user_change_password, :body => build_change_password_request(external_id, old_password, new_password, test_mode)
 
-      my_api.append_api_responses result, json_hash['ResponseUserChangePW']
-
-      if result.cb_response.status.include? 'Success'
-        result = true
+      if json_hash.has_key? 'ResponseUserChangePW'
         my_api.append_api_responses result, json_hash['ResponseUserChangePW']
+        if result.cb_response.status.include? 'Success'
+          result = true
+          my_api.append_api_responses result, json_hash['ResponseUserChangePW']
+        end
       end
 
       result
@@ -56,14 +57,15 @@ module Cb
       result = false
 
       my_api = Cb::Utils::Api.new
-      cb_response = my_api.cb_post Cb.configuration.uri_user_delete, :body => build_delete_request(external_id, password, test_mode)
-      json_hash = JSON.parse cb_response.response.body
+      json_hash = my_api.cb_post Cb.configuration.uri_user_delete, :body => build_delete_request(external_id, password, test_mode)
 
-      my_api.append_api_responses result, json_hash['ResponseUserDelete']
-
-      if result.cb_response.status.include? 'Success'
-        result = true
+      if json_hash.has_key? 'ResponseUserDelete'
         my_api.append_api_responses result, json_hash['ResponseUserDelete']
+
+        if result.cb_response.status.include? 'Success'
+          result = true
+          my_api.append_api_responses result, json_hash['ResponseUserDelete']
+        end
       end
 
       result
