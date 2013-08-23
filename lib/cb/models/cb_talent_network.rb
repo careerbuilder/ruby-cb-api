@@ -22,10 +22,7 @@ module Cb
       @accept_privacy         = args['AcceptPrivacy'] || true
       @accept_terms           = args['AcceptTerms'] || true
       @resume_word_doc        = args['ResumeWordDoc'] || ''
-      @join_values            = Hash.new
-      if args.has_key?('JoinValues') 
-        @join_values = Hash[args['JoinValues'].each_slice(2).to_a]
-      end
+      @join_values            = args['JoinValues'] || Array.new
     end
 
     def to_xml

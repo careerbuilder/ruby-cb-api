@@ -8,7 +8,7 @@ module Cb
 		def self.join_form_questions(tndid)
 			## Load the join form questions for a TalentNetworkDID
 			my_api = Cb::Utils::Api.new()
-			cb_response = my_api.cb_get_secure("#{Cb.configuration.uri_tn_join_questions}/#{tndid}/json")
+			cb_response = my_api.cb_get("#{Cb.configuration.uri_tn_join_questions}/#{tndid}/json")
 			json_hash = JSON.parse(cb_response.response.body)
 
 			tn_questions_collection = TalentNetwork.new(json_hash)
@@ -52,11 +52,7 @@ module Cb
 
 			my_api.append_api_responses(tn_member, json_hash)
 
-			if cb_response.success? && cb_response['Errors'].size == 0
-				return cb_response["MemberDID"]
-			end
-				
-			return cb_response['Errors'].first
+			return cb_response
 		end
 
 		def self.tn_job_information(job_did, join_form_intercept="true")
