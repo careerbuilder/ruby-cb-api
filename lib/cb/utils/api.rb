@@ -4,6 +4,7 @@ module Cb
   module Utils
     class Api
       include HTTParty
+
       base_uri 'http://api.careerbuilder.com'
 
       def initialize
@@ -15,18 +16,32 @@ module Cb
       end
 
       def cb_get(*args, &block)
-        self.class.base_uri Cb.configuration.base_uri
-        self.class.get(*args, &block)
-      end
-
-      def cb_get_secure(*args, &block)
         self.class.base_uri Cb.configuration.base_uri_secure
-        self.class.get(*args, &block)
+        response = self.class.get(*args, &block)
+        validated_response = ResponseValidator.validate(response)
+        set_api_error(validated_response)
+
+        return validated_response
       end
 
       def cb_post(*args, &block)
         self.class.base_uri Cb.configuration.base_uri_secure
         self.class.post(*args, &block)
+        response = self.class.post(*args, &block)
+        validated_response = ResponseValidator.validate(response)
+        set_api_error(validated_response)
+
+        return validated_response
+      end
+
+      def cb_get_secure(*args, &block)
+        self.class.base_uri Cb.configuration.base_uri_secure
+        self.class.get(*args, &block)
+        response = self.class.get(*args, &block)
+        validated_response = ResponseValidator.validate(response)
+        set_api_error(validated_response)
+
+        return response
       end
 
       def append_api_responses(obj, resp)
@@ -50,6 +65,9 @@ module Cb
             meta_class.instance_variable_set(:"@#{meta_name}", api_value)
           end
         end
+
+        obj.class.send(:attr_reader, 'api_error')
+        obj.instance_variable_set(:@api_error, @api_error)
 
         obj.class.send(:attr_reader, 'cb_response')
         obj.instance_variable_set(:@cb_response, meta_class)
@@ -77,6 +95,14 @@ module Cb
       def self.camelize(input)
         input.sub!(/^[a-z\d]*/) { $&.capitalize }
         input.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$2.capitalize}" }.gsub('/', '::')
+      end
+
+      def set_api_error(validated_response)
+        if validated_response.keys.any?
+          @api_error = false
+        else
+          @api_error = true
+        end
       end
 
       def get_meta_name_for(api_key)
