@@ -16,11 +16,7 @@ module Cb
       my_api.append_api_responses(app, xml_hash)
 
       begin
-        if xml_hash.has_key? 'ApplyUrl'
-          app.apply_url = xml_hash['ApplyUrl']
-        else
-          app.apply_url = ''
-        end
+        app.apply_url = xml_hash["ApplyUrl"] || ''
       end
 
       return app
