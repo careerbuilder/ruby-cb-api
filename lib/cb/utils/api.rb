@@ -18,29 +18,30 @@ module Cb
       def cb_get(*args, &block)
         self.class.base_uri Cb.configuration.base_uri
         response = self.class.get(*args, &block)
-        validated_response = ResponseValidator.validate(response)
-        set_api_error(validated_response)
+        #validated_response = ResponseValidator.validate(response)
+        #set_api_error(validated_response)
 
-        return validated_response
+        #return validated_response
+        return response
       end
 
       def cb_post(*args, &block)
         self.class.base_uri Cb.configuration.base_uri_secure
-        self.class.post(*args, &block)
         response = self.class.post(*args, &block)
-        validated_response = ResponseValidator.validate(response)
-        set_api_error(validated_response)
+        #validated_response = ResponseValidator.validate(response)
+        #set_api_error(validated_response)
 
-        return validated_response
+        #return validated_response
+        return response
       end
 
       def cb_get_secure(*args, &block)
         self.class.base_uri Cb.configuration.base_uri_secure
-        self.class.get(*args, &block)
-        response = self.class.get(*args, &block)
-        validated_response = ResponseValidator.validate(response)
-        set_api_error(validated_response)
+        #response = self.class.get(*args, &block)
+        #validated_response = ResponseValidator.validate(response)
+        #set_api_error(validated_response)
 
+        #return validated_response
         return response
       end
 
