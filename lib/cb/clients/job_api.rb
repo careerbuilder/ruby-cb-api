@@ -12,8 +12,8 @@ module Cb
     def self.search(*args)
         args = args[0] if args.is_a?(Array) && args.count == 1
         my_api = Cb::Utils::Api.new()
-        json_hash = my_api.cb_get(Cb.configuration.uri_job_search, :query => args)
-        #json_hash = JSON.parse(cb_response.response.body)
+        cb_response = my_api.cb_get(Cb.configuration.uri_job_search, :query => args)
+        json_hash = JSON.parse(cb_response.response.body)
 
         jobs = []
         unless json_hash['ResponseJobSearch']['Results'].nil?
