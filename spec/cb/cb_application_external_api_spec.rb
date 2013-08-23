@@ -18,7 +18,7 @@ module Cb
         app = Cb::CbApplicationExternal.new({:job_did => 'bogus-did', :email => 'bogus@bogus.org', :ipath => 'bogus', :site_id => 'bogus'})
 
         app = Cb.application_external.submit_app(app)
-        expect(app.apply_url.length).to be == 0
+        expect(app.apply_url.blank?).to be == true
         expect(app.cb_response.errors.length).to be >= 1
       end
     end
