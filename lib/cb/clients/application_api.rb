@@ -14,11 +14,16 @@ module Cb
       job.is_a?(Cb::CbJob) ? did = job.did : did = job
 
       my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_get(Cb.configuration.uri_application, :query => {:JobDID => did})
-      json_hash = JSON.parse(cb_response.response.body)
+      json_hash = my_api.cb_get(Cb.configuration.uri_application, :query => {:JobDID => did})
 
-      app = Cb::CbApplicationSchema.new(json_hash['ResponseBlankApplication']['BlankApplication'])
-      my_api.append_api_responses(app, json_hash['ResponseBlankApplication'])
+      if json_hash.has_key?('ResponseBlankApplication')
+        if json_hash['ResponseBlankApplication'].has_key?('BlankApplication')
+          app = Cb::CbApplicationSchema.new(json_hash['ResponseBlankApplication']['BlankApplication'])
+        end
+        my_api.append_api_responses(app, json_hash['ResponseBlankApplication'])
+      end
+
+      my_api.append_api_responses(app, json_hash)
 
       return app
     end
@@ -47,11 +52,20 @@ module Cb
       raise Cb::IncomingParamIsWrongTypeException unless app.is_a?(Cb::CbApplication)
 
       my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_post("#{uri}?ipath=#{app.ipath}", :body => app.to_xml)
-      my_api.append_api_responses(app, cb_response['ResponseApplication'])
+      json_hash = my_api.cb_post("#{uri}?ipath=#{app.ipath}", :body => app.to_xml)
+
+      if json_hash.has_key? 'ResponseApplication'
+        my_api.append_api_responses(app, json_hash['ResponseApplication'])
+      end
+
+      my_api.append_api_responses(app, json_hash)
 
       begin
-        app.redirect_url = cb_response['ResponseApplication']['RedirectURL'] || ''
+        if json_hash.has_key?('ResponseApplication') && json_hash['ResponseApplication'].has_key?('RedirectURL')
+          app.redirect_url = json_hash['ResponseApplication']['RedirectURL']
+        else
+          app.redirect_url = ''
+        end
       end
 
       return app
