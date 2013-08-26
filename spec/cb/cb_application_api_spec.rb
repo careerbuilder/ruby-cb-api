@@ -43,6 +43,8 @@ module Cb
                 expect(aa.text.length).to be >= 1
               end
             end
+
+            expect(result.api_error).to be == false
           end
       end
 
@@ -51,6 +53,7 @@ module Cb
 
         expect(result.cb_response.errors).to be_an_instance_of Array
         expect(result.cb_response.errors[0].length).to be >= 1
+        expect(result.api_error).to be == false
       end
     end
 
@@ -68,6 +71,7 @@ module Cb
         app = app.submit
         app.cb_response.application_status.should == 'Incomplete'
         app.complete?.should == false
+        expect(app.api_error).to be == false
       end
     end
   end
