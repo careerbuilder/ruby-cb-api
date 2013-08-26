@@ -44,7 +44,7 @@ module Cb
         args['JoinValues'] = ['blah', 'bla1', 'hello', 'world']
 
         m_obj = TalentNetwork::Member.new(args)
-        expect(m_obj.join_values.class).to be == Hash 
+        expect(m_obj.join_values.class).to be == Array 
       end
     end
 
