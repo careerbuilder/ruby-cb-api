@@ -23,6 +23,8 @@ module Cb
         my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
       end
 
+      my_api.append_api_responses saved_search, json_hash
+
       return saved_search
     end
 
@@ -42,6 +44,8 @@ module Cb
         my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
       end
 
+      my_api.append_api_responses saved_search, json_hash
+
       return saved_search
     end
 
@@ -59,8 +63,9 @@ module Cb
 
       if json_hash.keys.any?
         saved_search = CbSavedSearch.new json_hash
-        my_api.append_api_responses saved_search, json_hash
       end
+
+      my_api.append_api_responses(saved_search, json_hash)
 
       return saved_search
     end
@@ -88,6 +93,8 @@ module Cb
         my_api.append_api_responses saved_search, json_hash['SavedJobSearch']['SavedSearch']
       end
 
+      my_api.append_api_responses saved_search, json_hash
+
       return saved_search
     end
 
@@ -101,10 +108,10 @@ module Cb
       my_api = Cb::Utils::Api.new
       json_hash = my_api.cb_get Cb.configuration.uri_saved_search_list, :query => {:developerkey=>developer_key, :ExternalUserId=>external_user_id}
 
-     if json_hash.has_key?('SavedJobSearches') && json_hash['SavedJobSearches'].has_key?('SavedSearches')
+      saved_searches = []
+      if json_hash.has_key?('SavedJobSearches') && json_hash['SavedJobSearches'].has_key?('SavedSearches')
         saved_search_hash = json_hash['SavedJobSearches']['SavedSearches']
 
-        saved_searches = []
         if saved_search_hash.present?
           if saved_search_hash['SavedSearch'].is_a?(Array)
             saved_search_hash['SavedSearch'].each do |saved_search|
@@ -117,6 +124,8 @@ module Cb
 
         my_api.append_api_responses saved_searches, json_hash['SavedJobSearches']
       end
+
+      my_api.append_api_responses(saved_searches, json_hash)
 
       return saved_searches
     end
