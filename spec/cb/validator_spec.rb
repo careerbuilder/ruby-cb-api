@@ -50,6 +50,12 @@ module Cb
         validation.blank?.should be_true
       end
 
+      it 'should return empty hash when url is invalid', :vcr => { :cassette_name => 'user/retrieve/success' } do
+        response = HTTParty.post url[0...(url.length-1)], :body => build_retrieve_request('XRHP5HT66R55L6RVP6R9', true)
+        validation = ResponseValidator.validate(response)
+        validation.blank?.should be_true
+      end
+
     end
   end
 end
