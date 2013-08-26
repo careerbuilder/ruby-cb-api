@@ -7,7 +7,7 @@ module Cb
 				pending 'This is awaiting basic job brandings to exist in production.'
 				job = Cb.job.find_by_did 'J3F0RG6NPQGD5K6BNNF'
 
-			  	job_branding = job.job_branding
+			    job_branding = job.job_branding
 
 			  	job_branding.should_not == nil
 			  	job_branding.errors.empty?.should == true

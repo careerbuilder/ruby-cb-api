@@ -11,13 +11,21 @@ module Cb
         company.name.length.nil?.should == false
       end
 
-      it 'should not load job for a bad did', :vcr => { :cassette_name => 'job/bad_did' } do
+      it 'should not load company for a bad did', :vcr => { :cassette_name => 'company/bad_did' } do
         company = Cb.company.find_by_did('bogus_did')
-
-        puts "cb_response: #{company.cb_response}"
 
         company.cb_response.errors.is_a?(Array).should == true
         company.cb_response.errors.first.include?('This Company has an Error').should == true
+      end
+
+      it 'should return api error for totally bogus request', :vcr => { :cassette_name => 'company/bogus_request' } do
+        #original_url = Cb.configuration.uri_company_find
+        #
+        #Cb.configuration.uri_company_find = Cb.configuration.uri_company_find + 'a'
+        #company = Cb.company.find_by_did('c7g6mv76nc5vylrzpwh')
+        #Cb.configuration.uri_company_find = original_url
+        #
+        #company.api_error.should == true
       end
     end
   end
