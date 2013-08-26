@@ -11,9 +11,9 @@ module Cb
     #############################################################
     def self.retrieve external_id, test_mode = false
       my_api = Cb::Utils::Api.new
+      json_hash = my_api.cb_post Cb.configuration.uri_user_retrieve, :body => build_retrieve_request(external_id, test_mode)
 
       json_hash = my_api.cb_post Cb.configuration.uri_user_retrieve, :body => build_retrieve_request(external_id, true)
-
       if json_hash.has_key? 'ResponseUserInfo'
         if json_hash['ResponseUserInfo'].has_key? 'UserInfo'
           user = CbUser.new json_hash['ResponseUserInfo']['UserInfo']
@@ -45,7 +45,6 @@ module Cb
           my_api.append_api_responses result, json_hash['ResponseUserChangePW']
         end
       end
-      my_api.append_api_responses result, json_hash
 
       result
     end
@@ -70,7 +69,6 @@ module Cb
           my_api.append_api_responses result, json_hash['ResponseUserDelete']
         end
       end
-      my_api.append_api_responses result, json_hash
 
       result
     end

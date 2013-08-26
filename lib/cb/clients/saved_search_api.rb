@@ -107,7 +107,6 @@ module Cb
     def self.list developer_key, external_user_id
       my_api = Cb::Utils::Api.new
       json_hash = my_api.cb_get Cb.configuration.uri_saved_search_list, :query => {:developerkey=>developer_key, :ExternalUserId=>external_user_id}
-
       saved_searches = []
       if json_hash.has_key?('SavedJobSearches') && json_hash['SavedJobSearches'].has_key?('SavedSearches')
         saved_search_hash = json_hash['SavedJobSearches']['SavedSearches']
