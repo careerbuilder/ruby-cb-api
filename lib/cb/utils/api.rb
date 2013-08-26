@@ -26,7 +26,6 @@ module Cb
 
       def cb_post(*args, &block)
         self.class.base_uri Cb.configuration.base_uri_secure
-        self.class.post(*args, &block)
         response = self.class.post(*args, &block)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
@@ -36,12 +35,11 @@ module Cb
 
       def cb_get_secure(*args, &block)
         self.class.base_uri Cb.configuration.base_uri_secure
-        self.class.get(*args, &block)
         response = self.class.get(*args, &block)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
 
-        return response
+        return validated_response
       end
 
       def append_api_responses(obj, resp)
