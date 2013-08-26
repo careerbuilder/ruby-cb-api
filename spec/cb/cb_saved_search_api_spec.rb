@@ -4,6 +4,7 @@ module Cb
   describe Cb::SavedSearchApi do
 
     @@dev_key = 'WDHS47J77WLS2Y0N102H'
+    # Email address for this user: test_api_saved_search@test.com
     @@external_user_id = 'XRHL79L6RX5QKDDJRKVF'
     @@host_site = 'WR'
 
