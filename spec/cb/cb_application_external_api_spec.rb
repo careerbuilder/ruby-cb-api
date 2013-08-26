@@ -20,6 +20,7 @@ module Cb
         app = Cb.application_external.submit_app(app)
         expect(app.apply_url.blank?).to be == true
         expect(app.cb_response.errors.length).to be >= 1
+        app.api_error.should == false
       end
     end
   end
