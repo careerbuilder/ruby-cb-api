@@ -13,10 +13,12 @@ module Cb
         args = args[0] if args.is_a?(Array) && args.count == 1
         my_api = Cb::Utils::Api.new()
         json_hash = my_api.cb_get(Cb.configuration.uri_job_search, :query => args)
-        #json_hash = JSON.parse(cb_response.response.body)
 
         jobs = []
-        unless json_hash['ResponseJobSearch']['Results'].nil?
+        if json_hash.has_key?('ResponseJobSearch') &&
+           json_hash['ResponseJobSearch'].has_key?('Results') &&
+           json_hash['ResponseJobSearch']['Results'].present?
+
           json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do | cur_job |
             jobs << CbJob.new(cur_job)
           end
@@ -36,10 +38,14 @@ module Cb
       my_api = Cb::Utils::Api.new()
       params = my_api.class.criteria_to_hash(criteria)
 
-      cb_response = my_api.cb_get(Cb.configuration.uri_job_find, :query => params)
-      json_hash = JSON.parse(cb_response.response.body)
-      job = CbJob.new(json_hash['ResponseJob']['Job'])
-      my_api.append_api_responses(job, json_hash['ResponseJob'])
+      json_hash = my_api.cb_get(Cb.configuration.uri_job_find, :query => params)
+
+      if json_hash.has_key?('ResponseJob') &&
+         json_hash['ResponseJob'].has_key?('Job')
+
+        job = CbJob.new(json_hash['ResponseJob']['Job'])
+        my_api.append_api_responses(job, json_hash['ResponseJob'])
+      end
 
       return job
     end
