@@ -8,7 +8,7 @@ module Cb
 		def self.join_form_questions(tndid)
 			## Load the join form questions for a TalentNetworkDID
 			my_api = Cb::Utils::Api.new()
-			json_hash = my_api.cb_get("#{Cb.configuration.uri_tn_join_questions}/#{tndid}/json")
+			json_hash = my_api.cb_get_secure("#{Cb.configuration.uri_tn_join_questions}/#{tndid}/json")
 
 			tn_questions_collection = TalentNetwork.new(json_hash)
 			my_api.append_api_responses(tn_questions_collection, json_hash)

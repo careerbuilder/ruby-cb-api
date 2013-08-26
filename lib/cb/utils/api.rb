@@ -37,7 +37,7 @@ module Cb
 
       def cb_get_secure(*args, &block)
         self.class.base_uri Cb.configuration.base_uri_secure
-        #response = self.class.get(*args, &block)
+        response = self.class.get(*args, &block)
         #validated_response = ResponseValidator.validate(response)
         #set_api_error(validated_response)
 
