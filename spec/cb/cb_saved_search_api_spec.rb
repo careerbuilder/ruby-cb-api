@@ -94,7 +94,7 @@ module Cb
           saved_search_list = Cb::SavedSearchApi.list(@@dev_key, @@external_user_id)
           external_id = saved_search_list.first.external_id
           user_saved_search = Cb.saved_search_api.delete({'DeveloperKey'=>@@dev_key, 'ExternalID'=>external_id,'ExternalUserID'=>@@external_user_id, 'HostSite'=>@@host_site})
-          expect(user_saved_search.cb_response.errors).to eq([])
+          user_saved_search.cb_response.errors.should == nil
         end
       end
     end
