@@ -12,6 +12,7 @@ module Cb
 
         app = Cb.application_external.submit_app(app)
         expect(app.apply_url.length).to be >= 1
+        expect(app.api_error).to be == false
       end
 
       it 'should get invalid did error from api', :vcr => {:cassette_name => 'job/application_external/submit_app_error'}  do
@@ -21,6 +22,7 @@ module Cb
         expect(app.apply_url.blank?).to be == true
         expect(app.cb_response.errors.length).to be >= 1
         app.api_error.should == false
+        expect(app.api_error).to be == false
       end
     end
   end
