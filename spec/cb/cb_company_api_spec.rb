@@ -9,6 +9,7 @@ module Cb
 
         company.did.length.should >= 19
         company.name.length.nil?.should == false
+        company.api_error.should == false
       end
 
       it 'should not load company for a bad did', :vcr => { :cassette_name => 'company/bad_did' } do
@@ -16,6 +17,7 @@ module Cb
 
         company.cb_response.errors.is_a?(Array).should == true
         company.cb_response.errors.first.include?('This Company has an Error').should == true
+        company.api_error.should == false
       end
 
       it 'should return api error for totally bogus request', :vcr => { :cassette_name => 'company/bogus_request' } do
