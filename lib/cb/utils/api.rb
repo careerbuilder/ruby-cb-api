@@ -55,6 +55,10 @@ module Cb
           unless meta_name.empty?
             if meta_name == 'errors' && api_value.is_a?(Hash)
               api_value = api_value.values
+            elsif meta_name == 'error' && api_value.is_a?(String)
+              # this is a horrible hack to get consistent object.cb_response.errors behavior for the client
+              meta_name = 'errors'
+              api_value = [api_value]
             elsif self.class.is_numeric?(api_value)
               api_value = api_value.to_i
             end
@@ -106,6 +110,7 @@ module Cb
       def get_meta_name_for(api_key)
         key_map = {
                     'Errors' =>                     'errors',
+                    'Error' =>                      'error',
                     'ApiError' =>                   'api_error',
                     'TimeResponseSent' =>           'time_sent',
                     'TimeElapsed' =>                'time_elapsed',
