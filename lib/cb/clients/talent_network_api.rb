@@ -44,11 +44,14 @@ module Cb
 			## Creates a member based on the form built with the Join Form Questions API call
 			my_api = Cb::Utils::Api.new
 			tn_member = TalentNetwork::Member.new(args)
-			json_hash = my_api.cb_post("#{Cb.configuration.uri_tn_member_create}/json", :body => tn_member.to_xml )
+			cb_response = my_api.cb_post("#{Cb.configuration.uri_tn_member_create}/json", :body => tn_member.to_xml )
+			json_hash = JSON.parse(cb_response.response.body)
 
-			my_api.append_api_responses(tn_member, json_hash)
+      if json_hash['Errors'].first.nil?
+        return json_hash['MemberDID']
+      end
 
-			return json_hash
+			return json_hash['Errors'].first
 		end
 
 		def self.tn_job_information(job_did, join_form_intercept="true")
