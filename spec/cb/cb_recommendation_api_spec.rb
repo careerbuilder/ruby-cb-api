@@ -13,8 +13,8 @@ module Cb
         #recs.api_error.should == false
 
         recs[0].is_a?(Cb::CbJob).should == true
-        recs[0].city.empty?.should == false
-        recs[0].state.empty?.should == false
+        recs[0].city.blank?.should == false
+        recs[0].state.blank?.should == false
       end
 
       it 'should get no recommendations for bogus job', :vcr => { :cassette_name => 'job/recommendation/for_job_bad_job' } do
