@@ -10,9 +10,11 @@ module Cb
     #############################################################
     def self.retrieve_by_did(did, host_site = '')
       my_api = Cb::Utils::Api.new()
-      cb_response = my_api.cb_get(Cb.configuration.uri_subscription_retrieve, :query => {:ExternalID => did, :Hostsite => host_site})
-      json_hash = JSON.parse(cb_response.response.body)
-      subscription = CbEmailSubscription.new(json_hash['SubscriptionValues'])
+      json_hash = my_api.cb_get(Cb.configuration.uri_subscription_retrieve, :query => {:ExternalID => did, :Hostsite => host_site})
+
+      if json_hash.has_key? 'SubscriptionValues'
+        subscription = CbEmailSubscription.new(json_hash['SubscriptionValues'])
+      end
 
       return subscription
     end
@@ -49,13 +51,12 @@ module Cb
       xml_body += "</Request>"
 
 
-      cb_response = my_api.cb_post(Cb.configuration.uri_subscription_modify,
+      json_hash = my_api.cb_post(Cb.configuration.uri_subscription_modify,
                                   :body => xml_body)
 
-      json_hash = JSON.parse(cb_response.response.body)
-
-      subscription = CbEmailSubscription.new(json_hash['SubscriptionValues'])
-
+      if json_hash.has_key? 'SubscriptionValues'
+        subscription = CbEmailSubscription.new(json_hash['SubscriptionValues'])
+      end
       return subscription
     end
 
