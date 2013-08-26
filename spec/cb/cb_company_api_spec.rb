@@ -22,11 +22,10 @@ module Cb
 
       it 'should return api error for totally bogus request', :vcr => { :cassette_name => 'company/bogus_request' } do
         #original_url = Cb.configuration.uri_company_find
-        #
         #Cb.configuration.uri_company_find = Cb.configuration.uri_company_find + 'a'
         #company = Cb.company.find_by_did('c7g6mv76nc5vylrzpwh')
         #Cb.configuration.uri_company_find = original_url
-        #
+
         #company.api_error.should == true
       end
     end
