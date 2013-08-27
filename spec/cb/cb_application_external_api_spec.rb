@@ -24,6 +24,18 @@ module Cb
         app.api_error.should == false
         expect(app.api_error).to be == false
       end
+
+      it 'should set api error on bogus request', :vcr => { :cassette_name => 'job/application_exteral/bogus_request' } do
+        correct_url = Cb.configuration.uri_application_external
+
+        Cb.configuration.uri_application_external = Cb.configuration.uri_application_external + 'a'
+        app = Cb::CbApplicationExternal.new({:job_did => 'bogus-did', :email => 'bogus@bogus.org', :ipath => 'bogus', :site_id => 'bogus'})
+        app = Cb.application_external.submit_app(app)
+        Cb.configuration.uri_application_external = correct_url
+
+        app.apply_url.blank?.should be_true
+        app.api_error.should == true
+      end
     end
   end
 end
