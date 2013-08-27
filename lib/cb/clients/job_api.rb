@@ -15,15 +15,18 @@ module Cb
         json_hash = my_api.cb_get(Cb.configuration.uri_job_search, :query => args)
 
         jobs = []
-        if json_hash.has_key?('ResponseJobSearch') &&
-           json_hash['ResponseJobSearch'].has_key?('Results') &&
-           json_hash['ResponseJobSearch']['Results'].present?
+        if json_hash.has_key?('ResponseJobSearch')
+          if json_hash['ResponseJobSearch'].has_key?('Results') &&
+             json_hash['ResponseJobSearch']['Results'].present?
 
-          json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do | cur_job |
-            jobs << CbJob.new(cur_job)
+            json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do | cur_job |
+              jobs << CbJob.new(cur_job)
+            end
           end
+          my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
         end
-        my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
+
+        my_api.append_api_responses(jobs, json_hash)
 
         return jobs
     end
@@ -44,9 +47,9 @@ module Cb
         if json_hash['ResponseJob'].has_key?('Job')
           job = CbJob.new(json_hash['ResponseJob']['Job'])
         end
-
         my_api.append_api_responses(job, json_hash['ResponseJob'])
       end
+      my_api.append_api_responses(job, json_hash)
 
       return job
     end
