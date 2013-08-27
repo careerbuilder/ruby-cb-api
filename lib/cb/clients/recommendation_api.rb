@@ -44,16 +44,21 @@ module Cb
                                              :HostSite => Cb.configuration.host_site})
 
       jobs = []
-      if json_hash.has_key?('ResponseRecommendUser') &&
-         json_hash['ResponseRecommendUser'].has_key?('RecommendJobResults') &&
+      if json_hash.has_key?('ResponseRecommendUser')
+
+        if json_hash['ResponseRecommendUser'].has_key?('RecommendJobResults') &&
          json_hash['ResponseRecommendUser']['RecommendJobResults'].present?
 
-        json_hash['ResponseRecommendUser']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
-          jobs << CbJob.new(cur_job)
+          json_hash['ResponseRecommendUser']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
+            jobs << CbJob.new(cur_job)
+          end
+
+          my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser']['Request'])
         end
+
         my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser'])
-        my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser']['Request'])
       end
+
       my_api.append_api_responses(jobs, json_hash)
 
       return jobs
@@ -71,12 +76,19 @@ module Cb
                                   :query => {:CompanyDID => company_did})
 
       jobs = []
-      if json_hash.has_key?('Results') && json_hash['Results'].has_key?('JobRecommendation')
-        json_hash['Results']['JobRecommendation']['Jobs'].each do |cur_job|
-          jobs << CbJob.new(cur_job)
+      if json_hash.has_key?('Results')
+
+        if json_hash['Results'].has_key?('JobRecommendation')
+
+          json_hash['Results']['JobRecommendation']['Jobs'].each do |cur_job|
+            jobs << CbJob.new(cur_job)
+          end
+
+          my_api.append_api_responses(jobs, json_hash['Results']['JobRecommendation'])
         end
+
         my_api.append_api_responses(jobs, json_hash['Results'])
-        my_api.append_api_responses(jobs, json_hash['Results']['JobRecommendation'])
+
       end
       my_api.append_api_responses(jobs, json_hash)
 

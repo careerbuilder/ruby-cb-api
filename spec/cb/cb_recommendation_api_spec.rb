@@ -38,18 +38,20 @@ module Cb
 
     context '.for_user' do
       it 'should get recommendations for a user', :vcr => { :cassette_name => 'job/recommendation/for_user' } do
-        recs = Cb.recommendation.for_user 'XRHP3Y575P9K5N6LCM0B'
+        # external_id for captainmorgaintest@careerbuilder.com
+        test_user_external_id = 'XRHS30G60RWSQ5P1S8RG'
+        recs = Cb.recommendation.for_user test_user_external_id
 
         recs.cb_response.errors.nil?.should == true
         recs.count.should > 0
         recs[0].is_a?(Cb::CbJob).should == true
-        resc.api_error.should == false
+        recs.api_error.should == false
       end
 
       it 'should get no recommendations for bogus job', :vcr => { :cassette_name => 'job/recommendation/for_job_bad_user' } do
         recs = Cb.recommendation.for_user 'bogus_user'
 
-        recs.cb_response.errors.nil?.should == true
+        recs.cb_response.errors.nil?.should == false
         recs.count.should == 0
         recs.api_error.should == false
       end
