@@ -68,13 +68,13 @@ module Cb
     context '.for_company' do
       it 'should set api error on bogus request', :vcr => { :cassette_name => 'job/recommendation/for_company_bogus_request' }  do
         # Returns 404 html which is valid
-        #correct_url = Cb.configuration.uri_recommendation_for_company
+        correct_url = Cb.configuration.uri_recommendation_for_company
 
-        #Cb.configuration.uri_recommendation_for_company = Cb.configuration.uri_recommendation_for_company + 'a'
-        #recs = Cb.recommendation.for_company 'bogus_company'
-        #Cb.configuration.uri_recommendation_for_company = correct_url
+        Cb.configuration.uri_recommendation_for_company = Cb.configuration.uri_recommendation_for_company + 'a'
+        recs = Cb.recommendation.for_company 'bogus_company'
+        Cb.configuration.uri_recommendation_for_company = correct_url
 
-        #recs.api_error.should == true
+        recs.api_error.should == true
       end
     end
   end

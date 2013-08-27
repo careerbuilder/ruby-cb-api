@@ -9,8 +9,10 @@ module Cb
         return self.get_empty_json_hash
       end
 
-      if response.code == 500
-        return self.get_empty_json_hash
+      if response.code != 200
+        # we only handle json or xml responses - html means something bad happened
+        is_html = response.response.body.include?('<!DOCTYPE html')
+        return self.get_empty_json_hash if is_html
       end
 
       begin
