@@ -30,6 +30,7 @@ module Cb
       ret = Cb.education_code.get_for('not real')
       Cb.configuration.uri_education_code = correct_url
 
+      ret.empty?.should be_true
       ret.api_error.should == true
     end
   end

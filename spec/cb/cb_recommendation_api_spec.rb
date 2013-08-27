@@ -32,6 +32,7 @@ module Cb
         recs = Cb.recommendation.for_job 'bogus_did'
         Cb.configuration.uri_recommendation_for_job = correct_url
 
+        recs.empty?.should be_true
         recs.api_error.should == true
       end
     end
@@ -63,6 +64,7 @@ module Cb
         recs = Cb.recommendation.for_user 'bogus_user'
         Cb.configuration.uri_recommendation_for_user = correct_url
 
+        recs.empty?.should be_true
         recs.api_error.should == true
       end
     end
@@ -76,6 +78,7 @@ module Cb
         recs = Cb.recommendation.for_company 'bogus_company'
         Cb.configuration.uri_recommendation_for_company = correct_url
 
+        recs.empty?.should be_true
         recs.api_error.should == true
       end
     end
