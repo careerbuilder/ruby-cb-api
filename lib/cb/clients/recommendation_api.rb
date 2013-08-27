@@ -15,16 +15,18 @@ module Cb
                                              :CoBrand => co_brand, :HostSite => Cb.configuration.host_site})
 
       jobs = []
-      if json_hash.has_key?('ResponseRecommendJob') &&
-         json_hash['ResponseRecommendJob'].has_key?('RecommendJobResults') &&
-         json_hash['ResponseRecommendJob']['RecommendJobResults'].present?
+      if json_hash.has_key?('ResponseRecommendJob')
+        if json_hash['ResponseRecommendJob'].has_key?('RecommendJobResults') &&
+           json_hash['ResponseRecommendJob']['RecommendJobResults'].present?
 
-        json_hash['ResponseRecommendJob']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
-          jobs << CbJob.new(cur_job)
+          json_hash['ResponseRecommendJob']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
+            jobs << CbJob.new(cur_job)
+          end
+          my_api.append_api_responses(jobs, json_hash['ResponseRecommendJob']['Request'])
         end
+        my_api.append_api_responses(jobs, json_hash['ResponseRecommendJob'])
       end
-      my_api.append_api_responses(jobs, json_hash['ResponseRecommendJob'])
-      my_api.append_api_responses(jobs, json_hash['ResponseRecommendJob']['Request'])
+      my_api.append_api_responses(jobs, json_hash)
 
       return jobs
     end
@@ -52,6 +54,7 @@ module Cb
         my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser'])
         my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser']['Request'])
       end
+      my_api.append_api_responses(jobs, json_hash)
 
       return jobs
     end
@@ -75,6 +78,7 @@ module Cb
         my_api.append_api_responses(jobs, json_hash['Results'])
         my_api.append_api_responses(jobs, json_hash['Results']['JobRecommendation'])
       end
+      my_api.append_api_responses(jobs, json_hash)
 
       return jobs
     end
