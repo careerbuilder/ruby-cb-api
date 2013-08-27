@@ -44,6 +44,7 @@ module Cb
         search = Cb.job_search_criteria.location('Atlanta, GA').radius(10).search()
         Cb.configuration.uri_job_search = correct_url
 
+        search.empty?.should be_true
         search.api_error.should == true
       end
     end
@@ -82,6 +83,7 @@ module Cb
         job = Cb.job.find_by_did('bogus_did')
         Cb.configuration.uri_job_find = correct_url
 
+        job.nil?.should be_true
         job.api_error.should == true
       end
     end
