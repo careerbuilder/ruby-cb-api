@@ -39,11 +39,10 @@ module Cb
       json_hash = my_api.cb_post Cb.configuration.uri_user_change_password, :body => build_change_password_request(external_id, old_password, new_password, test_mode)
 
       if json_hash.has_key? 'ResponseUserChangePW'
-        my_api.append_api_responses result, json_hash['ResponseUserChangePW']
-        if result.cb_response.status.include? 'Success'
+        if json_hash['ResponseUserChangePW'].has_key?('Status') && json_hash['ResponseUserChangePW']['Status'].include?('Success')
           result = true
-          my_api.append_api_responses result, json_hash['ResponseUserChangePW']
         end
+        my_api.append_api_responses result, json_hash['ResponseUserChangePW']
       end
 
       my_api.append_api_responses result, json_hash
@@ -64,12 +63,10 @@ module Cb
       json_hash = my_api.cb_post Cb.configuration.uri_user_delete, :body => build_delete_request(external_id, password, test_mode)
 
       if json_hash.has_key? 'ResponseUserDelete'
-        my_api.append_api_responses result, json_hash['ResponseUserDelete']
-
-        if result.cb_response.status.include? 'Success'
+        if json_hash['ResponseUserDelete'].has_key?('Status') && json_hash['ResponseUserDelete']['Status'].include?('Success')
           result = true
-          my_api.append_api_responses result, json_hash['ResponseUserDelete']
         end
+        my_api.append_api_responses result, json_hash['ResponseUserDelete']
       end
 
       my_api.append_api_responses result, json_hash
