@@ -125,6 +125,7 @@ module Cb
         subscription = Cb.email_subscription.retrieve_by_did('XRHS6FP78P5H30WLMB4G', 'WR')
         Cb.configuration.uri_subscription_retrieve = correct_url
 
+        subscription.nil?.should be_true
         subscription.api_error.should == true
 
       end
