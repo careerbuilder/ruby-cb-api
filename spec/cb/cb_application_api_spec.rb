@@ -6,7 +6,7 @@ module Cb
     context '.for_job' do
       it 'should return valid application schema', :vcr => {:cassette_name => 'persist/job/application/for_job' } do
           search = Cb.job_search_criteria.location('Atlanta, GA').radius(150).keywords('customcodes:CBDEV_applyurlno').search()
-          job = search[Random.new.rand(0..24)]
+          job = search.first
 
           result = Cb.application.for_job job
 
