@@ -22,6 +22,17 @@ module Cb
           result.api_error.should == false
         end
       end
+
+      it 'should set api error on bogus request', :vcr => { :cassette_name => 'category/search_bogus_request' } do
+        correct_url = Cb.configuration.uri_job_category_search
+
+        Cb.configuration.uri_job_category_search = Cb.configuration.uri_job_category_search + 'a'
+        result = Cb.category.search()
+        Cb.configuration.uri_job_category_search = correct_url
+
+        result.empty?.should be_true
+        result.api_error.should == true
+      end
     end
 
     context ".search_by_host_site" do
@@ -40,6 +51,18 @@ module Cb
           end
           result.api_error.should == false
         end
+      end
+
+
+      it 'should set api error on bogus request', :vcr => { :cassette_name => 'catergory/site_bogus_request'} do
+        correct_url = Cb.configuration.uri_job_category_search
+
+        Cb.configuration.uri_job_category_search = Cb.configuration.uri_job_category_search + 'a'
+        result = Cb.category.search_by_host_site('WM')
+        Cb.configuration.uri_job_category_search = correct_url
+
+        result.empty?.should be_true
+        result.api_error.should == true
       end
     end
   end
