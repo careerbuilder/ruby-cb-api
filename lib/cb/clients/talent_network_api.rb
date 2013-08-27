@@ -25,6 +25,7 @@ module Cb
       if json_hash.has_key? 'Branding'
 			  tn_join_form_branding = TalentNetwork::JoinFormBranding.new(json_hash['Branding'])
       end
+
 			my_api.append_api_responses(tn_join_form_branding, json_hash)
 
 			return tn_join_form_branding
@@ -62,9 +63,8 @@ module Cb
       end
 
 			my_api.append_api_responses(tn_job_info, json_hash)
-			
+
 			return tn_job_info
-		
 		end
 	end #TalentNetworkJoinQuestions
 end #module
