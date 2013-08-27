@@ -10,6 +10,7 @@ module Cb
         search.cb_response.total_count.should >= 1
         search.cb_response.first_item_index.should == 1
         search.cb_response.last_item_index.should >= 1
+        search.api_error.should == false
 
         # # make sure we have results, and they're of the correct type
         search.count.should == 25
@@ -33,6 +34,17 @@ module Cb
                                        .keywords('Retchko4Prez').page_number(99).search()
         search.cb_response.total_count.should == 0
         search.cb_response.errors.nil?.should == true
+        search.api_error.should == false
+      end
+
+      it 'should set api error on a bogus request', :vcr => {:cassette_name => 'job/search/bogus_request'} do
+        correct_url = Cb.configuration.uri_job_search
+
+        Cb.configuration.uri_job_search = Cb.configuration.uri_job_search + 'a'
+        search = Cb.job_search_criteria.location('Atlanta, GA').radius(10).search()
+        Cb.configuration.uri_job_search = correct_url
+
+        search.api_error.should == true
       end
     end
 
@@ -45,12 +57,14 @@ module Cb
         search.cb_response.total_count.should >= 1
         search.cb_response.first_item_index.should == 1
         search.cb_response.last_item_index.should >= 1
+        search.api_error.should == false
 
         job = Cb.job.find_by_did(search[Random.new.rand(0..24)].did)
 
         job.did.length.should >= 19
         job.title.length.should > 1
         job.company_name.length.nil?.should == false
+        job.api_error.should == false
       end
 
       it 'should not load job for a bad did', :vcr => { :cassette_name => 'job/bad_did' } do
@@ -58,6 +72,17 @@ module Cb
 
         job.cb_response.errors.is_a?(Array).should == true
         job.cb_response.errors.first.include?('Job was not found').should == true
+        job.api_error.should == false
+      end
+
+      it 'should set spi error for bogus request', :vcr => { :cassette_name => 'job/bogus_request' } do
+        correct_url = Cb.configuration.uri_job_find
+
+        Cb.configuration.uri_job_find = Cb.configuration.uri_job_find + 'a'
+        job = Cb.job.find_by_did('bogus_did')
+        Cb.configuration.uri_job_find = correct_url
+
+        job.api_error.should == true
       end
     end
 end
