@@ -25,7 +25,7 @@ module Cb
                                     'HostSite'=>@@host_site})
      
           expect(user_saved_search.cb_response.errors.nil?).to eq(true)
-
+          expect(user_saved_search.api_error).to be == false
         end
       end
 
@@ -39,7 +39,7 @@ module Cb
                                                           'HostSite'=>@@host_site})
 
           expect(user_saved_search.cb_response.errors.nil?).to eq(false)
-
+          expect(user_saved_search.api_error).to be == false
         end
       end
     end
@@ -48,6 +48,9 @@ module Cb
       it 'should update the saved search created in this test' do
         VCR.use_cassette('saved_search/successful_update_saved_search') do
           saved_search_list = Cb::SavedSearchApi.list(Cb.configuration.dev_key, @@external_user_id)
+
+          expect(saved_search_list.api_error).to be == false
+
           external_id = saved_search_list.first.external_id
           email_frequency = 'None'
           search_name = 'Fake Job Search Update'
@@ -57,6 +60,7 @@ module Cb
                                                           'HostSite'=>@@host_site, 'ExternalID'=>external_id})
          
           expect(user_saved_search.cb_response.errors.nil?).to eq(true)
+          expect(user_saved_search.api_error).to be == false
 
         end
       end
@@ -65,11 +69,10 @@ module Cb
     context '.list' do
       it 'should retrieve a list of saved searches' do
         VCR.use_cassette('saved_search/successful_list_saved_search') do
+          user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @@external_user_id)
 
-        user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @@external_user_id)
-
-        user_saved_search.should_not be_nil
-
+          user_saved_search.should_not be_nil
+          expect(user_saved_search.api_error).to be == false
         end
       end
     end
@@ -78,11 +81,14 @@ module Cb
       it 'should retrieve the first saved search' do
         VCR.use_cassette('saved_search/successful_retrieve_saved_search') do
           saved_search_list = Cb::SavedSearchApi.list(Cb.configuration.dev_key, @@external_user_id)
+          expect(saved_search_list.api_error).to be == false
+
           external_id = saved_search_list.first.external_id
 
           user_saved_search = Cb::SavedSearchApi.retrieve(Cb.configuration.dev_key, @@external_user_id, external_id, @@host_site)
 
           expect(user_saved_search.cb_response.errors.nil?).to eq(true)
+          expect(user_saved_search.api_error).to be == false
 
         end
       end
@@ -92,11 +98,14 @@ module Cb
       it 'should delete the first saved search' do
         VCR.use_cassette('saved_search/successful_delete_saved_search') do
           saved_search_list = Cb::SavedSearchApi.list(Cb.configuration.dev_key, @@external_user_id)
+          saved_search_list.api_error.should == false
+
           external_id = saved_search_list.first.external_id
 
           user_saved_search = Cb.saved_search_api.delete({'DeveloperKey'=>Cb.configuration.dev_key, 'ExternalID'=>external_id,'ExternalUserID'=>@@external_user_id, 'HostSite'=>@@host_site})
 
           user_saved_search.cb_response.errors.blank?.should == true
+          user_saved_search.api_error.should == false
         end
       end
     end
