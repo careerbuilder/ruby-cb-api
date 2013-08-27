@@ -4,7 +4,7 @@ require 'spec_helper'
 module Cb
   describe Cb::ApplicationApi do
     context '.for_job' do
-      it 'should return valid application schema', :vcr => {:cassette_name => 'persist/job/application/for_job', :record => :once } do
+      it 'should return valid application schema', :vcr => {:cassette_name => 'persist/job/application/for_job' } do
           search = Cb.job_search_criteria.location('Atlanta, GA').radius(150).keywords('customcodes:CBDEV_applyurlno').search()
           job = search[Random.new.rand(0..24)]
 
