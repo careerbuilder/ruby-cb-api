@@ -75,7 +75,7 @@ module Cb
         job.api_error.should == false
       end
 
-      it 'should set spi error for bogus request', :vcr => { :cassette_name => 'job/bogus_request' } do
+      it 'should set api error for bogus request', :vcr => { :cassette_name => 'job/bogus_request' } do
         correct_url = Cb.configuration.uri_job_find
 
         Cb.configuration.uri_job_find = Cb.configuration.uri_job_find + 'a'
