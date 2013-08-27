@@ -61,8 +61,9 @@ module Cb
       my_api = Cb::Utils::Api.new
       json_hash = my_api.cb_post Cb.configuration.uri_saved_search_delete, :body=>CbSavedSearch.new(args).delete_to_xml
 
-      if json_hash.keys.any?
-        saved_search = CbSavedSearch.new json_hash
+      if json_hash.has_key?('Request')
+        saved_search = CbSavedSearch.new json_hash['Request']
+        my_api.append_api_responses(saved_search, json_hash['Request'])
       end
 
       my_api.append_api_responses(saved_search, json_hash)
@@ -88,9 +89,14 @@ module Cb
       my_api = Cb::Utils::Api.new
       json_hash = my_api.cb_get Cb.configuration.uri_saved_search_retrieve, :query => {:developerkey=> developer_key, :externaluserid=> external_user_id, :externalid=> external_id, :hostsite=> host_site}
 
-      if json_hash.has_key?('SavedJobSearch') && json_hash['SavedJobSearch'].has_key?('SavedSearch')
-        saved_search = CbSavedSearch.new json_hash['SavedJobSearch']['SavedSearch']
-        my_api.append_api_responses saved_search, json_hash['SavedJobSearch']['SavedSearch']
+      if json_hash.has_key?('SavedJobSearch')
+
+        if json_hash['SavedJobSearch'].has_key?('SavedSearch')
+          saved_search = CbSavedSearch.new json_hash['SavedJobSearch']['SavedSearch']
+          my_api.append_api_responses saved_search, json_hash['SavedJobSearch']['SavedSearch']
+        end
+
+        my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
       end
 
       my_api.append_api_responses saved_search, json_hash
