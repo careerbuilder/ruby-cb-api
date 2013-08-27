@@ -4,9 +4,9 @@ log/*.log
 *.gem
 pkg/
 coverage/
-spec/cassettes
-spec/cassettes/*
 !spec/cassettes/persist
 !spec/cassettes/persist/*
+spec/cassettes
+spec/cassettes/*
 .idea
 .project
