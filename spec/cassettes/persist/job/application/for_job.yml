@@ -1106,4 +1106,201 @@ http_interactions:
         5000","QuestionText":"Your cover letter"}]}}}}'
     http_version: 
   recorded_at: Tue, 27 Aug 2013 21:29:01 GMT
+- request:
+    method: get
+    uri: http://api.careerbuilder.com/v1/application/blank?JobDID=JHT1VM6VVD65N78Z5VM&developerkey=WDHH6P96RQD9FSDCZ0G7&outputjson=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.0
+      P3p:
+      - CP="CAO CURa IVAa HISa OUR IND UNI COM NAV INT STA",policyref="http://img.icbdr.com/images/CBP3P.xml"
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      X-Pby:
+      - REBEL44
+      Date:
+      - Tue, 27 Aug 2013 21:29:31 GMT
+      Connection:
+      - close
+      Content-Length:
+      - '2191'
+    body:
+      encoding: US-ASCII
+      string: ! '{"ResponseBlankApplication":{"Errors":null,"TimeResponseSent":"8/27/2013
+        5:29:32 PM","TimeElapsed":"0.0468072","BlankApplication":{"ApplicationSubmitServiceURL":"http://api.careerbuilder.com/v1/application/submit","ApplyURL":"http://api.careerbuilder.com/v1/application/applylink?TrackingID=2BKQG7L7&JobDID=JHT1VM6VVD65N78Z5VM","JobDID":"JHT1VM6VVD65N78Z5VM","JobTitle":"Account
+        Executive","IsSharedApply":"False","Requirements":{"DegreeRequired":"None\r\n","TravelRequired":"Up
+        to 50%\r\n","ExperienceRequired":"3 to greater than 15 years","RequirementsText":"<ul>\r\n    <li><span>Willing
+        to travel</span></li>\r\n    <li><span>Winning attitude</span></li>\r\n    <li><span>A
+        sincere desire to succeed</span></li>\r\n    <li><span>The ability to make
+        a great first impression</span></li>\r\n    <li><span>Quick learner / Coachable</span></li>\r\n    <li><span>Reliable
+        transportation, smart phone</span></li>\r\n    <li><span>Must hold a valid
+        US driver&rsquo;s license</span></li>\r\n    <li><span>Sales experience preferred,
+        but not required &ndash; we will train for the right candidate</span></li>\r\n</ul>\r\n<p
+        style=\"text-align: justify\">&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p style=\"text-align:
+        justify\">&nbsp;</p>\r\n<p><span>This job isn&rsquo;t for everybody, but if
+        you&rsquo;re up for a challenge, this could be an incredible opportunity for
+        you! If you love to travel, have the drive to earn unlimited income, and have
+        a proven track record as a strong charismatic closer, </span><b><span>we want
+        to hear from you</span></b><span>!</span></p>"},"TotalQuestions":"4","TotalRequiredQuestions":"3","Questions":{"Question":[{"QuestionID":"ApplicantName","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        50","QuestionText":"Your name"},{"QuestionID":"ApplicantEmail","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        50","QuestionText":"Your email"},{"QuestionID":"Resume","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        5000","QuestionText":"Your resume"},{"QuestionID":"CoverLetter","QuestionType":"Basic","IsRequired":"false","ExpectedResponseFormat":"Text
+        5000","QuestionText":"Your cover letter"}]}}}}'
+    http_version: 
+  recorded_at: Tue, 27 Aug 2013 21:29:32 GMT
+- request:
+    method: get
+    uri: http://api.careerbuilder.com/v1/application/blank?JobDID=JHV21S6D844PZD7Q5BC&developerkey=WDHH6P96RQD9FSDCZ0G7&outputjson=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.0
+      P3p:
+      - CP="CAO CURa IVAa HISa OUR IND UNI COM NAV INT STA",policyref="http://img.icbdr.com/images/CBP3P.xml"
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      X-Pby:
+      - REBEL8
+      Date:
+      - Tue, 27 Aug 2013 21:30:05 GMT
+      Connection:
+      - close
+      Content-Length:
+      - '4072'
+    body:
+      encoding: US-ASCII
+      string: ! '{"ResponseBlankApplication":{"Errors":null,"TimeResponseSent":"8/27/2013
+        5:30:06 PM","TimeElapsed":"0.0312036","BlankApplication":{"ApplicationSubmitServiceURL":"http://api.careerbuilder.com/v1/application/submit","ApplyURL":"http://api.careerbuilder.com/v1/application/applylink?TrackingID=2BKQG7L7&JobDID=JHV21S6D844PZD7Q5BC","JobDID":"JHV21S6D844PZD7Q5BC","JobTitle":"Outside
+        Sales Representative","IsSharedApply":"False","Requirements":{"DegreeRequired":"High
+        School\r\n","TravelRequired":"Up to 50%\r\n","ExperienceRequired":"At least
+        1 year(s)","RequirementsText":"<p><span>Although success does not hinge on
+        a precise background, our best outside sales representatives typically have
+        a s</span><span>trong sales, banking and business acumen. Additionally you
+        should have:</span></p>\r\n<p><span>&nbsp;</span></p>\r\n<ul>\r\n    <li><span>Desire
+        to set your own schedule and be your own boss</span>\r\n    </li>\r\n    <li><span>Desire
+        to have unlimited income and no sales territory restrictions</span>\r\n    </li>\r\n    <li><span>Ability
+        to put your sales and marketing skills to work, saving local business owners
+        money on their banking and credit card processing costs</span>\r\n    </li>\r\n    <li><span>Strong
+        networking and relationship building skills, as much of your business will
+        come through referrals.&nbsp; </span>\r\n    </li>\r\n    <li><span>Integrity
+        and strong work ethic.</span>\r\n    </li>\r\n    <li><span>Good math and
+        banking skills, as you will work with numbers</span> </li>\r\n</ul>\r\n<p><span>&nbsp;</span></p>\r\n<p><strong><span>Benefits</span></strong></p>\r\n<p><strong><span>&nbsp;</span></strong></p>\r\n<p><span>At
+        CardPayment Solutions, we value our team and strive to provide one of the
+        best business opportunities in the country. We are committed to our people
+        having an opportunity that fits their schedule and lifestyle. Here are some
+        of the benefits you can expect from working with us as an outside sales representative
+        in the credit processing business:</span></p>\r\n<p><span>&nbsp;</span></p>\r\n<ul>\r\n    <li><span>Superior
+        ongoing training programs that equip you with everything you need to be successful</span>\r\n    </li>\r\n    <li><span>Professional
+        marketing and presentation materials</span>\r\n    </li>\r\n    <li><span>24/7
+        technical and customer support</span>\r\n    </li>\r\n    <li><span>One of
+        the strongest commission plans in the credit card processing industry</span>\r\n    </li>\r\n    <li><span>Strong
+        bonus payment plans</span>\r\n    </li>\r\n    <li><span>Fast payment of commissions
+        through direct deposit</span>\r\n    </li>\r\n    <li><span>Residual income
+        opportunities as you build your customer base</span> </li>\r\n</ul>\r\n<p><span>&nbsp;</span></p>\r\n<p><span>If
+        you have a passion for business and want a solid career with a great future,
+        the CardPayment Solutions team is your path to success&nbsp; </span></p>\r\n<p
+        style=\"text-align: center\" align=\"center\"><strong><span>&nbsp;</span></strong></p>\r\n<p
+        style=\"text-align: center\" align=\"center\"><strong><span>&nbsp;</span></strong></p>\r\n<p
+        style=\"text-align: center\" align=\"center\"><strong><span>Apply Today!</span></strong></p>\r\n<br
+        />\r\n<br />\r\n<p><span>Keywords: Sales, outside sales, account management,
+        customer service, entry level, part time, full time, accounting, finance,
+        manager, marketing, business development, hunter, cold calling, prospecting
+        </span></p>"},"TotalQuestions":"4","TotalRequiredQuestions":"3","Questions":{"Question":[{"QuestionID":"ApplicantName","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        50","QuestionText":"Your name"},{"QuestionID":"ApplicantEmail","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        50","QuestionText":"Your email"},{"QuestionID":"Resume","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        5000","QuestionText":"Your resume"},{"QuestionID":"CoverLetter","QuestionType":"Basic","IsRequired":"false","ExpectedResponseFormat":"Text
+        5000","QuestionText":"Your cover letter"}]}}}}'
+    http_version: 
+  recorded_at: Tue, 27 Aug 2013 21:30:06 GMT
+- request:
+    method: get
+    uri: http://api.careerbuilder.com/v1/application/blank?JobDID=JHM38C6KLKDF8XCSGJH&developerkey=WDHH6P96RQD9FSDCZ0G7&outputjson=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.0
+      P3p:
+      - CP="CAO CURa IVAa HISa OUR IND UNI COM NAV INT STA",policyref="http://img.icbdr.com/images/CBP3P.xml"
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      X-Pby:
+      - REBEL6
+      Date:
+      - Tue, 27 Aug 2013 21:30:22 GMT
+      Connection:
+      - close
+      Content-Length:
+      - '2941'
+    body:
+      encoding: US-ASCII
+      string: ! '{"ResponseBlankApplication":{"Errors":null,"TimeResponseSent":"8/27/2013
+        5:30:23 PM","TimeElapsed":"0.0312036","BlankApplication":{"ApplicationSubmitServiceURL":"http://api.careerbuilder.com/v1/application/submit","ApplyURL":"http://api.careerbuilder.com/v1/application/applylink?TrackingID=2BKQG7L7&JobDID=JHM38C6KLKDF8XCSGJH","JobDID":"JHM38C6KLKDF8XCSGJH","JobTitle":"Tool
+        Designer","IsSharedApply":"False","Requirements":{"DegreeRequired":"High School\r\n","TravelRequired":"Not
+        Specified\r\n","ExperienceRequired":"Not Specified","RequirementsText":"<span><strong>
+        </strong>\r\n<p><span><strong>Tool Designer Job Duties<br>\r\n<br>\r\n</strong></span></p>\r\n<ul>\r\n    <li>Studies
+        specifications, engineering blueprints, tool orders, and shop data and confers
+        with engineering and shop personnel to resolve design problems related to
+        material characteristics, dimensional tolerances, service requirements, manufacturing
+        procedures, and cost.</li>\r\n    <li>Selects standard items, such as bushings,
+        bearings and other hardware to incorporate into tool design</li>\r\n    <li>Draws
+        preliminary sketches and prepares layout and detail drawings, using computer-assisted
+        design/drafting equipment and software </li>\r\n    <li>Modifies tool designs
+        according to trial or production service data to improve tool life or performance</li>\r\n    <li>Add
+        details to conceptual designs of tools, jigs, fixtures, carts and other related
+        equipment. Including but not limited to 3D models and 2D prints</li>\r\n    <li>Coordinate
+        procurement devices through quoting, bid evaluation, negotiation and follow-up
+        until successful implementation in production</li>\r\n    <li>Maintain design
+        data in accordance with Kubota&rsquo;s standards</li>\r\n</ul>\r\n<p>&nbsp;</p>\r\n<p><span><strong>Skills:</strong>
+        Experience in 3D Cad modeling, 2D drawing detailing, understanding of basic
+        machining and fabrication techniques. Must have clear written and verbal communication
+        skills with a strong math aptitude and understanding of GD&amp;T.<br>\r\n</span></p>\r\n<p><span><br>\r\n<strong>Education
+        and Qualifications:</strong> High School Diploma, Bachelor&rsquo;s Degree
+        preferred or 2 year certificate. Experience in a production or manufacturing
+        environment is also preferred but not required. </span></p>\r\n</span>"},"TotalQuestions":"4","TotalRequiredQuestions":"3","Questions":{"Question":[{"QuestionID":"ApplicantName","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        50","QuestionText":"Your name"},{"QuestionID":"ApplicantEmail","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        50","QuestionText":"Your email"},{"QuestionID":"Resume","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        5000","QuestionText":"Your resume"},{"QuestionID":"CoverLetter","QuestionType":"Basic","IsRequired":"false","ExpectedResponseFormat":"Text
+        5000","QuestionText":"Your cover letter"}]}}}}'
+    http_version: 
+  recorded_at: Tue, 27 Aug 2013 21:30:23 GMT
 recorded_with: VCR 2.4.0
