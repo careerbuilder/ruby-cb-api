@@ -24,13 +24,14 @@ module Cb
 
       it 'should set api error on bogus request', :vcr => {:cassette_name => 'job/job_branding/bogus_request'} do
         # Returns 404 html which is valid
-        #correct_url = Cb.configuration.uri_job_branding
+        correct_url = Cb.configuration.uri_job_branding
 
-        #Cb.configuration.uri_job_branding  = Cb.configuration.uri_job_branding + 'a'
-        #job_branding = Cb.job_branding.find_by_id 'BAD'
-        #Cb.configuration.uri_job_branding = correct_url
+        Cb.configuration.uri_job_branding  = Cb.configuration.uri_job_branding + 'a'
+        job_branding = Cb.job_branding.find_by_id 'BAD'
+        Cb.configuration.uri_job_branding = correct_url
 
-        #job_branding.api_error.should == true
+        job_branding.nil?.should be_true
+        job_branding.api_error.should == true
       end
 		end
 	end
