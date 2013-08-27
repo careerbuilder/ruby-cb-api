@@ -1029,4 +1029,81 @@ http_interactions:
         5000","QuestionText":"Your cover letter"}]}}}}'
     http_version: 
   recorded_at: Tue, 27 Aug 2013 21:26:26 GMT
+- request:
+    method: get
+    uri: http://api.careerbuilder.com/v1/application/blank?JobDID=J322TQ71PCSJVJPFDKF&developerkey=WDHH6P96RQD9FSDCZ0G7&outputjson=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.0
+      P3p:
+      - CP="CAO CURa IVAa HISa OUR IND UNI COM NAV INT STA",policyref="http://img.icbdr.com/images/CBP3P.xml"
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      X-Pby:
+      - REBEL40
+      Date:
+      - Tue, 27 Aug 2013 21:29:01 GMT
+      Connection:
+      - close
+      Content-Length:
+      - '4072'
+    body:
+      encoding: US-ASCII
+      string: ! '{"ResponseBlankApplication":{"Errors":null,"TimeResponseSent":"8/27/2013
+        5:29:01 PM","TimeElapsed":"0.0156002","BlankApplication":{"ApplicationSubmitServiceURL":"http://api.careerbuilder.com/v1/application/submit","ApplyURL":"http://api.careerbuilder.com/v1/application/applylink?TrackingID=2BKQG7L7&JobDID=J322TQ71PCSJVJPFDKF","JobDID":"J322TQ71PCSJVJPFDKF","JobTitle":"Outside
+        Sales Representative","IsSharedApply":"False","Requirements":{"DegreeRequired":"High
+        School\r\n","TravelRequired":"Up to 50%\r\n","ExperienceRequired":"At least
+        1 year(s)","RequirementsText":"<p><span>Although success does not hinge on
+        a precise background, our best outside sales representatives typically have
+        a s</span><span>trong sales, banking and business acumen. Additionally you
+        should have:</span></p>\r\n<p><span>&nbsp;</span></p>\r\n<ul>\r\n    <li><span>Desire
+        to set your own schedule and be your own boss</span>\r\n    </li>\r\n    <li><span>Desire
+        to have unlimited income and no sales territory restrictions</span>\r\n    </li>\r\n    <li><span>Ability
+        to put your sales and marketing skills to work, saving local business owners
+        money on their banking and credit card processing costs</span>\r\n    </li>\r\n    <li><span>Strong
+        networking and relationship building skills, as much of your business will
+        come through referrals.&nbsp; </span>\r\n    </li>\r\n    <li><span>Integrity
+        and strong work ethic.</span>\r\n    </li>\r\n    <li><span>Good math and
+        banking skills, as you will work with numbers</span> </li>\r\n</ul>\r\n<p><span>&nbsp;</span></p>\r\n<p><strong><span>Benefits</span></strong></p>\r\n<p><strong><span>&nbsp;</span></strong></p>\r\n<p><span>At
+        CardPayment Solutions, we value our team and strive to provide one of the
+        best business opportunities in the country. We are committed to our people
+        having an opportunity that fits their schedule and lifestyle. Here are some
+        of the benefits you can expect from working with us as an outside sales representative
+        in the credit processing business:</span></p>\r\n<p><span>&nbsp;</span></p>\r\n<ul>\r\n    <li><span>Superior
+        ongoing training programs that equip you with everything you need to be successful</span>\r\n    </li>\r\n    <li><span>Professional
+        marketing and presentation materials</span>\r\n    </li>\r\n    <li><span>24/7
+        technical and customer support</span>\r\n    </li>\r\n    <li><span>One of
+        the strongest commission plans in the credit card processing industry</span>\r\n    </li>\r\n    <li><span>Strong
+        bonus payment plans</span>\r\n    </li>\r\n    <li><span>Fast payment of commissions
+        through direct deposit</span>\r\n    </li>\r\n    <li><span>Residual income
+        opportunities as you build your customer base</span> </li>\r\n</ul>\r\n<p><span>&nbsp;</span></p>\r\n<p><span>If
+        you have a passion for business and want a solid career with a great future,
+        the CardPayment Solutions team is your path to success&nbsp; </span></p>\r\n<p
+        style=\"text-align: center\" align=\"center\"><strong><span>&nbsp;</span></strong></p>\r\n<p
+        style=\"text-align: center\" align=\"center\"><strong><span>&nbsp;</span></strong></p>\r\n<p
+        style=\"text-align: center\" align=\"center\"><strong><span>Apply Today!</span></strong></p>\r\n<br
+        />\r\n<br />\r\n<p><span>Keywords: Sales, outside sales, account management,
+        customer service, entry level, part time, full time, accounting, finance,
+        manager, marketing, business development, hunter, cold calling, prospecting
+        </span></p>"},"TotalQuestions":"4","TotalRequiredQuestions":"3","Questions":{"Question":[{"QuestionID":"ApplicantName","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        50","QuestionText":"Your name"},{"QuestionID":"ApplicantEmail","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        50","QuestionText":"Your email"},{"QuestionID":"Resume","QuestionType":"Basic","IsRequired":"true","ExpectedResponseFormat":"Text
+        5000","QuestionText":"Your resume"},{"QuestionID":"CoverLetter","QuestionType":"Basic","IsRequired":"false","ExpectedResponseFormat":"Text
+        5000","QuestionText":"Your cover letter"}]}}}}'
+    http_version: 
+  recorded_at: Tue, 27 Aug 2013 21:29:01 GMT
 recorded_with: VCR 2.4.0
