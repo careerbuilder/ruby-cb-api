@@ -21,5 +21,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'json', '~> 1.7.6'
 
   s.add_dependency 'nori', '~> 2.2.0'
-  s.add_dependency 'nokogiri', '~> 1.5.9'
+  s.add_dependency 'nokogiri', '~> 1.6.0'
 end
