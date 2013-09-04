@@ -4,7 +4,7 @@ PATH
     cb-api (0.3.0)
       httparty (~> 0.11.0)
       json (~> 1.7.6)
-      nokogiri (~> 1.5.9)
+      nokogiri (~> 1.6.0)
       nori (~> 2.2.0)
 
 GEM
@@ -26,10 +26,12 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.6.5)
     json (1.7.7)
+    mini_portile (0.5.1)
     minitest (4.7.5)
     multi_json (1.7.9)
     multi_xml (0.5.5)
-    nokogiri (1.5.10)
+    nokogiri (1.6.0)
+      mini_portile (~> 0.5.0)
     nori (2.2.0)
     rake (10.1.0)
     rspec (2.14.1)
@@ -60,7 +62,7 @@ DEPENDENCIES
   activesupport
   cb-api!
   json (~> 1.7.7)
-  nokogiri (~> 1.5.9)
+  nokogiri (~> 1.6.0)
   rake (>= 0.8.7)
   rspec (>= 2.11)
   simplecov (>= 0.7.1)
