@@ -10,7 +10,7 @@ module Cb
     #############################################################
     def self.retrieve_by_did(did, host_site = '')
       my_api = Cb::Utils::Api.new()
-      json_hash = my_api.cb_get(Cb.configuration.uri_subscription_retrieve, :query => {:ExternalID => did, :Hostsite => host_site})
+      json_hash = my_api.cb_get_secure(Cb.configuration.uri_subscription_retrieve, :query => {:ExternalID => did, :Hostsite => host_site})
 
       if json_hash.has_key?('SubscriptionValues') && json_hash['SubscriptionValues'].present?
         subscription = CbEmailSubscription.new(json_hash['SubscriptionValues'])
