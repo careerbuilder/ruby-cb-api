@@ -7,7 +7,7 @@ group :test do
 	gem 'vcr', '~> 2.4.0'
 	gem 'webmock', '~> 1.9.0'
 	gem 'json', '~> 1.7.7'
-  gem 'nokogiri', '~> 1.5.9'
+  gem 'nokogiri', '~> 1.6.0'
   gem 'activesupport'
 end
 
