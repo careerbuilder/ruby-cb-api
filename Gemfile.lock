@@ -4,6 +4,7 @@ PATH
     cb-api (0.3.0)
       httparty (~> 0.11.0)
       json (~> 1.7.6)
+      nokogiri (~> 1.5.9)
       nori (~> 2.2.0)
 
 GEM
