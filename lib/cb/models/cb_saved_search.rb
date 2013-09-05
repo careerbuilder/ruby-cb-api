@@ -141,5 +141,14 @@ module Cb
       ret
     end
 
+    def delete_anon_to_xml
+      ret =   "<Request>"
+      ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
+      ret += "<ExternalID>#{@external_id}</ExternalID>"
+      ret += "<Test>#{@test}</Test>"
+      ret += "</Request>"
+
+      ret
+    end
   end
 end
