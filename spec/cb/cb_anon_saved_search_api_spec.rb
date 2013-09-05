@@ -27,6 +27,7 @@ module Cb
           args['Test'] = false
           a_saved_search_req = Cb.anon_saved_search_api.create args
 
+          expect(a_saved_search_req.api_error).to eq(false)
           expect(a_saved_search_req.errors.nil?).to eq(true)
           expect(a_saved_search_req.class).to eq(Cb::CbSavedSearch)
         end
@@ -47,8 +48,33 @@ module Cb
 
           a_saved_search_req = Cb.anon_saved_search_api.create args_bad
 
+          expect(a_saved_search_req.api_error).to eq(false)
           expect(a_saved_search_req.errors.nil?).to eq(false)
         end
+      end
+
+      it 'should bomb out horribly due to an api error' do
+        original_uri = Cb.configuration.uri_anon_saved_search_create
+        Cb.configuration.uri_anon_saved_search_create = "#{Cb.configuration.uri_anon_saved_search_create}a"
+        args = Hash.new
+        args['EmailAddress'] = @@email_address
+        args['BrowserID'] = @@browser_id
+        args['SessionID'] = @@email_address
+        args['HostSite'] = @@host_site
+        args['DeveloperKey'] = @@dev_key
+        args['SearchName'] = @@search_name
+        args['Keywords'] = @@keywords
+        args['Location'] = @@location
+        args['IsDailyEmail'] = 'None'
+        args['Test'] = false
+        a_saved_search_req = Cb.anon_saved_search_api.create args
+
+        Cb.configuration.uri_anon_saved_search_create = original_uri
+
+        expect(a_saved_search_req.api_error).to eq(true)
+        expect(a_saved_search_req.errors.nil?).to eq(true)
+        expect(a_saved_search_req.class).to eq(Cb::CbSavedSearch)
+
       end
     end
 
@@ -63,6 +89,7 @@ module Cb
 
           a_saved_search_del_req = Cb.anon_saved_search_api.delete args_del_yay
 
+          expect(a_saved_search_del_req.api_error).to eq(false)
           expect(a_saved_search_del_req).to eq('Success')
         end
       end
@@ -76,8 +103,25 @@ module Cb
 
           a_saved_search_del_req = Cb.anon_saved_search_api.delete args_del_nay
 
+          expect(a_saved_search_del_req.api_error).to eq(false)
           expect(a_saved_search_del_req).to_not eq('Success')
         end
+      end
+
+      it 'should bomb out horribly due to an api error ' do
+        original_uri = Cb.configuration.uri_anon_saved_search_delete
+        Cb.configuration.uri_anon_saved_search_delete = "#{Cb.configuration.uri_anon_saved_search_delete}a"
+        args_del_yay = Hash.new
+        args_del_yay['ExternalID'] = 'XRHP5HV60CH0XXRV3LLK'
+        args_del_yay['Test'] = false
+        args_del_yay['DeveloperKey'] = @@dev_key
+
+        a_saved_search_del_req = Cb.anon_saved_search_api.delete args_del_yay
+
+        Cb.configuration.uri_anon_saved_search_delete = original_uri
+
+        expect(a_saved_search_del_req.api_error).to eq(true)
+        expect(a_saved_search_del_req).to eq(nil)
       end
     end
   end
