@@ -90,4 +90,8 @@ module Cb
   def self.talent_network_api
     Cb::TalentNetworkApi
   end
+
+  def self.anon_saved_search_api
+    Cb::AnonSavedSearchApi
+  end
 end
