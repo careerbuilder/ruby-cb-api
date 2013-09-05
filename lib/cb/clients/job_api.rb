@@ -40,7 +40,7 @@ module Cb
     def self.find_by_criteria(criteria)
       my_api = Cb::Utils::Api.new()
       params = my_api.class.criteria_to_hash(criteria)
-      json_hash = my_api.cb_get("#{Cb.configuration.uri_job_find}a", :query => params)
+      json_hash = my_api.cb_get(Cb.configuration.uri_job_find, :query => params)
 
       if json_hash.has_key?('ResponseJob')
         if json_hash['ResponseJob'].has_key?('Job')
