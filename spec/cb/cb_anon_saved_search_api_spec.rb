@@ -4,16 +4,16 @@ module Cb
   describe Cb::AnonSavedSearchApi do 
     @@host_site = 'WR'
     @@dev_key = 'WDHS47J77WLS2Y0N102H'
-    @@email_address = 'nbstester2013@cb.com'
+    @@email_address = 'nbstester20131@cb.com'
     @@keywords = 'Sales'
     @@location = 'New York, NY'
     @@search_name = 'Sales Associate Jobs'
     @@browser_id = 'Chrome'
     @@test_flag = true
-    
+
     context '.new' do 
       it 'should successfully create a new anonymous saved search' do 
-        VCR.use_cassette('anon_saved_search_api/create/success') do 
+        VCR.use_cassette('persist/anon_saved_search_api/create/success') do 
           args = Hash.new
           args['EmailAddress'] = @@email_address
           args['BrowserID'] = @@browser_id
@@ -24,7 +24,7 @@ module Cb
           args['Keywords'] = @@keywords
           args['Location'] = @@location
           args['IsDailyEmail'] = 'None'
-          args['Test'] = @@test_flag
+          args['Test'] = false
           a_saved_search_req = Cb.anon_saved_search_api.create args
 
           expect(a_saved_search_req.errors.nil?).to eq(true)
@@ -48,6 +48,35 @@ module Cb
           a_saved_search_req = Cb.anon_saved_search_api.create args_bad
 
           expect(a_saved_search_req.errors.nil?).to eq(false)
+        end
+      end
+    end
+
+    context '.delete' do 
+      it 'should successfully delete an anonymous saved search ' do 
+        VCR.use_cassette('persist/anon_saved_search_api/delete/success') do 
+
+          args_del_yay = Hash.new
+          args_del_yay['ExternalID'] = 'XRHP5HV60CH0XXRV3LLK'
+          args_del_yay['Test'] = false
+          args_del_yay['DeveloperKey'] = @@dev_key
+
+          a_saved_search_del_req = Cb.anon_saved_search_api.delete args_del_yay
+
+          expect(a_saved_search_del_req).to eq('Success')
+        end
+      end
+
+      it 'should not successfully delete an anonymous saved search' do 
+        VCR.use_cassette('anon_saved_search_api/delete/failure') do 
+          args_del_nay = Hash.new
+          args_del_nay['ExternalID'] = 'testID'
+          args_del_nay['Test'] = @@test_flag
+          args_del_nay['DeveloperKey'] = @@dev_key
+
+          a_saved_search_del_req = Cb.anon_saved_search_api.delete args_del_nay
+
+          expect(a_saved_search_del_req).to_not eq('Success')
         end
       end
     end
