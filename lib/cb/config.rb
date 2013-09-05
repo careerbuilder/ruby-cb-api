@@ -14,7 +14,7 @@ module Cb
                   :uri_resume_own_all, :uri_resume_retrieve,
                   :uri_resume_create, :uri_resume_update, :uri_resume_delete,
                   :uri_saved_search_retrieve, :uri_saved_search_create, :uri_saved_search_update, :uri_saved_search_list, :uri_saved_search_delete,
-                  :uri_saved_job_search_create,
+                  :uri_anon_saved_search_create, :uri_saved_job_search_create,
                   :uri_job_branding, :uri_tn_join_questions, :uri_tn_job_info, :uri_tn_join_form_geo,
                   :uri_tn_join_form_branding, :uri_tn_member_create,
                   :uri_subscription_retrieve, :uri_subscription_modify
@@ -52,6 +52,7 @@ module Cb
       @uri_saved_search_update            ||= '/v2/savedsearch/update'
       @uri_saved_search_delete            ||= '/v1/savedsearch/delete'
       @uri_saved_search_list              ||= '/v1/savedsearch/list'
+      @uri_anon_saved_search_create       ||= '/v1/anonymoussavedjobsearch/create'
       @uri_tn_join_questions              ||= '/talentnetwork/config/join/questions'
       @uri_tn_job_info                    ||= '/talentnetwork/internal/job'
       @uri_tn_join_form_geo               ||= '/tn/JoinForm/Geo'
@@ -94,6 +95,7 @@ module Cb
         :uri_saved_search_update          => @uri_saved_search_update,
         :uri_saved_search_delete          => @uri_saved_search_delete,
         :uri_saved_search_list            => @uri_saved_search_list,
+        :uri_anon_saved_search_create     => @uri_anon_saved_search_create,
         :uri_tn_join_questions            => @uri_tn_join_questions,
         :uri_subscription_retrieve        => @uri_subscription_retrieve,
         :uri_subscription_modify          => @uri_subscription_modify,
