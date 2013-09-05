@@ -5,7 +5,7 @@ module Cb
                   :emp_type, :exclude_company_names, :exclude_job_titles, :exclude_national, :industry_codes,
                   :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within, 
                   :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_id,
-                  :external_user_id, :dev_key, :job_search_url, :jrdid, :errors
+                  :external_user_id, :dev_key, :job_search_url, :jrdid, :errors, :browser_id, :session_id, :test, :email_address
 
     def initialize(args={})
       @hostsite                   = args['HostSite'] || ''
@@ -41,12 +41,22 @@ module Cb
       @job_search_url             = args['JobSearchUrl'] || ''
       @jrdid                      = args['JRDID'] || ''
       @errors                     = args['Errors'] || nil
+      @browser_id                 = args['BrowserID'] || nil
+      @session_id                 = args['SessionID'] || ''
+      @test                       = args['Test'].to_s || false
+      @email_address              = args['EmailAddress'] || ''
     end
 
     def create_to_xml
       ret =  "<Request>"
       ret += "<HostSite>#{@hostsite}</HostSite>"
       ret += "<Cobrand>#{@cobrand}</Cobrand>"
+      unless @browser_id.nil?
+        ret += "<BrowserID>#{@browser_id}</BrowserID>"
+        ret += "<SessionID>#{@session_id}</SessionID>"
+        ret += "<Test>#{@test}</Test>"
+        ret += "<EmailAddress>#{@email_address}</EmailAddress>"
+      end
       ret += "<SearchName>#{@search_name}</SearchName>"
       ret += "<SearchParameters>"
       ret += "<BooleanOperator>#{@boolean_operator}</BooleanOperator>"
@@ -72,8 +82,10 @@ module Cb
       ret += "<City>#{@city}</City>"
       ret += "<State>#{@state}</State>"
       ret += "</SearchParameters>"
-      ret += "<IsDailyEmail>#{@is_daily_email}</IsDailyEmail>"
-      ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
+      ret += "<IsDailyEmail>#{@is_daily_email.upcase}</IsDailyEmail>"
+      if @browser_id.nil?
+        ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
+      end
       ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
       ret += "</Request>"
 
