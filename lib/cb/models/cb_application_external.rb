@@ -10,7 +10,7 @@ module Cb
     def initialize(args = {})
       @job_did          = args[:job_did] || ''
       @email            = args[:email] || ''
-      @site_id          = args[:site_id] || ''
+      @site_id          = args[:site_id] || 'cbnsv'
       @ipath            = args[:ipath] || ''
       @apply_url        = ''
     end
