@@ -7,7 +7,7 @@ module Cb
     @@email_address = 'nbstester20131@cb.com'
     @@keywords = 'Sales'
     @@location = 'New York, NY'
-    @@search_name = 'Sales Associate Jobs'
+    @@search_name = 'Sales Associate Job'
     @@browser_id = 'Chrome'
     @@test_flag = true
 
