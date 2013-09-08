@@ -51,7 +51,7 @@ module Cb
       ret =  "<Request>"
       ret += "<HostSite>#{@hostsite}</HostSite>"
       ret += "<Cobrand>#{@cobrand}</Cobrand>"
-      unless @browser_id.nil?
+      unless @email_address.nil?
         ret += "<BrowserID>#{@browser_id}</BrowserID>"
         ret += "<SessionID>#{@session_id}</SessionID>"
         ret += "<Test>#{@test}</Test>"
@@ -83,7 +83,7 @@ module Cb
       ret += "<State>#{@state}</State>"
       ret += "</SearchParameters>"
       ret += "<IsDailyEmail>#{@is_daily_email.upcase}</IsDailyEmail>"
-      if @browser_id.nil?
+      if @email_address.nil?
         ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
       end
       ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
