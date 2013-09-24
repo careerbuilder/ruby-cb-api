@@ -9,6 +9,7 @@ Dir[File.dirname(__FILE__) + '/cb/models/**/*.rb'].each {| file| require file }
 
 module Cb
   class IncomingParamIsWrongTypeException < StandardError; end
+  class ExpectedResponseFieldMissing < StandardError; end
 
 	def self.configure
 		yield configuration
@@ -93,5 +94,9 @@ module Cb
 
   def self.anon_saved_search_api
     Cb::AnonSavedSearchApi
+  end
+
+  def self.spot
+    Cb::Spot
   end
 end
