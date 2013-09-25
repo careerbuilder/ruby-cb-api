@@ -40,7 +40,7 @@ module Cb
           api = double(Cb::Utils::Api)
           api.class.stub(:criteria_to_hash)
           api.stub(:cb_get).and_return(@fake_mangled_response)
-          Cb::SpotApi.stub(:new).and_return(api)
+          Cb::SpotApi.stub(:api_client).and_return(api)
         end
 
         def expect_fields_missing_exception
@@ -49,7 +49,7 @@ module Cb
           }.to raise_error ExpectedResponseFieldMissing
         end
 
-        context '--> SpotData <--' do
+        context '--> SpotData node <--' do
           before :each do
             @fake_mangled_response = {
               'ResponseRetrieve' => {
@@ -65,7 +65,7 @@ module Cb
           end
         end
 
-        context '--> ResponseRetrieve <--' do
+        context '--> ResponseRetrieve node <--' do
           before :each do
             @fake_mangled_response = { 'this-hash-is-all' => 'wrong' }
             restub_mock_api
