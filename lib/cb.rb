@@ -97,6 +97,6 @@ module Cb
   end
 
   def self.spot
-    Cb::Spot
+    Cb::SpotApi
   end
 end
