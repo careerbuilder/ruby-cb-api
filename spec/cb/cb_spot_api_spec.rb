@@ -3,6 +3,15 @@ require 'spec_helper'
 module Cb
   describe Cb::SpotApi do
 
+    it 'caches the Cb::Utils::Api client for subsecuent calls' do
+      # using Object#send since #api_client is a private method
+      api_client          = Cb::SpotApi.send(:api_client)
+      the_same_api_client = Cb::SpotApi.send(:api_client)
+
+      api_client.should eq the_same_api_client
+      api_client.object_id.should eq the_same_api_client.object_id
+    end
+
     describe '#retrieve' do
 
       before :each do
