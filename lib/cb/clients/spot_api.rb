@@ -21,10 +21,8 @@ module Cb
       end
 
       def validate_api_response(response)
-        errors = Array.new
-        errors.push ROOT_NODE unless response.has_key? ROOT_NODE
-        errors.push SPOT_COLLECTION_NODE unless response[ROOT_NODE].has_key? SPOT_COLLECTION_NODE
-        raise ExpectedResponseFieldMissing.new(errors.join(' ')) unless errors.empty?
+        raise ExpectedResponseFieldMissing.new(ROOT_NODE)            unless response.has_key? ROOT_NODE
+        raise ExpectedResponseFieldMissing.new(SPOT_COLLECTION_NODE) unless response[ROOT_NODE].has_key? SPOT_COLLECTION_NODE
       end
 
       def extract_spot_models(response)
