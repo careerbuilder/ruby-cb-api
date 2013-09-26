@@ -4,7 +4,7 @@ module Cb
       args = args[0] if args.is_a?(Array) && args.count == 1
       my_api = Cb::Utils::Api.new
 
-      json_hash = my_api.cb_post Cb.configuration.uri_anon_saved_search_create, :body => CbSavedSearch.new(args).create_to_xml
+      json_hash = my_api.cb_post Cb.configuration.uri_anon_saved_search_create, :body => CbSavedSearch.new(args).create_anon_to_xml
 
       if json_hash.has_key? 'AnonymousSavedSearch'
         json_hash['AnonymousSavedSearch']['ExternalID'] = json_hash['ExternalID']
