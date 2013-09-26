@@ -4,7 +4,7 @@ module Cb
   class SpotApi
     
     ROOT_NODE = 'ResponseRetrieve'
-    SPOT_COLLECTION_NODE = 'SpotData'
+    SPOTS_NODE = 'SpotData'
 
     class << self
       def retrieve(criteria)
@@ -21,12 +21,12 @@ module Cb
       end
 
       def validate_api_response(response)
-        raise ExpectedResponseFieldMissing.new(ROOT_NODE)            unless response.has_key? ROOT_NODE
-        raise ExpectedResponseFieldMissing.new(SPOT_COLLECTION_NODE) unless response[ROOT_NODE].has_key? SPOT_COLLECTION_NODE
+        raise ExpectedResponseFieldMissing.new(ROOT_NODE) unless response.has_key? ROOT_NODE
+        raise ExpectedResponseFieldMissing.new(SPOTS_NODE) unless response[ROOT_NODE].has_key? SPOTS_NODE
       end
 
       def extract_spot_models(response)
-        spot_models = response[ROOT_NODE][SPOT_COLLECTION_NODE].map { |spot_data| Cb::Spot.new spot_data }
+        spot_models = response[ROOT_NODE][SPOTS_NODE].map { |spot_data| Cb::Spot.new(spot_data) }
         api_client.append_api_responses(spot_models, response[ROOT_NODE])
         spot_models
       end
