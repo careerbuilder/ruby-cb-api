@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::SpotApi do
+  describe Cb::ApiClients::Spot do
 
     it 'caches the Cb::Utils::Api client for subsecuent calls' do
       # using Object#send since #api_client is a private method
-      api_client          = Cb::SpotApi.send(:api_client)
-      the_same_api_client = Cb::SpotApi.send(:api_client)
+      api_client          = ApiClients::Spot.send(:api_client)
+      the_same_api_client = ApiClients::Spot.send(:api_client)
 
       api_client.should eq the_same_api_client
       api_client.object_id.should eq the_same_api_client.object_id
@@ -15,7 +15,7 @@ module Cb
     describe '#retrieve' do
 
       before :each do
-        @criteria = Cb::SpotRetrieveCriteria.new
+        @criteria = Criteria::SpotRetrieve.new
         @criteria.maxitems      = 5
         @criteria.language      = 'WMEnglish'
         @criteria.sortdirection = 'Descending'
@@ -26,12 +26,12 @@ module Cb
       context 'when everything is working as it should' do
         def assert_correct_models
           @models.should be_a Array
-          @models.first.should be_a Cb::Spot
+          @models.first.should be_a Models::Spot
         end
 
         context 'by interacting with the API client directly' do
           it 'returns an array of Cb::Spot models', :vcr => { :cassette_name => 'spot/retrieve' } do
-            @models = Cb::SpotApi.retrieve @criteria
+            @models = ApiClients::Spot.retrieve @criteria
             assert_correct_models
           end
         end
@@ -52,28 +52,23 @@ module Cb
       end
 
       context 'when the API response is missing nodes' do
-        def restub_mock_api
-          api = double(Cb::Utils::Api)
+        def restub_mocked_api
+          api = Cb::Utils::Api.new
           api.class.stub(:criteria_to_hash)
           api.stub(:cb_get).and_return(@fake_mangled_response)
-          Cb::SpotApi.stub(:api_client).and_return(api)
+          ApiClients::Spot.stub(:api_client).and_return(api)
         end
 
         def expect_fields_missing_exception
           expect {
-            Cb::SpotApi.retrieve(@criteria)
+            ApiClients::Spot.retrieve(@criteria)
           }.to raise_error ExpectedResponseFieldMissing
         end
 
         context '--> SpotData node <--' do
           before :each do
-            @fake_mangled_response = {
-              'ResponseRetrieve' => {
-                'Errors'           => '',
-                'NotTheRightField' => 'Bananas'
-              }
-            }
-            restub_mock_api
+            @fake_mangled_response = { 'ResponseRetrieve' => { 'NotTheRightField' => 'Bananas' } }
+            restub_mocked_api
           end
 
           it 'raises an ExpectedResponseFieldMissing exception' do
@@ -84,7 +79,7 @@ module Cb
         context '--> ResponseRetrieve node <--' do
           before :each do
             @fake_mangled_response = { 'this-hash-is-all' => 'wrong' }
-            restub_mock_api
+            restub_mocked_api
           end
 
           it 'raises an ExpectedResponseFieldMissing exception' do

@@ -1,16 +1,12 @@
 require 'json'
 
-module Cb
-  class SpotApi
-    
-    ROOT_NODE = 'ResponseRetrieve'
-    SPOTS_NODE = 'SpotData'
-
+module Cb::ApiClients
+  class Spot
     class << self
+
       def retrieve(criteria)
         response = retrieve_api_response criteria
-        validate_api_response response
-        extract_spot_models response
+        Cb::Responses::Spot::Retrieve.extract_models response
       end
 
       private
@@ -20,21 +16,10 @@ module Cb
         api_client.cb_get(Cb.configuration.uri_spot_retrieve, :query => params)
       end
 
-      def validate_api_response(response)
-        raise ExpectedResponseFieldMissing.new(ROOT_NODE) unless response.has_key? ROOT_NODE
-        raise ExpectedResponseFieldMissing.new(SPOTS_NODE) unless response[ROOT_NODE].has_key? SPOTS_NODE
-      end
-
-      def extract_spot_models(response)
-        spot_models = response[ROOT_NODE][SPOTS_NODE].map { |spot_data| Cb::Spot.new(spot_data) }
-        api_client.append_api_responses(spot_models, response[ROOT_NODE])
-        spot_models
-      end
-
       def api_client
         @api ||= Cb::Utils::Api.new
       end
-    end
 
+    end
   end
 end

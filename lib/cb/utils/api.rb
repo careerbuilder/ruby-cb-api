@@ -73,6 +73,7 @@ module Cb
 
         obj.class.send(:attr_reader, 'cb_response')
         obj.instance_variable_set(:@cb_response, meta_class)
+        obj
       end
 
       def self.criteria_to_hash(criteria)

@@ -19,10 +19,10 @@ module Cb
           define_method :"#{name}=" do |*args|
             instance_variable_set(:"@#{name}", args[0]) if args.length == 1
             return self
-            raise ArgumentError, "Wrong number of arguments (#{args.length} for 1)"
           end
         end
       end
+
     end
   end
 end
