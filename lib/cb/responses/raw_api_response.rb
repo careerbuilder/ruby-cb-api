@@ -23,9 +23,8 @@ module Cb
       protected
 
       def required_response_field(field_name, parent_hash)
-        [field_name, parent_hash].each do |param|
-          error_message = "Nothing can be nil here! field_name: #{field_name.to_s} parent_hash: #{parent_hash.to_s}"
-          raise ArgumentError.new(error_message) if param.nil?
+        [field_name, parent_hash].each do |arg|
+          raise ArgumentError.new("No nils! field_name nil?: #{field_name.nil?} parent_hash nil?: #{parent_hash.nil?}") if arg.nil?
         end
         raise ExpectedResponseFieldMissing.new(field_name) unless parent_hash.has_key? field_name
       end
