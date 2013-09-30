@@ -30,21 +30,21 @@ module Cb
         end
 
         context 'by interacting with the API client directly' do
-          it 'returns an array of Cb::Spot models', :vcr => { :cassette_name => 'spot/retrieve' } do
+          it 'returns an array of Cb::Models::Spot', :vcr => { :cassette_name => 'spot/retrieve' } do
             @models = ApiClients::Spot.retrieve @criteria
             assert_correct_models
           end
         end
 
         context 'by calling the API client through the criteria object' do
-          it 'returns an array of Cb::Spot models', :vcr => { :cassette_name => 'spot/retrieve' } do
+          it 'returns an array of Cb::Models::Spot', :vcr => { :cassette_name => 'spot/retrieve' } do
             @models = @criteria.retrieve
             assert_correct_models
           end
         end
 
         context 'by calling the API client from the Cb module convenience method' do
-          it 'returns an array of Cb::Spot models', :vcr => { :cassette_name => 'spot/retrieve' } do
+          it 'returns an array of Cb::Models::Spot', :vcr => { :cassette_name => 'spot/retrieve' } do
             @models = Cb.spot.retrieve @criteria
             assert_correct_models
           end
