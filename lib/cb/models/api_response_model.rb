@@ -1,5 +1,6 @@
 module Cb::Models
   class ApiResponseModel
+
     attr_accessor :api_response
 
     def initialize(response={})
