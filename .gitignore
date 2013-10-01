@@ -8,6 +8,6 @@ coverage/
 !spec/cassettes/persist/*
 spec/cassettes
 spec/cassettes/*
-./startup.rb
+startup.rb
 .idea
 .project
