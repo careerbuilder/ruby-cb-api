@@ -9,7 +9,7 @@ require 'cb'
 
 Cb.configure do | config |
 	config.use_json 	= true                    ########################################################
-	config.dev_key  	= ''  # CB Ruby API key for unit tests
+	config.dev_key  	= ''                      # Insert your CareerBuilder DeveloperKey for unit tests
 	config.time_out 	= 5						            # Register for your own key at http://api.careerbuilder.com/
 end
 
