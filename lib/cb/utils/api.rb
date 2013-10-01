@@ -111,7 +111,6 @@ module Cb
         key_map = {
                     'Errors' =>                     'errors',
                     'Error' =>                      'error',
-                    'ApiError' =>                   'api_error',
                     'TimeResponseSent' =>           'time_sent',
                     'TimeElapsed' =>                'time_elapsed',
                     'TotalPages' =>                 'total_pages',
