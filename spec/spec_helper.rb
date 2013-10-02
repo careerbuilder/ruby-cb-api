@@ -2,7 +2,6 @@ require 'rubygems'
 require 'simplecov'
 require 'cb'
 require 'webmock/rspec'
-require 'fakeweb'
 
 SimpleCov.start do
   add_filter '/spec/'
