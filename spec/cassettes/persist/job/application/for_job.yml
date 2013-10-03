@@ -1303,4 +1303,80 @@ http_interactions:
         5000","QuestionText":"Your cover letter"}]}}}}'
     http_version: 
   recorded_at: Tue, 27 Aug 2013 21:30:23 GMT
-recorded_with: VCR 2.4.0
+- request:
+    method: get
+    uri: http://api.careerbuilder.com/v1/JobSearch?Keywords=customcodes:CBDEV_applyurlno&Location=Atlanta,%20GA&Radius=150&developerkey=&outputjson=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.0
+      P3p:
+      - CP="CAO CURa IVAa HISa OUR IND UNI COM NAV INT STA",policyref="http://img.icbdr.com/images/CBP3P.xml"
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      X-Pby:
+      - BEARWEB46
+      Date:
+      - Thu, 03 Oct 2013 21:01:01 GMT
+      Connection:
+      - close
+      Content-Length:
+      - '310'
+    body:
+      encoding: US-ASCII
+      string: ! '{"ResponseJobSearch":{"Errors":{"Error":"DeveloperKey is required"},"TimeResponseSent":"10/3/2013
+        5:01:02 PM","TimeElapsed":"0","TotalPages":"0","TotalCount":"0","FirstItemIndex":"0","LastItemIndex":"0","Results":null,"SearchMetaData":{"ResultsAlteredByUsersSearchPreferences":"false","SearchLocations":null}}}'
+    http_version: 
+  recorded_at: Thu, 03 Oct 2013 21:01:02 GMT
+- request:
+    method: get
+    uri: http://api.careerbuilder.com/v1/application/blank?JobDID=&developerkey=&outputjson=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.0
+      P3p:
+      - CP="CAO CURa IVAa HISa OUR IND UNI COM NAV INT STA",policyref="http://img.icbdr.com/images/CBP3P.xml"
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      X-Pby:
+      - BEARWEB53
+      Date:
+      - Thu, 03 Oct 2013 21:01:01 GMT
+      Connection:
+      - close
+      Content-Length:
+      - '159'
+    body:
+      encoding: US-ASCII
+      string: ! '{"ResponseBlankApplication":{"Errors":{"Error":["DeveloperKey is
+        required","JobDID is required"]},"TimeResponseSent":"10/3/2013 5:01:02 PM","TimeElapsed":"0"}}'
+    http_version: 
+  recorded_at: Thu, 03 Oct 2013 21:01:02 GMT
+recorded_with: VCR 2.6.0

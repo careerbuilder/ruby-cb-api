@@ -36,7 +36,7 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ! '{"Errors":[],"MemberDID":"TMT85TD67S4RZPYBCNG9"}'
-    http_version:
+    http_version: 
   recorded_at: Tue, 20 Aug 2013 20:18:19 GMT
 - request:
     method: get
@@ -77,7 +77,7 @@ http_interactions:
       encoding: US-ASCII
       string: ! "<html><head><title>Object moved</title></head><body>\r\n<h2>Object
         moved to <a href=\"/Error.aspx?aspxerrorpath=/talentnetwork/member/create/json\">here</a>.</h2>\r\n</body></html>\r\n"
-    http_version:
+    http_version: 
   recorded_at: Thu, 22 Aug 2013 14:39:41 GMT
 - request:
     method: get
@@ -114,7 +114,7 @@ http_interactions:
       encoding: US-ASCII
       string: ! "<html><head><title>Object moved</title></head><body>\r\n<h2>Object
         moved to <a href=\"/404.aspx\">here</a>.</h2>\r\n</body></html>\r\n"
-    http_version:
+    http_version: 
   recorded_at: Thu, 22 Aug 2013 14:39:41 GMT
 - request:
     method: get
@@ -154,7 +154,7 @@ http_interactions:
       string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Response>\r\n  <Errors>\r\n
         \   <Error>Invalid Page Request</Error>\r\n  </Errors>\r\n  <TimeResponseSent>8/22/2013
         10:39:38 AM</TimeResponseSent>\r\n</Response>"
-    http_version:
+    http_version: 
   recorded_at: Thu, 22 Aug 2013 14:39:41 GMT
 - request:
     method: get
@@ -195,7 +195,7 @@ http_interactions:
       encoding: US-ASCII
       string: ! "<html><head><title>Object moved</title></head><body>\r\n<h2>Object
         moved to <a href=\"/Error.aspx?aspxerrorpath=/talentnetwork/member/create/json\">here</a>.</h2>\r\n</body></html>\r\n"
-    http_version:
+    http_version: 
   recorded_at: Thu, 22 Aug 2013 14:39:41 GMT
 - request:
     method: get
@@ -232,7 +232,7 @@ http_interactions:
       encoding: US-ASCII
       string: ! "<html><head><title>Object moved</title></head><body>\r\n<h2>Object
         moved to <a href=\"/404.aspx\">here</a>.</h2>\r\n</body></html>\r\n"
-    http_version:
+    http_version: 
   recorded_at: Thu, 22 Aug 2013 14:39:41 GMT
 - request:
     method: get
@@ -272,7 +272,7 @@ http_interactions:
       string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Response>\r\n  <Errors>\r\n
         \   <Error>Invalid Page Request</Error>\r\n  </Errors>\r\n  <TimeResponseSent>8/22/2013
         10:39:38 AM</TimeResponseSent>\r\n</Response>"
-    http_version:
+    http_version: 
   recorded_at: Thu, 22 Aug 2013 14:39:41 GMT
 - request:
     method: post
@@ -307,7 +307,7 @@ http_interactions:
       encoding: US-ASCII
       string: ! "<html><head><title>Object moved</title></head><body>\r\n<h2>Object
         moved to <a href=\"/Error.aspx?aspxerrorpath=/talentnetwork/member/create/json\">here</a>.</h2>\r\n</body></html>\r\n"
-    http_version:
+    http_version: 
   recorded_at: Thu, 22 Aug 2013 14:42:39 GMT
 - request:
     method: post
@@ -342,7 +342,7 @@ http_interactions:
       encoding: US-ASCII
       string: ! "<html><head><title>Object moved</title></head><body>\r\n<h2>Object
         moved to <a href=\"/Error.aspx?aspxerrorpath=/talentnetwork/member/create/json\">here</a>.</h2>\r\n</body></html>\r\n"
-    http_version:
+    http_version: 
   recorded_at: Thu, 22 Aug 2013 14:43:14 GMT
 - request:
     method: post
@@ -380,6 +380,44 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ! '{"Errors":[],"MemberDID":"TMT85TD67S4RZPYBCNG9"}'
-    http_version:
+    http_version: 
   recorded_at: Thu, 22 Aug 2013 14:44:13 GMT
-recorded_with: VCR 2.4.0
+- request:
+    method: post
+    uri: https://api.careerbuilder.com/talentnetwork/member/create/json?developerkey=&outputjson=true
+    body:
+      encoding: US-ASCII
+      string: <Request><DeveloperKey></DeveloperKey><TalentNetworkDID>CB000000000000000001</TalentNetworkDID><PreferredLanguage>USEnglish</PreferredLanguage><AcceptPrivacy>true</AcceptPrivacy><AcceptTerms>true</AcceptTerms><ResumeWordDoc></ResumeWordDoc><JoinValues><JoinValue><Key>MxDOTalentNetworkMemberInfo_EmailAddress</Key><Value></Value></JoinValue><JoinValue><Key>niche_11_test@test.com</Key><Value></Value></JoinValue><JoinValue><Key>MxDOTalentNetworkMemberInfo_FirstName</Key><Value></Value></JoinValue><JoinValue><Key>Niche1</Key><Value></Value></JoinValue><JoinValue><Key>MxDOTalentNetworkMemberInfo_LastName</Key><Value></Value></JoinValue><JoinValue><Key>Tester1</Key><Value></Value></JoinValue><JoinValue><Key>MxDOTalentNetworkMemberInfo_ZipCode</Key><Value></Value></JoinValue><JoinValue><Key>30092</Key><Value></Value></JoinValue><JoinValue><Key>JQJBF32R79L0SH6H3K2D</Key><Value></Value></JoinValue><JoinValue><Key>Software
+        Enginner</Key><Value></Value></JoinValue><JoinValue><Key>ddlCountries</Key><Value></Value></JoinValue><JoinValue><Key>us</Key><Value></Value></JoinValue></JoinValues></Request>
+    headers: {}
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/7.0
+      X-Aspnetmvc-Version:
+      - '4.0'
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      X-Pby:
+      - BEARWEB56
+      Date:
+      - Thu, 03 Oct 2013 21:01:13 GMT
+      Connection:
+      - close
+      Content-Length:
+      - '59'
+    body:
+      encoding: US-ASCII
+      string: ! '{"Errors":["DeveloperKey requires a value"],"MemberDID":""}'
+    http_version: 
+  recorded_at: Thu, 03 Oct 2013 21:01:13 GMT
+recorded_with: VCR 2.6.0
