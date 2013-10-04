@@ -14,7 +14,7 @@ Cb.configure do | config |
 end
 
 require 'vcr'
-require 'webmock'
+require 'webmock/rspec'
 
 VCR.configure do | c |
   c.cassette_library_dir     	= 'spec/cassettes'
@@ -27,3 +27,6 @@ end
 RSpec.configure do | c |
   c.treat_symbols_as_metadata_keys_with_true_values = true
 end
+
+require 'support/convenience'
+include Cb::SpecSupport::Convenience
