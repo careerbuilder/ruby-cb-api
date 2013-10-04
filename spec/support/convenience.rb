@@ -6,8 +6,8 @@ module Cb
         /.*/
       end
 
-      def base_string(str)
-        /#{str}*/
+      def uri_stem(uri_stem_to_match)
+        /#{uri_stem_to_match}*/
       end
 
     end
