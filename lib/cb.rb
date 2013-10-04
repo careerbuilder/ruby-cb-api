@@ -80,10 +80,6 @@ module Cb
     Cb::EmailSubscriptionApi
   end
 
-  def self.saved_job_search_api
-    Cb::SavedJobSearchApi
-  end
-
   def self.saved_search_api
     Cb::SavedSearchApi
   end
