@@ -1,51 +1,38 @@
 require 'spec_helper'
 
-
 module Cb
   describe Cb::ApplicationApi do
-    context '.for_job' do
-      it 'should return valid application schema', :vcr => {:cassette_name => 'persist/job/application/for_job' } do
-          search = Cb.job_search_criteria.location('Atlanta, GA').radius(150).keywords('customcodes:CBDEV_applyurlno').search()
-          job = search.first
+    context '#for_job' do
+      def stub_request
+        stub_request(:get, uri_stem(Cb.configuration.uri_application)).
+          to_return(:body => @body_content.to_json)
+      end
 
-          result = Cb.application.for_job job
+      before :each do
+        @body_content = {
 
-          expect(result.cb_response.errors).to satisfy { | obj | obj.nil? || obj.count == 0 }
+        }
+        stub_request
+      end
 
-          expect(result).to be_an_instance_of Cb::CbApplicationSchema
-          expect(result.did.length).to be >= 19
-          expect(result.title.length).to be >= 1
-          expect(result.requirements.length).to be >= 1
-          expect(result.apply_url.length).to be >= 1
-          expect(result.submit_service_url.length).to be >= 1
-          expect(result.is_shared_apply).to satisfy { | obj | obj.is_a?(TrueClass) || obj.is_a?(FalseClass)}
-          expect(result.total_questions).to be >= 1
-          expect(result.total_required_questions).to be >= 1
 
-          # Questions
-          expect(result.questions).to be_an_instance_of Array
-          expect(result.questions.count).to eql result.total_questions
-          result.questions do | qq |
-            expect(qq).to be_an_instance_of Cb::CbApplicationSchema::CbQuestionSchema
-            expect(qq.id.length).to be >= 1
-            expect(qq.type.length).to be >= 1
-            expect(qq.required).to satisfy { | obj | obj.is_a?(TrueClass) || obj.is_a?(FalseClass)}
-            expect(qq.format.length).to be >= 1
-            expect(qq.text.length).to be >= 1
+      it 'should return valid application schema' do
+        result = Cb.application.for_job job
 
-            # Answers
-            expect(qq.answers).to be_an_instance_of Array
-            if qq.answers.count > 0
-              qq.answers do | aa |
-                expect(aa).to be_an_instance_of Cb::CbApplicationSchema::CbAnswerSchema
-                expect(aa.question_id.length).to be >= 1
-                expect(aa.id.length).to be >= 1
-                expect(aa.text.length).to be >= 1
-              end
+        expect(result).to be_an_instance_of Cb::CbApplicationSchema
+
+        # Questions
+        expect(result.questions).to be_an_instance_of Array
+        expect(result.questions.count).to eql result.total_questions
+        result.questions do | qq |
+          expect(qq).to be_an_instance_of Cb::CbApplicationSchema::CbQuestionSchema
+          expect(qq.answers).to be_an_instance_of Array
+          if qq.answers.count > 0
+            qq.answers do | aa |
+              expect(aa).to be_an_instance_of Cb::CbApplicationSchema::CbAnswerSchema
             end
-
-            expect(result.api_error).to be == false
           end
+        end
       end
 
       it 'should return error for bogus job did', :vcr => {:cassette_name => 'job/application/for_job'} do

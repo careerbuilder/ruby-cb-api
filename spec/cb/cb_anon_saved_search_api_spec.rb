@@ -21,7 +21,7 @@ module Cb
     context '#create' do
 
       def stub_api_request
-        stub_request(:post, base_string(Cb.configuration.uri_anon_saved_search_create)).
+        stub_request(:post, uri_stem(Cb.configuration.uri_anon_saved_search_create)).
           with(:body => anything).
           to_return(:body => @response_body.to_json)
       end
@@ -75,7 +75,7 @@ module Cb
     context '#delete' do
       context 'when everything is working smoothly' do
         def stub_api_request
-          stub_request(:post, base_string(Cb.configuration.uri_anon_saved_search_delete.to_s)).
+          stub_request(:post, uri_stem(Cb.configuration.uri_anon_saved_search_delete.to_s)).
             with(:body => anything).
             to_return(:body => { 'Errors' => '', 'Status' => 'Success' }.to_json)
         end
