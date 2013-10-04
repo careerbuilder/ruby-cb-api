@@ -21,6 +21,10 @@ module Cb
         @criteria.sortdirection = 'Descending'
         @criteria.sortfield     = 'StartDT'
         @criteria.contenttype   = 'ArticleMgt:WMArticles2'
+        @body = {
+          'ResponseRetrieve' => { 'SpotData' => [{
+            'ContentType' => 'yay', 'StartDate' => '1980-2-1', 'EndDate' => '1980-2-2', 'Sequence' => 1, 'Language' => 'WMEnglish' }]}}
+        stub_request(:get, uri_stem(Cb.configuration.uri_spot_retrieve)).to_return(:body => @body.to_json)
       end
 
       context 'when everything is working as it should' do
@@ -30,21 +34,21 @@ module Cb
         end
 
         context 'by interacting with the API client directly' do
-          it 'returns an array of Cb::Models::Spot', :vcr => { :cassette_name => 'spot/retrieve' } do
+          it 'returns an array of Cb::Models::Spot' do
             @models = ApiClients::Spot.retrieve @criteria
             assert_correct_models
           end
         end
 
         context 'by calling the API client through the criteria object' do
-          it 'returns an array of Cb::Models::Spot', :vcr => { :cassette_name => 'spot/retrieve' } do
+          it 'returns an array of Cb::Models::Spot' do
             @models = @criteria.retrieve
             assert_correct_models
           end
         end
 
         context 'by calling the API client from the Cb module convenience method' do
-          it 'returns an array of Cb::Models::Spot', :vcr => { :cassette_name => 'spot/retrieve' } do
+          it 'returns an array of Cb::Models::Spot' do
             @models = Cb.spot.retrieve @criteria
             assert_correct_models
           end
