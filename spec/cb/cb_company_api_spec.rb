@@ -19,17 +19,6 @@ module Cb
         company.cb_response.errors.first.include?('This Company has an Error').should == true
         company.api_error.should == false
       end
-
-      it 'should return api error for bogus request', :vcr => { :cassette_name => 'company/bogus_request' } do
-        original_url = Cb.configuration.uri_company_find
-
-        Cb.configuration.uri_company_find = Cb.configuration.uri_company_find + 'a'
-        company = Cb.company.find_by_did('c7g6mv76nc5vylrzpwh')
-        Cb.configuration.uri_company_find = original_url
-
-        company.nil?.should be_true
-        company.api_error.should == true
-      end
     end
   end
 end

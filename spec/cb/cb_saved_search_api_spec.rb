@@ -42,20 +42,6 @@ module Cb
           user_saved_search.api_error.should == false
         end
       end
-
-      it 'should set api error on bogus request', :vcr => { :cassette_name => 'saved_search/create_bogus_request'} do
-        correct_url = Cb.configuration.uri_saved_search_create
-
-        Cb.configuration.uri_saved_search_create = Cb.configuration.uri_saved_search_create + 'a'
-        saved_search = Cb.saved_search_api.create({'IsDailyEmail'=>'None',
-                                                        'ExternalUserID'=>@@external_user_id, 'SearchName'=>'FakeJobSearch3',
-                                                        'HostSite'=>@@host_site})
-        Cb.configuration.uri_saved_search_create = correct_url
-
-        saved_search.nil?.should be_true
-        saved_search.api_error.should == true
-
-      end
     end
 
     context '.update' do
@@ -78,20 +64,6 @@ module Cb
 
         end
       end
-
-      it 'should set api error on bogus request', :vcr => { :cassette_name => 'saved_search/update_bogus_request' } do
-        correct_url = Cb.configuration.uri_saved_search_update
-
-        Cb.configuration.uri_saved_search_update = Cb.configuration.uri_saved_search_update + 'a'
-        saved_search = Cb.saved_search_api.update({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>'None',
-                                                        'ExternalUserID'=>@@external_user_id, 'SearchName'=>'Fake Search Update 2',
-                                                        'HostSite'=>@@host_site, 'ExternalID'=>'bogus'})
-        Cb.configuration.uri_saved_search_update = correct_url
-
-        saved_search.nil?.should be_true
-        saved_search.api_error.should == true
-
-      end
     end
 
     context '.list' do
@@ -102,18 +74,6 @@ module Cb
           user_saved_search.should_not be_nil
           expect(user_saved_search.api_error).to be == false
         end
-      end
-
-      it 'should set api error on bogus request', :vcr => { :cassette_name => 'saved_search/list_bogus_request' } do
-        correct_url = Cb.configuration.uri_saved_search_list
-
-        Cb.configuration.uri_saved_search_list = Cb.configuration.uri_saved_search_list + 'a'
-        saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @@external_user_id)
-        Cb.configuration.uri_saved_search_list = correct_url
-
-        saved_search.empty?.should be_true
-        saved_search.api_error.should == true
-
       end
     end
 
@@ -132,18 +92,6 @@ module Cb
 
         end
       end
-
-      it 'should set api error on bogus request', :vcr => { :cassette_name => 'saved_search/retrieve_bogus_request' } do
-        correct_url = Cb.configuration.uri_saved_search_retrieve
-
-        Cb.configuration.uri_saved_search_retrieve = Cb.configuration.uri_saved_search_retrieve + 'a'
-        saved_search = Cb::SavedSearchApi.retrieve(Cb.configuration.dev_key, @@external_user_id, "bogus", @@host_site)
-        Cb.configuration.uri_saved_search_retrieve = correct_url
-
-        saved_search.nil?.should be_true
-        saved_search.api_error.should == true
-
-      end
     end
 
     context '.delete' do
@@ -159,18 +107,6 @@ module Cb
           user_saved_search.cb_response.errors.blank?.should == true
           user_saved_search.api_error.should == false
         end
-      end
-
-      it 'should set api error on bogus request', :vcr => { :cassette_name => 'saved_search/delete_bogus_request' } do
-        correct_url = Cb.configuration.uri_saved_search_delete
-
-        Cb.configuration.uri_saved_search_delete = Cb.configuration.uri_saved_search_delete + 'a'
-        saved_search = Cb.saved_search_api.delete({'DeveloperKey'=>Cb.configuration.dev_key, 'ExternalID'=>"bogus",'ExternalUserID'=>@@external_user_id, 'HostSite'=>@@host_site})
-        Cb.configuration.uri_saved_search_delete = correct_url
-
-        saved_search.nil?.should be_true
-        saved_search.api_error.should == true
-
       end
     end
 

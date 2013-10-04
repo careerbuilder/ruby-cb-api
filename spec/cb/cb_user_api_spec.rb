@@ -27,17 +27,6 @@ module Cb
           expect(user.user_status).to be == 'UserNotOwned'
           user.api_error.should == false
         end
-
-        it 'should set api_error on bogus request', :vcr => { :cassette_name => 'user/retrieve/bogus_request' } do
-          correct_url = Cb.configuration.uri_user_retrieve
-
-          Cb.configuration.uri_user_retrieve = Cb.configuration.uri_user_retrieve + 'a'
-          user = Cb.user.retrieve 'XRHP5HT66R55L6RVP6R9', true
-          Cb.configuration.uri_user_retrieve = correct_url
-
-          user.nil?.should be_true
-          user.api_error.should == true
-        end
       end
 
       context '.change_password' do
@@ -110,17 +99,6 @@ module Cb
         expect(result).to be false
         result.api_error.should == false
       end
-
-      it 'should set api_error on bogus request', :vcr => { :cassette_name => 'user/change_password/bogus_request' } do
-        correct_url = Cb.configuration.uri_user_change_password
-
-        Cb.configuration.uri_user_change_password = Cb.configuration.uri_user_change_password + 'a'
-        user = Cb.user.change_password 'XRHL3TC5VWHV37S9J55S', 'BikeTire3', 'BikeTire3', true
-        Cb.configuration.uri_user_change_password = correct_url
-
-        user.should be_false
-        user.api_error.should == true
-      end
     end
 
     context '.build_change_password_request' do
@@ -169,17 +147,6 @@ module Cb
         expect(result.cb_response.status).to be == 'Fail (Test)'
         expect(result).to be false
         result.api_error.should == false
-      end
-
-      it 'should set api_error on bogus request', :vcr => { :cassette_name => 'user/delete/bogus_request' } do
-        correct_url = Cb.configuration.uri_user_delete
-
-        Cb.configuration.uri_user_delete = Cb.configuration.uri_user_delete + 'a'
-        user = Cb.user.delete external_id, password, true
-        Cb.configuration.uri_user_delete = correct_url
-
-        user.should be_false
-        user.api_error.should == true
       end
     end
 

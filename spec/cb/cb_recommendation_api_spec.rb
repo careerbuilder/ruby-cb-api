@@ -24,17 +24,6 @@ module Cb
         recs.count.should == 0
         recs.api_error.should == false
       end
-
-      it 'should set api error for bogus request', :vcr => { :cassette_name => 'job/recommendation/for_job_bogus_request' }  do
-        correct_url = Cb.configuration.uri_recommendation_for_job
-
-        Cb.configuration.uri_recommendation_for_job = Cb.configuration.uri_recommendation_for_job + 'a'
-        recs = Cb.recommendation.for_job 'bogus_did'
-        Cb.configuration.uri_recommendation_for_job = correct_url
-
-        recs.empty?.should be_true
-        recs.api_error.should == true
-      end
     end
 
     context '.for_user' do
@@ -56,31 +45,10 @@ module Cb
         recs.count.should == 0
         recs.api_error.should == false
       end
-
-      it 'should set api error for bogus request', :vcr => { :cassette_name => 'job/recommendation/for_user_bogus_request' }  do
-        correct_url = Cb.configuration.uri_recommendation_for_user
-
-        Cb.configuration.uri_recommendation_for_user = Cb.configuration.uri_recommendation_for_user + 'a'
-        recs = Cb.recommendation.for_user 'bogus_user'
-        Cb.configuration.uri_recommendation_for_user = correct_url
-
-        recs.empty?.should be_true
-        recs.api_error.should == true
-      end
     end
 
     context '.for_company' do
-      it 'should set api error on bogus request', :vcr => { :cassette_name => 'job/recommendation/for_company_bogus_request' }  do
-        # Returns 404 html which is valid
-        correct_url = Cb.configuration.uri_recommendation_for_company
-
-        Cb.configuration.uri_recommendation_for_company = Cb.configuration.uri_recommendation_for_company + 'a'
-        recs = Cb.recommendation.for_company 'bogus_company'
-        Cb.configuration.uri_recommendation_for_company = correct_url
-
-        recs.empty?.should be_true
-        recs.api_error.should == true
-      end
+      # There are no legit tests for this method!
     end
   end
 end

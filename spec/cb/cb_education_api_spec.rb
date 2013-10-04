@@ -23,15 +23,5 @@ module Cb
       ret.api_error.should == false
     end
 
-    it 'should set api error on bogus request', :vcr => { :cassette_name => 'educationcode/bogus_request'} do
-      correct_url = Cb.configuration.uri_education_code
-
-      Cb.configuration.uri_education_code = Cb.configuration.uri_education_code + 'a'
-      ret = Cb.education_code.get_for('not real')
-      Cb.configuration.uri_education_code = correct_url
-
-      ret.empty?.should be_true
-      ret.api_error.should == true
-    end
   end
 end

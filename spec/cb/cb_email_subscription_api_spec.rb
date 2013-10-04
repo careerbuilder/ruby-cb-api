@@ -117,18 +117,6 @@ module Cb
         subscription.api_error.should == false
 
       end
-
-      it 'should set api error on bogus request' do
-        correct_url = Cb.configuration.uri_subscription_retrieve
-
-        Cb.configuration.uri_subscription_retrieve = Cb.configuration.uri_subscription_retrieve + 'a'
-        subscription = Cb.email_subscription.retrieve_by_did('XRHS6FP78P5H30WLMB4G', 'WR')
-        Cb.configuration.uri_subscription_retrieve = correct_url
-
-        subscription.nil?.should be_true
-        subscription.api_error.should == true
-
-      end
     end
 
   end

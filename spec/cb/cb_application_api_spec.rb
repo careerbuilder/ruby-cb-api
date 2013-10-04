@@ -55,24 +55,9 @@ module Cb
         expect(result.cb_response.errors[0].length).to be >= 1
         expect(result.api_error).to be == false
       end
-
-      it 'should set api error for bogus request', :vcr => { :cassette_name => 'job/application/for_job_bogus_request'} do
-        correct_url = Cb.configuration.uri_application
-
-        Cb.configuration.uri_application = Cb.configuration.uri_application + 'a'
-        result = Cb.application.for_job 'bogus-job-did'
-        Cb.configuration.uri_application = Cb.configuration.uri_application + 'a'
-
-        result.nil?.should be_true
-        result.api_error.should be_true
-      end
     end
 
     context '.submit_app' do
-      it 'should send application info to api', :vcr => {:cassette_name => 'job/application/submit_app'} do
-
-      end
-
       it 'should get incomplete status message from api' do
         app = Cb::CbApplication.new({:job_did => 'bogus-did', :site_id => 'bogus', :co_brand => 'bogus', :resume_file_name => 'bogus-resume', :resume => 'this-should-be-encoded'})
         app.test = true
@@ -83,22 +68,6 @@ module Cb
         app.cb_response.application_status.should == 'Incomplete'
         app.complete?.should == false
         expect(app.api_error).to be == false
-      end
-
-      it 'should set api error on bogus request' do
-        correct_url = Cb.configuration.uri_application_submit
-
-        app = Cb::CbApplication.new({:job_did => 'bogus-did', :site_id => 'bogus', :co_brand => 'bogus', :resume_file_name => 'bogus-resume', :resume => 'this-should-be-encoded'})
-        app.test = true
-        app.add_answer('ApplicantName', 'Foo Bar')
-        app.add_answer('ApplicantEmail', 'DontSpamMeBro@gmail.com')
-        Cb.configuration.uri_application_submit = Cb.configuration.uri_application_submit + 'a'
-        app = app.submit
-        Cb.configuration.uri_application_submit = correct_url
-
-        app.redirect_url.blank?.should be_true
-        app.api_error.should == true
-
       end
     end
   end
