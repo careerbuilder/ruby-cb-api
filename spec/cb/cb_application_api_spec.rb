@@ -9,21 +9,29 @@ module Cb
       end
 
       before :each do
-        stub_api_request_to_return({ 'ResponseBlankApplication' => { 'BlankApplication' => { 'IsSharedApply' => 'false' }}})
+        stub_api_request_to_return({ 'ResponseBlankApplication' => {
+          'BlankApplication' => {
+            'IsSharedApply' => 'false', 'TotalQuestions' => 1, 'TotalRequiredQuestions' => 1, 'Questions' => {
+              'Question' => [{ 'IsRequired' => 'true', 'Answers' => {
+                'Answer' => [{'QuestionID' => 'yay', 'AnswerID' => '1', 'AnswerText' => 'NO!'}]}}]}}}})
       end
       
       context 'when the returning API hash formatted correctly' do
         context 'it returns an application schema object via:' do
-          def assert_application_model_type(result)
+          def assert_application_model_correct(result)
             expect(result).to be_an_instance_of Cb::CbApplicationSchema
+            expect(result.questions).to be_a Array
+            expect(result.questions.count).to eq result.total_questions
+            expect(result.questions.first).to be_a CbApplicationSchema::CbQuestionSchema
+            expect(result.questions.first.answers.first).to be_a CbApplicationSchema::CbAnswerSchema
           end
 
           it 'the Cb module convenience method' do
-            assert_application_model_type Cb.application.for_job('job-did-here')
+            assert_application_model_correct Cb.application.for_job('job-did-here')
           end
 
           it 'the API client itself' do
-            assert_application_model_type Cb::ApplicationApi.for_job('job-did-here')
+            assert_application_model_correct Cb::ApplicationApi.for_job('job-did-here')
           end
         end
       end
@@ -52,7 +60,7 @@ module Cb
         app.redirect_url.blank?.should eq true
       end
 
-      { # the #submit_app and #submit_registered_app methods work exactly the same - metaprogram it!
+      { # #submit_app and #submit_registered_app work exactly the same - metaprogram their tests!
         '#submit_app'            => { :uri => Cb.configuration.uri_application_submit,     :method_name => :submit_app},
         '#submit_registered_app' => { :uri => Cb.configuration.uri_application_registered, :method_name => :submit_registered_app}
       }.each do |method_under_test, info|
