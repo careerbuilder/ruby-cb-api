@@ -11,3 +11,4 @@ spec/cassettes/*
 startup.rb
 .idea
 .project
+Gemfile.lock
