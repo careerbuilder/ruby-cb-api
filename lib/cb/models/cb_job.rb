@@ -10,7 +10,7 @@ module Cb
                   :details_url, :service_url, :similar_jobs_url, :apply_url,
                   :begin_date, :end_date, :posted_date,
                   :relevancy, :state, :city, :zip,
-                  :can_be_quick_applied
+                  :can_be_quick_applied, :apply_requirements
 
     attr_writer   :external_application, :relocation_covered, :manages_others, :is_screener_apply,
                   :is_shared_job
@@ -83,6 +83,7 @@ module Cb
       @is_screener_apply            = args['IsScreenerApply'] || ''
       @is_shared_job                = args['IsSharedJob'] || ''
       @can_be_quick_applied         = args['CanBeQuickApplied'] || ''
+      @apply_requirements           = Cb::Utils::ResponseArrayExtractor.extract(args, 'ApplyRequirements')
 
       # Company related
       @company_name                 = args['Company'] || ''

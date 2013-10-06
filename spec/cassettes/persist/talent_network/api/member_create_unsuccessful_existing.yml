@@ -408,9 +408,9 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       X-Pby:
-      - BEARWEB53
+      - BEARWEB47
       Date:
-      - Thu, 03 Oct 2013 21:01:13 GMT
+      - Thu, 03 Oct 2013 21:30:49 GMT
       Connection:
       - close
       Content-Length:
@@ -418,7 +418,7 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ! '{"Errors":["DeveloperKey requires a value"],"MemberDID":""}'
-    http_version: 
+    http_version:
   recorded_at: Thu, 03 Oct 2013 21:01:13 GMT
 - request:
     method: post
@@ -457,6 +457,6 @@ http_interactions:
       encoding: US-ASCII
       string: ! '{"Errors":["DeveloperKey is invalid or does not have permission to
         perform Member create requests."],"MemberDID":""}'
-    http_version: 
-  recorded_at: Fri, 04 Oct 2013 14:43:21 GMT
+    http_version:
+  recorded_at: Thu, 03 Oct 2013 21:30:50 GMT
 recorded_with: VCR 2.6.0

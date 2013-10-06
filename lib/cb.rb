@@ -1,15 +1,16 @@
 require 'cb/config'
-Dir[File.dirname(__FILE__) + '/cb/utils/*.rb'].each {| file| require file }
-Dir[File.dirname(__FILE__) + '/cb/clients/*.rb'].each {| file| require file }
-Dir[File.dirname(__FILE__) + '/cb/criteria/*.rb'].each {| file| require file }
-Dir[File.dirname(__FILE__) + '/cb/models/*.rb'].each {| file| require file }
 require 'cb/models/branding/styles/base'
 require 'cb/models/branding/styles/css_adapter'
-Dir[File.dirname(__FILE__) + '/cb/models/**/*.rb'].each {| file| require file }
+require 'cb/exceptions'
+
+def require_directory(relative_path)
+  Dir[File.dirname(__FILE__) + relative_path].each { |file| require file }
+end
+
+required_paths = %w(/cb/utils/*.rb /cb/clients/*.rb /cb/criteria/*.rb /cb/models/**/*.rb /cb/responses/**/*.rb)
+required_paths.each { |path| require_directory path }
 
 module Cb
-  class IncomingParamIsWrongTypeException < StandardError; end
-
 	def self.configure
 		yield configuration
 	end
@@ -28,11 +29,11 @@ module Cb
   end
 
   def self.job_search_criteria
-    Cb::JobSearchCriteria.new()
+    Cb::JobSearchCriteria.new
   end
 
   def self.job_detail_criteria
-    Cb::JobApi::DetailsCriteria.new()
+    Cb::JobDetailsCriteria.new
   end
 
   def self.category
@@ -79,10 +80,6 @@ module Cb
     Cb::EmailSubscriptionApi
   end
 
-  def self.saved_job_search_api
-    Cb::SavedJobSearchApi
-  end
-
   def self.saved_search_api
     Cb::SavedSearchApi
   end
@@ -93,5 +90,9 @@ module Cb
 
   def self.anon_saved_search_api
     Cb::AnonSavedSearchApi
+  end
+
+  def self.spot
+    Cb::ApiClients::Spot
   end
 end
