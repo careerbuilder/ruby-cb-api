@@ -29,10 +29,10 @@ module Cb
       context 'when everything is working smoothly' do
         context 'should successfully create a new anonymous saved search via:' do
           def assert_no_error_on_model(&api_calling_code)
-            api_calling_code.call
-            @saved_search.api_error.should eq false
-            @saved_search.errors.nil?.should eq true
-            @saved_search.class.should eq Cb::CbSavedSearch
+            saved_search = api_calling_code.call
+            saved_search.api_error.should eq false
+            saved_search.errors.nil?.should eq true
+            saved_search.class.should eq Cb::CbSavedSearch
           end
 
           before :each do
@@ -41,11 +41,11 @@ module Cb
           end
 
           it 'the Cb module convenience method' do
-            assert_no_error_on_model { @saved_search = Cb.anon_saved_search_api.create @args }
+            assert_no_error_on_model { Cb.anon_saved_search_api.create @args }
           end
 
           it 'the anonymous saved search api client directly' do
-            assert_no_error_on_model { @saved_search = Cb::AnonSavedSearchApi.create @args }
+            assert_no_error_on_model { Cb::AnonSavedSearchApi.create @args }
           end
         end
       end
