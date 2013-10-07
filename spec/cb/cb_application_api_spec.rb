@@ -39,12 +39,13 @@ module Cb
     end # #for_job
 
     context 'application submission methods' do
-      before :each do
-        @app = Cb::CbApplication.new({:job_did => 'bogus-did', :site_id => 'bogus', :co_brand => 'bogus',
-                                      :resume_file_name => 'bogus-resume', :resume => 'this-should-be-encoded'})
-        @app.test = true
-        @app.add_answer('ApplicantName', 'Foo Bar')
-        @app.add_answer('ApplicantEmail', 'DontSpamMeBro@gmail.com')
+      let(:app) do
+        args = { :job_did => 'did', :site_id => 'bogus', :co_brand => 'bogus', :resume_file_name => 'bogus', :resume => 'encoded' }
+        app = Cb::CbApplication.new(args)
+        app.test = true
+        app.add_answer('ApplicantName', 'Foo Bar')
+        app.add_answer('ApplicantEmail', 'DontSpamMeBro@gmail.com')
+        app
       end
 
       def stub_app_submission_for(application_api_url, response_content)
@@ -52,8 +53,8 @@ module Cb
           to_return(:body => response_content.to_json)
       end
       
-      def submit_app(apply_method_to_use)
-        Cb::ApplicationApi.send(apply_method_to_use, @app)
+      def submit_app_via(apply_method_to_use)
+        Cb::ApplicationApi.send(apply_method_to_use, app)
       end
 
       def assert_blank_redirect_url(app)
@@ -63,49 +64,53 @@ module Cb
       { # #submit_app and #submit_registered_app work exactly the same - metaprogram their tests!
         '#submit_app'            => { :uri => Cb.configuration.uri_application_submit,     :method_name => :submit_app},
         '#submit_registered_app' => { :uri => Cb.configuration.uri_application_registered, :method_name => :submit_registered_app}
-      }.each do |method_under_test, info|
+      }.each do |method_name, info|
 
-        context method_under_test do
-          it 'raises exception for incorrent input type (anything other than Cb::CbApplication)' do
-            expect { Cb::ApplicationApi.send(info[:method_name], Object.new) }.to raise_error Cb::IncomingParamIsWrongTypeException
+        context method_name do
+          let(:uri)               { info[:uri] }
+          let(:method_under_test) { info[:method_name] }
+
+          it 'raises exception for incorrect input type (anything other than Cb::CbApplication)' do
+            expect { Cb::ApplicationApi.send(method_under_test, Object.new) }.
+              to raise_error Cb::IncomingParamIsWrongTypeException
           end
 
           context 'when response hash contains enough data' do
             before :each do
               body = { 'ResponseApplication' => { 'RedirectURL' => 'http://delicious.baconmobile.com' }}
-              stub_app_submission_for(info[:uri], body)
+              stub_app_submission_for(uri, body)
             end
 
             it 'the same application object that it took as input is returned' do
-              app = submit_app(info[:method_name])
-              app.should eq @app
-              app.object_id.should eq @app.object_id
+              returned_app = submit_app_via(method_under_test)
+              returned_app.should eq app
+              returned_app.object_id.should eq app.object_id
             end
 
             it 'sets redirect_url on the application' do
-              app = submit_app(info[:method_name])
-              app.redirect_url.should eq 'http://delicious.baconmobile.com'
+              returned_app = submit_app_via(method_under_test)
+              returned_app.redirect_url.should eq 'http://delicious.baconmobile.com'
             end
           end
 
           context 'when missing ResponseApplication field' do
             it 'app redirect url is set to a blank string' do
-              stub_app_submission_for(info[:uri], Hash.new)
-              assert_blank_redirect_url submit_app(info[:method_name])
+              stub_app_submission_for(uri, Hash.new)
+              assert_blank_redirect_url submit_app_via(method_under_test)
             end
           end
 
           context 'when missing RedirectURL field' do
             it 'app redirect url is set to a blank string' do
-              stub_app_submission_for(info[:uri], { 'ResponseApplication' => { 'lol' => 'nope' }})
-              assert_blank_redirect_url submit_app(info[:method_name])
+              stub_app_submission_for(uri, { 'ResponseApplication' => { 'lol' => 'nope' }})
+              assert_blank_redirect_url submit_app_via(method_under_test)
             end
           end
 
-          context 'when ResponseApplication does not have hash content' do
+          context 'when ResponseApplication node does not have hash content' do
             it 'raises NoMethodError' do
-              stub_app_submission_for(info[:uri], { 'ResponseApplication' => 'lol' })
-              expect { submit_app(info[:method_name]) }.to raise_error NoMethodError
+              stub_app_submission_for(uri, { 'ResponseApplication' => 'lol' })
+              expect { submit_app_via(method_under_test) }.to raise_error NoMethodError
             end
           end
         end
