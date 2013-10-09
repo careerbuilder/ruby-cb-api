@@ -9,11 +9,13 @@ module Cb
       end
 
       before :each do
-        stub_api_request_to_return({ 'ResponseBlankApplication' => {
-          'BlankApplication' => {
-            'IsSharedApply' => 'false', 'TotalQuestions' => 1, 'TotalRequiredQuestions' => 1, 'Questions' => {
-              'Question' => [{ 'IsRequired' => 'true', 'Answers' => {
-                'Answer' => [{'QuestionID' => 'yay', 'AnswerID' => '1', 'AnswerText' => 'NO!'}]}}]}}}})
+        api_response_hashified = {
+          'ResponseBlankApplication' => {
+            'BlankApplication' => {
+              'IsSharedApply' => 'false', 'TotalQuestions' => 1, 'TotalRequiredQuestions' => 1, 'Questions' => {
+                'Question' => [{ 'IsRequired' => 'true', 'Answers' => {
+                  'Answer' => [{ 'QuestionID' => 'yay', 'AnswerID' => '1', 'AnswerText' => 'NO!' }]}}]}}}}
+        stub_api_request_to_return(api_response_hashified)
       end
       
       context 'when the returning API hash formatted correctly' do
@@ -61,14 +63,14 @@ module Cb
         app.redirect_url.blank?.should eq true
       end
 
-      { # #submit_app and #submit_registered_app work exactly the same - metaprogram their tests!
-        '#submit_app'            => { :uri => Cb.configuration.uri_application_submit,     :method_name => :submit_app},
-        '#submit_registered_app' => { :uri => Cb.configuration.uri_application_registered, :method_name => :submit_registered_app}
-      }.each do |method_name, info|
+      Array[ # #submit_app and #submit_registered_app work exactly the same - metaprogram their tests!
+        { :method_name => :submit_app,            :uri => Cb.configuration.uri_application_submit },
+        { :method_name => :submit_registered_app, :uri => Cb.configuration.uri_application_registered }
+      ].each do |method_info|
 
-        context method_name do
-          let(:uri)               { info[:uri] }
-          let(:method_under_test) { info[:method_name] }
+        context "##{method_info[:method_name]}" do
+          let(:uri)               { method_info[:uri] }
+          let(:method_under_test) { method_info[:method_name] }
 
           it 'raises exception for incorrect input type (anything other than Cb::CbApplication)' do
             expect { Cb::ApplicationApi.send(method_under_test, Object.new) }.
