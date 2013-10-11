@@ -5,50 +5,69 @@ module Cb
   describe Cb::ApplicationExternalApi do
 
     context '#submit_app' do
-      before :each do
-        @app = Cb::CbApplicationExternal.new({:job_did => 'bogus-did', :site_id => 'bogus', :email => 'bogus',
-                                              :ipath => 'bogus-ipath', :apply_url => 'jobs.baconparadise.com'})
+
+      context 'when the parameter not the correct type' do
+        it 'should raise a Cb::IncomingParamIsWrongTypeException' do
+          expect { Cb.application_external.submit_app(Object.new) }.to raise_error Cb::IncomingParamIsWrongTypeException
+        end
       end
 
-      def stub_app_submission_to_return(response_content)
+      def stub_api_call_to_return(body_content)
         stub_request(:post, uri_stem(Cb.configuration.uri_application_external)).with(:body => anything).
-          to_return(:body => response_content.to_json)
+          to_return(:body => body_content.to_json)
       end
 
-      def assert_blank_apply_url(app)
-        app.apply_url.blank?.should eq true
+      def submit_app(app)
+        Cb::ApplicationExternalApi.submit_app(app)
       end
 
-      it 'raises exception for incorrent input type (anything other than Cb::CbApplication)' do
-        expect { Cb::ApplicationExternalApi.submit_app(Object.new) }.to raise_error Cb::IncomingParamIsWrongTypeException
-      end
+      context 'when everything is working correctly' do
+        let(:external_app) { Cb::CbApplicationExternal.new({job_did: 'did', email: 'bogus@bogus.org', ipath: 'bogus', site_id: 'bogus'}) }
 
-      context 'when response hash contains enough data' do
-        before :each do
-          stub_app_submission_to_return({ 'ApplyUrl' => 'http://delicious.baconmobile.com' })
+        it 'the same application object is returned that is supplied for input' do
+          app = submit_app(external_app)
+          app.should eq external_app
+          app.object_id.should eq external_app.object_id
         end
 
-        it 'the same application object that it took as input is returned' do
-          app = Cb::ApplicationExternalApi.submit_app(@app)
-          app.should eq @app
-          app.object_id.should eq @app.object_id
+        context 'if the ApplyUrl field comes back in the response' do
+          before(:each) { stub_api_call_to_return({'ApplyUrl' => 'https://bacondreamz.net'}) }
+
+          it 'the ApplyUrl is set on the returned app' do
+            app = submit_app(external_app)
+            app.apply_url.should eq 'https://bacondreamz.net'
+          end
         end
 
-        it 'sets apply_url on the application' do
-          app = Cb::ApplicationExternalApi.submit_app(@app)
-          app.apply_url.should eq 'http://delicious.baconmobile.com'
+        context 'if the ApplyUrl field is not in the response' do
+          before(:each) { stub_api_call_to_return(Hash.new) }
+
+          it 'the ApplyUrl on the returned app is blank' do
+            app = submit_app(external_app)
+            app.apply_url.blank?.should eq true
+          end
+        end
+
+        context 'when posting to the API' do
+          before(:each) do
+            @mock_api = double(Cb::Utils::Api)
+            @mock_api.stub(:cb_post)
+            @mock_api.stub(:append_api_responses)
+            Cb::Utils::Api.stub(:new).and_return @mock_api
+          end
+
+          it 'converts the application to xml' do
+            @mock_api.should_receive(:cb_post).with(kind_of(String), body: external_app.to_xml).and_return(Hash.new)
+            submit_app(external_app)
+          end
+
+          it 'posts to the application external API endpoint' do
+            @mock_api.should_receive(:cb_post).with(Cb.configuration.uri_application_external, kind_of(Hash)).and_return(Hash.new)
+            submit_app(external_app)
+          end
         end
       end
-
-      context 'when missing ApplyUrl field' do
-        it 'app redirect url is set to a blank string' do
-          stub_app_submission_to_return(Hash.new)
-          app = Cb::ApplicationExternalApi.submit_app(@app)
-          app.apply_url.blank?.should eq true
-        end
-      end
-
-    end # #submit_app
+    end
 
   end
 end
