@@ -1,12 +1,15 @@
-require 'rubygems'
 require 'simplecov'
-require 'cb'
-require 'webmock/rspec'
-
 SimpleCov.start do
   add_filter '/spec/'
+  add_group 'models', 'lib/cb/models'
+  add_group 'clients', 'lib/cb/clients'
+  add_group 'criteria', 'lib/cb/criteria'
+  add_group 'responses', 'lib/cb/responses'
+  add_group 'utils', 'lib/cb/utils'
 end
 
+require 'rubygems'
+require 'cb'
 require 'vcr'
 require 'webmock/rspec'
 
