@@ -2,26 +2,25 @@ require 'spec_helper'
 
 module Cb
   describe Cb::EducationApi do
-    context '.get_for <country>'
+    def stub_api_to_return(content)
+      stub_request(:get, uri_stem(Cb.configuration.uri_education_code)).
+        to_return(:body => content.to_json)
+    end
 
-    it 'should get default education code if country is blank ', :vcr => { :cassette_name => 'educationcode/country'} do
-      ret = Cb.education_code.get_for('not real')
+    context '.get_for' do
+      it 'calls #append_api_responses on the Cb API utility client'
+      it 'pings the API with countrycode in the query string'
 
-      ret.count.should > 1
-      ret.each do | edu |
-        edu.is_a?(Cb::CbEducation).should == true
-
-        edu.code.length.should > 1
-        edu.language.include?('US').should == true
+      context 'when the API response has all required nodes' do
+        it 'returns and array of education models'
       end
-      ret.api_error.should == false
-    end
 
-    it 'should get the education code for given country ', :vcr => { :cassette_name => 'educationcode/uk'} do
-      ret = Cb.education_code.get_for(Cb.country.UK)
-      ret.count.should > 1
-      ret.api_error.should == false
-    end
+      context 'when the API response is missing nodes' do
+        it '\ResponseEducationCodes missing, returns an empty array'
+        it '\ResponseEducationCodes\EducationCodes, returns an empty array'
+        it '\ResponseEducationCodes\EducationCodes\Education, raises a NoMethodError when #each is attempted'
+      end
 
+    end
   end
 end
