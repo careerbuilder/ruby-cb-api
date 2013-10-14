@@ -115,7 +115,7 @@ module Cb
           end
 
           context '\ResponseCategories\Categories' do
-            before(:each) { stub_api_call_to_return({ ResponseCategories: Hash.new })}
+            before(:each) { stub_api_call_to_return({ ResponseCategories: Hash.new }) }
 
             it 'returns an empty Array' do
               assert_empty_array(Cb.category.search_by_host_site('WM'))
