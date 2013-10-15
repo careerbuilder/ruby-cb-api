@@ -73,6 +73,7 @@ module Cb
 
         obj.class.send(:attr_reader, 'cb_response')
         obj.instance_variable_set(:@cb_response, meta_class)
+        obj
       end
 
       def self.criteria_to_hash(criteria)
@@ -109,23 +110,24 @@ module Cb
 
       def get_meta_name_for(api_key)
         key_map = {
-                    'Errors' =>                     'errors',
-                    'Error' =>                      'error',
-                    'TimeResponseSent' =>           'time_sent',
-                    'TimeElapsed' =>                'time_elapsed',
-                    'TotalPages' =>                 'total_pages',
-                    'TotalCount' =>                 'total_count',
-                    'FirstItemIndex' =>             'first_item_index',
-                    'LastItemIndex' =>              'last_item_index',
-                    'CountryCode' =>                'country_code',
-                    'DeveloperKey' =>               'developer_key',
-                    'SiteID' =>                     'site_id',
-                    'CoBrand' =>                    'co_brand',
-                    'CountLimit' =>                 'count_limit',
-                    'MinQualityLimit' =>            'min_quality',
-                    'RecommendationsAvailable' =>   'recs_available',
-                    'ApplicationStatus' =>          'application_status',
-                    'Status' =>                     'status'
+          'Errors'                    =>  'errors',
+          'Error'                     =>  'error',
+          'ApiError'                  =>  'api_error',
+          'TimeResponseSent'          =>  'time_sent',
+          'TimeElapsed'               =>  'time_elapsed',
+          'TotalPages'                =>  'total_pages',
+          'TotalCount'                =>  'total_count',
+          'FirstItemIndex'            =>  'first_item_index',
+          'LastItemIndex'             =>  'last_item_index',
+          'CountryCode'               =>  'country_code',
+          'DeveloperKey'              =>  'developer_key',
+          'SiteID'                    =>  'site_id',
+          'CoBrand'                   =>  'co_brand',
+          'CountLimit'                =>  'count_limit',
+          'MinQualityLimit'           =>  'min_quality',
+          'RecommendationsAvailable'  =>  'recs_available',
+          'ApplicationStatus'         =>  'application_status',
+          'Status'                    =>  'status'
         }
 
         key_map["#{api_key}"] ||= ''

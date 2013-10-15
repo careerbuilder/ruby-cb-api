@@ -18,7 +18,7 @@ module Cb
                         :partner_id, :pay_high, :pay_info_only, :pay_low, :per_page, :posted_within,
                         :product_id, :radius, :records_per_group, :relocate_jobs, :soc_code, :school_site_id,
                         :search_all_countries, :search_view, :show_categories, :show_apply_requirements,
-                        :apply_requirements, :single_onet_search, :site_entity, :site_id, :skills, :specific_education,
+                        :apply_requirements, :exclude_apply_requirements, :single_onet_search, :site_entity, :site_id, :skills, :specific_education,
                         :spoken_language, :tags, :talent_network_did, :url_compression_service, :use_facets,
                         :str_crit
 
