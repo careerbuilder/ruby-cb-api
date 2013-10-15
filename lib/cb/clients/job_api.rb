@@ -22,11 +22,9 @@ module Cb
             json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do | cur_job |
               jobs << CbJob.new(cur_job)
             end
-            # json_hash['SearchMetaData']['SearchLocations']['SearchLocation'].each do | loc_fields |
-            #   # jobs['SearchMetaData']
-            # end
           end
           my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
+          my_api.append_api_responses(jobs, json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations']['SearchLocation'])
         end
 
         my_api.append_api_responses(jobs, json_hash)
