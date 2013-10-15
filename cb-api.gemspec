@@ -27,4 +27,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'simplecov', '>= 0.7.1'
   s.add_dependency 'rake', '>= 0.8.7'
   s.add_dependency 'rspec', '>= 2.11'
+  s.add_dependency 'dotenv', '~> 0.9.0'
 end

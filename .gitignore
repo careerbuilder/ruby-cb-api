@@ -12,3 +12,4 @@ startup.rb
 .idea
 .project
 Gemfile.lock
+.env
