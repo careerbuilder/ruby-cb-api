@@ -32,7 +32,7 @@ module Cb
   end
 
   def self.job_detail_criteria
-    Cb::JobApi::DetailsCriteria.new()
+    Cb::JobDetailsCriteria.new()
   end
 
   def self.category
