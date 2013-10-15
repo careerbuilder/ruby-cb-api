@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://api.careerbuilder.com'
   s.summary     = 'Ruby wrapper around Careerbuilder Public API.'
   s.description = 'Ruby wrapper for Careerbuilder Public API.'
+  s.license     = 'MIT'
 
   s.files        = Dir['{lib}/**/*.rb', 'LICENSE', '*.md']
   s.require_path = 'lib'
