@@ -65,16 +65,20 @@ module Cb
         end
       end
 
-      it 'should not allow an existing user to join the talent network' do 
-        VCR.use_cassette('persist/talent_network/api/member_create_unsuccessful_existing') do 
+      it 'should not allow an existing user to join the talent network',
+        :pending => 'these tests need to be rewritten, they are not testing the API client they are testing the API itself.' do
+        VCR.use_cassette('persist/talent_network/api/member_create_unsuccessful_existing') do
+          pending do
+
+          end
           args1 = Hash.new
           args1['TNDID'] = 'CB000000000000000001'
-          args1['JoinValues'] = ["MxDOTalentNetworkMemberInfo_EmailAddress", "niche_1_test@test.com",
-                                "MxDOTalentNetworkMemberInfo_FirstName","Niche1",
-                                  "MxDOTalentNetworkMemberInfo_LastName", "Tester1",
-                                    "MxDOTalentNetworkMemberInfo_ZipCode","30092",
-                                    "JQJBF32R79L0SH6H3K2D","Software Enginner",
-                                    "ddlCountries","us"]
+          args1['JoinValues'] = {"MxDOTalentNetworkMemberInfo_EmailAddress" => "niche_1_test@test.com",
+                                "MxDOTalentNetworkMemberInfo_FirstName" => "Niche1",
+                                  "MxDOTalentNetworkMemberInfo_LastName" => "Tester1",
+                                    "MxDOTalentNetworkMemberInfo_ZipCode" => "30092",
+                                    "JQJBF32R79L0SH6H3K2D" => "Software Enginner",
+                                    "ddlCountries" => "us"}
 
           member = Cb.talent_network_api.member_create(args1)
           member.cb_response.errors.first.should == "EmailInUse"

@@ -3,10 +3,6 @@ require 'spec_helper'
 module Cb
   describe Cb::SavedSearchApi do
 
-    # Email address for this user: captainmorgantest@careerbuilder.com
-    @@external_user_id = 'XRHS30G60RWSQ5P1S8RG'
-    @@host_site = 'US'
-
     context '.new' do
       it 'should create a new saved job search api object' do
         saved_search_request = Cb::SavedSearchApi.new
@@ -16,28 +12,30 @@ module Cb
 
     context '.create' do
       it 'should send a successful request to the saved search create api v2' do
-        VCR.use_cassette('saved_search/successful_create_saved_search') do
-          email_frequency = 'None'
-          search_name = 'Fake Job Search 1'
+        stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_create)).
+          with(:body => anything).
+          to_return(:body => { SavedJobSearch: { Errors: nil, SavedSearch: Hash.new } }.to_json)
 
-          user_saved_search = Cb.saved_search_api.create({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
-                              'ExternalUserID'=>@@external_user_id, 'SearchName'=>search_name,
-                                    'HostSite'=>@@host_site})
-     
-          user_saved_search.cb_response.errors.nil?.should be_true
-          user_saved_search.api_error.should == false
-        end
+        email_frequency = 'None'
+        search_name = 'Fake Job Search 1'
+
+        user_saved_search = Cb.saved_search_api.create({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
+                            'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
+                                  'HostSite'=>@host_site})
+        user_saved_search.cb_response.errors.nil?.should be_true
+        user_saved_search.api_error.should == false
       end
 
-      it 'should fail to send a request to the saved search api v2' do
+      it 'should fail to send a request to the saved search api v2',
+        :pending => 'this test is not needed - just testing what happens on the API side when dev key is omitted' do
         VCR.use_cassette('saved_search/unsuccessful_create_saved_search') do
           email_frequency = 'None'
           search_name = 'Fake Job Search 2'
 
           user_saved_search = Cb.saved_search_api.create({'IsDailyEmail'=>email_frequency,
-                                                          'ExternalUserID'=>@@external_user_id, 'SearchName'=>search_name,
-                                                          'HostSite'=>@@host_site})
-
+                                                          'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
+                                                          'HostSite'=>@host_site})
+          puts "errors #{user_saved_search.cb_response.errors.to_s}"
           user_saved_search.cb_response.errors.nil?.should be_false
           user_saved_search.api_error.should == false
         end
@@ -46,67 +44,58 @@ module Cb
 
     context '.update' do
       it 'should update the saved search created in this test' do
-        VCR.use_cassette('saved_search/successful_update_saved_search') do
-          saved_search_list = Cb::SavedSearchApi.list(Cb.configuration.dev_key, @@external_user_id)
+        stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_update)).
+          with(:body => anything).
+          to_return(:body => { Errors: nil, SavedJobSearch: Hash.new }.to_json)
 
-          saved_search_list.api_error.should == false
+        external_id = 'xid'
+        email_frequency = 'None'
+        search_name = 'Fake Job Search Update'
 
-          external_id = saved_search_list.first.external_id
-          email_frequency = 'None'
-          search_name = 'Fake Job Search Update'
+        user_saved_search = Cb.saved_search_api.update({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
+                                                        'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
+                                                        'HostSite'=>@host_site, 'ExternalID'=>external_id})
 
-          user_saved_search = Cb.saved_search_api.update({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
-                                                          'ExternalUserID'=>@@external_user_id, 'SearchName'=>search_name,
-                                                          'HostSite'=>@@host_site, 'ExternalID'=>external_id})
-         
-          user_saved_search.cb_response.errors.nil?.should be_true
-          user_saved_search.api_error.should == false
-
-        end
+        user_saved_search.cb_response.errors.nil?.should be_true
+        user_saved_search.api_error.should == false
       end
     end
 
     context '.list' do
-      it 'should retrieve a list of saved searches' do
-        VCR.use_cassette('saved_search/successful_list_saved_search') do
-          user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @@external_user_id)
+      it 'should retrieve a list of saved searches',
+        :pending => 'this test leads to a false positive. #list will always return not nil' do
+        user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @external_user_id, 'WM')
 
-          user_saved_search.should_not be_nil
-          expect(user_saved_search.api_error).to be == false
-        end
+        user_saved_search.should_not be_nil
+        expect(user_saved_search.api_error).to be == false
       end
     end
 
     context '.retrieve' do
+      before :each do
+        stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_retrieve)).
+          to_return(:body => { SavedJobSearch: { Errors: nil, SavedSearch: Hash.new } }.to_json)
+      end
+
       it 'should retrieve the first saved search' do
-        VCR.use_cassette('saved_search/successful_retrieve_saved_search') do
-          saved_search_list = Cb::SavedSearchApi.list(Cb.configuration.dev_key, @@external_user_id)
-          expect(saved_search_list.api_error).to be == false
+        user_saved_search = Cb::SavedSearchApi.retrieve(Cb.configuration.dev_key, @external_user_id, 'xid', @host_site)
 
-          external_id = saved_search_list.first.external_id
-
-          user_saved_search = Cb::SavedSearchApi.retrieve(Cb.configuration.dev_key, @@external_user_id, external_id, @@host_site)
-
-          expect(user_saved_search.cb_response.errors.nil?).to eq(true)
-          expect(user_saved_search.api_error).to be == false
-
-        end
+        expect(user_saved_search.cb_response.errors.nil?).to eq(true)
+        expect(user_saved_search.api_error).to be == false
       end
     end
 
     context '.delete' do
+      before :each do
+        stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_delete)).
+          to_return(:body => { Request: { Errors: nil } }.to_json)
+      end
+
       it 'should delete the first saved search' do
-        VCR.use_cassette('saved_search/successful_delete_saved_search') do
-          saved_search_list = Cb::SavedSearchApi.list(Cb.configuration.dev_key, @@external_user_id)
-          saved_search_list.api_error.should == false
+        user_saved_search = Cb.saved_search_api.delete({'DeveloperKey'=>Cb.configuration.dev_key, 'ExternalID'=>'xid','ExternalUserID'=>@external_user_id, 'HostSite'=>@host_site})
 
-          external_id = saved_search_list.first.external_id
-
-          user_saved_search = Cb.saved_search_api.delete({'DeveloperKey'=>Cb.configuration.dev_key, 'ExternalID'=>external_id,'ExternalUserID'=>@@external_user_id, 'HostSite'=>@@host_site})
-
-          user_saved_search.cb_response.errors.blank?.should == true
-          user_saved_search.api_error.should == false
-        end
+        user_saved_search.cb_response.errors.blank?.should == true
+        user_saved_search.api_error.should == false
       end
     end
 

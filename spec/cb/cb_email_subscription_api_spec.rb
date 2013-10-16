@@ -133,8 +133,7 @@ module Cb
         end
       end
 
-
-
     end # modify_subscription
+
   end
 end
