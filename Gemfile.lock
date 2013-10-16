@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cb-api (0.4.1)
+    cb-api (0.4.2)
       httparty (~> 0.11.0)
       json (~> 1.7.6)
       nokogiri (~> 1.6.0)
