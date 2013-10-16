@@ -24,6 +24,7 @@ module Cb
             end
           end
           my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
+          my_api.append_api_responses(jobs, json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations']['SearchLocation'])
         end
 
         my_api.append_api_responses(jobs, json_hash)

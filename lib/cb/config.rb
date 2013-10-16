@@ -108,7 +108,7 @@ module Cb
       }
     end
 
-    private
+    protected
     #################################################################
 
     def set_defaults
