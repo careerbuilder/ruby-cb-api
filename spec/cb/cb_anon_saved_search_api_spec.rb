@@ -1,128 +1,102 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::AnonSavedSearchApi do 
-    @@host_site = 'WR'
-    @@dev_key = 'WDHS47J77WLS2Y0N102H'
-    @@email_address = 'nbstester20131@cb.com'
-    @@keywords = 'Sales'
-    @@location = 'New York, NY'
-    @@search_name = 'Sales Associate Job'
-    @@browser_id = 'Chrome'
-    @@test_flag = true
+  describe Cb::AnonSavedSearchApi do
 
-    context '.new' do 
-      it 'should successfully create a new anonymous saved search' do 
-        VCR.use_cassette('persist/anon_saved_search_api/create/success') do 
-          args = Hash.new
-          args['EmailAddress'] = @@email_address
-          args['BrowserID'] = @@browser_id
-          args['SessionID'] = @@email_address
-          args['HostSite'] = @@host_site
-          args['DeveloperKey'] = @@dev_key
-          args['SearchName'] = @@search_name
-          args['Keywords'] = @@keywords
-          args['Location'] = @@location
-          args['IsDailyEmail'] = 'None'
-          args['Test'] = false
-          a_saved_search_req = Cb.anon_saved_search_api.create args
-
-          expect(a_saved_search_req.api_error).to eq(false)
-          expect(a_saved_search_req.errors.nil?).to eq(true)
-          expect(a_saved_search_req.class).to eq(Cb::CbSavedSearch)
-        end
-      end
-
-      it 'should return a saved search object with an error for missing email frequency' do 
-        VCR.use_cassette('anon_saved_search_api/create/failure') do 
-          args_bad = Hash.new
-          args_bad['EmailAddress'] = @@email_address
-          args_bad['BrowserID'] = @@browser_id
-          args_bad['SessionID'] = @@email_address
-          args_bad['HostSite'] = @@host_site
-          args_bad['DeveloperKey'] = @@dev_key
-          args_bad['SearchName'] = @@search_name
-          args_bad['Keywords'] = @@keywords
-          args_bad['Location'] = @@location
-          args_bad['Test'] = @@test_flag
-
-          a_saved_search_req = Cb.anon_saved_search_api.create args_bad
-
-          expect(a_saved_search_req.api_error).to eq(false)
-          expect(a_saved_search_req.errors.nil?).to eq(false)
-        end
-      end
-
-      it 'should bomb out horribly due to an api error' do
-        original_uri = Cb.configuration.uri_anon_saved_search_create
-        Cb.configuration.uri_anon_saved_search_create = "#{Cb.configuration.uri_anon_saved_search_create}a"
-        args = Hash.new
-        args['EmailAddress'] = @@email_address
-        args['BrowserID'] = @@browser_id
-        args['SessionID'] = @@email_address
-        args['HostSite'] = @@host_site
-        args['DeveloperKey'] = @@dev_key
-        args['SearchName'] = @@search_name
-        args['Keywords'] = @@keywords
-        args['Location'] = @@location
-        args['IsDailyEmail'] = 'None'
-        args['Test'] = false
-        a_saved_search_req = Cb.anon_saved_search_api.create args
-
-        Cb.configuration.uri_anon_saved_search_create = original_uri
-
-        expect(a_saved_search_req.api_error).to eq(true)
-        expect(a_saved_search_req.errors.nil?).to eq(true)
-        expect(a_saved_search_req.class).to eq(Cb::CbSavedSearch)
-
-      end
+    before :each do
+      @args = {
+        'EmailAddress' => 'test@test.com',
+        'BrowserId'    => '123abc',
+        'SessionID'    => 'abs123',
+        'HostSite'     => 'WR',
+        'DeveloperKey' => 'HOORAY!',
+        'SearchName'   => 'fajitas',
+        'Keywords'     => 'tortillas, steak, onions, peppers',
+        'Location'     => 'atlanta',
+        'IsDailyEmail' => 'none',
+        'Test'         => 'false'
+      }
     end
 
-    context '.delete' do 
-      it 'should successfully delete an anonymous saved search ' do 
-        VCR.use_cassette('persist/anon_saved_search_api/delete/success') do 
+    context '#create' do
 
-          args_del_yay = Hash.new
-          args_del_yay['ExternalID'] = 'XRHP5HV60CH0XXRV3LLK'
-          args_del_yay['Test'] = false
-          args_del_yay['DeveloperKey'] = @@dev_key
+      def stub_api_request
+        stub_request(:post, uri_stem(Cb.configuration.uri_anon_saved_search_create)).
+          with(:body => anything).
+          to_return(:body => @response_body.to_json)
+      end
 
-          a_saved_search_del_req = Cb.anon_saved_search_api.delete args_del_yay
+      context 'when everything is working smoothly' do
+        context 'should successfully create a new anonymous saved search via:' do
+          def assert_no_error_on_model(&api_calling_code)
+            saved_search = api_calling_code.call
+            saved_search.api_error.should eq false
+            saved_search.errors.nil?.should eq true
+            saved_search.class.should eq Cb::CbSavedSearch
+          end
 
-          expect(a_saved_search_del_req.api_error).to eq(false)
-          expect(a_saved_search_del_req).to eq('Success')
+          before :each do
+            @response_body = { 'Errors' => '', 'ExternalID' => 'eid', 'AnonymousSavedSearch' => { 'things' => 'stuff' } }
+            stub_api_request
+          end
+
+          it 'the Cb module convenience method' do
+            assert_no_error_on_model { Cb.anon_saved_search_api.create @args }
+          end
+
+          it 'the anonymous saved search api client directly' do
+            assert_no_error_on_model { Cb::AnonSavedSearchApi.create @args }
+          end
         end
       end
 
-      it 'should not successfully delete an anonymous saved search' do 
-        VCR.use_cassette('anon_saved_search_api/delete/failure') do 
-          args_del_nay = Hash.new
-          args_del_nay['ExternalID'] = 'testID'
-          args_del_nay['Test'] = @@test_flag
-          args_del_nay['DeveloperKey'] = @@dev_key
+      # This test feels unneeded, but I included in anyway since this was a port of previously existing tests. It's
+      # testing the functionality of the API itself - one would hope that the API developers have tested this
+      # already. The API isn't the unit under test here, the UUT is the API client that we have written. What we
+      # should test in this arena is a criteria/request class that prevents this error behavior from coming back
+      # from the API.
+      context 'when request params are not correct' do
+        before :each do
+          @args.delete('IsDailyEmail')
+          @response_body = { 'Errors' => 'IsDailyEmail is required!' }
+          stub_api_request
+        end
 
-          a_saved_search_del_req = Cb.anon_saved_search_api.delete args_del_nay
+        it 'missing IsDailyEmail field results in an error in the error collection' do
+          saved_search = Cb.anon_saved_search_api.create @args
 
-          expect(a_saved_search_del_req.api_error).to eq(false)
-          expect(a_saved_search_del_req).to_not eq('Success')
+          saved_search.api_error.should eq false
+          saved_search.errors.nil?.should eq false
         end
       end
 
-      it 'should bomb out horribly due to an api error ' do
-        original_uri = Cb.configuration.uri_anon_saved_search_delete
-        Cb.configuration.uri_anon_saved_search_delete = "#{Cb.configuration.uri_anon_saved_search_delete}a"
-        args_del_yay = Hash.new
-        args_del_yay['ExternalID'] = 'XRHP5HV60CH0XXRV3LLK'
-        args_del_yay['Test'] = false
-        args_del_yay['DeveloperKey'] = @@dev_key
+    end # create
 
-        a_saved_search_del_req = Cb.anon_saved_search_api.delete args_del_yay
+    context '#delete' do
+      context 'when everything is working smoothly' do
+        def stub_api_request
+          stub_request(:post, uri_stem(Cb.configuration.uri_anon_saved_search_delete.to_s)).
+            with(:body => anything).
+            to_return(:body => { 'Errors' => '', 'Status' => 'Success' }.to_json)
+        end
 
-        Cb.configuration.uri_anon_saved_search_delete = original_uri
+        before :each do
+          @args = {
+            'ExternalID'   => 'yay',
+            'Test'         => false,
+            'DeveloperKey' => 'whoa'
+          }
+          stub_api_request
+        end
 
-        expect(a_saved_search_del_req.api_error).to eq(true)
-        expect(a_saved_search_del_req).to eq(nil)
+        it 'should successfully delete an anonymous saved search' do
+          response_string = Cb.anon_saved_search_api.delete @args
+
+          response_string.api_error.should eq false
+          response_string.should eq 'Success'
+        end
       end
-    end
+    end # delete
+
   end
 end

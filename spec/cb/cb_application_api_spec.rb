@@ -1,105 +1,124 @@
 require 'spec_helper'
 
-
 module Cb
   describe Cb::ApplicationApi do
-    context '.for_job' do
-      it 'should return valid application schema', :vcr => {:cassette_name => 'persist/job/application/for_job' } do
-          search = Cb.job_search_criteria.location('Atlanta, GA').radius(150).keywords('customcodes:CBDEV_applyurlno').search()
-          job = search.first
+    context '#for_job (blank application)' do
+      def stub_api_request_to_return(content_to_be_jsonified)
+        stub_request(:get, uri_stem(Cb.configuration.uri_application)).
+          to_return(:body => content_to_be_jsonified.to_json)
+      end
 
-          result = Cb.application.for_job job
+      before :each do
+        api_response_hashified = {
+          'ResponseBlankApplication' => {
+            'BlankApplication' => {
+              'IsSharedApply' => 'false', 'TotalQuestions' => 1, 'TotalRequiredQuestions' => 1, 'Questions' => {
+                'Question' => [{ 'IsRequired' => 'true', 'Answers' => {
+                  'Answer' => [{ 'QuestionID' => 'yay', 'AnswerID' => '1', 'AnswerText' => 'NO!' }]}}]}}}}
+        stub_api_request_to_return(api_response_hashified)
+      end
+      
+      context 'when the returning API hash formatted correctly' do
+        context 'it returns an application schema object via:' do
+          def assert_application_model_correct(result)
+            expect(result).to be_an_instance_of Cb::CbApplicationSchema
+            expect(result.questions).to be_a Array
+            expect(result.questions.count).to eq result.total_questions
+            expect(result.questions.first).to be_a CbApplicationSchema::CbQuestionSchema
+            expect(result.questions.first.answers.first).to be_a CbApplicationSchema::CbAnswerSchema
+          end
 
-          expect(result.cb_response.errors).to satisfy { | obj | obj.nil? || obj.count == 0 }
+          it 'the Cb module convenience method' do
+            assert_application_model_correct Cb.application.for_job('job-did-here')
+          end
 
-          expect(result).to be_an_instance_of Cb::CbApplicationSchema
-          expect(result.did.length).to be >= 19
-          expect(result.title.length).to be >= 1
-          expect(result.requirements.length).to be >= 1
-          expect(result.apply_url.length).to be >= 1
-          expect(result.submit_service_url.length).to be >= 1
-          expect(result.is_shared_apply).to satisfy { | obj | obj.is_a?(TrueClass) || obj.is_a?(FalseClass)}
-          expect(result.total_questions).to be >= 1
-          expect(result.total_required_questions).to be >= 1
+          it 'the API client itself' do
+            assert_application_model_correct Cb::ApplicationApi.for_job('job-did-here')
+          end
+        end
+      end
 
-          # Questions
-          expect(result.questions).to be_an_instance_of Array
-          expect(result.questions.count).to eql result.total_questions
-          result.questions do | qq |
-            expect(qq).to be_an_instance_of Cb::CbApplicationSchema::CbQuestionSchema
-            expect(qq.id.length).to be >= 1
-            expect(qq.type.length).to be >= 1
-            expect(qq.required).to satisfy { | obj | obj.is_a?(TrueClass) || obj.is_a?(FalseClass)}
-            expect(qq.format.length).to be >= 1
-            expect(qq.text.length).to be >= 1
+    end # #for_job
 
-            # Answers
-            expect(qq.answers).to be_an_instance_of Array
-            if qq.answers.count > 0
-              qq.answers do | aa |
-                expect(aa).to be_an_instance_of Cb::CbApplicationSchema::CbAnswerSchema
-                expect(aa.question_id.length).to be >= 1
-                expect(aa.id.length).to be >= 1
-                expect(aa.text.length).to be >= 1
-              end
+    context 'application submission methods' do
+      let(:app) do
+        args = { :job_did => 'did', :site_id => 'bogus', :co_brand => 'bogus', :resume_file_name => 'bogus', :resume => 'encoded' }
+        app = Cb::CbApplication.new(args)
+        app.test = true
+        app.add_answer('ApplicantName', 'Foo Bar')
+        app.add_answer('ApplicantEmail', 'DontSpamMeBro@gmail.com')
+        app
+      end
+
+      def stub_app_submission_for(application_api_url, response_content)
+        stub_request(:post, uri_stem(application_api_url)).with(:body => anything).
+          to_return(:body => response_content.to_json)
+      end
+      
+      def submit_app_via(apply_method_to_use)
+        Cb::ApplicationApi.send(apply_method_to_use, app)
+      end
+
+      def assert_blank_redirect_url(app)
+        app.redirect_url.blank?.should eq true
+      end
+
+      Array[ # #submit_app and #submit_registered_app work exactly the same - metaprogram their tests!
+        { :method_name => :submit_app,            :uri => Cb.configuration.uri_application_submit },
+        { :method_name => :submit_registered_app, :uri => Cb.configuration.uri_application_registered }
+      ].each do |method_info|
+
+        context "##{method_info[:method_name]}" do
+          let(:uri)               { method_info[:uri] }
+          let(:method_under_test) { method_info[:method_name] }
+
+          it 'raises exception for incorrect input type (anything other than Cb::CbApplication)' do
+            expect { Cb::ApplicationApi.send(method_under_test, Object.new) }.
+              to raise_error Cb::IncomingParamIsWrongTypeException
+          end
+
+          context 'when response hash contains enough data' do
+            before :each do
+              body = { 'ResponseApplication' => { 'RedirectURL' => 'http://delicious.baconmobile.com' }}
+              stub_app_submission_for(uri, body)
             end
 
-            expect(result.api_error).to be == false
+            it 'the same application object that it took as input is returned' do
+              returned_app = submit_app_via(method_under_test)
+              returned_app.should eq app
+              returned_app.object_id.should eq app.object_id
+            end
+
+            it 'sets redirect_url on the application' do
+              returned_app = submit_app_via(method_under_test)
+              returned_app.redirect_url.should eq 'http://delicious.baconmobile.com'
+            end
           end
-      end
 
-      it 'should return error for bogus job did', :vcr => {:cassette_name => 'job/application/for_job'} do
-        result = Cb.application.for_job 'bogus-job-did'
+          context 'when missing ResponseApplication field' do
+            it 'app redirect url is set to a blank string' do
+              stub_app_submission_for(uri, Hash.new)
+              assert_blank_redirect_url submit_app_via(method_under_test)
+            end
+          end
 
-        expect(result.cb_response.errors).to be_an_instance_of Array
-        expect(result.cb_response.errors[0].length).to be >= 1
-        expect(result.api_error).to be == false
-      end
+          context 'when missing RedirectURL field' do
+            it 'app redirect url is set to a blank string' do
+              stub_app_submission_for(uri, { 'ResponseApplication' => { 'lol' => 'nope' }})
+              assert_blank_redirect_url submit_app_via(method_under_test)
+            end
+          end
 
-      it 'should set api error for bogus request', :vcr => { :cassette_name => 'job/application/for_job_bogus_request'} do
-        correct_url = Cb.configuration.uri_application
-
-        Cb.configuration.uri_application = Cb.configuration.uri_application + 'a'
-        result = Cb.application.for_job 'bogus-job-did'
-        Cb.configuration.uri_application = Cb.configuration.uri_application + 'a'
-
-        result.nil?.should be_true
-        result.api_error.should be_true
-      end
-    end
-
-    context '.submit_app' do
-      it 'should send application info to api', :vcr => {:cassette_name => 'job/application/submit_app'} do
+          context 'when ResponseApplication node does not have hash content' do
+            it 'raises NoMethodError' do
+              stub_app_submission_for(uri, { 'ResponseApplication' => 'lol' })
+              expect { submit_app_via(method_under_test) }.to raise_error NoMethodError
+            end
+          end
+        end
 
       end
+    end # application submission methods
 
-      it 'should get incomplete status message from api' do
-        app = Cb::CbApplication.new({:job_did => 'bogus-did', :site_id => 'bogus', :co_brand => 'bogus', :resume_file_name => 'bogus-resume', :resume => 'this-should-be-encoded'})
-        app.test = true
-        app.add_answer('ApplicantName', 'Foo Bar')
-        app.add_answer('ApplicantEmail', 'DontSpamMeBro@gmail.com')
-
-        app = app.submit
-        app.cb_response.application_status.should == 'Incomplete'
-        app.complete?.should == false
-        expect(app.api_error).to be == false
-      end
-
-      it 'should set api error on bogus request' do
-        correct_url = Cb.configuration.uri_application_submit
-
-        app = Cb::CbApplication.new({:job_did => 'bogus-did', :site_id => 'bogus', :co_brand => 'bogus', :resume_file_name => 'bogus-resume', :resume => 'this-should-be-encoded'})
-        app.test = true
-        app.add_answer('ApplicantName', 'Foo Bar')
-        app.add_answer('ApplicantEmail', 'DontSpamMeBro@gmail.com')
-        Cb.configuration.uri_application_submit = Cb.configuration.uri_application_submit + 'a'
-        app = app.submit
-        Cb.configuration.uri_application_submit = correct_url
-
-        app.redirect_url.blank?.should be_true
-        app.api_error.should == true
-
-      end
-    end
   end
 end

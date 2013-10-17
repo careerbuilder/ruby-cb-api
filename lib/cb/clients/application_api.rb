@@ -17,11 +17,11 @@ module Cb
       json_hash = my_api.cb_get(Cb.configuration.uri_application, :query => {:JobDID => did})
 
       if json_hash.has_key?('ResponseBlankApplication')
-          if json_hash['ResponseBlankApplication'].has_key?('BlankApplication')
-            app = Cb::CbApplicationSchema.new(json_hash['ResponseBlankApplication']['BlankApplication'])
-          end
+        if json_hash['ResponseBlankApplication'].has_key?('BlankApplication')
+          app = Cb::CbApplicationSchema.new(json_hash['ResponseBlankApplication']['BlankApplication'])
+        end
 
-          my_api.append_api_responses(app, json_hash['ResponseBlankApplication'])
+        my_api.append_api_responses(app, json_hash['ResponseBlankApplication'])
       end
 
       my_api.append_api_responses(app, json_hash)

@@ -36,17 +36,6 @@ module Cb
         search.cb_response.errors.nil?.should == true
         search.api_error.should == false
       end
-
-      it 'should set api error on a bogus request', :vcr => {:cassette_name => 'job/search/bogus_request'} do
-        correct_url = Cb.configuration.uri_job_search
-
-        Cb.configuration.uri_job_search = Cb.configuration.uri_job_search + 'a'
-        search = Cb.job_search_criteria.location('Atlanta, GA').radius(10).search()
-        Cb.configuration.uri_job_search = correct_url
-
-        search.empty?.should be_true
-        search.api_error.should == true
-      end
     end
 
     context '.find_by_did'
@@ -74,17 +63,6 @@ module Cb
         job.cb_response.errors.is_a?(Array).should == true
         job.cb_response.errors.first.include?('Job was not found').should == true
         job.api_error.should == false
-      end
-
-      it 'should set api error for bogus request', :vcr => { :cassette_name => 'job/bogus_request' } do
-        correct_url = Cb.configuration.uri_job_find
-
-        Cb.configuration.uri_job_find = Cb.configuration.uri_job_find + 'a'
-        job = Cb.job.find_by_did('bogus_did')
-        Cb.configuration.uri_job_find = correct_url
-
-        job.nil?.should be_true
-        job.api_error.should == true
       end
     end
 end
