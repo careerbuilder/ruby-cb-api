@@ -2,36 +2,91 @@ require 'spec_helper'
 
 module Cb
   describe Cb::EducationApi do
-    context '.get_for <country>'
 
-    it 'should get default education code if country is blank ', :vcr => { :cassette_name => 'educationcode/country'} do
-      ret = Cb.education_code.get_for('not real')
+    context '#get_for' do
 
-      ret.count.should > 1
-      ret.each do | edu |
-        edu.is_a?(Cb::CbEducation).should == true
-
-        edu.code.length.should > 1
-        edu.language.include?('US').should == true
+      def stub_api_to_return(content)
+        stub_request(:get, uri_stem(Cb.configuration.uri_education_code)).to_return(:body => content.to_json)
       end
-      ret.api_error.should == false
-    end
 
-    it 'should get the education code for given country ', :vcr => { :cassette_name => 'educationcode/uk'} do
-      ret = Cb.education_code.get_for(Cb.country.UK)
-      ret.count.should > 1
-      ret.api_error.should == false
-    end
+      context 'when things are working correctly' do
+        let(:mock_api) { double(Cb::Utils::Api) }
 
-    it 'should set api error on bogus request', :vcr => { :cassette_name => 'educationcode/bogus_request'} do
-      correct_url = Cb.configuration.uri_education_code
+        before :each do
+          mock_api.stub(:append_api_responses)
+          mock_api.stub(:cb_get).and_return(Hash.new)
+          Cb::Utils::Api.stub(:new).and_return(mock_api)
+        end
 
-      Cb.configuration.uri_education_code = Cb.configuration.uri_education_code + 'a'
-      ret = Cb.education_code.get_for('not real')
-      Cb.configuration.uri_education_code = correct_url
+        it 'calls #append_api_responses on the Cb API utility client' do
+          mock_api.should_receive(:append_api_responses)
+          Cb::EducationApi.get_for('US')
+        end
 
-      ret.empty?.should be_true
-      ret.api_error.should == true
+        it 'pings the education codes API endpoint with countrycode in the query string' do
+          country_code = 'US'
+          api_uri      = Cb.configuration.uri_education_code
+          query_hash   = { :query => { :countrycode => country_code}}
+
+          mock_api.should_receive(:cb_get).with(api_uri, query_hash)
+          Cb::EducationApi.get_for(country_code)
+        end
+      end
+
+      context 'when the API response has all required nodes' do
+        before :each do
+          stub_api_to_return({ ResponseEducationCodes: { EducationCodes: { Education: [Hash.new]} } })
+        end
+
+        it 'returns an array of education models' do
+          models = Cb::EducationApi.get_for('US')
+          expect(models).to       be_an_instance_of Array
+          expect(models.first).to be_an_instance_of Cb::CbEducation
+        end
+      end
+
+      context 'when the API response is missing nodes' do
+        def expect_an_empty_array(thing)
+          expect(thing).to be_an_instance_of Array
+          expect(thing.empty?).to eq true
+        end
+
+        context '\ResponseEducationCodes' do
+          before(:each) { stub_api_to_return(Hash.new) }
+
+          it 'returns an empty array' do
+            models = Cb::EducationApi.get_for('US')
+            expect_an_empty_array(models)
+          end
+        end
+
+        context '\ResponseEducationCodes\EducationCodes' do
+          before(:each) { stub_api_to_return({ ResponseEducationCodes: Hash.new }) }
+
+          it 'returns an empty array' do
+            models = Cb::EducationApi.get_for('US')
+            expect_an_empty_array(models)
+          end
+        end
+
+        context '\ResponseEducationCodes\EducationCodes\Education' do
+          before(:each) { stub_api_to_return({ ResponseEducationCodes: { EducationCodes: Hash.new } }) }
+
+          it 'returns an empty array' do
+            models = Cb::EducationApi.get_for('US')
+            expect_an_empty_array(models)
+          end
+        end
+
+        context 'has \ResponseEducationCodes\EducationCodes\Education, but no content in it' do
+          before(:each) { stub_api_to_return({ ResponseEducationCodes: { EducationCodes: { Education: nil } } }) }
+
+          it 'raises a NoMethodError when #each is attempted' do
+            expect { Cb::EducationApi.get_for('US') }.to raise_error NoMethodError
+          end
+        end
+      end
+
     end
   end
 end

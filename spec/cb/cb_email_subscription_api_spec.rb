@@ -2,134 +2,138 @@ require 'spec_helper'
 
 module Cb
   describe Cb::EmailSubscriptionApi do
-    context '.retrieve_by_did' do
-      it 'retrieve a users email subscription and update it' do
-        did = 'XRHS6FP78P5H30WLMB4G'
-        subscription = Cb.email_subscription.retrieve_by_did(did, 'WR')
 
-        subscription.nil?.should be_false
-        subscription.cb_response.errors.empty?.should be_true
-        subscription.cb_response.status.should == 'Success'
-        subscription.api_error.should == false
-
-        test_subscription = Cb.email_subscription.modify_subscription(
-            did,
-            'WR',
-            subscription.career_resources,
-            subscription.product_sponsor_info,
-            subscription.applicant_survey_invites,
-            subscription.job_recs,
-            false
-        )
-
-        test_subscription.nil?.should be_false
-        test_subscription.career_resources.should == subscription.career_resources.to_s
-        test_subscription.product_sponsor_info.should == subscription.product_sponsor_info.to_s
-        test_subscription.applicant_survey_invites.should == subscription.applicant_survey_invites.to_s
-        test_subscription.job_recs.should == subscription.job_recs.to_s
-
-        test_subscription.cb_response.errors.empty?.should be_true
-        test_subscription.cb_response.status.should == 'Success'
-        test_subscription.api_error.should == false
-
-      end
-
-      it 'retrieve a users email subscription and unsubscribe to all' do
-        did = 'XRHS6FP78P5H30WLMB4G'
-        subscription = Cb.email_subscription.retrieve_by_did(did, 'WR')
-
-        subscription.nil?.should be_false
-        subscription.cb_response.errors.empty?.should be_true
-        subscription.cb_response.status.should == 'Success'
-        subscription.api_error.should == false
-
-        test_subscription = Cb.email_subscription.modify_subscription(
-            did,
-            'WR',
-            subscription.career_resources,
-            subscription.product_sponsor_info,
-            subscription.applicant_survey_invites,
-            subscription.job_recs,
-            true
-        )
-
-        test_subscription.nil?.should be_false
-        test_subscription.cb_response.errors.empty?.should be_true
-        test_subscription.cb_response.status.should == 'Success'
-        test_subscription.api_error.should == false
-
-        test_subscription.career_resources.should == 'false'
-        test_subscription.product_sponsor_info.should == 'false'
-        test_subscription.applicant_survey_invites.should == 'false'
-        test_subscription.job_recs.should == 'false'
-
-
-      end
-      it 'retrieve a users email subscription and update it' do
-        did = 'XRHS6FP78P5H30WLMB4G'
-        subscription = Cb.email_subscription.retrieve_by_did(did, 'WR')
-
-        subscription.nil?.should be_false
-        subscription.cb_response.errors.empty?.should be_true
-        subscription.cb_response.status.should == 'Success'
-        subscription.api_error.should == false
-
-        subscription.applicant_survey_invites = true
-        subscription.career_resources = true
-
-        test_subscription = Cb.email_subscription.modify_subscription(
-            did,
-            'WR',
-            subscription.career_resources,
-            subscription.product_sponsor_info,
-            subscription.applicant_survey_invites,
-            subscription.job_recs,
-            'false'
-        )
-
-        test_subscription.nil?.should be_false
-        test_subscription.cb_response.errors.empty?.should be_true
-        test_subscription.cb_response.status.should == 'Success'
-        test_subscription.api_error.should == false
-
-        test_subscription.career_resources.should == subscription.career_resources.to_s
-        test_subscription.product_sponsor_info.should == subscription.product_sponsor_info.to_s
-        test_subscription.applicant_survey_invites.should == subscription.applicant_survey_invites.to_s
-        test_subscription.job_recs.should == subscription.job_recs.to_s
-      end
-
-      it 'should set errors and return nil if bogus did' do
-        did = 'bogus'
-        subscription = Cb.email_subscription.retrieve_by_did(did, 'WR')
-
-        subscription.nil?.should be_true
-        subscription.cb_response.errors.empty?.should be_false
-        subscription.api_error.should == false
-
-      end
-
-      it 'should set errors with empty did' do
-        did = ''
-        subscription = Cb.email_subscription.retrieve_by_did(did, 'WR')
-
-        subscription.nil?.should be_true
-        subscription.cb_response.errors.empty?.should be_false
-        subscription.api_error.should == false
-
-      end
-
-      it 'should set api error on bogus request' do
-        correct_url = Cb.configuration.uri_subscription_retrieve
-
-        Cb.configuration.uri_subscription_retrieve = Cb.configuration.uri_subscription_retrieve + 'a'
-        subscription = Cb.email_subscription.retrieve_by_did('XRHS6FP78P5H30WLMB4G', 'WR')
-        Cb.configuration.uri_subscription_retrieve = correct_url
-
-        subscription.nil?.should be_true
-        subscription.api_error.should == true
-
-      end
+    def expect_email_sub_model(model)
+      expect(model).to be_an_instance_of(Cb::CbEmailSubscription)
     end
+
+    context '#retrieve_by_did' do
+
+      def stub_api_to_return(content)
+        stub_request(:get, uri_stem(Cb.configuration.uri_subscription_retrieve)).
+          to_return(:body => content.to_json)
+      end
+
+      context 'when everything is working smoothly' do
+        let(:mock_api) { double(Cb::Utils::Api) }
+
+        before :each do
+          mock_api.stub(:cb_get_secure).and_return(Hash.new)
+          mock_api.stub(:append_api_responses)
+          Cb::Utils::Api.stub(:new).and_return(mock_api)
+        end
+
+        it 'pings the subscription retrieve endpoint with HTTPS' do
+          https_method_name = :cb_get_secure
+
+          mock_api.should_receive(https_method_name).
+            with(Cb.configuration.uri_subscription_retrieve, kind_of(Hash)).
+            and_return(Hash.new)
+
+          Cb::EmailSubscriptionApi.retrieve_by_did('fake-did')
+        end
+
+        it 'includes the external ID and hostsite in the URL' do
+          xid = 'fake-did'
+          host_site = 'site'
+
+          mock_api.should_receive(:cb_get_secure).
+            with(kind_of(String), { :query => { :ExternalID => xid, :Hostsite => host_site } }).
+            and_return(Hash.new)
+
+          Cb::EmailSubscriptionApi.retrieve_by_did(xid, host_site)
+        end
+
+        it 'appends the generic API responses to the returned object' do
+          mock_api.should_receive(:append_api_responses)
+          Cb::EmailSubscriptionApi.retrieve_by_did('fake-did')
+        end
+      end
+
+      context 'when required API response fields are present' do
+        before(:each) { stub_api_to_return({ 'SubscriptionValues' => { :stuff => 'here' } }) }
+
+        it 'returns an email subscription model' do
+          expect_email_sub_model Cb::EmailSubscriptionApi.retrieve_by_did('fake-did')
+        end
+      end
+
+      context 'when required API response fields are not present' do
+        before(:each) { stub_api_to_return({ 'SubscriptionValues' => nil }) }
+
+        it 'returns nil' do
+          model = Cb::EmailSubscriptionApi.retrieve_by_did('fake-did')
+          expect(model).to be_nil
+        end
+
+        it 'appends api responses to the nil returned value' do
+          mock_api = double(Cb::Utils::Api)
+          mock_api.stub(:cb_get_secure).and_return(Hash.new)
+          mock_api.should_receive(:append_api_responses)
+          Cb::Utils::Api.stub(:new).and_return(mock_api)
+          Cb::EmailSubscriptionApi.retrieve_by_did('fake-did')
+        end
+      end
+
+    end # retrieve_by_did
+
+    context '#modify_subscription' do
+      def stub_api_to_return(content)
+        stub_request(:post, uri_stem(Cb.configuration.uri_subscription_modify)).
+          to_return(:body => content.to_json)
+      end
+
+      context 'when posting over the wire' do
+        let(:mock_api) { double(Cb::Utils::Api) }
+
+        before :each do
+          mock_api.stub(:append_api_responses)
+          mock_api.stub(:cb_post)
+          Cb::Utils::Api.stub(:new).and_return(mock_api)
+        end
+
+        it 'uses HTTP (non-SSL) to the email subscription modify endpoint' do
+          insecure_api_method = :cb_post
+          target_uri = Cb.configuration.uri_subscription_modify
+
+          mock_api.should_receive(insecure_api_method).
+            with(target_uri, kind_of(Hash)).
+            and_return(Hash.new)
+
+          Cb::EmailSubscriptionApi.modify_subscription(nil, nil, nil, nil, nil, nil, true)
+        end
+      end
+
+      context 'when API response hash contains all required fields' do
+        before(:each) { stub_api_to_return({ SubscriptionValues: { things: 'stuff' } }) }
+
+        it 'returns an email subscription model' do
+          model = Cb::EmailSubscriptionApi.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
+                                                               'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
+          expect_email_sub_model(model)
+        end
+      end
+
+      context 'when API response hash does not have the required fields' do
+        before(:each) { stub_api_to_return(Hash.new) }
+
+        it 'returns nil' do
+          model = Cb::EmailSubscriptionApi.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
+                                                               'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
+          expect(model.nil?).to be_true
+        end
+
+        it 'appends api responses to the nil returned value' do
+          mock_api = double(Cb::Utils::Api)
+          mock_api.stub(:cb_post).and_return(Hash.new)
+          mock_api.should_receive(:append_api_responses)
+          Cb::Utils::Api.stub(:new).and_return(mock_api)
+          Cb::EmailSubscriptionApi.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
+                                                        'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
+        end
+      end
+
+    end # modify_subscription
 
   end
 end

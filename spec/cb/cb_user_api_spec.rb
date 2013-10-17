@@ -27,100 +27,24 @@ module Cb
           expect(user.user_status).to be == 'UserNotOwned'
           user.api_error.should == false
         end
-
-        it 'should set api_error on bogus request', :vcr => { :cassette_name => 'user/retrieve/bogus_request' } do
-          correct_url = Cb.configuration.uri_user_retrieve
-
-          Cb.configuration.uri_user_retrieve = Cb.configuration.uri_user_retrieve + 'a'
-          user = Cb.user.retrieve 'XRHP5HT66R55L6RVP6R9', true
-          Cb.configuration.uri_user_retrieve = correct_url
-
-          user.nil?.should be_true
-          user.api_error.should == true
-        end
       end
 
       context '.change_password' do
-        # Needs Test node respected in API. Will change password to same password for now.
-        it 'should change a user password', :vcr => { :cassette_name => 'user/change_password/success' } do
+        before :each do
+          stub_request(:post, uri_stem(Cb.configuration.uri_user_change_password)).
+            with(:body => anything).
+            to_return(:body => { ResponseUserChangePW: { Status: 'Success (Test)' } }.to_json)
+        end
+
+        it 'should change a user password' do
           result = Cb.user.change_password 'XRHL3TC5VWHV37S9J55S', 'BikeTire3', 'BikeTire3', true
 
-          expect(result.cb_response.errors.nil?).to be true
-          expect(result.cb_response.status).to be == 'Success (Test)'
-          expect(result).to be true
-          result.api_error.should == false
+          expect(result.cb_response.errors.nil?).to eq true
+          expect(result.cb_response.status).to eq 'Success (Test)'
+          expect(result).to eq true
+          result.api_error.should eq false
         end
 
-        it 'should fail without a new password', :vcr => { :cassette_name => 'user/change_password/no_new_password' } do
-          result = Cb.user.change_password 'XRHL3TC5VWHV37S9J55S', 'BikeTire4', ''
-
-          expect(result.cb_response.errors.count).to be == 1
-          expect(result.cb_response.errors[0]).to be == 'NewPassword requires a value'
-          expect(result.cb_response.status).to be == 'Fail'
-          expect(result).to be false
-          result.api_error.should == false
-        end
-
-        it 'should fail without an old password', :vcr => { :cassette_name => 'user/change_password/no_old_password' } do
-          result = Cb.user.change_password 'XRHL3TC5VWHV37S9J55S', '', 'BikeTire4'
-
-          expect(result.cb_response.errors.count).to be == 1
-          expect(result.cb_response.errors[0]).to be == 'OldPassword requires a value'
-          expect(result.cb_response.status).to be == 'Fail'
-          expect(result).to be false
-          result.api_error.should == false
-        end
-
-        it 'should fail without an external id', :vcr => { :cassette_name => 'user/change_password/no_external_id' } do
-          result = Cb.user.change_password '', 'BikeTire3', 'BikeTire4'
-
-          expect(result.cb_response.errors.count).to be == 1
-          expect(result.cb_response.errors[0]).to be == 'ExternalID requires a value'
-          expect(result.cb_response.status).to be == 'Fail'
-          expect(result).to be false
-          result.api_error.should == false
-        end
-
-        it 'should fail with incorrect old password', :vcr => { :cassette_name => 'user/change_password/incorrect_old_password' } do
-          result = Cb.user.change_password 'XRHL3TC5VWHV37S9J55S', 'incorrect_password', 'BikeTire4'
-
-          expect(result.cb_response.errors.count).to be == 1
-          expect(result.cb_response.errors[0]).to be == 'ExternalID and password do not match.'
-          expect(result.cb_response.status).to be == 'Fail'
-          expect(result).to be false
-          result.api_error.should == false
-        end
-
-      it 'should fail with bad credentials', :vcr => { :cassette_name => 'user/change_password/bad_credentials' } do
-        result = Cb.user.change_password 'bad_external_id', 'bad_password', 'BikeTire4'
-
-        expect(result.cb_response.errors.count).to be == 1
-        expect(result.cb_response.errors[0]).to be == 'No owned user exists for given ExternalID.'
-        expect(result.cb_response.status).to be == 'Fail'
-        expect(result).to be false
-        result.api_error.should == false
-      end
-
-      it 'should fail with an insecure new password', :vcr => { :cassette_name => 'user/change_password/insecure_new_password' } do
-        result = Cb.user.change_password 'XRHL3TC5VWHV37S9J55S', 'BikeTire3', 'bad_password'
-
-        expect(result.cb_response.errors.count).to be == 1
-        expect(result.cb_response.errors[0]).to be == 'Your password must be between 8 - 15 characters and must contain at least three of the following: upper case letter, lower case letter, number, symbol.'
-        expect(result.cb_response.status).to be == 'Fail'
-        expect(result).to be false
-        result.api_error.should == false
-      end
-
-      it 'should set api_error on bogus request', :vcr => { :cassette_name => 'user/change_password/bogus_request' } do
-        correct_url = Cb.configuration.uri_user_change_password
-
-        Cb.configuration.uri_user_change_password = Cb.configuration.uri_user_change_password + 'a'
-        user = Cb.user.change_password 'XRHL3TC5VWHV37S9J55S', 'BikeTire3', 'BikeTire3', true
-        Cb.configuration.uri_user_change_password = correct_url
-
-        user.should be_false
-        user.api_error.should == true
-      end
     end
 
     context '.build_change_password_request' do
@@ -141,45 +65,19 @@ module Cb
     end
 
     context '.delete' do
-      external_id = 'XRHN2RH6K4CVZR19H00Z'
-      password = '!QA2ws3ed'
+      before :each do
+        stub_request(:post, uri_stem(Cb.configuration.uri_user_delete)).
+          with(:body => anything).
+          to_return(:body => { ResponseUserDelete: { Status: 'Success (Test)' } }.to_json)
+      end
 
       it 'should delete a user', :vcr => { :cassette_name => 'user/delete/success' } do
-        result = Cb.user.delete external_id, password, true
+        result = Cb.user.delete 'xid', 'passwort', true
 
         expect(result.cb_response.errors.nil?).to be true
         expect(result.cb_response.status).to be == 'Success (Test)'
         expect(result).to be true
         result.api_error.should == false
-      end
-
-      it 'should fail with no password', :vcr => { :cassette_name => 'user/delete/no_password' } do
-        result = Cb.user.delete external_id, nil, true
-
-        expect(result.cb_response.errors.nil?).to be false
-        expect(result.cb_response.status).to be == 'Fail (Test)'
-        expect(result).to be false
-        result.api_error.should == false
-      end
-
-      it 'should fail with no external_id', :vcr => { :cassette_name => 'user/delete/no_external_id' } do
-        result = Cb.user.delete nil, password, true
-
-        expect(result.cb_response.errors.nil?).to be false
-        expect(result.cb_response.status).to be == 'Fail (Test)'
-        expect(result).to be false
-        result.api_error.should == false
-      end
-
-      it 'should set api_error on bogus request', :vcr => { :cassette_name => 'user/delete/bogus_request' } do
-        correct_url = Cb.configuration.uri_user_delete
-
-        Cb.configuration.uri_user_delete = Cb.configuration.uri_user_delete + 'a'
-        user = Cb.user.delete external_id, password, true
-        Cb.configuration.uri_user_delete = correct_url
-
-        user.should be_false
-        user.api_error.should == true
       end
     end
 

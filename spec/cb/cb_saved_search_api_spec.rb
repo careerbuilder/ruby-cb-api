@@ -3,10 +3,6 @@ require 'spec_helper'
 module Cb
   describe Cb::SavedSearchApi do
 
-    # Email address for this user: captainmorgantest@careerbuilder.com
-    @@external_user_id = 'XRHS30G60RWSQ5P1S8RG'
-    @@host_site = 'US'
-
     context '.new' do
       it 'should create a new saved job search api object' do
         saved_search_request = Cb::SavedSearchApi.new
@@ -15,162 +11,102 @@ module Cb
     end
 
     context '.create' do
+      before :each do
+        stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_create)).
+          with(:body => anything).
+          to_return(:body => { SavedJobSearch: { Errors: nil, SavedSearch: Hash.new } }.to_json)
+      end
+
       it 'should send a successful request to the saved search create api v2' do
-        VCR.use_cassette('saved_search/successful_create_saved_search') do
-          email_frequency = 'None'
-          search_name = 'Fake Job Search 1'
+        email_frequency = 'None'
+        search_name = 'Fake Job Search 1'
 
-          user_saved_search = Cb.saved_search_api.create({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
-                              'ExternalUserID'=>@@external_user_id, 'SearchName'=>search_name,
-                                    'HostSite'=>@@host_site})
-     
-          user_saved_search.cb_response.errors.nil?.should be_true
-          user_saved_search.api_error.should == false
-        end
-      end
-
-      it 'should fail to send a request to the saved search api v2' do
-        VCR.use_cassette('saved_search/unsuccessful_create_saved_search') do
-          email_frequency = 'None'
-          search_name = 'Fake Job Search 2'
-
-          user_saved_search = Cb.saved_search_api.create({'IsDailyEmail'=>email_frequency,
-                                                          'ExternalUserID'=>@@external_user_id, 'SearchName'=>search_name,
-                                                          'HostSite'=>@@host_site})
-
-          user_saved_search.cb_response.errors.nil?.should be_false
-          user_saved_search.api_error.should == false
-        end
-      end
-
-      it 'should set api error on bogus request', :vcr => { :cassette_name => 'saved_search/create_bogus_request'} do
-        correct_url = Cb.configuration.uri_saved_search_create
-
-        Cb.configuration.uri_saved_search_create = Cb.configuration.uri_saved_search_create + 'a'
-        saved_search = Cb.saved_search_api.create({'IsDailyEmail'=>'None',
-                                                        'ExternalUserID'=>@@external_user_id, 'SearchName'=>'FakeJobSearch3',
-                                                        'HostSite'=>@@host_site})
-        Cb.configuration.uri_saved_search_create = correct_url
-
-        saved_search.nil?.should be_true
-        saved_search.api_error.should == true
-
+        user_saved_search = Cb.saved_search_api.create({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
+                            'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
+                                  'HostSite'=>@host_site})
+        user_saved_search.cb_response.errors.nil?.should be_true
+        user_saved_search.api_error.should == false
       end
     end
 
     context '.update' do
-      it 'should update the saved search created in this test' do
-        VCR.use_cassette('saved_search/successful_update_saved_search') do
-          saved_search_list = Cb::SavedSearchApi.list(Cb.configuration.dev_key, @@external_user_id)
-
-          saved_search_list.api_error.should == false
-
-          external_id = saved_search_list.first.external_id
-          email_frequency = 'None'
-          search_name = 'Fake Job Search Update'
-
-          user_saved_search = Cb.saved_search_api.update({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
-                                                          'ExternalUserID'=>@@external_user_id, 'SearchName'=>search_name,
-                                                          'HostSite'=>@@host_site, 'ExternalID'=>external_id})
-         
-          user_saved_search.cb_response.errors.nil?.should be_true
-          user_saved_search.api_error.should == false
-
-        end
+      before :each do
+        stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_update)).
+          with(:body => anything).
+          to_return(:body => { Errors: nil, SavedJobSearch: Hash.new }.to_json)
       end
 
-      it 'should set api error on bogus request', :vcr => { :cassette_name => 'saved_search/update_bogus_request' } do
-        correct_url = Cb.configuration.uri_saved_search_update
+      it 'should update the saved search created in this test' do
+        external_id = 'xid'
+        email_frequency = 'None'
+        search_name = 'Fake Job Search Update'
 
-        Cb.configuration.uri_saved_search_update = Cb.configuration.uri_saved_search_update + 'a'
-        saved_search = Cb.saved_search_api.update({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>'None',
-                                                        'ExternalUserID'=>@@external_user_id, 'SearchName'=>'Fake Search Update 2',
-                                                        'HostSite'=>@@host_site, 'ExternalID'=>'bogus'})
-        Cb.configuration.uri_saved_search_update = correct_url
+        user_saved_search = Cb.saved_search_api.update({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
+                                                        'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
+                                                        'HostSite'=>@host_site, 'ExternalID'=>external_id})
 
-        saved_search.nil?.should be_true
-        saved_search.api_error.should == true
-
+        user_saved_search.cb_response.errors.nil?.should be_true
+        user_saved_search.api_error.should == false
       end
     end
 
     context '.list' do
-      it 'should retrieve a list of saved searches' do
-        VCR.use_cassette('saved_search/successful_list_saved_search') do
-          user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @@external_user_id)
+      def stub_api_to_return(content)
+        stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_list)).
+          to_return(:body => content.to_json)
+      end
 
-          user_saved_search.should_not be_nil
+      context 'when the saved search node contains a hash' do
+        before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: { a: 'b', b: 'c' } } } }) }
+
+        it 'should return an array with a single saved search' do
+          user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @external_user_id, 'WM')
+
+          expect(user_saved_search).to be_an_instance_of Array
+          expect(user_saved_search.first).to be_an_instance_of Cb::CbSavedSearch
           expect(user_saved_search.api_error).to be == false
         end
       end
 
-      it 'should set api error on bogus request', :vcr => { :cassette_name => 'saved_search/list_bogus_request' } do
-        correct_url = Cb.configuration.uri_saved_search_list
+      context 'when the saved search node contains an array' do
+        before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: [Hash.new, Hash.new] } } }) }
 
-        Cb.configuration.uri_saved_search_list = Cb.configuration.uri_saved_search_list + 'a'
-        saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @@external_user_id)
-        Cb.configuration.uri_saved_search_list = correct_url
+        it 'should return an array of saved searches' do
+          user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @external_user_id, 'WM')
 
-        saved_search.empty?.should be_true
-        saved_search.api_error.should == true
-
+          expect(user_saved_search).to be_an_instance_of Array
+          expect(user_saved_search.first).to be_an_instance_of Cb::CbSavedSearch
+          expect(user_saved_search[1]).to be_an_instance_of Cb::CbSavedSearch
+          expect(user_saved_search.api_error).to be == false
+        end
       end
     end
 
     context '.retrieve' do
-      it 'should retrieve the first saved search' do
-        VCR.use_cassette('saved_search/successful_retrieve_saved_search') do
-          saved_search_list = Cb::SavedSearchApi.list(Cb.configuration.dev_key, @@external_user_id)
-          expect(saved_search_list.api_error).to be == false
-
-          external_id = saved_search_list.first.external_id
-
-          user_saved_search = Cb::SavedSearchApi.retrieve(Cb.configuration.dev_key, @@external_user_id, external_id, @@host_site)
-
-          expect(user_saved_search.cb_response.errors.nil?).to eq(true)
-          expect(user_saved_search.api_error).to be == false
-
-        end
+      before :each do
+        stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_retrieve)).
+          to_return(:body => { SavedJobSearch: { Errors: nil, SavedSearch: Hash.new } }.to_json)
       end
 
-      it 'should set api error on bogus request', :vcr => { :cassette_name => 'saved_search/retrieve_bogus_request' } do
-        correct_url = Cb.configuration.uri_saved_search_retrieve
+      it 'should retrieve the first saved search' do
+        user_saved_search = Cb::SavedSearchApi.retrieve(Cb.configuration.dev_key, @external_user_id, 'xid', @host_site)
 
-        Cb.configuration.uri_saved_search_retrieve = Cb.configuration.uri_saved_search_retrieve + 'a'
-        saved_search = Cb::SavedSearchApi.retrieve(Cb.configuration.dev_key, @@external_user_id, "bogus", @@host_site)
-        Cb.configuration.uri_saved_search_retrieve = correct_url
-
-        saved_search.nil?.should be_true
-        saved_search.api_error.should == true
-
+        expect(user_saved_search.cb_response.errors.nil?).to eq(true)
+        expect(user_saved_search.api_error).to be == false
       end
     end
 
     context '.delete' do
-      it 'should delete the first saved search' do
-        VCR.use_cassette('saved_search/successful_delete_saved_search') do
-          saved_search_list = Cb::SavedSearchApi.list(Cb.configuration.dev_key, @@external_user_id)
-          saved_search_list.api_error.should == false
-
-          external_id = saved_search_list.first.external_id
-
-          user_saved_search = Cb.saved_search_api.delete({'DeveloperKey'=>Cb.configuration.dev_key, 'ExternalID'=>external_id,'ExternalUserID'=>@@external_user_id, 'HostSite'=>@@host_site})
-
-          user_saved_search.cb_response.errors.blank?.should == true
-          user_saved_search.api_error.should == false
-        end
+      before :each do
+        stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_delete)).
+          to_return(:body => { Request: { Errors: nil } }.to_json)
       end
 
-      it 'should set api error on bogus request', :vcr => { :cassette_name => 'saved_search/delete_bogus_request' } do
-        correct_url = Cb.configuration.uri_saved_search_delete
+      it 'should delete the first saved search' do
+        user_saved_search = Cb.saved_search_api.delete({'DeveloperKey'=>Cb.configuration.dev_key, 'ExternalID'=>'xid','ExternalUserID'=>@external_user_id, 'HostSite'=>@host_site})
 
-        Cb.configuration.uri_saved_search_delete = Cb.configuration.uri_saved_search_delete + 'a'
-        saved_search = Cb.saved_search_api.delete({'DeveloperKey'=>Cb.configuration.dev_key, 'ExternalID'=>"bogus",'ExternalUserID'=>@@external_user_id, 'HostSite'=>@@host_site})
-        Cb.configuration.uri_saved_search_delete = correct_url
-
-        saved_search.nil?.should be_true
-        saved_search.api_error.should == true
-
+        user_saved_search.cb_response.errors.blank?.should == true
+        user_saved_search.api_error.should == false
       end
     end
 
