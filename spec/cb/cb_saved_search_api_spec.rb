@@ -11,11 +11,13 @@ module Cb
     end
 
     context '.create' do
-      it 'should send a successful request to the saved search create api v2' do
+      before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_create)).
           with(:body => anything).
           to_return(:body => { SavedJobSearch: { Errors: nil, SavedSearch: Hash.new } }.to_json)
+      end
 
+      it 'should send a successful request to the saved search create api v2' do
         email_frequency = 'None'
         search_name = 'Fake Job Search 1'
 
@@ -25,29 +27,16 @@ module Cb
         user_saved_search.cb_response.errors.nil?.should be_true
         user_saved_search.api_error.should == false
       end
-
-      it 'should fail to send a request to the saved search api v2',
-        :pending => 'this test is not needed - just testing what happens on the API side when dev key is omitted' do
-        VCR.use_cassette('saved_search/unsuccessful_create_saved_search') do
-          email_frequency = 'None'
-          search_name = 'Fake Job Search 2'
-
-          user_saved_search = Cb.saved_search_api.create({'IsDailyEmail'=>email_frequency,
-                                                          'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
-                                                          'HostSite'=>@host_site})
-          puts "errors #{user_saved_search.cb_response.errors.to_s}"
-          user_saved_search.cb_response.errors.nil?.should be_false
-          user_saved_search.api_error.should == false
-        end
-      end
     end
 
     context '.update' do
-      it 'should update the saved search created in this test' do
+      before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_update)).
           with(:body => anything).
           to_return(:body => { Errors: nil, SavedJobSearch: Hash.new }.to_json)
+      end
 
+      it 'should update the saved search created in this test' do
         external_id = 'xid'
         email_frequency = 'None'
         search_name = 'Fake Job Search Update'
@@ -62,12 +51,34 @@ module Cb
     end
 
     context '.list' do
-      it 'should retrieve a list of saved searches',
-        :pending => 'this test leads to a false positive. #list will always return not nil' do
-        user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @external_user_id, 'WM')
+      def stub_api_to_return(content)
+        stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_list)).
+          to_return(:body => content.to_json)
+      end
 
-        user_saved_search.should_not be_nil
-        expect(user_saved_search.api_error).to be == false
+      context 'when the saved search node contains a hash' do
+        before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: { a: 'b', b: 'c' } } } }) }
+
+        it 'should return an array with a single saved search' do
+          user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @external_user_id, 'WM')
+
+          expect(user_saved_search).to be_an_instance_of Array
+          expect(user_saved_search.first).to be_an_instance_of Cb::CbSavedSearch
+          expect(user_saved_search.api_error).to be == false
+        end
+      end
+
+      context 'when the saved search node contains an array' do
+        before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: [Hash.new, Hash.new] } } }) }
+
+        it 'should return an array of saved searches' do
+          user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @external_user_id, 'WM')
+
+          expect(user_saved_search).to be_an_instance_of Array
+          expect(user_saved_search.first).to be_an_instance_of Cb::CbSavedSearch
+          expect(user_saved_search[1]).to be_an_instance_of Cb::CbSavedSearch
+          expect(user_saved_search.api_error).to be == false
+        end
       end
     end
 
