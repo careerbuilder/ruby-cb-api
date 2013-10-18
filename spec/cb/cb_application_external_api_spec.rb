@@ -25,6 +25,7 @@ module Cb
         let(:external_app) { Cb::CbApplicationExternal.new({job_did: 'did', email: 'bogus@bogus.org', ipath: 'bogus', site_id: 'bogus'}) }
 
         it 'the same application object is returned that is supplied for input' do
+          stub_api_call_to_return(Hash.new)
           app = submit_app(external_app)
           app.should eq external_app
           app.object_id.should eq external_app.object_id
