@@ -18,7 +18,7 @@ module Cb
       end
 
       def url
-        "#{Cb.configuration.base_uri_secure}/#{Cb.configuration.uri_user_retrieve}"
+        "#{Cb.configuration.base_uri}/#{Cb.configuration.uri_user_retrieve}"
       end
 
 

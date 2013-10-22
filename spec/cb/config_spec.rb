@@ -11,9 +11,9 @@ module Cb
       end
     end
     context 'defaults' do
-      it 'should have a base_uri_secure' do
+      it 'should have a base_uri' do
         config = Cb.configuration
-        config.base_uri_secure.should_not be_nil
+        config.base_uri.should_not be_nil
       end
     end
   end

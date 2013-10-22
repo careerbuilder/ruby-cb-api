@@ -1,6 +1,6 @@
 module Cb
   class Config
-    attr_accessor :dev_key, :base_uri, :base_uri_secure, :debug_api, :time_out, :use_json, :host_site,
+    attr_accessor :dev_key, :base_uri, :debug_api, :time_out, :use_json, :host_site,
                   :uri_job_search, :uri_job_find,
                   :uri_company_find, :uri_job_category_search,
                   :uri_education_code, :uri_employee_types,
@@ -108,14 +108,17 @@ module Cb
       }
     end
 
+    def set_base_uri (uri)
+      @base_uri = uri
+    end
+
     protected
     #################################################################
 
     def set_defaults
 
       @dev_key              = 'ruby-cb-api'  # Get a developer key at http://api.careerbuilder.com
-      @base_uri             = 'http://api.careerbuilder.com'
-      @base_uri_secure      = 'https://api.careerbuilder.com'
+      @base_uri             = 'https://api.careerbuilder.com'
       @debug_api            = false
       @time_out             = 5
       @use_json             = true

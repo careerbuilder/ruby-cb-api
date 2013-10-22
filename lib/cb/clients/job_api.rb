@@ -7,7 +7,7 @@ module Cb
     ## Run a job search against the given criteria
     ##
     ## For detailed information around this API please visit:
-    ## http://api.careerbuilder.com/JobSearchInfo.aspx
+    ##
     #############################################################
     def self.search(*args)
         args = args[0] if args.is_a?(Array) && args.count == 1
