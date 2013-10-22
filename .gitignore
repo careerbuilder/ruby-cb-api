@@ -13,3 +13,5 @@ startup.rb
 .project
 Gemfile.lock
 .env
+.yardoc
+doc/
