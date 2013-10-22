@@ -4,27 +4,18 @@ module Cb
     describe Cb::UserApi do
 
       context '.retrieve' do
-        it 'should retrieve a user', :vcr => { :cassette_name => 'user/retrieve/success' } do
+        before :each do
+          stub_request(:post, uri_stem(Cb.configuration.uri_user_retrieve)).
+            with(:body => anything).
+            to_return(:body => { ResponseUserInfo: { Errors: nil, Status: 'Success (Test)', UserInfo: Hash.new } }.to_json)
+        end
+
+        it 'should retrieve a user' do
           user = Cb.user.retrieve 'XRHP5HT66R55L6RVP6R9', true
 
           expect(user.cb_response.errors.nil?).to be true
           expect(user.cb_response.status).to be == 'Success (Test)'
           expect(user.nil?).to be false
-          user.api_error.should == false
-        end
-
-        it 'should not retrieve user because external_id is empty', :vcr => { :cassette_name => 'user/retrieve/failure_empty' } do
-          user = Cb.user.retrieve '', true
-
-          expect(user.cb_response.errors.count).to be == 1
-          expect(user.cb_response.errors[0]).to be == 'ExternalID requires a value'
-          expect(user.cb_response.status).to be == 'Fail (Test)'
-          user.api_error.should == false
-        end
-
-        it 'should not retrieve user because external_id is not used by any user', :vcr => { :cassette_name => 'user/retrieve/failure_bad_key' } do
-          user = Cb.user.retrieve 'asdf', true
-          expect(user.user_status).to be == 'UserNotOwned'
           user.api_error.should == false
         end
       end

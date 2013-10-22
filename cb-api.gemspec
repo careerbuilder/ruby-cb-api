@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'nori', '~> 2.2.0'
   s.add_dependency 'nokogiri', '~> 1.6.0'
   s.add_dependency 'activesupport', '~> 4.0.0'
-  s.add_dependency 'vcr', '~> 2.6.0'
   s.add_dependency 'webmock', '~> 1.9.0'
   s.add_dependency 'simplecov', '>= 0.7.1'
   s.add_dependency 'rake', '>= 0.8.7'
