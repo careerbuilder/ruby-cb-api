@@ -11,12 +11,6 @@ end
 require 'rubygems'
 require 'cb'
 require 'webmock/rspec'
-require 'dotenv'
-Dotenv.load
-
-Cb.configure do |c|
-  c.dev_key = ENV['developer_key']
-end
 
 WebMock.disable_net_connect!
 
