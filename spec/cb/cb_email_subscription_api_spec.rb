@@ -18,13 +18,13 @@ module Cb
         let(:mock_api) { double(Cb::Utils::Api) }
 
         before :each do
-          mock_api.stub(:cb_get_secure).and_return(Hash.new)
+          mock_api.stub(:cb_get).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
         end
 
         it 'pings the subscription retrieve endpoint with HTTPS' do
-          https_method_name = :cb_get_secure
+          https_method_name = :cb_get
 
           mock_api.should_receive(https_method_name).
             with(Cb.configuration.uri_subscription_retrieve, kind_of(Hash)).
@@ -37,7 +37,7 @@ module Cb
           xid = 'fake-did'
           host_site = 'site'
 
-          mock_api.should_receive(:cb_get_secure).
+          mock_api.should_receive(:cb_get).
             with(kind_of(String), { :query => { :ExternalID => xid, :Hostsite => host_site } }).
             and_return(Hash.new)
 
@@ -68,7 +68,7 @@ module Cb
 
         it 'appends api responses to the nil returned value' do
           mock_api = double(Cb::Utils::Api)
-          mock_api.stub(:cb_get_secure).and_return(Hash.new)
+          mock_api.stub(:cb_get).and_return(Hash.new)
           mock_api.should_receive(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
           Cb::EmailSubscriptionApi.retrieve_by_did('fake-did')

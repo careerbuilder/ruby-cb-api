@@ -5,7 +5,7 @@ module Cb
     class Api
       include HTTParty
 
-      base_uri 'http://api.careerbuilder.com'
+      base_uri 'https://api.careerbuilder.com'
 
       def initialize
         self.class.debug_output $stderr if Cb.configuration.debug_api
@@ -25,17 +25,8 @@ module Cb
       end
 
       def cb_post(*args, &block)
-        self.class.base_uri Cb.configuration.base_uri_secure
+        self.class.base_uri Cb.configuration.base_uri
         response = self.class.post(*args, &block)
-        validated_response = ResponseValidator.validate(response)
-        set_api_error(validated_response)
-
-        return validated_response
-      end
-
-      def cb_get_secure(*args, &block)
-        self.class.base_uri Cb.configuration.base_uri_secure
-        response = self.class.get(*args, &block)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
 
