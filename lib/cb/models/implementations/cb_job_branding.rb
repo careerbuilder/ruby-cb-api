@@ -1,7 +1,7 @@
 module Cb
 	class CbJobBranding
 
-		attr_accessor :name, :media, :sections, :styles, :widgets, :id, :account_id, :type, :errors, :show_widgets
+		attr_accessor :name, :media, :sections, :styles, :widgets, :id, :account_id, :type, :errors, :show_widgets, :company_description
 
 		def initialize args = {}
 			@name = args['Name'] || ''
@@ -11,7 +11,6 @@ module Cb
 			@media = Cb::Branding::Media.new args['Media']
 			@styles = Cb::Branding::Style.new args['Styles']
 			@errors = args['Errors'] || ''
-
 			@sections, @widgets = [], []
 
 			args['Sections'].each do |type, sections|
@@ -25,6 +24,8 @@ module Cb
 					@widgets << Cb::Branding::Widget.new(type, url) unless url.nil?
 				end
 			end
+
+			@company_description = args['CompanyDescription'] || ''
 		end
 
 	end

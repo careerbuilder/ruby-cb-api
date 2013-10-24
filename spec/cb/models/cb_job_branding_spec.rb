@@ -9,6 +9,7 @@ module Cb
         account_id = 'ADID'
         type = 'Basic'
         errors = { 'Message' => 'There is no job branding for this Id.' }
+        company_description = 'Company name ...'
 
         media = 
 	        { 
@@ -101,7 +102,8 @@ module Cb
 	            'Styles' => styles,
 	            'Errors' => errors,
 	            'Sections' => sections,
-	            'Widgets' => widgets
+	            'Widgets' => widgets,
+                'CompanyDescription' => company_description
 	        })
 
         job_branding.name.should == name
@@ -109,6 +111,7 @@ module Cb
         job_branding.account_id.should == account_id
         job_branding.type.should == type
         job_branding.errors.should == errors
+        job_branding.company_description = company_description
         job_branding.show_widgets.should == (widgets['ShowWidgets'] == 'true')
 
         job_branding.media.header.should == media['Header']
