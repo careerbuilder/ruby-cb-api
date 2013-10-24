@@ -33,15 +33,6 @@ module Cb
         return validated_response
       end
 
-      #def cb_get_secure(*args, &block)
-      #  self.class.base_uri Cb.configuration.base_uri
-      #  response = self.class.get(*args, &block)
-      #  validated_response = ResponseValidator.validate(response)
-      #  set_api_error(validated_response)
-      #
-      #  return validated_response
-      #end
-
       def append_api_responses(obj, resp)
         if obj.respond_to?('cb_response')
           meta_class = obj.cb_response

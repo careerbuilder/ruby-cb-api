@@ -15,6 +15,10 @@ module Cb
         config = Cb.configuration
         config.base_uri.should_not be_nil
       end
+      it 'should have a base_uri with https' do
+        config = Cb.configuration
+        config.base_uri[0..4].should == 'https'
+      end
     end
     context 'uri' do
       it 'should change base_uri' do
