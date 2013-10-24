@@ -23,40 +23,43 @@ module Cb
     end
 
     context '.submit' do
-      it 'should submit a new application through unregistered api' do
-        job_did = 'J1234567890'
-        site_id = 'xxx'
-        co_brand = 'cbmsn'
-        resume_file_name = 'JJR4Prez.pdf'
-        resume = 'base64stringcomingsoon'
-        test = true
+      let(:application) { Cb::CbApplication.new }
 
-        application = Cb::CbApplication.new({:job_did => job_did, :site_id => site_id, :co_brand => co_brand, :resume_file_name => resume_file_name, :resume => resume, :test => test})
+      context 'when the application is for an unregistered user' do
+        before(:each) do
+          application.user_external_id = String.new
+          application.resume = String.new
 
-        application.is_registered?.should == false
-        app = application.submit
-        app.cb_response.application_status.should == 'Incomplete'
-        expect(app.cb_response.errors[0].length).to be >= 1
+          stub_request(:post, uri_stem(Cb.configuration.uri_application_submit)).
+            with(:body => anything).
+            to_return(:body => { ResponseApplication: { ApplicationStatus: 'Incomplete', Errors: nil, RedirectURL: 'http://bananaz.com' } }.to_json)
+        end
+
+        it 'submits a new application through unregistered api' do
+          application.is_registered?.should == false
+          app = application.submit
+          app.cb_response.application_status.should == 'Incomplete'
+          expect(app.cb_response.errors).to eq nil
+        end
       end
 
-      it 'should submit a new application through registered api' do
-        job_did = 'J1234567890'
-        site_id = 'xxx'
-        co_brand = 'cbmsn'
-        user_external_id = 'XR1234567890USER'
-        user_external_resume_id = 'XR1234567890RESU'
-        test = true
+      context 'when the application is for a registered user' do
+        before(:each) do
+          # these are the things that mean an application is for a registered user
+          application.user_external_id = 'xid'
+          application.resume = String.new
 
-        application = Cb::CbApplication.new({:job_did => job_did, :site_id => site_id, :co_brand => co_brand, :test => test})
-        application.user_external_id = user_external_id
-        application.user_external_resume_id = user_external_resume_id
+          stub_request(:post, uri_stem(Cb.configuration.uri_application_registered)).
+            with(:body => anything).
+            to_return(:body => { ResponseApplication: { ApplicationStatus: 'Incomplete', Errors: nil, RedirectURL: 'http://bananaz.com' } }.to_json)
+        end
 
-        application.add_answer('ApplicantName', 'Foo Bar')
-        application.add_answer('ApplicantEmail', 'DontSpamMeBro@gmail.com')
-
-        application.is_registered?.should == true
-        app = application.submit
-        app.cb_response.application_status.should == 'Incomplete'
+        it 'submits a new application through registered api' do
+          application.is_registered?.should == true
+          app = application.submit
+          app.cb_response.application_status.should == 'Incomplete'
+          expect(app.cb_response.errors).to eq nil
+        end
       end
     end
   end
