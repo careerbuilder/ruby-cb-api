@@ -11,8 +11,9 @@ module Cb
 			@media = Cb::Branding::Media.new args['Media']
 			@styles = Cb::Branding::Style.new args['Styles']
 			@errors = args['Errors'] || ''
+			@company_description = args['CompanyDescription'] || ''
 			@sections, @widgets = [], []
-
+			
 			args['Sections'].each do |type, sections|
 				@sections << Cb::Branding::Section.new(type, sections) unless sections.nil?
 			end
@@ -25,7 +26,6 @@ module Cb
 				end
 			end
 
-			@company_description = args['CompanyDescription'] || ''
 		end
 
 	end
