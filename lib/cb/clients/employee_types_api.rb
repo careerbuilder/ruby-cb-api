@@ -23,7 +23,7 @@ module Cb
 			employee_types = []
 			if json_hash.has_key?('ResponseEmployeeTypes')
         if json_hash['ResponseEmployeeTypes'].has_key?('EmployeeTypes') &&
-            json_hash['ResponseEmployeeTypes']['EmployeeTypes'].present?
+            !json_hash['ResponseEmployeeTypes']['EmployeeTypes'].nil?
 
           if json_hash['ResponseEmployeeTypes']['EmployeeTypes']['EmployeeType'].is_a?(Array)
 

@@ -1,5 +1,4 @@
 require 'json'
-require 'active_support/core_ext/hash'
 
 module Cb
   module ResponseValidator
@@ -17,13 +16,9 @@ module Cb
 
       begin
         json = JSON.parse(response.response.body)
-        if json.keys.any?
-          return json
-        else
-          return self.get_empty_json_hash
-        end
+        json.keys.any? ? json : self.get_empty_json_hash
       rescue JSON::ParserError
-        return self.handle_parser_error(response.response.body)
+        self.handle_parser_error(response.response.body)
       end
     end
 
@@ -45,7 +40,7 @@ module Cb
     end
 
     def self.get_empty_json_hash
-      return JSON.parse('{}')
+      Hash.new
     end
 
   end

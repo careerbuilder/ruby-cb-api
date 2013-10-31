@@ -2,21 +2,21 @@ module Cb
   class CbCategory
   	attr_accessor :code, :name, :language
   	def initialize(args={})
-  	  @code					= args["Code"] || ""
-  	  @name					= args["Name"]["#text"] || ""
-      @language     = args["Name"]["@language"] || ""
+  	  @code					= args["Code"]              || String.new
+  	  @name					= args["Name"]["#text"]     || String.new
+      @language     = args["Name"]["@language"] || String.new
     end
 
     def CategoryName()
-      return @name if @name.present?
+      @name unless @name.nil?
     end
 
     def CategoryCode()
-      return @code if @code.present?
+      @code unless @code.nil?
     end
 
     def CategoryLanguage()
-      return @language if @language.present?
+      @language unless @language.nil?
     end
   end
 end

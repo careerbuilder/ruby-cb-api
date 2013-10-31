@@ -17,7 +17,7 @@ module Cb
       jobs = []
       if json_hash.has_key?('ResponseRecommendJob')
         if json_hash['ResponseRecommendJob'].has_key?('RecommendJobResults') &&
-           json_hash['ResponseRecommendJob']['RecommendJobResults'].present?
+           !json_hash['ResponseRecommendJob']['RecommendJobResults'].nil?
 
           json_hash['ResponseRecommendJob']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
             jobs << CbJob.new(cur_job)
@@ -47,7 +47,7 @@ module Cb
       if json_hash.has_key?('ResponseRecommendUser')
 
         if json_hash['ResponseRecommendUser'].has_key?('RecommendJobResults') &&
-         json_hash['ResponseRecommendUser']['RecommendJobResults'].present?
+          !json_hash['ResponseRecommendUser']['RecommendJobResults'].nil?
 
           json_hash['ResponseRecommendUser']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
             jobs << CbJob.new(cur_job)
