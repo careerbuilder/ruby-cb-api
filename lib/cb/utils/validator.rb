@@ -30,7 +30,7 @@ module Cb
         return self.get_empty_json_hash
       else
         # if it was, return a hash from the xml UNLESS it was a generic
-        xml_hash = Hash.from_xml(xml.to_s)
+        xml_hash = nori.parse(xml.to_s)
         if xml_hash.has_key?('Response') && xml_hash['Response'].has_key?('Errors')
           return self.get_empty_json_hash
         else
@@ -41,6 +41,10 @@ module Cb
 
     def self.get_empty_json_hash
       Hash.new
+    end
+
+    def self.nori
+      @nori ||= Nori.new
     end
 
   end
