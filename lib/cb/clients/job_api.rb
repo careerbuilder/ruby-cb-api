@@ -17,7 +17,7 @@ module Cb
         jobs = []
         if json_hash.has_key?('ResponseJobSearch')
           if json_hash['ResponseJobSearch'].has_key?('Results') &&
-             json_hash['ResponseJobSearch']['Results'].present?
+             !json_hash['ResponseJobSearch']['Results'].nil?
 
             json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do | cur_job |
               jobs << CbJob.new(cur_job)
