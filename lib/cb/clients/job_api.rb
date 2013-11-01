@@ -10,26 +10,34 @@ module Cb
     ##
     #############################################################
     def self.search(*args)
-        args = args[0] if args.is_a?(Array) && args.count == 1
-        my_api = Cb::Utils::Api.new()
-        json_hash = my_api.cb_get(Cb.configuration.uri_job_search, :query => args)
+      args = args[0] if args.is_a?(Array) && args.count == 1
+      my_api = Cb::Utils::Api.new()
+      json_hash = my_api.cb_get(Cb.configuration.uri_job_search, :query => args)
 
-        jobs = []
-        if json_hash.has_key?('ResponseJobSearch')
-          if json_hash['ResponseJobSearch'].has_key?('Results') &&
-             !json_hash['ResponseJobSearch']['Results'].nil?
+      jobs = []
+      if json_hash.has_key?('ResponseJobSearch')
+        if json_hash['ResponseJobSearch'].has_key?('Results') &&
+           !json_hash['ResponseJobSearch']['Results'].nil?
 
-            json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do | cur_job |
-              jobs << CbJob.new(cur_job)
-            end
+          json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do | cur_job |
+            jobs << CbJob.new(cur_job)
           end
-          my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
-          my_api.append_api_responses(jobs, json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations']['SearchLocation'])
         end
 
-        my_api.append_api_responses(jobs, json_hash)
+        my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
 
-        return jobs
+        if json_hash['ResponseJobSearch'].has_key?('SearchMetaData') && !json_hash['ResponseJobSearch']['SearchMetaData'].nil?
+          if json_hash['ResponseJobSearch']['SearchMetaData'].has_key?('SearchLocations') && !json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations'].nil?
+            if json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations'].has_key?('SearchLocation') && !json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations']['SearchLocation'].nil?
+              my_api.append_api_responses(jobs, json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations']['SearchLocation'])
+            end
+          end
+        end
+      end
+
+      my_api.append_api_responses(jobs, json_hash)
+
+      return jobs
     end
 
     #############################################################
