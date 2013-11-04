@@ -61,9 +61,9 @@ module Cb
     private
 
     def self.response_has_search_metadata?(response_hash)
-      !response_hash['SearchMetaData'].nil? &&
-      !response_hash['SearchMetaData']['SearchLocations'].nil? &&
-      !response_hash['SearchMetaData']['SearchLocations']['SearchLocation'].nil?
+      response_hash['SearchMetaData'] &&
+      response_hash['SearchMetaData']['SearchLocations'] &&
+      response_hash['SearchMetaData']['SearchLocations']['SearchLocation']
     end
   end # JobApi
 end # Cb
