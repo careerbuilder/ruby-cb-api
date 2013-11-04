@@ -14,24 +14,14 @@ module Cb
       my_api = Cb::Utils::Api.new()
       json_hash = my_api.cb_get(Cb.configuration.uri_job_search, :query => args)
 
-      jobs = []
-      if json_hash.has_key?('ResponseJobSearch')
-        if json_hash['ResponseJobSearch'].has_key?('Results') &&
-           !json_hash['ResponseJobSearch']['Results'].nil?
-
-          json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each do | cur_job |
-            jobs << CbJob.new(cur_job)
-          end
-        end
+      jobs = Array.new
+      if !json_hash['ResponseJobSearch'].nil? && !json_hash['ResponseJobSearch']['Results'].nil?
+        json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each { |job_hash| jobs.push(CbJob.new(job_hash)) }
 
         my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
 
-        if json_hash['ResponseJobSearch'].has_key?('SearchMetaData') && !json_hash['ResponseJobSearch']['SearchMetaData'].nil?
-          if json_hash['ResponseJobSearch']['SearchMetaData'].has_key?('SearchLocations') && !json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations'].nil?
-            if json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations'].has_key?('SearchLocation') && !json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations']['SearchLocation'].nil?
-              my_api.append_api_responses(jobs, json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations']['SearchLocation'])
-            end
-          end
+        if response_has_search_metadata?(json_hash['ResponseJobSearch'])
+          my_api.append_api_responses(jobs, json_hash['ResponseJobSearch']['SearchMetaData']['SearchLocations']['SearchLocation'])
         end
       end
 
@@ -66,6 +56,14 @@ module Cb
       criteria = Cb::JobDetailsCriteria.new()
       criteria.did = did
       return find_by_criteria(criteria)
+    end
+
+    private
+
+    def self.response_has_search_metadata?(response_hash)
+      !response_hash['SearchMetaData'].nil? &&
+      !response_hash['SearchMetaData']['SearchLocations'].nil? &&
+      !response_hash['SearchMetaData']['SearchLocations']['SearchLocation'].nil?
     end
   end # JobApi
 end # Cb
