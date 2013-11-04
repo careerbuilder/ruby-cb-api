@@ -16,7 +16,7 @@ module Cb
 
       jobs = Array.new
       if !json_hash['ResponseJobSearch'].nil? && !json_hash['ResponseJobSearch']['Results'].nil?
-        json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each { |job_hash| jobs << CbJob.new(job_hash) }
+        json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each { |job_hash| jobs.push(CbJob.new(job_hash)) }
 
         my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
 
