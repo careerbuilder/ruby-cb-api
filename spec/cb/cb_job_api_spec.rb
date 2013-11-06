@@ -25,7 +25,7 @@ module Cb
           content = {
             ResponseJobSearch: {
               SearchMetaData: { SearchLocations: { SearchLocation: ['tahiti'] } },
-              Results: { JobSearchResult: {stuff: 'cool'} }
+              Results: { JobSearchResult: {} }
             }
           }
           stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).to_return(:body => content.to_json)
