@@ -16,8 +16,9 @@ module Cb
 
       jobs = Array.new
       if !json_hash['ResponseJobSearch'].nil? && !json_hash['ResponseJobSearch']['Results'].nil?
-        json_hash['ResponseJobSearch']['Results']['JobSearchResult'].each { |job_hash| jobs.push(CbJob.new(job_hash)) }
-
+        job_results = json_hash['ResponseJobSearch']['Results']['JobSearchResult']
+        job_results = [job_results] if !job_results.is_a?(Array)
+        job_results.each { |job_hash| jobs.push(CbJob.new(job_hash)) }
         my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
 
         if response_has_search_metadata?(json_hash['ResponseJobSearch'])

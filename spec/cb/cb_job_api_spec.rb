@@ -19,6 +19,25 @@ module Cb
           search[0].is_a?(Cb::CbJob).should == true
         end
       end
+
+      context 'When the search returns only one result' do
+        before(:each) do
+          content = {
+            ResponseJobSearch: {
+              SearchMetaData: { SearchLocations: { SearchLocation: ['tahiti'] } },
+              Results: { JobSearchResult: {} }
+            }
+          }
+          stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).to_return(:body => content.to_json)
+        end
+
+        it 'returns an array of job models' do
+          search = Cb.job_search_criteria.search()
+          search.api_error.should == false
+          search[0].is_a?(Cb::CbJob).should == true
+        end
+      end
+
     end
 
     context '.find_by_criteria' do
