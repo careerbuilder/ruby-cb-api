@@ -11,6 +11,7 @@ end
 require 'rubygems'
 require 'cb'
 require 'webmock/rspec'
+require 'pry'
 
 WebMock.disable_net_connect!
 
