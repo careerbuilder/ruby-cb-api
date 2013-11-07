@@ -10,9 +10,11 @@ module Cb
                   :details_url, :service_url, :similar_jobs_url, :apply_url,
                   :begin_date, :end_date, :posted_date,
                   :relevancy, :state, :city, :zip,
-                  :can_be_quick_applied, :apply_requirements
+                  :can_be_quick_applied, :apply_requirements,
+                  :divison, :industry, :location_street_1, :location_street_2, :display_job_id,
+                  :relocation_covered, :manages_others
 
-    attr_writer   :external_application, :relocation_covered, :manages_others, :is_screener_apply,
+    attr_writer   :external_application, :is_screener_apply,
                   :is_shared_job
 
 		##############################################################
@@ -56,9 +58,9 @@ module Cb
       # Summary
       @categories                   = args['Categories'] || ''
       @category_codes               = args['CategoriesCodes'] || ''
-      @degree_required              = args['DegreeRequiredCode'] || ''
-      @experience_required          = args['ExperienceRequiredCode'] || ''
-      @travel_required              = args['TravelRequiredCode'] || ''
+      @degree_required              = args['DegreeRequired'] || ''
+      @experience_required          = args['ExperienceRequired'] || ''
+      @travel_required              = args['TravelRequired'] || ''
       @relocation_covered           = args['RelocationCovered'] || ''
       @industry_codes               = args['IndustryCodes'] || ''
       @manages_others               = args['ManagesOthers'] || ''
@@ -98,6 +100,15 @@ module Cb
       @zip                          = args['LocationPostalCode'] || ''
       @company_name                 = args['Company']['CompanyName'] unless args['Company'].nil? || args['Company']['CompanyName'].nil?
       @company_details_url          = args['Company']['CompanyDetailsURL'] unless args['Company'].nil? || args['Company']['CompanyDetailsURL'].nil?
+
+      #New stuff -- find a home laters
+      @division                     =args['Division'] || ''
+      @industry                     =args['Industry'] || ''
+      @location_street_1            =args['LocationStreet1'] || ''
+      @location_street_2            =args['LocationStreet2'] || ''
+      @display_job_id               =args['DisplayJobID'] || ''
+
+
     end
 
     def find_company
