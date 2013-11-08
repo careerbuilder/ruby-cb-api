@@ -11,11 +11,11 @@ module Cb
                   :begin_date, :end_date, :posted_date,
                   :relevancy, :state, :city, :zip,
                   :can_be_quick_applied, :apply_requirements,
-                  :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id,
-                  :relocation_covered, :manages_others
+                  :divison, :industry, :location_street_1, :relocation_options, :location_street_2
 
     attr_writer   :external_application, :is_screener_apply,
-                  :is_shared_job
+                  :is_shared_job, :display_job_id,
+                  :relocation_covered, :manages_others
 
 		##############################################################
 		## This general purpose object stores anything having to do
@@ -142,6 +142,10 @@ module Cb
 
     def can_be_quick_applied?
       @can_be_quick_applied.downcase == 'true' ? true : false
+    end
+
+    def display_job_id?
+      @display_job_id == 'true' ? true : false
     end
 
     def city
