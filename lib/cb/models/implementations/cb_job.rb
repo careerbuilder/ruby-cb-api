@@ -10,10 +10,12 @@ module Cb
                   :details_url, :service_url, :similar_jobs_url, :apply_url,
                   :begin_date, :end_date, :posted_date,
                   :relevancy, :state, :city, :zip,
-                  :can_be_quick_applied, :apply_requirements
+                  :can_be_quick_applied, :apply_requirements,
+                  :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id
 
-    attr_writer   :external_application, :relocation_covered, :manages_others, :is_screener_apply,
-                  :is_shared_job
+    attr_writer   :external_application, :is_screener_apply,
+                  :is_shared_job,
+                  :relocation_covered, :manages_others
 
 		##############################################################
 		## This general purpose object stores anything having to do
@@ -29,6 +31,8 @@ module Cb
       @employment_type              = args['EmploymentType'] || ''
       @latitude                     = args['LocationLatitude'] || ''
       @longitude                    = args['LocationLongitude'] || ''
+      @location_street_1            = args['LocationStreet1'] || ''
+      @location_street_2            = args['LocationStreet2'] || ''
       @location_formatted           = args['LocationFormatted'] || ''
 
       # Job Skin Related
@@ -36,6 +40,7 @@ module Cb
       @job_skin_did                 = args['JobSkinDID'] || ''
       @job_branding                 = @job_skin_did.blank? ? '' : Cb.job_branding.find_by_id(job_skin_did)
       @job_tracking_url             = args['JobTrackingURL'] || ''
+      @display_job_id               = args['DisplayJobID'] || ''
 
       # Compensation
       @pay                          = args['PayHighLowFormatted'] || ''
@@ -56,10 +61,13 @@ module Cb
       # Summary
       @categories                   = args['Categories'] || ''
       @category_codes               = args['CategoriesCodes'] || ''
-      @degree_required              = args['DegreeRequiredCode'] || ''
-      @experience_required          = args['ExperienceRequiredCode'] || ''
-      @travel_required              = args['TravelRequiredCode'] || ''
+      @degree_required              = args['DegreeRequired'] || ''
+      @experience_required          = args['ExperienceRequired'] || ''
+      @travel_required              = args['TravelRequired'] || ''
       @relocation_covered           = args['RelocationCovered'] || ''
+      @relocation_options           = args['RelocationOptions'] || ''
+      @division                     = args['Division'] || ''
+      @industry                     = args['Industry'] || ''
       @industry_codes               = args['IndustryCodes'] || ''
       @manages_others               = args['ManagesOthers'] || ''
       @manages_others_code          = args['ManagesOthersCode'] || ''
@@ -98,6 +106,8 @@ module Cb
       @zip                          = args['LocationPostalCode'] || ''
       @company_name                 = args['Company']['CompanyName'] unless args['Company'].nil? || args['Company']['CompanyName'].nil?
       @company_details_url          = args['Company']['CompanyDetailsURL'] unless args['Company'].nil? || args['Company']['CompanyDetailsURL'].nil?
+
+
     end
 
     def find_company
@@ -133,7 +143,7 @@ module Cb
     def can_be_quick_applied?
       @can_be_quick_applied.downcase == 'true' ? true : false
     end
-
+    
     def city
       if @city.empty?
         return @location['City']
