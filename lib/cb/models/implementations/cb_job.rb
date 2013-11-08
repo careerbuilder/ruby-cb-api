@@ -31,6 +31,8 @@ module Cb
       @employment_type              = args['EmploymentType'] || ''
       @latitude                     = args['LocationLatitude'] || ''
       @longitude                    = args['LocationLongitude'] || ''
+      @location_street_1            = args['LocationStreet1'] || ''
+      @location_street_2            = args['LocationStreet2'] || ''
       @location_formatted           = args['LocationFormatted'] || ''
 
       # Job Skin Related
@@ -38,6 +40,7 @@ module Cb
       @job_skin_did                 = args['JobSkinDID'] || ''
       @job_branding                 = @job_skin_did.blank? ? '' : Cb.job_branding.find_by_id(job_skin_did)
       @job_tracking_url             = args['JobTrackingURL'] || ''
+      @display_job_id               = args['DisplayJobID'] || ''
 
       # Compensation
       @pay                          = args['PayHighLowFormatted'] || ''
@@ -62,6 +65,9 @@ module Cb
       @experience_required          = args['ExperienceRequired'] || ''
       @travel_required              = args['TravelRequired'] || ''
       @relocation_covered           = args['RelocationCovered'] || ''
+      @relocation_options           = args['RelocationOptions'] || ''
+      @division                     = args['Division'] || ''
+      @industry                     = args['Industry'] || ''
       @industry_codes               = args['IndustryCodes'] || ''
       @manages_others               = args['ManagesOthers'] || ''
       @manages_others_code          = args['ManagesOthersCode'] || ''
@@ -100,14 +106,6 @@ module Cb
       @zip                          = args['LocationPostalCode'] || ''
       @company_name                 = args['Company']['CompanyName'] unless args['Company'].nil? || args['Company']['CompanyName'].nil?
       @company_details_url          = args['Company']['CompanyDetailsURL'] unless args['Company'].nil? || args['Company']['CompanyDetailsURL'].nil?
-
-      #New stuff -- find a home laters
-      @division                     =args['Division'] || ''
-      @industry                     =args['Industry'] || ''
-      @location_street_1            =args['LocationStreet1'] || ''
-      @location_street_2            =args['LocationStreet2'] || ''
-      @relocation_options           =args['RelocationOptions'] || ''
-      @display_job_id               =args['DisplayJobID'] || ''
 
 
     end
