@@ -11,7 +11,7 @@ module Cb
                   :begin_date, :end_date, :posted_date,
                   :relevancy, :state, :city, :zip,
                   :can_be_quick_applied, :apply_requirements,
-                  :divison, :industry, :location_street_1, :location_street_2, :display_job_id,
+                  :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id,
                   :relocation_covered, :manages_others
 
     attr_writer   :external_application, :is_screener_apply,
@@ -106,6 +106,7 @@ module Cb
       @industry                     =args['Industry'] || ''
       @location_street_1            =args['LocationStreet1'] || ''
       @location_street_2            =args['LocationStreet2'] || ''
+      @relocation_options           =args['RelocationOptions'] || ''
       @display_job_id               =args['DisplayJobID'] || ''
 
 
