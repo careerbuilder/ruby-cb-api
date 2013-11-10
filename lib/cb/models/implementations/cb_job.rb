@@ -1,5 +1,20 @@
 module Cb
 	class CbJob
+    cattr_accessor :attribute_names, instance_writer: false
+
+    def self.attr_accessor(*args)
+      @@attribute_names = args
+      super *args
+    end
+
+    def attributes
+      attributes = {}
+      attribute_names.each do |attribute|
+        attributes[attribute] = send attribute
+      end
+      attributes
+    end
+
     attr_accessor :did, :title, :job_skin, :job_skin_did, :job_branding, :pay, :pay_per, :commission, :bonus, :pay_other,
                   :categories, :category_codes, :degree_required, :experience_required, :travel_required,
                   :industry_codes, :manages_others_code,
