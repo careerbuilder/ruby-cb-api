@@ -11,7 +11,8 @@ module Cb
                   :begin_date, :end_date, :posted_date,
                   :relevancy, :state, :city, :zip,
                   :can_be_quick_applied, :apply_requirements,
-                  :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id
+                  :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id,
+                  :manages_others_string
 
     attr_writer   :external_application, :is_screener_apply,
                   :is_shared_job,
@@ -71,6 +72,7 @@ module Cb
       @industry_codes               = args['IndustryCodes'] || ''
       @manages_others               = args['ManagesOthers'] || ''
       @manages_others_code          = args['ManagesOthersCode'] || ''
+      @manages_others_string        = args['ManagesOthersString'] || ''
 
       # Contact Info
       @contact_email_url            = args['ContactInfoEmailURL'] || ''
