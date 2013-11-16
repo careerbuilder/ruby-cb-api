@@ -20,8 +20,7 @@ module Cb
         response = self.class.get(*args, &block)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
-
-        return validated_response
+        validated_response
       end
 
       def cb_post(*args, &block)
@@ -29,19 +28,14 @@ module Cb
         response = self.class.post(*args, &block)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
-
-        return validated_response
+        validated_response
       end
 
       def append_api_responses(obj, resp)
-        if obj.respond_to?('cb_response')
-          meta_class = obj.cb_response
-        else
-          meta_class = Cb::Utils::MetaValues.new()
-        end
+        meta_class = obj.respond_to?('cb_response') ? obj.cb_response : Cb::Utils::MetaValues.new
 
-        resp.each do | api_key, api_value |
-          meta_name = get_meta_name_for api_key
+        resp.each do |api_key, api_value|
+          meta_name = format_hash_key(api_key)
           unless meta_name.empty?
             if meta_name == 'errors' && api_value.is_a?(Hash)
               api_value = api_value.values
@@ -76,7 +70,7 @@ module Cb
             params["#{var_name_hash_safe}"] = criteria.instance_variable_get(var)
           end
         end
-        return params
+        params
       end
 
       def self.is_numeric?(obj)
@@ -94,7 +88,7 @@ module Cb
         @api_error = validated_response.keys.empty?
       end
 
-      def get_meta_name_for(api_hash_key)
+      def format_hash_key(api_hash_key)
         return String.new unless api_hash_key.respond_to?(:snakecase)
         api_hash_key.snakecase
       end
