@@ -99,15 +99,7 @@ module Cb
       end
 
       def get_meta_name_for(api_hash_key)
-        formatted_key_value = api_hash_key.respond_to?(:snakecase) ? api_hash_key.snakecase : String.new
-        
-        formatted_meta_names = {
-          'MinQualityLimit'           =>  'min_quality',
-          'RecommendationsAvailable'  =>  'recs_available',
-          api_hash_key                =>  formatted_key_value
-        }
-
-        formatted_meta_names[api_hash_key] || String.new
+        api_hash_key.respond_to?(:snakecase) ? api_hash_key.snakecase : String.new
       end
     end
   end
