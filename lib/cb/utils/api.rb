@@ -91,15 +91,12 @@ module Cb
       end
 
       def set_api_error(validated_response)
-        if validated_response.keys.any?
-          @api_error = false
-        else
-          @api_error = true
-        end
+        @api_error = validated_response.keys.empty?
       end
 
       def get_meta_name_for(api_hash_key)
-        api_hash_key.respond_to?(:snakecase) ? api_hash_key.snakecase : String.new
+        return String.new unless api_hash_key.respond_to?(:snakecase)
+        api_hash_key.snakecase
       end
     end
   end
