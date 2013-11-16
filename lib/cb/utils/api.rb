@@ -84,7 +84,7 @@ module Cb
       end
 
       private
-      #############################################################################
+
       def self.camelize(input)
         input.sub!(/^[a-z\d]*/) { $&.capitalize }
         input.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$2.capitalize}" }.gsub('/', '::')
@@ -98,14 +98,16 @@ module Cb
         end
       end
 
-      def get_meta_name_for(api_key)
-        key_map = {
+      def get_meta_name_for(api_hash_key)
+        formatted_key_value = api_hash_key.respond_to?(:snakecase) ? api_hash_key.snakecase : String.new
+        
+        formatted_meta_names = {
           'MinQualityLimit'           =>  'min_quality',
           'RecommendationsAvailable'  =>  'recs_available',
-          api_key                     =>  api_key.snakecase
+          api_hash_key                =>  formatted_key_value
         }
 
-        key_map["#{api_key}"] ||= ''
+        formatted_meta_names[api_hash_key] || String.new
       end
     end
   end
