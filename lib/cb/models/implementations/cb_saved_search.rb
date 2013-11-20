@@ -6,7 +6,7 @@ module Cb
                   :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within, 
                   :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_id,
                   :external_user_id, :dev_key, :job_search_url, :jrdid, :errors, :browser_id, :session_id, :test, :email_address,
-                  :saved_search_parameters
+                  :saved_search_parameters, :country_code
 
     def initialize(args={})
       @hostsite                   = args['HostSite'] || ''
@@ -47,6 +47,7 @@ module Cb
       @session_id                 = args['SessionID'] || ''
       @test                       = args['Test'].to_s || false
       @email_address              = args['EmailAddress'] || ''
+      @country_code               = args['CountryCode'] || ''
       if args.has_key?('SavedSearchParameters')
         unless args['SavedSearchParameters'].empty?
           @saved_search_parameters  = CbSavedSearch.new(args['SavedSearchParameters'])
@@ -57,7 +58,8 @@ module Cb
     class CbSavedSearchParameters
       attr_accessor :boolean_operator, :category, :education_code, :emp_type, :exclude_company_names, :exclude_job_titles,
                     :exclude_keywords, :exclude_national, :industry_codes, :job_title, :keywords, :location, :order_by,
-                    :order_direction, :pay_high, :pay_info_only, :pay_low, :posted_within, :radius, :specific_education
+                    :order_direction, :pay_high, :pay_info_only, :pay_low, :posted_within, :radius, :specific_education,
+                    :country_code
 
       def initialize(args = {})
           @boolean_operator           = args['BooleanOperator'] || ''
@@ -80,6 +82,7 @@ module Cb
           @posted_within              = args['PostedWithin'] || 30
           @radius                     = args['Radius'] || 30
           @specific_education         = args['SpecificEducation'] || false
+          @country_code               = args['CountryCode'] || ''
       end
     end #CbSavedSearchParameters
 
@@ -88,6 +91,7 @@ module Cb
       ret += "<HostSite>#{@hostsite}</HostSite>"
       ret += "<Cobrand>#{@cobrand}</Cobrand>"
       ret += "<SearchName>#{@search_name}</SearchName>"
+      ret += "<CountryCode>#{@country_code}</CountryCode>"
       ret += "<SearchParameters>"
       ret += "<BooleanOperator>#{@boolean_operator}</BooleanOperator>"
       ret += "<Category>#{@category}</Category>"
@@ -129,6 +133,7 @@ module Cb
       ret += "<Test>#{@test}</Test>"
       ret += "<EmailAddress>#{@email_address}</EmailAddress>"
       ret += "<SearchName>#{@search_name}</SearchName>"
+      ret += "<CountryCode>#{@country_code}</CountryCode>"
       ret += "<SearchParameters>"
       ret += "<BooleanOperator>#{@boolean_operator}</BooleanOperator>"
       ret += "<Category>#{@category}</Category>"
@@ -165,6 +170,7 @@ module Cb
       ret += "<HostSite>#{@hostsite}</HostSite>"
       ret += "<Cobrand>#{@cobrand}</Cobrand>"
       ret += "<SearchName>#{@search_name}</SearchName>"
+      ret += "<CountryCode>#{@country_code}</CountryCode>"
       ret += "<SearchParameters>"
       ret += "<BooleanOperator>#{@boolean_operator}</BooleanOperator>"
       ret += "<Category>#{@category}</Category>"
