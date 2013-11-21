@@ -3,7 +3,7 @@ module Cb
   class CbSavedSearch
     attr_accessor :hostsite, :cobrand, :site_id, :search_name, :boolean_operator, :category, :education_code, :specific_education,
                   :emp_type, :exclude_company_names, :exclude_job_titles, :exclude_national, :industry_codes,
-                  :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within, 
+                  :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within,
                   :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_id,
                   :external_user_id, :dev_key, :job_search_url, :jrdid, :errors, :browser_id, :session_id, :test, :email_address,
                   :saved_search_parameters, :country
@@ -91,7 +91,6 @@ module Cb
       ret += "<HostSite>#{@hostsite}</HostSite>"
       ret += "<Cobrand>#{@cobrand}</Cobrand>"
       ret += "<SearchName>#{@search_name}</SearchName>"
-      ret += "<Country>#{@country}</Country>"
       ret += "<SearchParameters>"
       ret += "<BooleanOperator>#{@boolean_operator}</BooleanOperator>"
       ret += "<Category>#{@category}</Category>"
@@ -115,6 +114,7 @@ module Cb
       ret += "<Company>#{@company}</Company>"
       ret += "<City>#{@city}</City>"
       ret += "<State>#{@state}</State>"
+      ret += "<Country>#{@country}</Country>"
       ret += "</SearchParameters>"
       ret += "<IsDailyEmail>#{@is_daily_email.upcase}</IsDailyEmail>"
       ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
@@ -133,7 +133,6 @@ module Cb
       ret += "<Test>#{@test}</Test>"
       ret += "<EmailAddress>#{@email_address}</EmailAddress>"
       ret += "<SearchName>#{@search_name}</SearchName>"
-      ret += "<Country>#{@country}</Country>"
       ret += "<SearchParameters>"
       ret += "<BooleanOperator>#{@boolean_operator}</BooleanOperator>"
       ret += "<Category>#{@category}</Category>"
@@ -157,6 +156,7 @@ module Cb
       ret += "<Company>#{@company}</Company>"
       ret += "<City>#{@city}</City>"
       ret += "<State>#{@state}</State>"
+      ret += "<Country>#{@country}</Country>"
       ret += "</SearchParameters>"
       ret += "<IsDailyEmail>#{@is_daily_email.upcase}</IsDailyEmail>"
       ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
@@ -170,7 +170,6 @@ module Cb
       ret += "<HostSite>#{@hostsite}</HostSite>"
       ret += "<Cobrand>#{@cobrand}</Cobrand>"
       ret += "<SearchName>#{@search_name}</SearchName>"
-      ret += "<Country>#{@country}</Country>"
       ret += "<SearchParameters>"
       ret += "<BooleanOperator>#{@boolean_operator}</BooleanOperator>"
       ret += "<Category>#{@category}</Category>"
@@ -194,6 +193,7 @@ module Cb
       ret += "<Company>#{@company}</Company>"
       ret += "<City>#{@city}</City>"
       ret += "<State>#{@state}</State>"
+      ret += "<Country>#{@country}</Country>"
       ret += "</SearchParameters>"
       ret += "<IsDailyEmail>#{@is_daily_email}</IsDailyEmail>"
       ret += "<ExternalID>#{@external_id}</ExternalID>"
