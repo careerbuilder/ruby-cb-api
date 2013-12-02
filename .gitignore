@@ -15,3 +15,4 @@ Gemfile.lock
 .env
 .yardoc
 doc/
+.rspec
