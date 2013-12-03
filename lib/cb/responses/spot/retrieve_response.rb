@@ -1,27 +1,54 @@
-module Cb::Responses::Spot
-  class Retrieve < Cb::Responses::RawApiResponse
+module Cb
+  module Responses
 
-    ROOT_NODE = 'ResponseRetrieve'
-    SPOT_COLLECTION = 'SpotData'
+    class ApiResponse
+      attr_reader :metadata, :models
 
-    class << self
-      def extract_models(raw_api_response)
-        new(raw_api_response).extract_models
+      def initialize(raw_response_hash)
+       @response = raw_response_hash
+       @metadata = extract_metadata
+       @models   = extract_models
+      end
+
+      protected
+
+      def extract_models
+       raise NotImplementedError
+      end
+
+      private
+      attr_reader :response
+
+      def extract_metadata
+       Metadata.new(response)
       end
     end
 
-    def initialize(raw_api_response={})
-      super(raw_api_response)
+    class Metadata
+      attr_reader :errors, :timing
+
+      def initialize(raw_response_hash)
+        @response = raw_response_hash
+        @errors   = parsed_errors
+        @timing   = parsed_timing_info
+      end
+
+      private
+      attr_reader :response
+
+      def parsed_errors
+        Array.new('')
+      end
+
+      def parsed_timing_info
+        Timing.new(response)
+      end
     end
 
-    def validate_raw_api_response
-      required_response_field ROOT_NODE, raw_api_hash
-      required_response_field SPOT_COLLECTION, raw_api_hash[ROOT_NODE]
-    end
-
-    def extract_models
-      spot_models = raw_api_hash[ROOT_NODE][SPOT_COLLECTION].map { |spot_data| Cb::Models::Spot.new(spot_data) }
-      Cb::Utils::Api.new.append_api_responses(spot_models, raw_api_hash[ROOT_NODE])
+    class Timing
+      def initialize(raw_response_hash)
+        @response = raw_response_hash
+      end
     end
 
   end
