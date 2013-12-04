@@ -1,4 +1,4 @@
-require 'Forwardable'
+require 'forwardable'
 
 module Cb
   module Responses
