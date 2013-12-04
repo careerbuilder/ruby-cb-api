@@ -6,7 +6,7 @@ module Cb::ApiClients
 
       def retrieve(criteria)
         response = retrieve_api_response criteria
-        Cb::Responses::Spot::Retrieve.extract_models response
+        Cb::Responses::Spot::Retrieve.new(response).models
       end
 
       private
