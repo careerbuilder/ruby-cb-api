@@ -19,20 +19,16 @@ module Cb
       protected
       attr_reader :metadata
 
-      def root_node
-        raise NotImplementedError
-      end
-
       def extract_models
-        raise NotImplementedError
+        raise NotImplementedError.new(__method__)
       end
 
       def validate_api_hash
-        raise NotImplementedError
+        raise NotImplementedError.new(__method__)
       end
 
       def metadata_containing_node
-        raise NotImplementedError
+        raise NotImplementedError.new(__method__)
       end
 
       def required_response_field(field_name, parent_hash)
@@ -44,7 +40,7 @@ module Cb
       private
 
       def set_response_variable(response_hash)
-        raise ApiResponseError.new('Response is empty!') if response_hash.empty?
+        raise ApiResponseError.new('Response is empty!') if response_hash.nil? || response_hash.empty?
         @response = response_hash
       end
 
