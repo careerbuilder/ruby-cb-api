@@ -19,8 +19,7 @@ module Cb
   def self.configuration
     @configuration ||= Cb::Config.new
     @configuration.set_default_api_uris
-
-    return @configuration
+    @configuration
   end
 
   # Convenience methods, in case you're lazy... like me :)
