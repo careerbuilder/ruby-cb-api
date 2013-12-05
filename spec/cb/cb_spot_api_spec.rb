@@ -28,29 +28,28 @@ module Cb
       end
 
       context 'when everything is working as it should' do
-        def assert_correct_models
-          @models.should be_a Array
-          @models.first.should be_a Models::Spot
+        def assert_response_object
+          @model.should be_a Responses::Spot::Retrieve
         end
 
         context 'by interacting with the API client directly' do
-          it 'returns an array of Cb::Models::Spot' do
-            @models = ApiClients::Spot.retrieve @criteria
-            assert_correct_models
+          it 'returns a spot response object' do
+            @model = ApiClients::Spot.retrieve @criteria
+            assert_response_object
           end
         end
 
         context 'by calling the API client through the criteria object' do
           it 'returns an array of Cb::Models::Spot' do
-            @models = @criteria.retrieve
-            assert_correct_models
+            @model = @criteria.retrieve
+            assert_response_object
           end
         end
 
         context 'by calling the API client from the Cb module convenience method' do
           it 'returns an array of Cb::Models::Spot' do
-            @models = Cb.spot.retrieve @criteria
-            assert_correct_models
+            @model = Cb.spot.retrieve @criteria
+            assert_response_object
           end
         end
       end
