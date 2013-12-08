@@ -1,62 +1,58 @@
 module Cb
-  describe Responses::Errors do
-    before(:all) do @errors = ['much awesome', 'so api', 'wow'] end
+  describe Responses::Timing do
+    let(:valid_input_hash) do
+      { 'TimeResponseSent' => "-4712-01-01T00:00:00+00:00", 'TimeElapsed' => '0.01337' }
+    end
+
+    def valid_instance
+      Responses::Timing.new(valid_input_hash)
+    end
 
     context '#new' do
-
-      def self.run_specs
-        context 'and the optional boolean arg is omitted' do
-          it 'raises an api error since an error was found' do
-            expect do
-              Responses::Errors.new(@errors_hash)
-            end.to raise_error ApiResponseError
-          end
-        end
-
-        context 'and the optional boolean arg is included, set to false' do
-          it 'initializes a-ok' do
-            Responses::Errors.new(@errors_hash, false)
-          end
-        end
-
-        context 'and the optional boolean arg is included, set to true' do
-          it 'raises an api error since an error was found' do
-            expect do
-              Responses::Errors.new(@errors_hash, true)
-            end.to raise_error ApiResponseError
-          end
+      context 'when initialized with a valid input hash' do
+        it 'raises no error' do
+          valid_instance
         end
       end
 
-      context 'when passed a hash with "errors" node as a hash' do
-        before(:all) do @errors_hash = { 'errors' => { 'error' => @errors } } end
-        run_specs
-      end
+      context 'when initialized with an invalid input hash, raises an error due to: ' do
+        it 'response being nil' do
+          expect { Responses::Timing.new(nil) }.to raise_error ExpectedResponseFieldMissing
+        end
 
-      context 'when passed a hash with "error" node as an array' do
-        before(:all) do @errors_hash =  { 'error' => @errors } end
-        run_specs
+        it 'response not responding to #[]' do
+          expect { Responses::Timing.new(Object.new) }.to raise_error ExpectedResponseFieldMissing
+        end
       end
     end
 
-    before(:all) do @errors_hash = { 'errors' => { 'error' => @errors } } end
+    context '#response_sent' do
+      context 'when initialized with a valid input hash' do
+        it 'contains a DateTime extracted from the string input date' do
+          target = valid_input_hash['TimeResponseSent']
+          valid_instance.response_sent.should eq DateTime.parse(target)
+        end
+      end
 
-    context '#parsed' do
-      it 'returns an enumerable of strings' do
-        errors = Responses::Errors.new(@errors_hash, false)
-        errors.parsed.respond_to?(:[])   .should eq true
-        errors.parsed.respond_to?(:count).should eq true
-        errors.parsed.respond_to?(:map)  .should eq true
+      context 'when the input hash is lacking the field' do
+        it 'contains a DateTime of the epoch' do
+          Responses::Timing.new({}).response_sent.should eq DateTime.new
+        end
       end
     end
 
-    context 'any missing method' do
-      it 'works as if Errors is enumerable' do
-        errors = Responses::Errors.new(@errors_hash, false)
-        errors.first
-        errors.map
-        errors.count
-        errors.pop
+    context '#elapsed' do
+      context 'when initialized with a valid input hash' do
+        it 'contains a float extracted from the string input float' do
+          target = valid_input_hash['TimeElapsed']
+          valid_instance.elapsed.should eq target.to_f
+        end
+      end
+
+      context 'when the input hash is lacking the field' do
+        it 'contains nil' do
+          Responses::Timing.new({}).elapsed.should eq nil
+        end
       end
     end
 
