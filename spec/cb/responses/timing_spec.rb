@@ -51,7 +51,7 @@ module Cb
     end
 
     context 'any missing method' do
-      it 'works as if Errors includes Enumerable' do
+      it 'works as if Errors is enumerable' do
         errors = Responses::Errors.new(@errors_hash, false)
         errors.first
         errors.map
