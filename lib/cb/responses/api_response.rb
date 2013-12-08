@@ -40,7 +40,8 @@ module Cb
       private
 
       def set_response_variable(response_hash)
-        raise ApiResponseError.new('Response is empty!') if response_hash.nil? || response_hash.empty?
+        should_raise = response_hash.nil? || response_hash.empty?
+        raise ApiResponseError.new('Response is empty!') if should_raise
         @response = response_hash
       end
 
