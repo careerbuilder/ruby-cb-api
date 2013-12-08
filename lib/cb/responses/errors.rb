@@ -1,28 +1,22 @@
-require 'forwardable'
-
 module Cb
   module Responses
 
     class Errors
-      extend Forwardable
-      delegate :[] => :errors
+      attr_reader :parsed
 
-      def initialize(raw_response_hash)
-        @response = raw_response_hash
-        @errors = parsed_errors
-      end
-
-      def error?
-        errors.any?
+      def initialize(raw_response_hash, raise_on_error = true)
+        @response     = raw_response_hash
+        @should_raise = raise_on_error
+        @parsed       = parsed_errors
       end
 
       private
-      attr_reader :response, :errors
+      attr_reader :response, :should_raise
 
       def parsed_errors
         return Array.new unless response.respond_to?(:map)
         errors = response.map { |key, value| parsed_error(key, value) }.flatten
-        raise ApiResponseError.new(errors.to_s) if errors.any?
+        raise ApiResponseError.new(errors.to_s) if errors.any? && should_raise
         errors
       end
 
@@ -42,6 +36,10 @@ module Cb
 
       def error_array?(key, value)
         key.downcase == 'error' && value.is_a?(Array)
+      end
+
+      def method_missing(method, *args, &block)
+        parsed.send(method, *args, &block)
       end
     end
 

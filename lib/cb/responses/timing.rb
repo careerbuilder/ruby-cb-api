@@ -19,7 +19,8 @@ module Cb
       end
 
       def raise_on_empty_timing_info
-        raise ExpectedResponseFieldMissing.new('No timing info!') if response.nil?
+        should_raise = response.nil? || !response.respond_to?(:[])
+        raise ExpectedResponseFieldMissing.new('Missing/malformed timing info!') if should_raise
       end
 
       def parsed_response_sent
@@ -27,7 +28,7 @@ module Cb
       end
 
       def parsed_time_elapsed
-        response['TimeElapsed'] || String.new rescue String.new
+        response['TimeElapsed'].to_f rescue nil
       end
     end
 
