@@ -86,6 +86,13 @@ module Cb
           end
         end
 
+        # #model exists just in case you want to call a method that makes sense to get only a single model (some APIs return only 1 of something)
+        context '#model' do
+          it 'returns whatever is returned from the overriden #extract_models method' do
+            DumbValidResponse.new(valid_input_hash).model.should eq model_hashes
+          end
+        end
+
         context '#timing' do
           it 'returns a timing object that responds to #elapsed' do
             DumbValidResponse.new(valid_input_hash).timing.respond_to?(:elapsed).should eq true

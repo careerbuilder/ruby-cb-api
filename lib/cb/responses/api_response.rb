@@ -9,6 +9,7 @@ module Cb
       delegate :[] => :response
 
       attr_reader :models, :response
+      alias_method :model, :models
 
       def initialize(raw_response_hash)
         set_response_variable(raw_response_hash)
