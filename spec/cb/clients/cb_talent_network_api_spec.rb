@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::TalentNetworkApi do 
+  describe Cb::Clients::TalentNetworkApi do
     context '.tn_job_information' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_tn_job_info)).

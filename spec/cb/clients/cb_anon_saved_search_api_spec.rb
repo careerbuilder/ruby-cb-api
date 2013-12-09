@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::AnonSavedSearchApi do
+  describe Cb::Clients::AnonSavedSearchApi do
 
     before :each do
       @args = {
@@ -45,7 +45,7 @@ module Cb
           end
 
           it 'the anonymous saved search api client directly' do
-            assert_no_error_on_model { Cb::AnonSavedSearchApi.create @args }
+            assert_no_error_on_model { Cb::Clients::AnonSavedSearchApi.create @args }
           end
         end
       end

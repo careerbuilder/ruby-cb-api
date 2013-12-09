@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::SavedSearchApi do
+  describe Cb::Clients::SavedSearchApi do
 
     context '.new' do
       it 'should create a new saved job search api object' do
-        saved_search_request = Cb::SavedSearchApi.new
-        saved_search_request.should be_a_kind_of(Cb::SavedSearchApi)
+        saved_search_request = Cb::Clients::SavedSearchApi.new
+        saved_search_request.should be_a_kind_of(Cb::Clients::SavedSearchApi)
       end
     end
 
@@ -89,7 +89,7 @@ module Cb
       end
 
       it 'should retrieve the first saved search' do
-        user_saved_search = Cb::SavedSearchApi.retrieve(Cb.configuration.dev_key, @external_user_id, 'xid', @host_site)
+        user_saved_search = Cb::Clients::SavedSearchApi.retrieve(Cb.configuration.dev_key, @external_user_id, 'xid', @host_site)
 
         expect(user_saved_search.cb_response.errors.nil?).to eq(true)
         expect(user_saved_search.api_error).to be == false

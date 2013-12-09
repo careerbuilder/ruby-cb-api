@@ -27,7 +27,7 @@ module Cb
 
   #Cb::JobApi
   def self.job
-    Cb::JobApi
+    Cb::Clients::JobApi
   end
 
   #Cb::JobSearchCriteria
@@ -42,37 +42,37 @@ module Cb
 
   #Cb::CategoryApi
   def self.category
-    Cb::CategoryApi
+    Cb::Clients::CategoryApi
   end
 
   #Cb::CompanyApi
   def self.company
-    Cb::CompanyApi
+    Cb::Clients::CompanyApi
   end
 
   #Cb::EducationApi
   def self.education_code
-    Cb::EducationApi
+    Cb::Clients::EducationApi
   end
 
   #Cb::RecommendationApi
   def self.recommendation
-    Cb::RecommendationApi
+    Cb::Clients::RecommendationApi
   end
 
   #Cb::ResumeApi
   def self.resume
-    Cb::ResumeApi
+    Cb::Clients::ResumeApi
   end
 
   #Cb::ApplicationApi
   def self.application
-    Cb::ApplicationApi
+    Cb::Clients::ApplicationApi
   end
 
   #Cb::ApplicationExternalApi
   def self.application_external
-    Cb::ApplicationExternalApi
+    Cb::Clients::ApplicationExternalApi
   end
 
   #Cb::Utils::Country
@@ -82,36 +82,36 @@ module Cb
 
   #Cb::UserApi
   def self.user
-    Cb::UserApi
+    Cb::Clients::UserApi
   end
 
   #Cb::JobBrandingApi
   def self.job_branding
-    Cb::JobBrandingApi
+    Cb::Clients::JobBrandingApi
   end
 
   #Cb::EmailSubscriptionApi
   def self.email_subscription
-    Cb::EmailSubscriptionApi
+    Cb::Clients::EmailSubscriptionApi
   end
 
   #Cb::SavedSearchApi
   def self.saved_search_api
-    Cb::SavedSearchApi
+    Cb::Clients::SavedSearchApi
   end
 
   #Cb::TalentNetworkApi
   def self.talent_network_api
-    Cb::TalentNetworkApi
+    Cb::Clients::TalentNetworkApi
   end
 
   #Cb::AnonSavedSearchApi
   def self.anon_saved_search_api
-    Cb::AnonSavedSearchApi
+    Cb::Clients::AnonSavedSearchApi
   end
 
-  #Cb::ApiClients::Spot
+  #Cb::Clients::Spot
   def self.spot
-    Cb::ApiClients::Spot
+    Cb::Clients::Spot
   end
 end

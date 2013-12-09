@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::ApiClients::Spot do
+  describe Cb::Clients::Spot do
 
     it 'caches the Cb::Utils::Api client for subsecuent calls' do
       # using Object#send since #api_client is a private method
-      api_client          = ApiClients::Spot.send(:api_client)
-      the_same_api_client = ApiClients::Spot.send(:api_client)
+      api_client          = Clients::Spot.send(:api_client)
+      the_same_api_client = Clients::Spot.send(:api_client)
 
       api_client.should eq the_same_api_client
       api_client.object_id.should eq the_same_api_client.object_id
@@ -34,7 +34,7 @@ module Cb
 
         context 'by interacting with the API client directly' do
           it 'returns a spot response object' do
-            @model = ApiClients::Spot.retrieve @criteria
+            @model = Clients::Spot.retrieve @criteria
             assert_response_object
           end
         end
@@ -59,12 +59,12 @@ module Cb
           api = Cb::Utils::Api.new
           api.class.stub(:criteria_to_hash)
           api.stub(:cb_get).and_return(@fake_mangled_response)
-          ApiClients::Spot.stub(:api_client).and_return(api)
+          Clients::Spot.stub(:api_client).and_return(api)
         end
 
         def expect_fields_missing_exception
           expect {
-            ApiClients::Spot.retrieve(@criteria)
+            Clients::Spot.retrieve(@criteria)
           }.to raise_error ExpectedResponseFieldMissing
         end
 

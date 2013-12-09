@@ -6,7 +6,7 @@ module Cb::Criteria
     (1..8).each { |num| fluid_attr_accessor "field#{num.to_s}".to_sym }
 
     def retrieve
-      Cb::ApiClients::Spot.retrieve self
+      Cb::Clients::Spot.retrieve self
     end
   end
 end

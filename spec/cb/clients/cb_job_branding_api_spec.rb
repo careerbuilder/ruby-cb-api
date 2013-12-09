@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-	describe Cb::JobBrandingApi do
+	describe Cb::Clients::JobBrandingApi do
 
 		context '.find_by_id' do
       before :each do
@@ -14,7 +14,7 @@ module Cb
       end
 
 			it 'should return valid job branding schema' do
-        job_branding = Cb::JobBrandingApi.find_by_id('fake-id')
+        job_branding = Cb::Clients::JobBrandingApi.find_by_id('fake-id')
         expect(job_branding).to be_an_instance_of Cb::CbJobBranding
 			end
     end
