@@ -1,14 +1,12 @@
 $:.push File.expand_path('../lib', __FILE__)
 
-# Maintain your gem's version:
 require 'cb/version'
 
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = 'cb-api'
   s.version     = Cb::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors    = 'The CareerBuilder.com Niche and Consumer Development teams'
+  s.authors     = 'The CareerBuilder.com Niche and Consumer Development teams'
   s.email       = 'ConsumerDevelopmentQuestions@careerbuilder.com'
   s.homepage    = 'http://api.careerbuilder.com'
   s.summary     = 'Ruby wrapper around Careerbuilder Public API.'
