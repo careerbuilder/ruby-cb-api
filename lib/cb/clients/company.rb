@@ -2,15 +2,10 @@ require 'json'
 
 module Cb
   module Clients
-    class CompanyApi
-      #############################################################
-      ## Retrieve a company by did
-      ##
-      ## For detailed information around this API please visit:
-      ## http://api.careerbuilder.com/CompanyDetailsInfo.aspx
-      #############################################################
+    class Company
+
       def self.find_by_did(did)
-        my_api = Cb::Utils::Api.new()
+        my_api = Cb::Utils::Api.new
         json_hash = my_api.cb_get(Cb.configuration.uri_company_find, :query => {:CompanyDID => did, :hostsite=> Cb.configuration.host_site})
 
         if json_hash.has_key?('Results')
@@ -21,9 +16,6 @@ module Cb
         end
 
         my_api.append_api_responses(company, json_hash)
-
-
-        return company
       end
 
       def self.find_for(obj)
@@ -36,6 +28,7 @@ module Cb
 
         find_by_did did unless did.empty?
       end
+
     end
   end
 end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-    describe Cb::Clients::UserApi do
+    describe Cb::Clients::User do
 
       context '.retrieve' do
         before :each do

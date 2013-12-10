@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Clients::CategoryApi do
+  describe Cb::Clients::Category do
     
     def stub_api_call_to_return(content_to_return)
       stub_request(:get, uri_stem(Cb.configuration.uri_job_category_search)).
@@ -21,8 +21,8 @@ module Cb
     
     context '.new' do
       it 'should create a new category api project' do
-        category_api = Cb::Clients::CategoryApi.new
-        category_api.is_a?(Cb::Clients::CategoryApi).should == true
+        category_api = Cb::Clients::Category.new
+        category_api.is_a?(Cb::Clients::Category).should == true
       end
     end
 

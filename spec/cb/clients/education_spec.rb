@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Clients::EducationApi do
+  describe Cb::Clients::Education do
 
     context '#get_for' do
 
@@ -20,7 +20,7 @@ module Cb
 
         it 'calls #append_api_responses on the Cb API utility client' do
           mock_api.should_receive(:append_api_responses)
-          Cb::Clients::EducationApi.get_for('US')
+          Cb::Clients::Education.get_for('US')
         end
 
         it 'pings the education codes API endpoint with countrycode in the query string' do
@@ -29,7 +29,7 @@ module Cb
           query_hash   = { :query => { :countrycode => country_code}}
 
           mock_api.should_receive(:cb_get).with(api_uri, query_hash)
-          Cb::Clients::EducationApi.get_for(country_code)
+          Cb::Clients::Education.get_for(country_code)
         end
       end
 
@@ -39,7 +39,7 @@ module Cb
         end
 
         it 'returns an array of education models' do
-          models = Cb::Clients::EducationApi.get_for('US')
+          models = Cb::Clients::Education.get_for('US')
           expect(models).to       be_an_instance_of Array
           expect(models.first).to be_an_instance_of Cb::CbEducation
         end
@@ -55,7 +55,7 @@ module Cb
           before(:each) { stub_api_to_return(Hash.new) }
 
           it 'returns an empty array' do
-            models = Cb::Clients::EducationApi.get_for('US')
+            models = Cb::Clients::Education.get_for('US')
             expect_an_empty_array(models)
           end
         end
@@ -64,7 +64,7 @@ module Cb
           before(:each) { stub_api_to_return({ ResponseEducationCodes: Hash.new }) }
 
           it 'returns an empty array' do
-            models = Cb::Clients::EducationApi.get_for('US')
+            models = Cb::Clients::Education.get_for('US')
             expect_an_empty_array(models)
           end
         end
@@ -73,7 +73,7 @@ module Cb
           before(:each) { stub_api_to_return({ ResponseEducationCodes: { EducationCodes: Hash.new } }) }
 
           it 'returns an empty array' do
-            models = Cb::Clients::EducationApi.get_for('US')
+            models = Cb::Clients::Education.get_for('US')
             expect_an_empty_array(models)
           end
         end
@@ -82,7 +82,7 @@ module Cb
           before(:each) { stub_api_to_return({ ResponseEducationCodes: { EducationCodes: { Education: nil } } }) }
 
           it 'raises a NoMethodError when #each is attempted' do
-            expect { Cb::Clients::EducationApi.get_for('US') }.to raise_error NoMethodError
+            expect { Cb::Clients::Education.get_for('US') }.to raise_error NoMethodError
           end
         end
       end

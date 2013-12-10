@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Clients::AnonSavedSearchApi do
+  describe Cb::Clients::AnonSavedSearch do
 
     before :each do
       @args = {
@@ -41,11 +41,11 @@ module Cb
           end
 
           it 'the Cb module convenience method' do
-            assert_no_error_on_model { Cb.anon_saved_search_api.create @args }
+            assert_no_error_on_model { Cb.anon_saved_search.create @args }
           end
 
           it 'the anonymous saved search api client directly' do
-            assert_no_error_on_model { Cb::Clients::AnonSavedSearchApi.create @args }
+            assert_no_error_on_model { Cb::Clients::AnonSavedSearch.create @args }
           end
         end
       end
@@ -63,7 +63,7 @@ module Cb
         end
 
         it 'missing IsDailyEmail field results in an error in the error collection' do
-          saved_search = Cb.anon_saved_search_api.create @args
+          saved_search = Cb.anon_saved_search.create @args
 
           saved_search.api_error.should eq false
           saved_search.errors.nil?.should eq false
@@ -90,7 +90,7 @@ module Cb
         end
 
         it 'should successfully delete an anonymous saved search' do
-          response_string = Cb.anon_saved_search_api.delete @args
+          response_string = Cb.anon_saved_search.delete @args
 
           response_string.api_error.should eq false
           response_string.should eq 'Success'

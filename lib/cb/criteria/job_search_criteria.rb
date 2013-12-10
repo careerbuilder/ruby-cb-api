@@ -23,7 +23,7 @@ module Cb
                         :str_crit
 
 		def search
-			Cb::Clients::JobApi.search(Cb::Utils::Api.criteria_to_hash(self))
+			Cb::Clients::Job.search(Cb::Utils::Api.criteria_to_hash(self))
 		end
 	end
 end

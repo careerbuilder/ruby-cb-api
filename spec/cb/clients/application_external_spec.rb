@@ -2,7 +2,7 @@ require 'spec_helper'
 
 
 module Cb
-  describe Cb::Clients::ApplicationExternalApi do
+  describe Cb::Clients::ApplicationExternal do
 
     context '#submit_app' do
 
@@ -18,7 +18,7 @@ module Cb
       end
 
       def submit_app(app)
-        Cb::Clients::ApplicationExternalApi.submit_app(app)
+        Cb::Clients::ApplicationExternal.submit_app(app)
       end
 
       context 'when everything is working correctly' do

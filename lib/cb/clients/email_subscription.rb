@@ -2,15 +2,10 @@ require 'json'
 
 module Cb
   module Clients
-    class EmailSubscriptionApi
-      #############################################################
-      ## Retrieve subscription values for a user
-      ##
-      ## For detailed information around this API please visit:
-      ## http://api.careerbuilder.com/usersubscriptionretrieve.aspx
-      #############################################################
+    class EmailSubscription
+
       def self.retrieve_by_did(did, host_site = '')
-        my_api = Cb::Utils::Api.new()
+        my_api = Cb::Utils::Api.new
         json_hash = my_api.cb_get(Cb.configuration.uri_subscription_retrieve, :query => {:ExternalID => did, :Hostsite => host_site})
 
         if json_hash.has_key?('SubscriptionValues') && !json_hash['SubscriptionValues'].nil?
@@ -18,17 +13,8 @@ module Cb
           my_api.append_api_responses(subscription, json_hash['SubscriptionValues'])
         end
         my_api.append_api_responses(subscription, json_hash)
-
-        return subscription
       end
 
-
-      #############################################################
-      ## Update subscription values for a user
-      ##
-      ## For detailed information around this API please visit:
-      ## http://api.careerbuilder.com/usersubscriptionretrieve.aspx
-      #############################################################
       def self.modify_subscription ext_id, host_site, career_resources, product_sponsor_info, applicant_survey_invites, job_recs, unsubscribe_all
         if unsubscribe_all && unsubscribe_all != 'false'
           career_resources = product_sponsor_info = applicant_survey_invites = job_recs = false.to_s
@@ -40,7 +26,7 @@ module Cb
         job_recs = job_recs.nil? ? 'false' : job_recs
         unsubscribe_all = unsubscribe_all.nil? ? 'false' : unsubscribe_all
 
-        my_api = Cb::Utils::Api.new()
+        my_api = Cb::Utils::Api.new
 
         xml_body = "<Request>"
         xml_body += "<DeveloperKey>" + Cb.configuration.dev_key.to_s + "</DeveloperKey>"
@@ -62,7 +48,6 @@ module Cb
           my_api.append_api_responses(subscription, json_hash['SubscriptionValues'])
         end
         my_api.append_api_responses(subscription, json_hash)
-        return subscription
       end
 
     end

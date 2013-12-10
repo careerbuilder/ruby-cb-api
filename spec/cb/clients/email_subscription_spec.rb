@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Clients::EmailSubscriptionApi do
+  describe Cb::Clients::EmailSubscription do
 
     def expect_email_sub_model(model)
       expect(model).to be_an_instance_of(Cb::CbEmailSubscription)
@@ -30,7 +30,7 @@ module Cb
             with(Cb.configuration.uri_subscription_retrieve, kind_of(Hash)).
             and_return(Hash.new)
 
-          Cb::Clients::EmailSubscriptionApi.retrieve_by_did('fake-did')
+          Cb::Clients::EmailSubscription.retrieve_by_did('fake-did')
         end
 
         it 'includes the external ID and hostsite in the URL' do
@@ -41,12 +41,12 @@ module Cb
             with(kind_of(String), { :query => { :ExternalID => xid, :Hostsite => host_site } }).
             and_return(Hash.new)
 
-          Cb::Clients::EmailSubscriptionApi.retrieve_by_did(xid, host_site)
+          Cb::Clients::EmailSubscription.retrieve_by_did(xid, host_site)
         end
 
         it 'appends the generic API responses to the returned object' do
           mock_api.should_receive(:append_api_responses)
-          Cb::Clients::EmailSubscriptionApi.retrieve_by_did('fake-did')
+          Cb::Clients::EmailSubscription.retrieve_by_did('fake-did')
         end
       end
 
@@ -54,7 +54,7 @@ module Cb
         before(:each) { stub_api_to_return({ 'SubscriptionValues' => { :stuff => 'here' } }) }
 
         it 'returns an email subscription model' do
-          expect_email_sub_model Cb::Clients::EmailSubscriptionApi.retrieve_by_did('fake-did')
+          expect_email_sub_model Cb::Clients::EmailSubscription.retrieve_by_did('fake-did')
         end
       end
 
@@ -62,7 +62,7 @@ module Cb
         before(:each) { stub_api_to_return({ 'SubscriptionValues' => nil }) }
 
         it 'returns nil' do
-          model = Cb::Clients::EmailSubscriptionApi.retrieve_by_did('fake-did')
+          model = Cb::Clients::EmailSubscription.retrieve_by_did('fake-did')
           expect(model).to be_nil
         end
 
@@ -71,7 +71,7 @@ module Cb
           mock_api.stub(:cb_get).and_return(Hash.new)
           mock_api.should_receive(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Clients::EmailSubscriptionApi.retrieve_by_did('fake-did')
+          Cb::Clients::EmailSubscription.retrieve_by_did('fake-did')
         end
       end
 
@@ -100,7 +100,7 @@ module Cb
             with(target_uri, kind_of(Hash)).
             and_return(Hash.new)
 
-          Cb::Clients::EmailSubscriptionApi.modify_subscription(nil, nil, nil, nil, nil, nil, true)
+          Cb::Clients::EmailSubscription.modify_subscription(nil, nil, nil, nil, nil, nil, true)
         end
       end
 
@@ -108,7 +108,7 @@ module Cb
         before(:each) { stub_api_to_return({ SubscriptionValues: { things: 'stuff' } }) }
 
         it 'returns an email subscription model' do
-          model = Cb::Clients::EmailSubscriptionApi.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
+          model = Cb::Clients::EmailSubscription.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
                                                                'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
           expect_email_sub_model(model)
         end
@@ -118,7 +118,7 @@ module Cb
         before(:each) { stub_api_to_return(Hash.new) }
 
         it 'returns nil' do
-          model = Cb::Clients::EmailSubscriptionApi.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
+          model = Cb::Clients::EmailSubscription.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
                                                                'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
           expect(model.nil?).to be_true
         end
@@ -128,7 +128,7 @@ module Cb
           mock_api.stub(:cb_post).and_return(Hash.new)
           mock_api.should_receive(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Clients::EmailSubscriptionApi.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
+          Cb::Clients::EmailSubscription.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
                                                         'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
         end
       end

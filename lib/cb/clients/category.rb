@@ -2,15 +2,14 @@ require "json"
 
 module Cb
   module Clients
-    class CategoryApi
-      def self.search
-        my_api = Cb::Utils::Api.new()
-        json_hash = my_api.cb_get(Cb.configuration.uri_job_category_search)
+    class Category
 
+      def self.search
+        my_api = Cb::Utils::Api.new
+        json_hash = my_api.cb_get(Cb.configuration.uri_job_category_search)
         categoryList = []
 
         if json_hash.has_key?('ResponseCategories')
-
           if json_hash['ResponseCategories'].has_key?('Categories')
             json_hash['ResponseCategories']['Categories']['Category'].each do |cat|
               categoryList << CbCategory.new(cat)
@@ -21,15 +20,13 @@ module Cb
         end
 
         my_api.append_api_responses(categoryList, json_hash)
-
-        return categoryList
       end
 
       def self.search_by_host_site(host_site)
-        my_api = Cb::Utils::Api.new()
+        my_api = Cb::Utils::Api.new
         json_hash = my_api.cb_get(Cb.configuration.uri_job_category_search, :query => {:CountryCode => host_site})
-
         categoryList = []
+
         if json_hash.has_key?('ResponseCategories')
           if json_hash['ResponseCategories'].has_key?('Categories')
             if json_hash['ResponseCategories']['Categories']['Category'].is_a?(Array)
@@ -45,9 +42,8 @@ module Cb
         end
 
         my_api.append_api_responses(categoryList, json_hash)
-
-        return categoryList
       end
+
     end
   end
 end

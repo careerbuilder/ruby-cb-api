@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-module Cb
-  describe Cb::TalentNetwork do 
+module Cb::Models
+  describe TalentNetwork do
     context '.new' do 
       it 'should create a new talent network object' do 
-        tn_obj = Cb::TalentNetwork.new
-        expect(tn_obj.class).to be == Cb::TalentNetwork
+        tn_obj = TalentNetwork.new
+        expect(tn_obj.class).to be == TalentNetwork
       end
 
       it 'should return no join questions on create' do 
-        tn_obj = Cb::TalentNetwork.new
+        tn_obj = TalentNetwork.new
         tn_obj.join_form_questions.size.should == 0
       end
 
@@ -26,7 +26,7 @@ module Cb
           }
         ]
 
-        tn_obj = Cb::TalentNetwork.new(args)
+        tn_obj = TalentNetwork.new(args)
         tn_obj.join_form_questions.size.should > 0
       end
     end

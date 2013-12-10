@@ -2,17 +2,19 @@ require 'cb/config'
 require 'cb/models/implementations/branding/styles/base'
 require 'cb/models/implementations/branding/styles/css_adapter'
 require 'cb/exceptions'
+require 'cb/convenience'
 
 def require_directory(relative_path)
   Dir[File.dirname(__FILE__) + relative_path].each { |file| require file }
 end
 
-required_paths = %w(/cb/utils/*.rb /cb/clients/*.rb /cb/criteria/*.rb /cb/models/*.rb
-                    /cb/models/**/*.rb /cb/responses/*.rb /cb/responses/**/*.rb)
-required_paths.each { |path| require_directory path }
+%w(/cb/utils/*.rb /cb/clients/*.rb /cb/criteria/*.rb /cb/models/*.rb
+   /cb/models/**/*.rb /cb/responses/*.rb /cb/responses/**/*.rb).each { |path| require_directory path }
 
 module Cb
-	def self.configure
+  extend Cb::Convenience::ClassMethods
+
+  def self.configure
 		yield configuration
 	end
 
@@ -20,98 +22,5 @@ module Cb
     @configuration ||= Cb::Config.new
     @configuration.set_default_api_uris
     @configuration
-  end
-
-  # Convenience methods, in case you're lazy... like me :)
-  ###############################################################
-
-  #Cb::JobApi
-  def self.job
-    Cb::Clients::JobApi
-  end
-
-  #Cb::JobSearchCriteria
-  def self.job_search_criteria
-    Cb::JobSearchCriteria.new
-  end
-
-  #Cb::JobDetailsCriteria
-  def self.job_detail_criteria
-    Cb::JobDetailsCriteria.new
-  end
-
-  #Cb::CategoryApi
-  def self.category
-    Cb::Clients::CategoryApi
-  end
-
-  #Cb::CompanyApi
-  def self.company
-    Cb::Clients::CompanyApi
-  end
-
-  #Cb::EducationApi
-  def self.education_code
-    Cb::Clients::EducationApi
-  end
-
-  #Cb::RecommendationApi
-  def self.recommendation
-    Cb::Clients::RecommendationApi
-  end
-
-  #Cb::ResumeApi
-  def self.resume
-    Cb::Clients::ResumeApi
-  end
-
-  #Cb::ApplicationApi
-  def self.application
-    Cb::Clients::ApplicationApi
-  end
-
-  #Cb::ApplicationExternalApi
-  def self.application_external
-    Cb::Clients::ApplicationExternalApi
-  end
-
-  #Cb::Utils::Country
-  def self.country
-    Cb::Utils::Country
-  end
-
-  #Cb::UserApi
-  def self.user
-    Cb::Clients::UserApi
-  end
-
-  #Cb::JobBrandingApi
-  def self.job_branding
-    Cb::Clients::JobBrandingApi
-  end
-
-  #Cb::EmailSubscriptionApi
-  def self.email_subscription
-    Cb::Clients::EmailSubscriptionApi
-  end
-
-  #Cb::SavedSearchApi
-  def self.saved_search_api
-    Cb::Clients::SavedSearchApi
-  end
-
-  #Cb::TalentNetworkApi
-  def self.talent_network_api
-    Cb::Clients::TalentNetworkApi
-  end
-
-  #Cb::AnonSavedSearchApi
-  def self.anon_saved_search_api
-    Cb::Clients::AnonSavedSearchApi
-  end
-
-  #Cb::Clients::Spot
-  def self.spot
-    Cb::Clients::Spot
   end
 end

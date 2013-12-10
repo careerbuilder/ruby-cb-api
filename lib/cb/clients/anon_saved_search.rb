@@ -1,10 +1,10 @@
 module Cb
   module Clients
-    class AnonSavedSearchApi
+    class AnonSavedSearch
+
       def self.create *args
         args = args[0] if args.is_a?(Array) && args.count == 1
         my_api = Cb::Utils::Api.new
-
         json_hash = my_api.cb_post Cb.configuration.uri_anon_saved_search_create, :body => CbSavedSearch.new(args).create_anon_to_xml
 
         if json_hash.has_key? 'AnonymousSavedSearch'
@@ -18,14 +18,11 @@ module Cb
         end
 
         my_api.append_api_responses(saved_search, json_hash)
-
-        return saved_search
       end
 
       def self.delete *args
         args = args[0] if args.is_a?(Array) && args.count == 1
         my_api = Cb::Utils::Api.new
-
         json_hash = my_api.cb_post Cb.configuration.uri_anon_saved_search_delete, :body => CbSavedSearch.new(args).delete_anon_to_xml
 
         if json_hash.has_key?('Errors') && json_hash['Errors'].size < 1
@@ -35,9 +32,8 @@ module Cb
         end
 
         my_api.append_api_responses(response, json_hash)
-
-        return response
       end
+
     end
   end
 end

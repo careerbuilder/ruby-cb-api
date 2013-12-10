@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Clients::RecommendationApi do
+  describe Cb::Clients::Recommendation do
     context '.for_job' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_job)).

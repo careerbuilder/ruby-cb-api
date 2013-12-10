@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Clients::ApplicationApi do
+  describe Cb::Clients::Application do
     context '#for_job (blank application)' do
       def stub_api_request_to_return(content_to_be_jsonified)
         stub_request(:get, uri_stem(Cb.configuration.uri_application)).
@@ -33,7 +33,7 @@ module Cb
           end
 
           it 'the API client itself' do
-            assert_application_model_correct Cb::Clients::ApplicationApi.for_job('job-did-here')
+            assert_application_model_correct Cb::Clients::Application.for_job('job-did-here')
           end
         end
       end
@@ -56,7 +56,7 @@ module Cb
       end
       
       def submit_app_via(apply_method_to_use)
-        Cb::Clients::ApplicationApi.send(apply_method_to_use, app)
+        Cb::Clients::Application.send(apply_method_to_use, app)
       end
 
       def assert_blank_redirect_url(app)
@@ -73,7 +73,7 @@ module Cb
           let(:method_under_test) { method_info[:method_name] }
 
           it 'raises exception for incorrect input type (anything other than Cb::CbApplication)' do
-            expect { Cb::Clients::ApplicationApi.send(method_under_test, Object.new) }.
+            expect { Cb::Clients::Application.send(method_under_test, Object.new) }.
               to raise_error Cb::IncomingParamIsWrongTypeException
           end
 

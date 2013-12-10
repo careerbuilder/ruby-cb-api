@@ -2,19 +2,8 @@ require 'json'
 
 module Cb
   module Clients
-    class ResumeApi
-      #############################################################
-      ## Retrieve resumes a user owns.
-      ##
-      ## Returns an array of resumes with external id and
-      ## title set.
-      ##
-      ## Note: This does not load the resume, a subsequent resume
-      ## retrieve is required.
-      ##
-      ## For detailed information around this API please visit:
-      ## http://www.careerbuilder.com/api/ResumeInfo.aspx
-      #############################################################
+    class Resume
+
       def self.own_all(external_user_id, ignore_host_site = false)
         my_api = Cb::Utils::Api.new
         params = {"ExternalUserID" => external_user_id}
@@ -33,16 +22,9 @@ module Cb
             resumes << resume
           end
         end
-
-        return resumes
+        resumes
       end
 
-      #############################################################
-      ## Retrieve the contents of a resume by external id.
-      ##
-      ## For detailed information around this API please visit:
-      ## http://www.careerbuilder.com/api/ResumeInfo.aspx
-      #############################################################
       def self.retrieve_by_id resume_external_id, external_user_id
         my_api = Cb::Utils::Api.new
         params = {"ExternalID" => external_id, "ExternalUserID" => external_user_id}
@@ -52,16 +34,9 @@ module Cb
           resume = Cb::CbResume.new json_hash['ResponseRetrieve']['Resume']
           my_api.append_api_responses resume, json_hash['ResponseRetrieve']
         end
-
-        return resume
+        resume
       end
 
-      #############################################################
-      ## Retrieve the contents of a resume.
-      ##
-      ## For detailed information around this API please visit:
-      ## http://www.careerbuilder.com/api/ResumeInfo.aspx
-      #############################################################
       def self.retrieve resume
         my_api = Cb::Utils::Api.new
         params = {"ExternalID" => resume.external_resume_id, "ExternalUserID" => resume.external_user_id}
@@ -71,38 +46,19 @@ module Cb
           resume = resume.set_attributes json_hash['ResponseRetrieve']['Resume']
           my_api.append_api_responses resume, json_hash['ResponseRetrieve']
         end
-
-        return resume
+        resume
       end
 
-      #############################################################
-      ## TODO: Create a resume
-      ##
-      ## For detailed information around this API please visit:
-      ## http://www.careerbuilder.com/api/ResumeInfo.aspx
-      #############################################################
       def self.create resume
         my_api = Cb::Utils::Api.new
         json_hash = my_api.cb_post(Cb.configuration.uri_resume_create, :body => make_create_xml(resume))
       end
 
-      #############################################################
-      ## TODO: Update a resume
-      ##
-      ## For detailed information around this API please visit:
-      ## http://www.careerbuilder.com/api/ResumeInfo.aspx
-      #############################################################
       def self.update resume
         my_api = Cb::Utils::Api.new
         json_hash = my_api.cb_post(Cb.configuration.uri_resume_update, :body => make_update_xml(resume))
       end
 
-      #############################################################
-      ## TODO: Delete a resume
-      ##
-      ## For detailed information around this API please visit:
-      ## http://www.careerbuilder.com/api/ResumeInfo.aspx
-      #############################################################
       def self.delete resume
         my_api = Cb::Utils::Api.new
         json_hash = my_api.cb_post(Cb.configuration.uri_resume_delete, :body => make_delete_xml(resume))
@@ -182,6 +138,7 @@ module Cb
         xml += '</Request>'
         xml
       end
+
     end
   end
 end

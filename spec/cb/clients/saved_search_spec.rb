@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Clients::SavedSearchApi do
+  describe Cb::Clients::SavedSearch do
 
     context '.new' do
       it 'should create a new saved job search api object' do
-        saved_search_request = Cb::Clients::SavedSearchApi.new
-        saved_search_request.should be_a_kind_of(Cb::Clients::SavedSearchApi)
+        saved_search_request = Cb::Clients::SavedSearch.new
+        saved_search_request.should be_a_kind_of(Cb::Clients::SavedSearch)
       end
     end
 
@@ -21,7 +21,7 @@ module Cb
         email_frequency = 'None'
         search_name = 'Fake Job Search 1'
 
-        user_saved_search = Cb.saved_search_api.create({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
+        user_saved_search = Cb.saved_search.create({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
                             'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
                                   'HostSite'=>@host_site})
         user_saved_search.cb_response.errors.nil?.should be_true
@@ -41,7 +41,7 @@ module Cb
         email_frequency = 'None'
         search_name = 'Fake Job Search Update'
 
-        user_saved_search = Cb.saved_search_api.update({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
+        user_saved_search = Cb.saved_search.update({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
                                                         'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
                                                         'HostSite'=>@host_site, 'ExternalID'=>external_id})
 
@@ -60,7 +60,7 @@ module Cb
         before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: { a: 'b', b: 'c' } } } }) }
 
         it 'should return an array with a single saved search' do
-          user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @external_user_id, 'WM')
+          user_saved_search = Cb.saved_search.list(Cb.configuration.dev_key, @external_user_id, 'WM')
 
           expect(user_saved_search).to be_an_instance_of Array
           expect(user_saved_search.first).to be_an_instance_of Cb::CbSavedSearch
@@ -72,7 +72,7 @@ module Cb
         before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: [Hash.new, Hash.new] } } }) }
 
         it 'should return an array of saved searches' do
-          user_saved_search = Cb.saved_search_api.list(Cb.configuration.dev_key, @external_user_id, 'WM')
+          user_saved_search = Cb.saved_search.list(Cb.configuration.dev_key, @external_user_id, 'WM')
 
           expect(user_saved_search).to be_an_instance_of Array
           expect(user_saved_search.first).to be_an_instance_of Cb::CbSavedSearch
@@ -89,7 +89,7 @@ module Cb
       end
 
       it 'should retrieve the first saved search' do
-        user_saved_search = Cb::Clients::SavedSearchApi.retrieve(Cb.configuration.dev_key, @external_user_id, 'xid', @host_site)
+        user_saved_search = Cb::Clients::SavedSearch.retrieve(Cb.configuration.dev_key, @external_user_id, 'xid', @host_site)
 
         expect(user_saved_search.cb_response.errors.nil?).to eq(true)
         expect(user_saved_search.api_error).to be == false
@@ -103,7 +103,7 @@ module Cb
       end
 
       it 'should delete the first saved search' do
-        user_saved_search = Cb.saved_search_api.delete({'DeveloperKey'=>Cb.configuration.dev_key, 'ExternalID'=>'xid','ExternalUserID'=>@external_user_id, 'HostSite'=>@host_site})
+        user_saved_search = Cb.saved_search.delete({'DeveloperKey'=>Cb.configuration.dev_key, 'ExternalID'=>'xid','ExternalUserID'=>@external_user_id, 'HostSite'=>@host_site})
 
         user_saved_search.cb_response.errors.blank?.should == true
         user_saved_search.api_error.should == false

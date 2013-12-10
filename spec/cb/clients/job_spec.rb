@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Clients::JobApi do
+  describe Cb::Clients::Job do
     context '.search' do
       context 'when the search returns with results' do
         before(:each) do
@@ -50,7 +50,7 @@ module Cb
 
       context 'when a criteria object is the input param' do
         it 'returns a single job model' do
-          model = Cb::Clients::JobApi.find_by_criteria(criteria)
+          model = Cb::Clients::Job.find_by_criteria(criteria)
           expect(model).to be_an_instance_of Cb::CbJob
         end
       end
@@ -65,10 +65,10 @@ module Cb
         it 'constructs a criteria object, sets the input did, and calls #find_by_criteria' do
           did = 'fake-did'
 
-          Cb::Clients::JobApi.should_receive(:find_by_criteria).with(criteria)
+          Cb::Clients::Job.should_receive(:find_by_criteria).with(criteria)
           criteria.should_receive(:did=).with(did)
 
-          Cb::Clients::JobApi.find_by_did(did)
+          Cb::Clients::Job.find_by_did(did)
         end
       end
     end

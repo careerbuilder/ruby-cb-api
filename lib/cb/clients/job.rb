@@ -2,14 +2,8 @@ require 'json'
 
 module Cb
   module Clients
-    class JobApi
+    class Job
 
-      #############################################################
-      ## Run a job search against the given criteria
-      ##
-      ## For detailed information around this API please visit:
-      ##
-      #############################################################
       def self.search(*args)
         args = args[0] if args.is_a?(Array) && args.count == 1
         my_api = Cb::Utils::Api.new
@@ -28,16 +22,8 @@ module Cb
         end
 
         my_api.append_api_responses(jobs, json_hash)
-
-        return jobs
       end
 
-      #############################################################
-      ## Retrieve a job by did
-      ##
-      ## For detailed information around this API please visit:
-      ## http://api.careerbuilder.com/JobInfo.aspx
-      #############################################################
       def self.find_by_criteria(criteria)
         my_api = Cb::Utils::Api.new
         params = my_api.class.criteria_to_hash(criteria)
@@ -50,8 +36,6 @@ module Cb
           my_api.append_api_responses(job, json_hash['ResponseJob'])
         end
         my_api.append_api_responses(job, json_hash)
-
-        return job
       end
 
       def self.find_by_did(did)
