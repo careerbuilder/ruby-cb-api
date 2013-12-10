@@ -10,7 +10,7 @@ module Cb
         Cb::Criteria::Job::Search.new
       end
   
-      def job_detail_criteria
+      def job_details_criteria
         Cb::Criteria::Job::Details.new
       end
   
