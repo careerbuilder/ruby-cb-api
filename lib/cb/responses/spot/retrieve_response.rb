@@ -2,7 +2,7 @@ module Cb
   module Responses
     module Spot
 
-      class Retrieve < ApiResponse
+      class Retrieve < Responses::ApiResponse
 
         protected
 
