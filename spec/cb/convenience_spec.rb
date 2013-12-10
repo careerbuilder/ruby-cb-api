@@ -54,12 +54,6 @@ module Cb
       end
     end
 
-    context '#resume' do
-      it 'returns the resume api client class' do
-        expect_method_to_return_class(:resume, Cb::Clients::Resume)
-      end
-    end
-
     context '#application' do
       it 'returns the application api client class' do
         expect_method_to_return_class(:application, Cb::Clients::Application)

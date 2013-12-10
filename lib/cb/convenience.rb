@@ -30,10 +30,6 @@ module Cb
         Cb::Clients::Recommendation
       end
   
-      def resume
-        Cb::Clients::Resume
-      end
-  
       def application
         Cb::Clients::Application
       end
