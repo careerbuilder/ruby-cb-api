@@ -11,7 +11,7 @@ module Cb
       it 'should get recommendations for a job' do
         recs = Cb.recommendation.for_job 'fake-did'
 
-        recs[0].is_a?(Cb::CbJob).should == true
+        recs[0].is_a?(Cb::Models::Job).should == true
         recs.count.should > 0
         recs.api_error.should == false
       end
@@ -28,7 +28,7 @@ module Cb
         recs = Cb.recommendation.for_user test_user_external_id
 
         recs.count.should > 0
-        recs[0].is_a?(Cb::CbJob).should == true
+        recs[0].is_a?(Cb::Models::Job).should == true
         recs.api_error.should == false
       end
     end

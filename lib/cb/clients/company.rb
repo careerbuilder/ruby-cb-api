@@ -10,7 +10,7 @@ module Cb
 
         if json_hash.has_key?('Results')
             if json_hash['Results'].has_key?('CompanyProfileDetail')
-              company = CbCompany.new(json_hash['Results']['CompanyProfileDetail'])
+              company = Models::Company.new(json_hash['Results']['CompanyProfileDetail'])
             end
             my_api.append_api_responses(company, json_hash['Results'])
         end
@@ -21,7 +21,7 @@ module Cb
       def self.find_for(obj)
         if obj.is_a?(String)
           did = obj
-        elsif obj.is_a?(Cb::CbJob)
+        elsif obj.is_a?(Cb::Models::Job)
           did = obj.company_did
         end
         did ||= ''

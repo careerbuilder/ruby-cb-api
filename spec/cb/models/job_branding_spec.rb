@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-module Cb
-  describe Cb::CbJobBranding do
+module Cb::Models
+  describe JobBranding do
     context '.new' do
       it 'should create a job branding' do
         name = 'Jesse Branding'
@@ -92,7 +92,7 @@ module Cb
         }
 
 
-        job_branding = Cb::CbJobBranding.new(
+        job_branding = Cb::Models::JobBranding.new(
         	{
 	        	'Name' => name,
 	        	'Id' => id,

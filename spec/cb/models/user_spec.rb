@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::CbUser do
+  describe Cb::Models::User do
     context '.new' do
       it 'should create an empty new user' do
         user_status = 'being initialized in test'
@@ -20,7 +20,7 @@ module Cb
         birth_date = Date.today-40
 
 
-        user = Cb::CbUser.new('UserStatus' => user_status, 
+        user = Cb::Models::User.new('UserStatus' => user_status,
         'Email' => email, 
         'Address1' => address_1, 
         'City' => city, 
@@ -53,21 +53,21 @@ module Cb
 
     context '.custom_value' do
         it 'should successfully find custom value' do
-            user = Cb::CbUser.new('CustomValues' => { 'CustomValue' => { 'Key' => 'CustomKey', 'Value' => 'CustomVal' } })
+            user = Cb::Models::User.new('CustomValues' => { 'CustomValue' => { 'Key' => 'CustomKey', 'Value' => 'CustomVal' } })
 
             expect(user.custom_value('CustomKey')).to be == 'CustomVal'
             expect(user.custom_value('CustomKeyDoesNotExist').nil?).to be true
         end
         
         it 'should successfully find custom value in user with multiple custom values' do
-            user = Cb::CbUser.new('CustomValues' => { 'CustomValue' => [{ 'Key' => 'CustomKey', 'Value' => 'CustomVal' }, { 'Key' => 'CustomKey2', 'Value' => 'CustomVal2' }] })
+            user = Cb::Models::User.new('CustomValues' => { 'CustomValue' => [{ 'Key' => 'CustomKey', 'Value' => 'CustomVal' }, { 'Key' => 'CustomKey2', 'Value' => 'CustomVal2' }] })
 
             expect(user.custom_value('CustomKey')).to be == 'CustomVal'
             expect(user.custom_value('CustomKey2')).to be == 'CustomVal2'
         end
 
         it 'should fail to find custom value because key does not exist' do
-            user = Cb::CbUser.new
+            user = Cb::Models::User.new
 
             expect(user.custom_value('CustomKeyDoesNotExist').nil?).to be true
         end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-module Cb
-  describe Cb::CbEmailSubscription do
+module Cb::Models
+  describe EmailSubscription do
     context '.new' do
       it 'should create an empty new email subscription' do
         career_resources = 'true'
@@ -10,7 +10,7 @@ module Cb
         job_recs = 'true'
 
 
-        subscription = Cb::CbEmailSubscription.new('CareerResources' => career_resources,
+        subscription = EmailSubscription.new('CareerResources' => career_resources,
                               'ProductSponsorInfo' => product_sponsor_info,
                               'ApplicantSurveyInvites' => applicant_survey_invites,
                               'JobRecs' => job_recs)

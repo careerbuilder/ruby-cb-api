@@ -15,7 +15,7 @@ module Cb
     describe '#retrieve' do
 
       before :each do
-        @criteria = Criteria::SpotRetrieve.new
+        @criteria = Cb::Criteria::Spot::Retrieve.new
         @criteria.maxitems      = 5
         @criteria.language      = 'WMEnglish'
         @criteria.sortdirection = 'Descending'
@@ -35,13 +35,6 @@ module Cb
         context 'by interacting with the API client directly' do
           it 'returns a spot response object' do
             @model = Clients::Spot.retrieve @criteria
-            assert_response_object
-          end
-        end
-
-        context 'by calling the API client through the criteria object' do
-          it 'returns an array of Cb::Models::Spot' do
-            @model = @criteria.retrieve
             assert_response_object
           end
         end

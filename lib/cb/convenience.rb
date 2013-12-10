@@ -7,11 +7,11 @@ module Cb
       end
   
       def job_search_criteria
-        Cb::JobSearchCriteria.new
+        Cb::Criteria::Job::Search.new
       end
   
       def job_detail_criteria
-        Cb::JobDetailsCriteria.new
+        Cb::Criteria::Job::Details.new
       end
   
       def category

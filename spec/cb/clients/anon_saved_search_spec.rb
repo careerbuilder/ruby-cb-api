@@ -32,7 +32,7 @@ module Cb
             saved_search = api_calling_code.call
             saved_search.api_error.should eq false
             saved_search.errors.nil?.should eq true
-            saved_search.class.should eq Cb::CbSavedSearch
+            saved_search.class.should eq Models::SavedSearch
           end
 
           before :each do

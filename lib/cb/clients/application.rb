@@ -5,13 +5,13 @@ module Cb
     class Application
 
       def self.for_job(job)
-        job.is_a?(Cb::CbJob) ? did = job.did : did = job
+        job.is_a?(Cb::Models::Job) ? did = job.did : did = job
         my_api = Cb::Utils::Api.new
         json_hash = my_api.cb_get(Cb.configuration.uri_application, :query => {:JobDID => did})
 
         if json_hash.has_key?('ResponseBlankApplication')
           if json_hash['ResponseBlankApplication'].has_key?('BlankApplication')
-            app = Cb::CbApplicationSchema.new(json_hash['ResponseBlankApplication']['BlankApplication'])
+            app = Cb::Models::ApplicationSchema.new(json_hash['ResponseBlankApplication']['BlankApplication'])
           end
 
           my_api.append_api_responses(app, json_hash['ResponseBlankApplication'])
@@ -29,7 +29,7 @@ module Cb
       end
 
       def self.send_to_api(uri, app)
-        raise Cb::IncomingParamIsWrongTypeException unless app.is_a?(Cb::CbApplication)
+        raise Cb::IncomingParamIsWrongTypeException unless app.is_a?(Cb::Models::Application)
 
         my_api = Cb::Utils::Api.new
         json_hash = my_api.cb_post("#{uri}?ipath=#{app.ipath}", :body => app.to_xml)

@@ -46,7 +46,7 @@ module Cb
         it 'returns an array of resume models' do
           models = Cb::Clients::Resume.own_all('xid')
           expect(models).to be_an_instance_of Array
-          expect(models.first).to be_an_instance_of Cb::CbResume
+          expect(models.first).to be_an_instance_of Cb::Models::Resume
         end
       end
 
@@ -86,7 +86,7 @@ module Cb
       # also, the way it's currently written i'm pretty sure it won't work at all.
     end
 
-    let(:mock_resume) { double(Cb::CbResume) }
+    let(:mock_resume) { double(Cb::Models::Resume) }
 
     before :each do
       mock_resume.stub(:external_resume_id).and_return('xrid')
@@ -250,11 +250,11 @@ module Cb
 
     context 'important private methods' do
       let(:resume) do
-        resume = CbResume.new
+        resume = Models::Resume.new
         resume.external_resume_id = 'xid'
         resume.external_user_id = 'xuid'
-        resume.company_experiences = [CbResume::CbCompanyExperience.new]
-        resume.educations = [CbResume::CbEducation.new]
+        resume.company_experiences = [Models::Resume::CompanyExperience.new]
+        resume.educations = [Models::Resume::Education.new]
         resume.languages = %w(english)
         resume
       end

@@ -13,7 +13,7 @@ module Cb
         if !json_hash['ResponseJobSearch'].nil? && !json_hash['ResponseJobSearch']['Results'].nil?
           job_results = json_hash['ResponseJobSearch']['Results']['JobSearchResult']
           job_results = [job_results] if !job_results.is_a?(Array)
-          job_results.each { |job_hash| jobs.push(CbJob.new(job_hash)) }
+          job_results.each { |job_hash| jobs.push(Models::Job.new(job_hash)) }
           my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
 
           if response_has_search_metadata?(json_hash['ResponseJobSearch'])
@@ -31,7 +31,7 @@ module Cb
 
         if json_hash.has_key?('ResponseJob')
           if json_hash['ResponseJob'].has_key?('Job')
-            job = CbJob.new(json_hash['ResponseJob']['Job'])
+            job = Models::Job.new(json_hash['ResponseJob']['Job'])
           end
           my_api.append_api_responses(job, json_hash['ResponseJob'])
         end
@@ -39,7 +39,7 @@ module Cb
       end
 
       def self.find_by_did(did)
-        criteria = Cb::JobDetailsCriteria.new
+        criteria = Cb::Criteria::Job::Details.new
         criteria.did = did
         return find_by_criteria(criteria)
       end

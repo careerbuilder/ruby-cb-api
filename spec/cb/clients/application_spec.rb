@@ -21,11 +21,11 @@ module Cb
       context 'when the returning API hash formatted correctly' do
         context 'it returns an application schema object via:' do
           def assert_application_model_correct(result)
-            expect(result).to be_an_instance_of Cb::CbApplicationSchema
+            expect(result).to be_an_instance_of Models::ApplicationSchema
             expect(result.questions).to be_a Array
             expect(result.questions.count).to eq result.total_questions
-            expect(result.questions.first).to be_a CbApplicationSchema::CbQuestionSchema
-            expect(result.questions.first.answers.first).to be_a CbApplicationSchema::CbAnswerSchema
+            expect(result.questions.first).to be_a Models::ApplicationSchema::QuestionSchema
+            expect(result.questions.first.answers.first).to be_a Models::ApplicationSchema::AnswerSchema
           end
 
           it 'the Cb module convenience method' do
@@ -43,7 +43,7 @@ module Cb
     context 'application submission methods' do
       let(:app) do
         args = { :job_did => 'did', :site_id => 'bogus', :co_brand => 'bogus', :resume_file_name => 'bogus', :resume => 'encoded' }
-        app = Cb::CbApplication.new(args)
+        app = Cb::Models::Application.new(args)
         app.test = true
         app.add_answer('ApplicantName', 'Foo Bar')
         app.add_answer('ApplicantEmail', 'DontSpamMeBro@gmail.com')

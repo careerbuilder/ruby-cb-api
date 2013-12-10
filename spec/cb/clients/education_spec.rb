@@ -41,7 +41,7 @@ module Cb
         it 'returns an array of education models' do
           models = Cb::Clients::Education.get_for('US')
           expect(models).to       be_an_instance_of Array
-          expect(models.first).to be_an_instance_of Cb::CbEducation
+          expect(models.first).to be_an_instance_of Cb::Models::Education
         end
       end
 

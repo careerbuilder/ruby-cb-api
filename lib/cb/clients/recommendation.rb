@@ -16,7 +16,7 @@ module Cb
              !json_hash['ResponseRecommendJob']['RecommendJobResults'].nil?
 
             json_hash['ResponseRecommendJob']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
-              jobs << CbJob.new(cur_job)
+              jobs << Models::Job.new(cur_job)
             end
 
             my_api.append_api_responses(jobs, json_hash['ResponseRecommendJob']['Request'])
@@ -41,7 +41,7 @@ module Cb
             !json_hash['ResponseRecommendUser']['RecommendJobResults'].nil?
 
             json_hash['ResponseRecommendUser']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
-              jobs << CbJob.new(cur_job)
+              jobs << Models::Job.new(cur_job)
             end
             my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser']['Request'])
           end
@@ -60,7 +60,7 @@ module Cb
         if json_hash.has_key?('Results')
           if json_hash['Results'].has_key?('JobRecommendation')
             json_hash['Results']['JobRecommendation']['Jobs'].each do |cur_job|
-              jobs << CbJob.new(cur_job)
+              jobs << Models::Job.new(cur_job)
             end
             my_api.append_api_responses(jobs, json_hash['Results']['JobRecommendation'])
           end

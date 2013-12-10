@@ -11,7 +11,7 @@ module Cb
 
         if json_hash.has_key? 'ResponseUserInfo'
           if json_hash['ResponseUserInfo'].has_key? 'UserInfo'
-            user = CbUser.new json_hash['ResponseUserInfo']['UserInfo']
+            user = Models::User.new json_hash['ResponseUserInfo']['UserInfo']
           end
           my_api.append_api_responses user, json_hash['ResponseUserInfo']
         end

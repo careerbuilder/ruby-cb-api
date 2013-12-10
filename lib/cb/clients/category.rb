@@ -12,7 +12,7 @@ module Cb
         if json_hash.has_key?('ResponseCategories')
           if json_hash['ResponseCategories'].has_key?('Categories')
             json_hash['ResponseCategories']['Categories']['Category'].each do |cat|
-              categoryList << CbCategory.new(cat)
+              categoryList << Models::Category.new(cat)
             end
           end
 
@@ -31,10 +31,10 @@ module Cb
           if json_hash['ResponseCategories'].has_key?('Categories')
             if json_hash['ResponseCategories']['Categories']['Category'].is_a?(Array)
               json_hash['ResponseCategories']['Categories']['Category'].each do |cat|
-                categoryList << CbCategory.new(cat)
+                categoryList << Models::Category.new(cat)
               end
             elsif json_hash['ResponseCategories']['Categories']['Category'].is_a?(Hash) && json_hash.length < 2
-              categoryList << CbCategory.new(json_hash['ResponseCategories']['Categories']['Category'])
+              categoryList << Models::Category.new(json_hash['ResponseCategories']['Categories']['Category'])
             end
           end
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-module Cb
-  describe Cb::CbApplication do
+module Cb::Models
+  describe Application do
     context '.new' do
       it 'should create an empty new application' do
         job_did = 'J1234567890'
@@ -11,7 +11,7 @@ module Cb
         resume = 'base64stringcomingsoon'
         test = true
       
-        application = Cb::CbApplication.new({:job_did => job_did, :site_id => site_id, :co_brand => co_brand, :resume_file_name => resume_file_name, :resume => resume, :test => test})
+        application = Application.new({:job_did => job_did, :site_id => site_id, :co_brand => co_brand, :resume_file_name => resume_file_name, :resume => resume, :test => test})
 
         application.job_did.should == job_did
         application.site_id.should == site_id
@@ -23,7 +23,7 @@ module Cb
     end
 
     context '.submit' do
-      let(:application) { Cb::CbApplication.new }
+      let(:application) { Application.new }
 
       context 'when the application is for an unregistered user' do
         before(:each) do

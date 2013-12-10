@@ -16,7 +16,7 @@ module Cb
 
         if json_hash.has_key?('ResponseOwnResumes') && json_hash['ResponseOwnResumes'].has_key?('Resumes')
           json_hash['ResponseOwnResumes']['Resumes']['Resume'].each do |resume_hash|
-            resume = Cb::CbResume.new resume_hash
+            resume = Cb::Models::Resume.new resume_hash
             resume.external_resume_id = resume_hash['ExternalID']
             resume.external_user_id = external_user_id
             resumes << resume
@@ -31,7 +31,7 @@ module Cb
         json_hash = my_api.cb_get(Cb.configuration.uri_resume_retrieve, :query => params)
 
         if json_hash.has_key?('ResponseRetrieve') && json_hash['ResponseRetrieve'].has_key?('Resume')
-          resume = Cb::CbResume.new json_hash['ResponseRetrieve']['Resume']
+          resume = Cb::Models::Resume.new json_hash['ResponseRetrieve']['Resume']
           my_api.append_api_responses resume, json_hash['ResponseRetrieve']
         end
         resume

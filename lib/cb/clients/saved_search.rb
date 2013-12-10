@@ -7,13 +7,13 @@ module Cb
       def self.create *args
         args = args[0] if args.is_a?(Array) && args.count == 1
         my_api = Cb::Utils::Api.new
-        json_hash = my_api.cb_post Cb.configuration.uri_saved_search_create, :body => CbSavedSearch.new(args).create_to_xml
+        json_hash = my_api.cb_post Cb.configuration.uri_saved_search_create, :body => Models::SavedSearch.new(args).create_to_xml
 
         if json_hash.has_key? 'SavedJobSearch'
           if json_hash['SavedJobSearch'].has_key? 'SavedSearch'
-            saved_search = CbSavedSearch.new json_hash['SavedJobSearch']['SavedSearch']
+            saved_search = Models::SavedSearch.new json_hash['SavedJobSearch']['SavedSearch']
           else
-            saved_search = CbSavedSearch.new json_hash['SavedJobSearch']
+            saved_search = Models::SavedSearch.new json_hash['SavedJobSearch']
           end
           my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
         end
@@ -24,10 +24,10 @@ module Cb
       def self.update *args
         args = args[0] if args.is_a?(Array) && args.count == 1
         my_api = Cb::Utils::Api.new
-        json_hash = my_api.cb_post Cb.configuration.uri_saved_search_update, :body => CbSavedSearch.new(args).update_to_xml
+        json_hash = my_api.cb_post Cb.configuration.uri_saved_search_update, :body => Models::SavedSearch.new(args).update_to_xml
 
         if json_hash.has_key?('SavedJobSearch')
-          saved_search = CbSavedSearch.new json_hash['SavedJobSearch']
+          saved_search = Models::SavedSearch.new json_hash['SavedJobSearch']
           my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
         end
 
@@ -37,10 +37,10 @@ module Cb
       def self.delete *args
         args = args[0] if args.is_a?(Array) && args.count == 1
         my_api = Cb::Utils::Api.new
-        json_hash = my_api.cb_post Cb.configuration.uri_saved_search_delete, :body=>CbSavedSearch.new(args).delete_to_xml
+        json_hash = my_api.cb_post Cb.configuration.uri_saved_search_delete, :body => Models::SavedSearch.new(args).delete_to_xml
 
         if json_hash.has_key?('Request')
-          saved_search = CbSavedSearch.new json_hash['Request']
+          saved_search = Models::SavedSearch.new json_hash['Request']
           my_api.append_api_responses(saved_search, json_hash['Request'])
         end
 
@@ -53,7 +53,7 @@ module Cb
 
         if json_hash.has_key?('SavedJobSearch')
           if json_hash['SavedJobSearch'].has_key?('SavedSearch')
-            saved_search = CbSavedSearch.new json_hash['SavedJobSearch']['SavedSearch']
+            saved_search = Models::SavedSearch.new json_hash['SavedJobSearch']['SavedSearch']
             my_api.append_api_responses saved_search, json_hash['SavedJobSearch']['SavedSearch']
           end
           my_api.append_api_responses saved_search, json_hash['SavedJobSearch']
@@ -71,10 +71,10 @@ module Cb
           unless saved_search_hash.nil?
             if saved_search_hash['SavedSearch'].is_a?(Array)
               saved_search_hash['SavedSearch'].each do |saved_search|
-                saved_searches << CbSavedSearch.new(saved_search)
+                saved_searches << Models::SavedSearch.new(saved_search)
               end
             elsif saved_search_hash['SavedSearch'].is_a?(Hash) && json_hash.length < 2
-              saved_searches << CbSavedSearch.new(saved_search_hash['SavedSearch'])
+              saved_searches << Models::SavedSearch.new(saved_search_hash['SavedSearch'])
             end
           end
 

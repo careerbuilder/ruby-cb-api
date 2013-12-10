@@ -14,7 +14,7 @@ module Cb
           if json_hash['ResponseEducationCodes'].has_key?('EducationCodes') &&
              json_hash['ResponseEducationCodes']['EducationCodes'].has_key?('Education')
               json_hash['ResponseEducationCodes']['EducationCodes']['Education'].each do | education |
-                codes << Cb::CbEducation.new(education)
+                codes << Cb::Models::Education.new(education)
               end
           end
           my_api.append_api_responses(codes, json_hash['ResponseEducationCodes'])

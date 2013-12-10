@@ -22,7 +22,7 @@ module Cb
       end
 
       context 'when everything is working correctly' do
-        let(:external_app) { Cb::CbApplicationExternal.new({job_did: 'did', email: 'bogus@bogus.org', ipath: 'bogus', site_id: 'bogus'}) }
+        let(:external_app) { Cb::Models::ApplicationExternal.new({job_did: 'did', email: 'bogus@bogus.org', ipath: 'bogus', site_id: 'bogus'}) }
 
         it 'the same application object is returned that is supplied for input' do
           stub_api_call_to_return(Hash.new)

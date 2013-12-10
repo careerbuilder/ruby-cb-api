@@ -26,10 +26,10 @@ module Cb
 
             if json_hash['ResponseEmployeeTypes']['EmployeeTypes']['EmployeeType'].is_a?(Array)
               json_hash['ResponseEmployeeTypes']['EmployeeTypes']['EmployeeType'].each do |et|
-                employee_types << CbEmployeeType.new(et)
+                employee_types << Models::EmployeeType.new(et)
               end
             elsif json_hash['ResponseEmployeeTypes']['EmployeeTypes']['EmployeeType'].is_a?(Hash) && json_hash.length < 2
-              employee_types << CbEmployeeType.new(json_hash['ResponseEmployeeTypes']['EmployeeTypes']['EmployeeType'])
+              employee_types << Models::EmployeeType.new(json_hash['ResponseEmployeeTypes']['EmployeeTypes']['EmployeeType'])
             end
           end
 

@@ -1,15 +1,15 @@
 require 'spec_helper'
 require 'nokogiri'
 
-module Cb
-  describe Cb::CbApplicationExternal do
+module Cb::Models
+  describe ApplicationExternal do
 
     before :all do
       @job_did = 'J1234567890'
       @email = 'dontspammebro@whoa.net'
       @site_id = 'xxx'
       @ipath = 'shiv'
-      @application = Cb::CbApplicationExternal.new({job_did: @job_did, email: @email, site_id: @site_id, ipath: @ipath})
+      @application = ApplicationExternal.new({job_did: @job_did, email: @email, site_id: @site_id, ipath: @ipath})
     end
 
     context '#new' do

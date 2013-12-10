@@ -14,9 +14,9 @@ module Cb
         end
 
         it 'returns an array of job models' do
-          search = Cb.job_search_criteria.search()
+          search = Cb.job.search(Hash.new)
           search.api_error.should == false
-          search[0].is_a?(Cb::CbJob).should == true
+          search[0].is_a?(Cb::Models::Job).should == true
         end
       end
 
@@ -32,9 +32,9 @@ module Cb
         end
 
         it 'returns an array of job models' do
-          search = Cb.job_search_criteria.search()
+          search = Cb.job.search(Hash.new)
           search.api_error.should == false
-          search[0].is_a?(Cb::CbJob).should == true
+          search[0].is_a?(Cb::Models::Job).should == true
         end
       end
 
@@ -46,21 +46,21 @@ module Cb
           to_return(:body => { ResponseJob: { Job: Hash.new } }.to_json)
       end
 
-      let(:criteria) { Cb::JobDetailsCriteria.new }
+      let(:criteria) { Cb::Criteria::Job::Details.new }
 
       context 'when a criteria object is the input param' do
         it 'returns a single job model' do
           model = Cb::Clients::Job.find_by_criteria(criteria)
-          expect(model).to be_an_instance_of Cb::CbJob
+          expect(model).to be_an_instance_of Cb::Models::Job
         end
       end
     end
 
     context '.find_by_did' do
       context 'when a string job did is input' do
-        let(:criteria) { double(Cb::JobDetailsCriteria) }
+        let(:criteria) { double(Cb::Criteria::Job::Details) }
 
-        before(:each) { Cb::JobDetailsCriteria.stub(:new).and_return(criteria) }
+        before(:each) { Cb::Criteria::Job::Details.stub(:new).and_return(criteria) }
 
         it 'constructs a criteria object, sets the input did, and calls #find_by_criteria' do
           did = 'fake-did'

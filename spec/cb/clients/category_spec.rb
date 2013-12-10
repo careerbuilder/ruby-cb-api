@@ -16,7 +16,7 @@ module Cb
     def assert_array_of_models(api_client_result)
       expect(api_client_result).to be_an_instance_of(Array)
       expect(api_client_result.size).to eq 1
-      expect(api_client_result.first).to be_an_instance_of(Cb::CbCategory)
+      expect(api_client_result.first).to be_an_instance_of(Cb::Models::Category)
     end
     
     context '.new' do

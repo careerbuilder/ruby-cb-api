@@ -4,7 +4,7 @@ module Cb
   describe Cb::Clients::EmailSubscription do
 
     def expect_email_sub_model(model)
-      expect(model).to be_an_instance_of(Cb::CbEmailSubscription)
+      expect(model).to be_an_instance_of(Models::EmailSubscription)
     end
 
     context '#retrieve_by_did' do

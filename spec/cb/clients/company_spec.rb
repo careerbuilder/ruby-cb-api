@@ -35,7 +35,7 @@ module Cb
 
         it 'returns a single company model' do
           model = Cb::Clients::Company.find_by_did('fake-did')
-          expect(model).to be_an_instance_of Cb::CbCompany
+          expect(model).to be_an_instance_of Cb::Models::Company
         end
       end
 
@@ -72,7 +72,7 @@ module Cb
 
       context 'when a Cb::CbJob is the input arg' do
         it "calls #find_by_did with the job model's company_did" do
-          job_model = Cb::CbJob.new('CompanyDID' => 'fake-did')
+          job_model = Cb::Models::Job.new('CompanyDID' => 'fake-did')
           Cb::Clients::Company.should_receive(:find_by_did).with(job_model.company_did)
           Cb::Clients::Company.find_for(job_model)
         end

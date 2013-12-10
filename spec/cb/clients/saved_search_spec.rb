@@ -63,7 +63,7 @@ module Cb
           user_saved_search = Cb.saved_search.list(Cb.configuration.dev_key, @external_user_id, 'WM')
 
           expect(user_saved_search).to be_an_instance_of Array
-          expect(user_saved_search.first).to be_an_instance_of Cb::CbSavedSearch
+          expect(user_saved_search.first).to be_an_instance_of Cb::Models::SavedSearch
           expect(user_saved_search.api_error).to be == false
         end
       end
@@ -75,8 +75,8 @@ module Cb
           user_saved_search = Cb.saved_search.list(Cb.configuration.dev_key, @external_user_id, 'WM')
 
           expect(user_saved_search).to be_an_instance_of Array
-          expect(user_saved_search.first).to be_an_instance_of Cb::CbSavedSearch
-          expect(user_saved_search[1]).to be_an_instance_of Cb::CbSavedSearch
+          expect(user_saved_search.first).to be_an_instance_of Cb::Models::SavedSearch
+          expect(user_saved_search[1]).to be_an_instance_of Cb::Models::SavedSearch
           expect(user_saved_search.api_error).to be == false
         end
       end
