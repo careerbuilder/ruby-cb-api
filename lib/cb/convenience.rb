@@ -2,6 +2,10 @@ module Cb
   module Convenience
     module ClassMethods
 
+      def api_client
+        Cb::Utils::Api
+      end
+
       def job
         Cb::Clients::Job
       end
