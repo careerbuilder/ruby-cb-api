@@ -1,44 +1,31 @@
-require "json"
-
 module Cb
   module Clients
-    class EmployeeTypes
 
-      def self.search
-        my_api = Cb::Utils::Api.new
-        json_hash = my_api.cb_get(Cb.configuration.uri_employee_types)
-        array_of_objects_from_hash(json_hash, my_api)
+    class EmployeeTypes
+      def search
+        json = cb_client.cb_get(endpoint)
+        new_response_object(json)
       end
 
-      def self.search_by_host_site(hostsite)
-        my_api = Cb::Utils::Api.new
-        json_hash = my_api.cb_get(Cb.configuration.uri_employee_types, :query => {:CountryCode => hostsite})
-        array_of_objects_from_hash(json_hash, my_api)
+      def search_by_hostsite(host_site)
+        json = cb_client.cb_get(endpoint, :query => { :CountryCode => host_site })
+        new_response_object(json)
       end
 
       private
-      def self.array_of_objects_from_hash(json_hash, my_api)
-        employee_types = []
 
-        if json_hash.has_key?('ResponseEmployeeTypes')
-          if json_hash['ResponseEmployeeTypes'].has_key?('EmployeeTypes') &&
-            !json_hash['ResponseEmployeeTypes']['EmployeeTypes'].nil?
-
-            if json_hash['ResponseEmployeeTypes']['EmployeeTypes']['EmployeeType'].is_a?(Array)
-              json_hash['ResponseEmployeeTypes']['EmployeeTypes']['EmployeeType'].each do |et|
-                employee_types << Models::EmployeeType.new(et)
-              end
-            elsif json_hash['ResponseEmployeeTypes']['EmployeeTypes']['EmployeeType'].is_a?(Hash) && json_hash.length < 2
-              employee_types << Models::EmployeeType.new(json_hash['ResponseEmployeeTypes']['EmployeeTypes']['EmployeeType'])
-            end
-          end
-
-          my_api.append_api_responses(employee_types, json_hash['ResponseEmployeeTypes'])
-        end
-
-        my_api.append_api_responses(employee_types, json_hash)
+      def cb_client
+        @client ||= Cb.api_client.new
       end
 
+      def endpoint
+        Cb.configuration.uri_employee_types
+      end
+
+      def new_response_object(json_response)
+        Responses::EmployeeTypes::Search.new(json_response)
+      end
     end
+
   end
 end

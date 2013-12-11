@@ -11,7 +11,12 @@ module Cb
       expect(returned_convenience_class).to be_a klass
     end
 
-    ###Clients
+    context '#api_client' do
+      it 'returns the main CB utility client for POSTing and GETting' do
+        expect_method_to_return_class(:api_client, Cb::Utils::Api)
+      end
+    end
+
     context '#job' do
       it 'returns the job api client class' do
         expect_method_to_return_class(:job, Cb::Clients::Job)
