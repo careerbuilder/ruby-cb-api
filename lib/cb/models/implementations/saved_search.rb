@@ -48,11 +48,6 @@ module Cb
         @test                       = args['Test'].to_s || false
         @email_address              = args['EmailAddress'] || ''
         @country                    = args['Country'] || ''
-        if args.has_key?('SavedSearchParameters')
-          unless args['SavedSearchParameters'].empty?
-            @saved_search_parameters  = SavedSearch.new(args['SavedSearchParameters'])
-          end
-        end
       end
 
       def create_to_xml
