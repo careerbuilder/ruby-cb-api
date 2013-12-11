@@ -1,5 +1,5 @@
 module Cb
-  describe Responses::EmployeeTypes do
+  describe Responses::EmployeeTypes::Search do
     let(:json_hash) do
       { 'ResponseEmployeeTypes' => {
           'EmployeeTypes' => {
@@ -16,7 +16,7 @@ module Cb
 
     context '#new' do
       it 'returns an employee types response object' do
-        Responses::EmployeeTypes.new(json_hash).class.should eq Responses::EmployeeTypes
+        Responses::EmployeeTypes::Search.new(json_hash).class.should eq Responses::EmployeeTypes::Search
       end
     end
 
