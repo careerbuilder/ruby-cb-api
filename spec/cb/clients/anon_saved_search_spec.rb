@@ -6,7 +6,7 @@ module Cb
     before :each do
       @args = {
         'EmailAddress' => 'test@test.com',
-        'BrowserId'    => '123abc',
+        'BrowserID'    => '123abc',
         'SessionID'    => 'abs123',
         'HostSite'     => 'WR',
         'DeveloperKey' => 'HOORAY!',
