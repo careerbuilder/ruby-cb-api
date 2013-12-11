@@ -55,37 +55,6 @@ module Cb
         end
       end
 
-      class CbSavedSearchParameters
-        attr_accessor :boolean_operator, :category, :education_code, :emp_type, :exclude_company_names, :exclude_job_titles,
-                      :exclude_keywords, :exclude_national, :industry_codes, :job_title, :keywords, :location, :order_by,
-                      :order_direction, :pay_high, :pay_info_only, :pay_low, :posted_within, :radius, :specific_education,
-                      :country
-
-        def initialize(args = {})
-          @boolean_operator           = args['BooleanOperator'] || ''
-          @category                   = args['Category'] || ''
-          @education_code             = args['EducationCode'] || ''
-          @emp_type                   = args['EmpType'] || ''
-          @exclude_company_names      = args['ExcludeCompanyNames'] || ''
-          @exclude_job_titles         = args['ExcludeJobTitles'] || ''
-          @exclude_keywords           = args['ExcludeKeywords'] || ''
-          @exclude_national           = args['ExcludeNational'] || false
-          @industry_codes             = args['IndustryCodes'] || ''
-          @job_title                  = args['Jobtitle'] || ''
-          @keywords                   = args['Keywords'] || ''
-          @location                   = args['Location'] || ''
-          @order_by                   = args['OrderBy'] || ''
-          @order_direction            = args['OrderDirection'] || ''
-          @pay_high                   = args['PayHigh'] || 0
-          @pay_info_only              = args['PayInfoOnly'] || false
-          @pay_low                    = args['PayLow'] ||  0
-          @posted_within              = args['PostedWithin'] || 30
-          @radius                     = args['Radius'] || 30
-          @specific_education         = args['SpecificEducation'] || false
-          @country                    = args['Country'] || ''
-        end
-      end #CbSavedSearchParameters
-
       def create_to_xml
         ret =  "<Request>"
         ret += "<HostSite>#{@hostsite}</HostSite>"
