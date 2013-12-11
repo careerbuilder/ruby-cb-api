@@ -6,8 +6,11 @@ module Cb
     let(:cb_api_client)     { (Cb.api_client.new) }
 
     before(:each) do
-      cb_api_client.stub(:cb_get)
+      cb_api_client.stub(:cb_get).and_return({ 'bananas' => '4life' })
       Cb.api_client.stub(:new).and_return(cb_api_client)
+      response = double(Responses::EmployeeTypes)
+      response.stub(:class).and_return Responses::EmployeeTypes
+      Responses::EmployeeTypes.stub(:new).and_return(response)
     end
 
     context '#new' do
@@ -18,7 +21,7 @@ module Cb
 
     def returns_response_object(method, *args)
       response = client_under_test.send(method, *args)
-      response.should be_a Responses::EmployeeTypes
+      response.class.should eq Responses::EmployeeTypes
     end
 
     context '#search' do

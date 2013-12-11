@@ -28,7 +28,7 @@ module Cb
         raise NotImplementedError.new(__method__)
       end
 
-      def metadata_containing_node
+      def hash_containing_metadata
         raise NotImplementedError.new(__method__)
       end
 
@@ -47,7 +47,7 @@ module Cb
       end
 
       def extract_metadata
-        Metadata.new(metadata_containing_node)
+        Metadata.new(hash_containing_metadata)
       end
 
       def validated_models

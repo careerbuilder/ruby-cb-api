@@ -54,7 +54,7 @@ module Cb
     context 'when minimally overriden' do
 
       class BrokenDirtyResponse1 < Responses::ApiResponse
-        def metadata_containing_node
+        def hash_containing_metadata
           response['ResponseStuff']
         end
       end
@@ -113,12 +113,12 @@ module Cb
 
       context '#new' do
         context 'but is missing method implementations' do
-          context '--> metadata_containing_node <--' do
+          context '--> hash_containing_metadata <--' do
             it 'raises an error' do
               begin
                 Responses::ApiResponse.new(valid_input_hash)
               rescue NotImplementedError => err
-                err.message.include?('metadata_containing_node')
+                err.message.include?('hash_containing_metadata')
               end
             end
           end

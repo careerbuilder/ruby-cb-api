@@ -15,7 +15,7 @@ module Cb
           spot_hashes.map { |spot_data| Cb::Models::Spot.new(spot_data) }
         end
 
-        def metadata_containing_node
+        def hash_containing_metadata
           response[root_node]
         end
 
