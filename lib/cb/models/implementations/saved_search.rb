@@ -193,6 +193,14 @@ module Cb
 
         ret
       end
+
+      class Delete
+        attr_reader :status
+
+        def initialize(response_status)
+          @status = response_status
+        end
+      end
     end
 
   end

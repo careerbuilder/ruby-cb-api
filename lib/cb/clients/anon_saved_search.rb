@@ -1,39 +1,41 @@
 module Cb
   module Clients
+
     class AnonSavedSearch
-
-      def self.create *args
-        args = args[0] if args.is_a?(Array) && args.count == 1
-        my_api = Cb::Utils::Api.new
-        json_hash = my_api.cb_post Cb.configuration.uri_anon_saved_search_create, :body => Models::SavedSearch.new(args).create_anon_to_xml
-
-        if json_hash.has_key? 'AnonymousSavedSearch'
-          json_hash['AnonymousSavedSearch']['ExternalID'] = json_hash['ExternalID']
-        end
-
-        if json_hash.has_key?('Errors') && json_hash['Errors'].size < 1
-          saved_search = Models::SavedSearch.new(json_hash['AnonymousSavedSearch'])
-        else
-          saved_search = Models::SavedSearch.new(json_hash)
-        end
-
-        my_api.append_api_responses(saved_search, json_hash)
+      def create(*args)
+        body = new_model(*args).create_anon_to_xml
+        json = cb_client.cb_post(create_uri, :body => body)
+        Responses::AnonymousSavedSearch::Create.new(json)
       end
 
-      def self.delete *args
-        args = args[0] if args.is_a?(Array) && args.count == 1
-        my_api = Cb::Utils::Api.new
-        json_hash = my_api.cb_post Cb.configuration.uri_anon_saved_search_delete, :body => Models::SavedSearch.new(args).delete_anon_to_xml
-
-        if json_hash.has_key?('Errors') && json_hash['Errors'].size < 1
-          response = json_hash['Status']
-        else
-          response = json_hash['Errors']
-        end
-
-        my_api.append_api_responses(response, json_hash)
+      def delete(*args)
+        body = new_model(*args).delete_anon_to_xml
+        json = cb_client.cb_post(delete_uri, :body => body)
+        Responses::AnonymousSavedSearch::Delete.new(json)
       end
 
+      private
+
+      def new_model(*args)
+        Models::SavedSearch.new(extract_args(*args))
+      end
+
+      def extract_args(*args)
+        args.is_a?(Array) && args.count == 1 ? args[0] : args
+      end
+
+      def create_uri
+        Cb.configuration.uri_anon_saved_search_create
+      end
+
+      def delete_uri
+        Cb.configuration.uri_anon_saved_search_delete
+      end
+
+      def cb_client
+        @cb_client ||= Cb.api_client.new
+      end
     end
+
   end
 end
