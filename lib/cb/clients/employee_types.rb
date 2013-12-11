@@ -23,7 +23,7 @@ module Cb
       end
 
       def new_response_object(json_response)
-        Responses::EmployeeTypes.new(json_response)
+        Responses::EmployeeTypes::Search.new(json_response)
       end
     end
 
