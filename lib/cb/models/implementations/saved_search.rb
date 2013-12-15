@@ -5,7 +5,7 @@ module Cb
                     :emp_type, :exclude_company_names, :exclude_job_titles, :exclude_national, :industry_codes,
                     :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within,
                     :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_id,
-                    :external_user_id, :dev_key, :job_search_url, :jrdid, :errors, :browser_id, :session_id, :test, :email_address,
+                    :external_user_id, :job_search_url, :jrdid, :errors, :browser_id, :session_id, :test, :email_address,
                     :saved_search_parameters, :country
 
       def initialize(args={})
@@ -39,7 +39,6 @@ module Cb
         @email_delivery_day         = args['EmailDeliveryDay'] || ''
         @external_id                = args['ExternalID'] || ''
         @external_user_id           = args['ExternalUserID'] || ''
-        @dev_key                    = args['DeveloperKey'] || ''
         @job_search_url             = args['JobSearchUrl'] || ''
         @jrdid                      = args['JRDID'] || ''
         @errors                     = args['Errors'] || nil
@@ -82,10 +81,8 @@ module Cb
         ret += "</SearchParameters>"
         ret += "<IsDailyEmail>#{@is_daily_email.upcase}</IsDailyEmail>"
         ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
-        ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
-        ret += "</Request>"
-
-        ret
+        ret += "<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
+        ret + "</Request>"
       end
 
       def create_anon_to_xml
@@ -123,10 +120,8 @@ module Cb
         ret += "<Country>#{@country}</Country>"
         ret += "</SearchParameters>"
         ret += "<IsDailyEmail>#{@is_daily_email.upcase}</IsDailyEmail>"
-        ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
-        ret += "</Request>"
-
-        ret
+        ret += "<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
+        ret + "</Request>"
       end
 
       def update_to_xml
@@ -162,31 +157,31 @@ module Cb
         ret += "<IsDailyEmail>#{@is_daily_email}</IsDailyEmail>"
         ret += "<ExternalID>#{@external_id}</ExternalID>"
         ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
-        ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
-        ret += "</Request>"
-
-        ret
+        ret += "<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
+        ret + "</Request>"
       end
 
       def delete_to_xml
-        ret =  "<Request>"
-        ret += "<HostSite>#{@hostsite}</HostSite>"
-        ret += "<ExternalID>#{@external_id}</ExternalID>"
-        ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
-        ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
-        ret += "</Request>"
-
-        ret
+        Nokogiri::XML::Builder.new do
+          Request {
+            ExternalID     external_id
+            ExternalUserID external_user_id
+            HostSite       host_site
+            DeveloperKey   Cb.configuration.dev_key
+          }
+        end.to_xml
       end
 
-      def delete_anon_to_xml
-        ret =   "<Request>"
-        ret += "<DeveloperKey>#{@dev_key}</DeveloperKey>"
-        ret += "<ExternalID>#{@external_id}</ExternalID>"
-        ret += "<Test>#{@test}</Test>"
-        ret += "</Request>"
 
-        ret
+
+      def delete_anon_to_xml
+        Nokogiri::XML::Builder.new do
+          Request {
+            DeveloperKey Cb.configuration.dev_key
+            ExternalID   external_id
+            Test         false
+          }
+        end.to_xml
       end
 
       class Delete

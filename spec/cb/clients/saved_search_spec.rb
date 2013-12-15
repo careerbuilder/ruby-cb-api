@@ -17,15 +17,14 @@ module Cb
           to_return(:body => { SavedJobSearch: { Errors: nil, SavedSearch: Hash.new } }.to_json)
       end
 
-      it 'should send a successful request to the saved search create api v2' do
+      it 'should return a saved search retrieve response' do
         email_frequency = 'None'
         search_name = 'Fake Job Search 1'
+        model = Models::SavedSearch.new({'DeveloperKey' => Cb.configuration.dev_key, 'IsDailyEmail' => email_frequency,
+                                         'ExternalUserID' => @external_user_id, 'SearchName' => search_name,
+                                         'HostSite' => @host_site})
 
-        user_saved_search = Cb.saved_search.create({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
-                            'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
-                                  'HostSite'=>@host_site})
-        user_saved_search.cb_response.errors.nil?.should be_true
-        user_saved_search.api_error.should == false
+        Cb.saved_search.new.create(model).class.should eq Responses::SavedSearch::Retrieve
       end
     end
 
@@ -40,13 +39,12 @@ module Cb
         external_id = 'xid'
         email_frequency = 'None'
         search_name = 'Fake Job Search Update'
+        model = Models::SavedSearch.new({'DeveloperKey' => Cb.configuration.dev_key, 'IsDailyEmail' => email_frequency,
+                                         'ExternalUserID' => @external_user_id, 'SearchName' => search_name,
+                                         'HostSite' => @host_site, 'ExternalID' => external_id})
 
-        user_saved_search = Cb.saved_search.update({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
-                                                        'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
-                                                        'HostSite'=>@host_site, 'ExternalID'=>external_id})
-
-        user_saved_search.cb_response.errors.nil?.should be_true
-        user_saved_search.api_error.should == false
+        response = Cb.saved_search.new.update(model)
+        response.model.class.should eq Models::SavedSearch
       end
     end
 
@@ -59,12 +57,10 @@ module Cb
       context 'when the saved search node contains a hash' do
         before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: { a: 'b', b: 'c' } } } }) }
 
-        it 'should return an array with a single saved search' do
-          user_saved_search = Cb.saved_search.list(Cb.configuration.dev_key, @external_user_id, 'WM')
-
-          expect(user_saved_search).to be_an_instance_of Array
-          expect(user_saved_search.first).to be_an_instance_of Cb::Models::SavedSearch
-          expect(user_saved_search.api_error).to be == false
+        it 'should return an array with a saved search' do
+          user_saved_search = Cb.saved_search.new.list(@external_user_id, 'WM')
+          expect(user_saved_search.models).to be_an_instance_of Array
+          expect(user_saved_search.models.first).to be_an_instance_of Cb::Models::SavedSearch
         end
       end
 
@@ -72,12 +68,9 @@ module Cb
         before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: [Hash.new, Hash.new] } } }) }
 
         it 'should return an array of saved searches' do
-          user_saved_search = Cb.saved_search.list(Cb.configuration.dev_key, @external_user_id, 'WM')
-
-          expect(user_saved_search).to be_an_instance_of Array
-          expect(user_saved_search.first).to be_an_instance_of Cb::Models::SavedSearch
-          expect(user_saved_search[1]).to be_an_instance_of Cb::Models::SavedSearch
-          expect(user_saved_search.api_error).to be == false
+          user_saved_search = Cb.saved_search.new.list(@external_user_id, 'WM')
+          expect(user_saved_search.models).to be_an_instance_of Array
+          expect(user_saved_search.models.first).to be_an_instance_of Cb::Models::SavedSearch
         end
       end
     end
@@ -88,11 +81,9 @@ module Cb
           to_return(:body => { SavedJobSearch: { Errors: nil, SavedSearch: Hash.new } }.to_json)
       end
 
-      it 'should retrieve the first saved search' do
-        user_saved_search = Cb::Clients::SavedSearch.retrieve(Cb.configuration.dev_key, @external_user_id, 'xid', @host_site)
-
-        expect(user_saved_search.cb_response.errors.nil?).to eq(true)
-        expect(user_saved_search.api_error).to be == false
+      it 'should return a saved search model' do
+        response = Cb::Clients::SavedSearch.new.retrieve(@external_user_id, 'xid', @host_site)
+        response.model.should be_an_instance_of(Models::SavedSearch)
       end
     end
 
@@ -102,11 +93,9 @@ module Cb
           to_return(:body => { Request: { Errors: nil } }.to_json)
       end
 
-      it 'should delete the first saved search' do
-        user_saved_search = Cb.saved_search.delete({'DeveloperKey'=>Cb.configuration.dev_key, 'ExternalID'=>'xid','ExternalUserID'=>@external_user_id, 'HostSite'=>@host_site})
-
-        user_saved_search.cb_response.errors.blank?.should == true
-        user_saved_search.api_error.should == false
+      it 'should delete a saved search without error' do
+        model = Models::SavedSearch.new({'ExternalID'=>'xid','ExternalUserID'=>@external_user_id, 'HostSite'=>@host_site})
+        Cb.saved_search.new.delete(model)
       end
     end
 
