@@ -15,7 +15,11 @@ module Cb
         end
 
         def extract_models
-          Models::SavedSearch.new(response[root_node][model_node])
+          # these IDs comes back in weird places in the response hash,
+          # we need to move it around a little bit so things work correctly.
+          model_hash[user_id_node] = response[user_id_node]
+          model_hash[search_id_node] = response[search_id_node]
+          Models::SavedSearch.new(model_hash)
         end
 
         private
@@ -26,6 +30,18 @@ module Cb
 
         def model_node
           'SavedSearch'
+        end
+
+        def user_id_node
+          'ExternalUserID'
+        end
+
+        def search_id_node
+          'ExternalID'
+        end
+
+        def model_hash
+          response[root_node][model_node]
         end
       end
 

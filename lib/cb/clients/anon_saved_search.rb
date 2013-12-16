@@ -17,6 +17,7 @@ module Cb
       private
 
       def new_model(*args)
+        return args.first if args.respond_to?(:[]) && args.first.is_a?(Models::SavedSearch)
         Models::SavedSearch.new(extract_args(*args))
       end
 

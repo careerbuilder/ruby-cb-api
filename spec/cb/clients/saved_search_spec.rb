@@ -32,7 +32,7 @@ module Cb
       before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_update)).
           with(:body => anything).
-          to_return(:body => { Errors: nil, SavedJobSearch: Hash.new }.to_json)
+          to_return(:body => { Errors: nil, SavedJobSearch: { SavedSearch: Hash.new } }.to_json)
       end
 
       it 'should update the saved search created in this test' do
@@ -90,7 +90,7 @@ module Cb
     context '.delete' do
       before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_delete)).
-          to_return(:body => { Request: { Errors: nil } }.to_json)
+          to_return(:body => { Errors: nil, Status: 'Success' }.to_json)
       end
 
       it 'should delete a saved search without error' do

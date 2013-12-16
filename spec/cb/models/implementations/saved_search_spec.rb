@@ -15,7 +15,7 @@ module Cb
         
         user_saved_search.should be_a_kind_of(Cb::Models::SavedSearch)
         user_saved_search.is_daily_email.should == email_frequency
-        user_saved_search.hostsite.should == host_site
+        user_saved_search.host_site.should == host_site
         user_saved_search.search_name.should == search_name
         user_saved_search.external_user_id.should == external_id
         

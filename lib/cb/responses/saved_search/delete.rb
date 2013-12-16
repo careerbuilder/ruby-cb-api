@@ -6,7 +6,7 @@ module Cb
         protected
 
         def validate_api_hash
-          required_response_field(root_node, response)
+          raise "Response can't be nil!" if response.nil?
         end
 
         def hash_containing_metadata
@@ -14,13 +14,11 @@ module Cb
         end
 
         def extract_models
-          Models::SavedSearch.new(response[root_node])
+          Models::SavedSearch::Delete.new(response)
         end
 
-        private
-
-        def root_node
-          'Request'
+        def raise_on_timing_parse_error
+          false
         end
       end
 

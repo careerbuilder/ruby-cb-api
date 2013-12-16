@@ -10,17 +10,11 @@ module Cb
         end
 
         def validate_api_hash
-          required_response_field(status_node, response)
+          required_response_field('Status', response)
         end
 
         def extract_models
-          Models::SavedSearch::Delete.new(response[status_node])
-        end
-
-        private
-
-        def status_node
-          'Status'
+          Models::SavedSearch::Delete.new(response)
         end
       end
 
