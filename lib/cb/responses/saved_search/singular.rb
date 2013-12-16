@@ -2,7 +2,7 @@ module Cb
   module Responses
     module SavedSearch
 
-      class Retrieve < ApiResponse
+      class Singular < ApiResponse
         protected
 
         def validate_api_hash

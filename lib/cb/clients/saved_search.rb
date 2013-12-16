@@ -58,7 +58,7 @@ module Cb
       def singular_model_response(json_hash, external_user_id = nil, external_id = nil)
         json_hash['ExternalUserID'] = external_user_id unless external_user_id.nil?
         json_hash['ExternalID'] = external_id unless external_id.nil?
-        Responses::SavedSearch::Retrieve.new(json_hash)
+        Responses::SavedSearch::Singular.new(json_hash)
       end
     end
 

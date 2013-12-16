@@ -24,7 +24,7 @@ module Cb
                                          'ExternalUserID' => @external_user_id, 'SearchName' => search_name,
                                          'HostSite' => @host_site})
 
-        Cb.saved_search.new.create(model).class.should eq Responses::SavedSearch::Retrieve
+        Cb.saved_search.new.create(model).class.should eq Responses::SavedSearch::Singular
       end
     end
 
