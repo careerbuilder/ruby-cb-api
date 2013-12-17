@@ -7,6 +7,7 @@ module Cb
 
         def validate_api_hash
           raise "Response can't be nil!" if response.nil?
+          required_response_field('Status', response)
         end
 
         def hash_containing_metadata

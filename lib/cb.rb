@@ -12,7 +12,7 @@ end
    /cb/models/**/*.rb /cb/responses/*.rb /cb/responses/**/*.rb).each { |path| require_directory path }
 
 module Cb
-  extend Cb::Convenience::ClassMethods
+  extend Convenience::ClassMethods
 
   def self.configure
 		yield configuration

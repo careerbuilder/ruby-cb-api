@@ -29,6 +29,10 @@ module Cb
       def education_code
         Cb::Clients::Education
       end
+
+      def employee_types
+        Cb::Clients::EmployeeTypes
+      end
   
       def recommendation
         Cb::Clients::Recommendation
