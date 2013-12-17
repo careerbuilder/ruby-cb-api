@@ -1,5 +1,40 @@
 module Cb
 	class CbJob
+    
+    # Superclasses +attr_accessor+ to create a
+    # collection of attribute names on the class
+    def self.attr_accessor(*args)
+      @@attribute_names = args
+      super *args
+    end
+
+    # Returns a collection of attribute names
+    def self.attribute_names
+      @@attribute_names
+    end
+
+    # Returns a collection of attribute names on
+    # an instance 
+    def attribute_names
+      @@attribute_names
+    end
+
+    # Returns a hash of attributes and their values
+    # by looping through +attribute_names+ and sending
+    # them to the instance
+    #   cb_job.attributes 
+    #   # => { did: 1, title: "Ruby Developer", ... }
+    #
+    #   cb_job.attributes.slice(:state, :city, :zip) 
+    #   # => { state: 'NY', city: 'New York City', zip: 10010 }
+    def attributes
+      attributes = {}
+      attribute_names.each do |attribute|
+        attributes[attribute] = send attribute
+      end
+      attributes
+    end
+
     attr_accessor :did, :title, :job_skin, :job_skin_did, :job_branding, :pay, :pay_per, :commission, :bonus, :pay_other,
                   :categories, :category_codes, :degree_required, :experience_required, :travel_required,
                   :industry_codes, :manages_others_code,
