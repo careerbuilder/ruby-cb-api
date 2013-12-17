@@ -41,6 +41,7 @@ module Cb
       def self.find_by_did(did)
         criteria = Cb::Criteria::Job::Details.new
         criteria.did = did
+        criteria.show_custom_values = true
         return find_by_criteria(criteria)
       end
 

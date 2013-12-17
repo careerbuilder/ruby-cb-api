@@ -67,6 +67,7 @@ module Cb
 
           Cb::Clients::Job.should_receive(:find_by_criteria).with(criteria)
           criteria.should_receive(:did=).with(did)
+          criteria.should_receive(:show_custom_values=).with(true)
 
           Cb::Clients::Job.find_by_did(did)
         end
