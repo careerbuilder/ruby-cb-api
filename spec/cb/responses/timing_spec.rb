@@ -35,8 +35,8 @@ module Cb
       end
 
       context 'when the input hash is lacking the field' do
-        it 'contains a DateTime of the epoch' do
-          Responses::Timing.new({}).response_sent.should eq DateTime.new
+        it 'contains nil' do
+          Responses::Timing.new({}).response_sent.should eq nil
         end
       end
     end

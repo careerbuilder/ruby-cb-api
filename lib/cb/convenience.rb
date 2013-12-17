@@ -2,6 +2,10 @@ module Cb
   module Convenience
     module ClassMethods
 
+      def api_client
+        Cb::Utils::Api
+      end
+
       def job
         Cb::Clients::Job
       end
@@ -28,10 +32,6 @@ module Cb
   
       def recommendation
         Cb::Clients::Recommendation
-      end
-  
-      def resume
-        Cb::Clients::Resume
       end
   
       def application

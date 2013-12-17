@@ -28,8 +28,12 @@ module Cb
         raise NotImplementedError.new(__method__)
       end
 
-      def metadata_containing_node
+      def hash_containing_metadata
         raise NotImplementedError.new(__method__)
+      end
+
+      def raise_on_timing_parse_error
+        true
       end
 
       def required_response_field(field_name, parent_hash)
@@ -47,7 +51,7 @@ module Cb
       end
 
       def extract_metadata
-        Metadata.new(metadata_containing_node)
+        Metadata.new(hash_containing_metadata, raise_on_timing_parse_error)
       end
 
       def validated_models

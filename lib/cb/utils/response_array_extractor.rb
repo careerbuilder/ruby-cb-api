@@ -2,14 +2,14 @@ module Cb
   module Utils
     class ResponseArrayExtractor
 
-      def self.extract(response_hash, key)
-        self.new(response_hash, key).extract
+      def self.extract(response_hash, key, singular_key = nil)
+        self.new(response_hash, key, singular_key).extract
       end
 
-      def initialize(response_hash, key)
+      def initialize(response_hash, key, singular_key)
         @response_hash = response_hash
         @key = key
-        @singular_key = key[0..key.length-2]
+        @singular_key = singular_key || key[0..key.length-2]
       end
 
       def extract

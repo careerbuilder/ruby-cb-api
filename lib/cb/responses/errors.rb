@@ -35,7 +35,7 @@ module Cb
       end
 
       def error_array?(key, value)
-        key.downcase == 'error' && value.is_a?(Array)
+        (key.downcase == 'error' || key.downcase == 'errors') && value.is_a?(Array)
       end
 
       def method_missing(method, *args, &block)
