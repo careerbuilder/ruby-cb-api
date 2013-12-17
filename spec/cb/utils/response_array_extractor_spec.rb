@@ -10,6 +10,7 @@ module Cb
             'Animal' => 'Moose'
           }
         }}
+
         it 'an array with the single item should be returned' do
           animals = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Animals')
           animals.class.should == Array
@@ -24,6 +25,7 @@ module Cb
             'Animal' => ['Moose', 'Kitty'] 
           } 
         }}
+
         it 'an array with multiple items should be returned' do
           animals = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Animals')
           animals.class.should == Array
@@ -31,6 +33,24 @@ module Cb
           animals[0].should == 'Moose'
           animals[1].should == 'Kitty'
         end 
+      end
+
+      context 'When an optional singular key is provided' do
+        let(:response_hash) do
+          {
+            'Matches' => {
+              'Match' => ['FUN!', 'Excite!']
+            }
+          }
+        end
+
+        it 'is still able to parse' do
+          matches = ResponseArrayExtractor.extract(response_hash, 'Matches', 'Match')
+          matches.class.should == Array
+          matches.count.should == 2
+          matches[0].should == 'FUN!'
+          matches[1].should == 'Excite!'
+        end
       end
 
       context 'When a response hash contains a single item' do

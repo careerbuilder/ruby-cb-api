@@ -1,12 +1,13 @@
 module Cb
-  module Branding
-    module Styles
+  module Models
+    module Branding
+      module Styles
 
-      class Container < Base
-        include CssAdapter
+        class Container < Base
+          include CssAdapter
+        end
 
       end
-
     end
   end
 end

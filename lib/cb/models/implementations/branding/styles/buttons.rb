@@ -1,12 +1,13 @@
 module Cb
-  module Branding
-    module Styles
+  module Models
+    module Branding
+      module Styles
 
-      class Buttons < Base
-        include Cb::Branding::Styles::CssAdapter
+        class Buttons < Base
+          include CssAdapter
+        end
 
       end
     end
   end
-
 end

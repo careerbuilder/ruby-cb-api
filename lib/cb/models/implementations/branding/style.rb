@@ -1,17 +1,17 @@
 module Cb
-  module Branding
+  module Models
+    module Branding
 
-    class Style
+      class Style
+        attr_accessor :page, :job_details, :company_info
 
-      attr_accessor :page, :job_details, :company_info
-
-      def initialize args = {}
-        @page = Cb::Branding::Styles::Page.new args['Page']
-        @job_details = Cb::Branding::Styles::JobDetails.new args['JobDetails']
-        @company_info = Cb::Branding::Styles::CompanyInfo.new args['CompanyInfo']
+        def initialize(args = {})
+          @page         = Styles::Page.new args['Page']
+          @job_details  = Styles::JobDetails.new args['JobDetails']
+          @company_info = Styles::CompanyInfo.new args['CompanyInfo']
+        end
       end
 
     end
-
   end
 end
