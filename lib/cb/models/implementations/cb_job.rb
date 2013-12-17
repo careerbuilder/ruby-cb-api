@@ -13,7 +13,7 @@ module Cb
                   :can_be_quick_applied, :apply_requirements,
                   :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id,
                   :manages_others_string,
-                  :degree_required_code, :travel_required_code, :employment_type_code
+                  :degree_required_code, :travel_required_code, :employment_type_code, :args
 
     attr_writer   :external_application, :is_screener_apply,
                   :is_shared_job,
@@ -26,6 +26,7 @@ module Cb
 		##############################################################
     def initialize(args = {})
       return if args.nil?
+      @args = args
 
       # General
       @did                          = args['DID'] || args['JobDID'] || ''

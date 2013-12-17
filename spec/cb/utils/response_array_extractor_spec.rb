@@ -33,6 +33,45 @@ module Cb
         end 
       end
 
+      context 'When a response hash contains a single item' do
+        let(:response_hash) {{
+            'Hello' => 'world'
+        }}
+        it 'an array of a single item should be returned' do
+          test = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Hello')
+          test.class.should == Array
+          test.count.should == 1
+          test[0].should == 'world'
+        end
+      end
+
+      context 'When a response hash contains a list of items' do
+        let(:response_hash) {{
+            'Hello' => 'world,this,is,awesome'
+        }}
+        it 'an array of items should be returned' do
+          test = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Hello')
+          test.class.should == Array
+          test.count.should == 4
+          test[0].should == 'world'
+          test[1].should == 'this'
+          test[2].should == 'is'
+          test[3].should == 'awesome'
+        end
+      end
+
+      context 'When a response hash contains a single item and not a hash' do
+        let(:response_hash) {
+          'hello'
+        }
+        it 'an array of items should be returned' do
+          test = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Hello')
+          test.class.should == Array
+          test.count.should == 0
+          test.should == []
+        end
+      end
+
     end
   end
 end
