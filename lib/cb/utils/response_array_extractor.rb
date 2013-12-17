@@ -16,7 +16,7 @@ module Cb
         if response_has_collection?
           extract_array_from_collection
         elsif response_has_array?
-          build_array_from_single_value
+          build_array_from_delimited_values
         else
           []
         end
@@ -32,7 +32,7 @@ module Cb
         !@response_hash[@key].nil? && !@response_hash[@key][@singular_key].nil?
       end
 
-      def build_array_from_single_value
+      def build_array_from_delimited_values
         @response_hash[@key].split(',')
       end
 
