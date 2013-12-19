@@ -4,15 +4,14 @@ module Cb
   module Clients
     class Job
 
-      def self.search(*args)
-        args = args[0] if args.is_a?(Array) && args.count == 1
+      def self.search(api_arguments)
         my_api = Cb::Utils::Api.new
-        json_hash = my_api.cb_get(Cb.configuration.uri_job_search, :query => args)
+        json_hash = my_api.cb_get(Cb.configuration.uri_job_search, :query => api_arguments)
 
         jobs = Array.new
         if !json_hash['ResponseJobSearch'].nil? && !json_hash['ResponseJobSearch']['Results'].nil?
           job_results = json_hash['ResponseJobSearch']['Results']['JobSearchResult']
-          job_results = [job_results] if !job_results.is_a?(Array)
+          job_results = [job_results] unless job_results.is_a?(Array)
           job_results.each { |job_hash| jobs.push(Models::Job.new(job_hash)) }
           my_api.append_api_responses(jobs, json_hash['ResponseJobSearch'])
 

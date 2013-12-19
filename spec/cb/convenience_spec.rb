@@ -23,12 +23,6 @@ module Cb
       end
     end
 
-    context '#job_search_criteria' do
-      it 'returns an instance of the job search criteria class' do
-        expect_method_to_return_type_of_class(:job_search_criteria, Cb::Criteria::Job::Search)
-      end
-    end
-
     context '#job_detail_criteria' do
       it 'returns an instance of the job search criteria class' do
         expect_method_to_return_type_of_class(:job_details_criteria, Cb::Criteria::Job::Details)

@@ -10,10 +10,6 @@ module Cb
         Cb::Clients::Job
       end
   
-      def job_search_criteria
-        Cb::Criteria::Job::Search.new
-      end
-  
       def job_details_criteria
         Cb::Criteria::Job::Details.new
       end
