@@ -4,9 +4,9 @@ module Cb
   module Clients
     class Job
 
-      def self.search(api_arguments)
+      def self.search(api_args_hash)
         my_api = Cb::Utils::Api.new
-        json_hash = my_api.cb_get(Cb.configuration.uri_job_search, :query => api_arguments)
+        json_hash = my_api.cb_get(Cb.configuration.uri_job_search, :query => api_args_hash)
 
         jobs = Array.new
         if !json_hash['ResponseJobSearch'].nil? && !json_hash['ResponseJobSearch']['Results'].nil?
