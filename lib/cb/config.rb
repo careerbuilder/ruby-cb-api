@@ -9,7 +9,7 @@ module Cb
                   :uri_application, :uri_application_submit,
                   :uri_application_external,
                   :uri_application_registered, :uri_user_change_password,
-                  :uri_user_delete, :uri_user_retrieve,
+                  :uri_user_delete, :uri_user_retrieve, :uri_user_check_existing,
                   :uri_job_branding,
                   :uri_resume_own_all, :uri_resume_retrieve,
                   :uri_resume_create, :uri_resume_update, :uri_resume_delete,
@@ -43,6 +43,7 @@ module Cb
       @uri_user_change_password           ||= '/v2/User/ChangePW'
       @uri_user_delete                    ||= '/v2/User/delete'
       @uri_user_retrieve                  ||= '/v2/user/retrieve'
+      @uri_user_check_existing            ||= '/v2/user/checkexisting'
       @uri_job_branding                   ||= '/branding'
       @uri_resume_own_all                 ||= '/v2/resume/ownall'
       @uri_resume_retrieve                ||= '/v2/resume/retrieve'
@@ -88,6 +89,7 @@ module Cb
         :uri_application_external         => @uri_application_external,
         :uri_user_change_password         => @uri_user_change_password,
         :uri_user_retrieve                => @uri_user_retrieve,
+        :uri_user_check_existing          => @uri_user_check_existing,
         :uri_job_branding                 => @uri_job_branding,
         :uri_resume_own_all               => @uri_resume_own_all,
         :uri_resume_retrieve              => @uri_resume_retrieve,
