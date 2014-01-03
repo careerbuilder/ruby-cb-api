@@ -44,13 +44,6 @@ module Cb
         singular_model_response(json_response, criteria.did)
       end
 
-
-      def retrieve(external_user_id, external_id, host_site)
-        query = retrieve_query(external_user_id, external_id, host_site)
-        json = cb_client.cb_get(Cb.configuration.uri_saved_search_retrieve, :query => query)
-        singular_model_response(json, external_user_id, external_id)
-      end
-
       def self.find_by_did(did)
         criteria = Cb::Criteria::Job::Details.new
         criteria.did = did
