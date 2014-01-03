@@ -15,7 +15,6 @@ module Cb
         end
 
         def extract_models
-          p " - - Should return Cb::Models::Job !! - - "
           Models::Job.new(model_hash)
         end
 

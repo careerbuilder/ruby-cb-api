@@ -66,8 +66,8 @@ module Cb
 
       context 'with a criteria object as the input param' do
         it 'returns a single job model' do
-          model = Cb::Clients::Job.new.find_by_criteria(criteria)
-          expect(model).to be_an_instance_of Cb::Models::Job
+          response = Cb::Clients::Job.new.find_by_criteria(criteria)
+          expect(response.model).to be_an_instance_of Cb::Models::Job
         end
       end
 
