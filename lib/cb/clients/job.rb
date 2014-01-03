@@ -37,6 +37,20 @@ module Cb
         my_api.append_api_responses(job, json_hash)
       end
 
+      def find_by_criteria(criteria)
+        my_api = Cb::Utils::Api.new
+        query = my_api.class.criteria_to_hash(criteria)
+        json_response = cb_client.cb_get(Cb.configuration.uri_job_find, :query => query)
+        singular_model_response(json_response, criteria.did)
+      end
+
+
+      def retrieve(external_user_id, external_id, host_site)
+        query = retrieve_query(external_user_id, external_id, host_site)
+        json = cb_client.cb_get(Cb.configuration.uri_saved_search_retrieve, :query => query)
+        singular_model_response(json, external_user_id, external_id)
+      end
+
       def self.find_by_did(did)
         criteria = Cb::Criteria::Job::Details.new
         criteria.did = did
@@ -51,6 +65,16 @@ module Cb
         response_hash['SearchMetaData']['SearchLocations'] &&
         response_hash['SearchMetaData']['SearchLocations']['SearchLocation']
       end
+
+      def cb_client
+        @cb_client ||= Cb.api_client.new
+      end
+
+      def singular_model_response(json_hash, did = nil)
+        json_hash['DID'] = did unless did = nil?
+        Responses::Job::Singular.new(json_hash)
+      end
+
     end
   end
 end
