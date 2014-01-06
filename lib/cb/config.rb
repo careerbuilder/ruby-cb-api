@@ -36,7 +36,7 @@ module Cb
       @uri_recommendation_for_job         ||= '/v1/Recommendations/ForJob'
       @uri_recommendation_for_user        ||= '/v1/Recommendations/ForUser'
       @uri_recommendation_for_company     ||= '/Employer/JobRecommendation'
-      @uri_application                    ||= '/v1/application/blank'
+      @uri_application                    ||= '/cbapi/application/:did'
       @uri_application_submit             ||= '/v1/Application/submit'
       @uri_application_registered         ||= '/v3/application/registered'
       @uri_application_external           ||= '/v1/application/external'

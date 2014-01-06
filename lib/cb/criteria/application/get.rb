@@ -4,7 +4,7 @@ module Cb
       class Get
         extend Cb::Utils::FluidAttributes
 
-        fluid_attr_accessor :application_did
+        fluid_attr_accessor :did
       end
     end
   end
