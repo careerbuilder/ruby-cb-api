@@ -90,10 +90,8 @@ module Cb
 
         context 'with no response' do
           before :all do
-            # let(:response)          { double(HTTParty::Response) }
-            # let(:response_property) { double('HTTParty::Response.response') }
             stub_request(:get, uri_stem(Cb.configuration.uri_job_find)).
-              to_return(:body => '<!DOCTYPE html></html>')
+              to_return(:body => nil)
           end
           it 'throws an exception' do
             expect { Cb::Clients::Job.new.find_by_criteria(criteria) }.to raise_exception Cb::ApiResponseError
