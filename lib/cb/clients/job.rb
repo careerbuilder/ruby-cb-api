@@ -64,10 +64,8 @@ module Cb
       end
 
       def singular_model_response(json_hash, did = nil)
-        json_hash['DID'] = did unless did = nil?
         Responses::Job::Singular.new(json_hash)
       end
-
     end
   end
 end
