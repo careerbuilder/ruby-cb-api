@@ -1,6 +1,8 @@
+require 'cb/responses/api_response'
+
 module Cb
   module Responses
-    class Application < Responses::ApiResponse
+    class Application < ApiResponse
 
       protected
 
