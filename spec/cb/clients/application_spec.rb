@@ -8,7 +8,7 @@ module Cb
         Cb.configuration.dev_key = 'mydevkey'
         Cb.configuration.host_site = 'US'
       }
-
+      let(:response_stub) { YAML.load open('spec/support/response_stubs/application/get.yml') }
       let(:criteria) { Criteria::Application::Get.new.did('app_did') }
       let(:client) { Clients::Application }
 
@@ -39,11 +39,6 @@ module Cb
         end
 
         client.get(criteria)
-      end
-
-
-      def response_stub
-        @response_stub ||= YAML.load open('spec/support/response_stubs/application/get.yml')
       end
 
     end
