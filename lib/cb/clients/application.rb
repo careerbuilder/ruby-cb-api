@@ -15,8 +15,8 @@ module Cb
 
         def headers
           {
-            DeveloperKey: Cb.configuration.dev_key,
-            HostSite: Cb.configuration.host_site
+            'DeveloperKey' => Cb.configuration.dev_key,
+            'HostSite' => Cb.configuration.host_site
           }
         end
 

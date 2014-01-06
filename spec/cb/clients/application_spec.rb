@@ -27,7 +27,7 @@ module Cb
 
       it 'sends #cb_get to api_client headers with the developer_key' do
         Cb::Utils::Api.any_instance.should_receive(:cb_get).with do |uri, hash|
-          hash[:headers][:DeveloperKey] == 'mydevkey'
+          hash[:headers]['DeveloperKey'] == 'mydevkey'
         end
 
         client.get(criteria)
@@ -35,7 +35,7 @@ module Cb
 
       it 'sends #cb_get to api_client headers with the host_site' do
         Cb::Utils::Api.any_instance.should_receive(:cb_get).with do |uri, hash|
-          hash[:headers][:HostSite] == 'US'
+          hash[:headers]['HostSite'] == 'US'
         end
 
         client.get(criteria)

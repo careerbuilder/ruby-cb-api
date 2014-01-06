@@ -12,7 +12,7 @@ module Cb
 
       def set_model_properties
         @resume = api_response['Resume']
-        @is_submitted = api_response['IsSubmitted'] == 'true'
+        @is_submitted = api_response['IsSubmitted'].to_s == 'true'
         @bid = api_response['BID']
         @sid = api_response['SID']
         @site_id = api_response['SiteID']
