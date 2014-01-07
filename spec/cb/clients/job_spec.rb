@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Cb
   describe Cb::Clients::Job do
-    context '.search' do
+    context '::search' do
       context 'when the search returns with results' do
         before(:each) do
           content = { ResponseJobSearch: {
@@ -40,7 +40,7 @@ module Cb
 
     end
 
-    context '.find_by_criteria' do
+    context '::find_by_criteria' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_job_find)).
           to_return(:body => { ResponseJob: { Job: Hash.new } }.to_json)
@@ -53,10 +53,54 @@ module Cb
           model = Cb::Clients::Job.find_by_criteria(criteria)
           expect(model).to be_an_instance_of Cb::Models::Job
         end
+
+        it 'returns a single job model' do
+          model = Cb::Clients::Job.find_by_criteria(criteria)
+          expect(model).to be_an_instance_of Cb::Models::Job
+        end
       end
     end
 
-    context '.find_by_did' do
+    context '#find_by_criteria' do
+      context 'with a criteria object as the input param' do
+      let(:criteria) { Cb::Criteria::Job::Details.new }
+
+        context 'when the job exists' do
+          before :all do
+            stub_request(:get, uri_stem(Cb.configuration.uri_job_find)).
+              to_return(:body => { ResponseJob: {Job: Hash.new } }.to_json)
+          end
+
+          it 'returns a single job model' do
+            response = Cb::Clients::Job.new.find_by_criteria(criteria)
+            expect(response.model).to be_an_instance_of Cb::Models::Job
+          end
+        end
+
+        context 'when the job is expired or doesn\'t exist' do
+          before :all do
+            stub_request(:get, uri_stem(Cb.configuration.uri_job_find)).
+              to_return(:body => { ResponseJob: { Errors: { Error: "No Job Here!" }} } .to_json)
+          end
+
+          it 'throws an exception' do
+            expect { Cb::Clients::Job.new.find_by_criteria(criteria) }.to raise_exception Cb::ApiResponseError
+          end
+        end
+
+        context 'with no response' do
+          before :all do
+            stub_request(:get, uri_stem(Cb.configuration.uri_job_find)).
+              to_return(:body => nil)
+          end
+          it 'throws an exception' do
+            expect { Cb::Clients::Job.new.find_by_criteria(criteria) }.to raise_exception Cb::ApiResponseError
+          end
+        end
+      end
+    end
+
+    context '::find_by_did' do
       context 'when a string job did is input' do
         let(:criteria) { double(Cb::Criteria::Job::Details) }
 
