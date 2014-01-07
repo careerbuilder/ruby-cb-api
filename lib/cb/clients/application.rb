@@ -27,7 +27,8 @@ module Cb
         end
 
         def uri(criteria)
-          Cb.configuration.uri_application.sub ':did', criteria.did.to_s
+          did = criteria.did ? criteria.did : criteria.job_did
+          Cb.configuration.uri_application.sub ':did', did
         end
 
         def headers

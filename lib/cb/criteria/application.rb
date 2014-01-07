@@ -41,14 +41,6 @@ module Cb
         end.to_xml
       end
 
-      private
-
-      def responses_xml
-        responses.map do |response|
-          response.to_xml
-        end
-      end
-
     end
   end
 end
