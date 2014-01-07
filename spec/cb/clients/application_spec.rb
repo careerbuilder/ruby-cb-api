@@ -60,7 +60,7 @@ module Cb
         ).to be_a Responses::Application
       end
 
-      it 'sends #cb_post to api_client a uri with the application_did' do
+      it 'sends #cb_post to api_client a uri with the job_did' do
         expected_uri = "/cbapi/application/#{criteria.job_did}"
         Cb::Utils::Api.any_instance.should_receive(:cb_post).with(expected_uri, anything)
 
