@@ -2,12 +2,14 @@ require 'json'
 
 module Cb
   module Clients
-    class Job
+    class Job < ApiRequest
 
       attr_accessor :cb_client
 
       def initialize
-        @cb_client ||= Cb.api_client.new
+        @list_endpoint = Cb.configuration.uri_job_search
+        @show_endpoint = Cb.configuration.uri_job_find
+        super
       end
 
       def self.search(api_args_hash)
@@ -45,7 +47,7 @@ module Cb
 
       def find_by_criteria(criteria)
         query = cb_client.class.criteria_to_hash(criteria)
-        json_response = cb_client.cb_get(Cb.configuration.uri_job_find, :query => query)
+        json_response = cb_client.cb_get(@show_endpoint, :query => query)
         singular_model_response(json_response, criteria.did)
       end
 
