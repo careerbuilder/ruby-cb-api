@@ -16,7 +16,7 @@ module Cb
         def cb_call(http_method, criteria)
           options = { headers: headers }
           if [:post, :put].include? http_method
-            options[:body] = criteria.to_xml
+            options[:body] = criteria.to_json
           end
 
           api_client.method(:"cb_#{http_method}").call uri(criteria), options
@@ -34,7 +34,8 @@ module Cb
         def headers
           {
             'DeveloperKey' => Cb.configuration.dev_key,
-            'HostSite' => Cb.configuration.host_site
+            'HostSite' => Cb.configuration.host_site,
+            'Content-Type' => 'application/json'
           }
         end
 
