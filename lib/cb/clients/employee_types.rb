@@ -1,6 +1,5 @@
 module Cb
   module Clients
-
     class EmployeeTypes < ApiRequest
 
       def initialize
