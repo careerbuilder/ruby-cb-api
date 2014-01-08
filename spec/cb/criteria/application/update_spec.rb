@@ -1,18 +1,19 @@
 require 'spec_helper'
 
-module Cb
-  describe Criteria::Application do
+module Cb::Criteria
+  describe Application::Update do
 
     describe '#to_json' do
       it 'converts the criteria to json' do
-        puts criteria.to_json
         expect(criteria.to_json).to eq(expected_json)
       end
     end
 
     let(:criteria) {
-      Criteria::Application.new
+      Application::Update.new
+      .application_did('ja_123')
       .job_did('job_123')
+      .is_submitted(true)
       .external_user_id('external_user_123')
       .bid('bid_123')
       .sid('sid_123')
@@ -24,7 +25,7 @@ module Cb
       .responses(responses)
     }
     let(:resume) {
-      Criteria::Application::Resume.new
+      Application::Resume.new
       .external_resume_id('external_resume_123')
       .resume_file_name('my resume')
       .resume_data(1010101010101)
@@ -32,22 +33,24 @@ module Cb
       .resume_title('Nurse')
     }
     let(:cover_letter) {
-      Criteria::Application::CoverLetter.new
+      Application::CoverLetter.new
       .cover_letter_id('cover_letter_123')
       .cover_letter_text('yeah hi')
       .cover_letter_title('best nurse ever')
     }
     let(:responses) {
       [
-          Criteria::Application::Response.new
-          .question_id('question_123')
-          .response_text('Yes please')
+        Application::Response.new
+        .question_id('question_123')
+        .response_text('Yes please')
       ]
     }
 
     let(:expected_json) {
       {
+        ApplicationDID: criteria.application_did,
         JobDID: criteria.job_did,
+        IsSubmitted: criteria.is_submitted,
         ExternalUserID: criteria.external_user_id,
         BID: criteria.bid,
         SID: criteria.sid,

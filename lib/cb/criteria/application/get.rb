@@ -1,11 +1,9 @@
-require 'nokogiri'
-
 module Cb
   module Criteria
     module Application
-      class Response
+      class Get
         extend Cb::Utils::FluidAttributes
-        fluid_attr_accessor :question_id, :response_text
+        fluid_attr_accessor :application_did
       end
     end
   end

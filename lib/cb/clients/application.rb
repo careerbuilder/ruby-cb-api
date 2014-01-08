@@ -11,6 +11,10 @@ module Cb
           response cb_call(:post, criteria)
         end
 
+        def update(criteria)
+          response cb_call(:put, criteria)
+        end
+
         private
 
         def cb_call(http_method, criteria)
@@ -19,15 +23,16 @@ module Cb
             options[:body] = criteria.to_json
           end
 
-          api_client.method(:"cb_#{http_method}").call uri(criteria), options
+          uri = uri(http_method, criteria)
+          api_client.method(:"cb_#{http_method}").call uri, options
         end
 
         def response(response_hash)
           Responses::Application.new response_hash
         end
 
-        def uri(criteria)
-          did = criteria.did ? criteria.did : criteria.job_did
+        def uri(http_method, criteria)
+          did = http_method == :get ? criteria.application_did : criteria.job_did
           Cb.configuration.uri_application.sub ':did', did
         end
 
