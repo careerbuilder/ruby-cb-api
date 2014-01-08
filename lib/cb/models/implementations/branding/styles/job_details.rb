@@ -1,17 +1,16 @@
 module Cb
-  module Models
-    module Branding
-      module Styles
+  module Branding
+    module Styles
 
-        class JobDetails < Base
-          attr_accessor :container, :content, :headings
+      class JobDetails < Base
+        attr_accessor :container, :content, :headings
 
-          def initialize(args = {})
-            super
-            @container = Container.new args['Container']
-            @content = Content.new args['Content']
-            @headings = Headings.new args['Headings']
-          end
+        def initialize args = {}
+          super
+
+          @container = Container.new args['Container']
+          @content = Content.new args['Content']
+          @headings = Headings.new args['Headings']
         end
 
       end
