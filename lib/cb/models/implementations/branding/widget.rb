@@ -1,14 +1,12 @@
 module Cb
-  module Models
-    module Branding
+  module Branding
 
-      class Widget
-        attr_accessor :type, :url
+    class Widget
+      attr_accessor :type, :url
 
-        def initialize(type, url)
-          @type = type
-          @url = url
-        end
+      def initialize type, url
+        @type = type
+        @url = url
       end
 
     end

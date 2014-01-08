@@ -13,10 +13,6 @@ Set your dev key, and any other configuration settings in a place that will run 
       config.dev_key  	= 'your-dev-key-goes-here'
       config.time_out 	= 5
     end
-    
-Available Endpoints
-================
-https://github.com/cbdr/ruby-cb-api/blob/master/lib/cb/config.rb
 
 Job Search
 ================
