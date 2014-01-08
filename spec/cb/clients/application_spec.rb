@@ -7,7 +7,7 @@ module Cb
       Cb.configuration.host_site = 'US'
     }
     let(:client) { Clients::Application }
-    let(:response_stub) { YAML.load open('spec/support/response_stubs/application/get.yml') }
+    let(:response_stub) { YAML.load open('spec/support/response_stubs/application.yml') }
 
     describe '#get' do
       before {

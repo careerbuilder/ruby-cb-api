@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Cb::Models
   describe Application do
-    let(:response_hash) { YAML.load open('spec/support/response_stubs/application/get.yml') }
+    let(:response_hash) { YAML.load open('spec/support/response_stubs/application.yml') }
     let(:application_hash) { response_hash['Results'][0] }
     let(:application) { Application.new(application_hash) }
 
