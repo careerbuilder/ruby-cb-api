@@ -1,5 +1,3 @@
-require 'nokogiri'
-
 module Cb
   module Criteria
     module Application
