@@ -2,65 +2,104 @@ require 'spec_helper'
 
 module Cb::Models
   describe Application do
-    context '.new' do
-      it 'should create an empty new application' do
-        job_did = 'J1234567890'
-        site_id = 'xxx'
-        co_brand = 'cbmsn'
-        resume_file_name = 'JJR4Prez.pdf'
-        resume = 'base64stringcomingsoon'
-        test = true
-      
-        application = Application.new({:job_did => job_did, :site_id => site_id, :co_brand => co_brand, :resume_file_name => resume_file_name, :resume => resume, :test => test})
+    let(:response_hash) { YAML.load open('spec/support/response_stubs/application.yml') }
+    let(:application_hash) { response_hash['Results'][0] }
+    let(:application) { Application.new(application_hash) }
 
-        application.job_did.should == job_did
-        application.site_id.should == site_id
-        application.co_brand.should == co_brand
-        application.resume_file_name.should == resume_file_name
-        application.resume.should == resume
-        application.test.should == test
+    describe 'Application Models' do
+      it 'sets a resume' do
+        expect(application.resume).to be_a Application::Resume
+      end
+
+      it 'sets a cover letter' do
+        expect(application.cover_letter).to be_a Application::CoverLetter
+      end
+
+      it 'sets an array of responses' do
+        expect(application.responses[0]).to be_a Application::Response
       end
     end
 
-    context '.submit' do
-      let(:application) { Application.new }
+    describe '#is_submitted' do
+      let(:application_hash) {
+        replace_value_in_response_hash('IsSubmitted', is_submitted)
+      }
 
-      context 'when the application is for an unregistered user' do
-        before(:each) do
-          application.user_external_id = String.new
-          application.resume = String.new
-
-          stub_request(:post, uri_stem(Cb.configuration.uri_application_submit)).
-            with(:body => anything).
-            to_return(:body => { ResponseApplication: { ApplicationStatus: 'Incomplete', Errors: nil, RedirectURL: 'http://bananaz.com' } }.to_json)
-        end
-
-        it 'submits a new application through unregistered api' do
-          application.is_registered?.should == false
-          app = application.submit
-          app.cb_response.application_status.should == 'Incomplete'
-          expect(app.cb_response.errors).to eq nil
+      context 'When IsSubmitted is nil' do
+        let(:is_submitted) { nil }
+        it 'sets is_submitted as false' do
+          expect(application.is_submitted).to be_false
         end
       end
 
-      context 'when the application is for a registered user' do
-        before(:each) do
-          # these are the things that mean an application is for a registered user
-          application.user_external_id = 'xid'
-          application.resume = String.new
-
-          stub_request(:post, uri_stem(Cb.configuration.uri_application_registered)).
-            with(:body => anything).
-            to_return(:body => { ResponseApplication: { ApplicationStatus: 'Incomplete', Errors: nil, RedirectURL: 'http://bananaz.com' } }.to_json)
+      context 'When IsSubmitted is "true"' do
+        let(:is_submitted) { "true" }
+        it 'sets is_submitted as true' do
+          expect(application.is_submitted).to be_true
         end
+      end
 
-        it 'submits a new application through registered api' do
-          application.is_registered?.should == true
-          app = application.submit
-          app.cb_response.application_status.should == 'Incomplete'
-          expect(app.cb_response.errors).to eq nil
+      context 'When IsSubmitted is "false"' do
+        let(:is_submitted) { "false" }
+        it 'sets is_submitted as true' do
+          expect(application.is_submitted).to be_false
         end
       end
     end
+
+    describe 'Other attributes' do
+      it 'sets bid' do
+        expect(application.bid).to eq 'Browser ID'
+      end
+      it 'sets sid' do
+        expect(application.sid).to eq 'Session ID'
+      end
+      it 'sets site_id' do
+        expect(application.site_id).to eq 'Site ID'
+      end
+      it 'sets ipath_id' do
+        expect(application.ipath_id).to eq 'IPath'
+      end
+      it 'sets application_did' do
+        expect(application.application_did).to eq 'JA******************'
+      end
+      it 'sets application_did' do
+        expect(application.application_did).to eq 'JA******************'
+      end
+      it 'sets tn_did' do
+        expect(application.tn_did).to be_nil
+      end
+      context 'When response hash has TNDID' do
+        let(:application_hash) {
+          replace_value_in_response_hash('TNDID', 'TN******************')
+        }
+
+        it 'sets tn_did to that value' do
+          expect(application.tn_did).to eq 'TN******************'
+        end
+      end
+      it 'sets external_user_id' do
+        expect(application.external_user_id).to eq 'XR******************'
+      end
+      it 'sets redirect_url' do
+        expect(application.redirect_url).to be_nil
+      end
+      context 'When response hash has redirectURL' do
+        let(:application_hash) {
+          replace_value_in_response_hash('redirectURL', 'google.gov')
+        }
+
+        it 'sets redirect_url to that value' do
+          expect(application.redirect_url).to eq 'google.gov'
+        end
+      end
+    end
+
+    def replace_value_in_response_hash(key, value)
+      hash = response_hash['Results'][0]
+      hash[key] = value
+      hash
+    end
+
   end
 end
