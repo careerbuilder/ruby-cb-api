@@ -12,7 +12,7 @@ module Cb
         @mobile_logo = args['MobileLogo'] || ''
         @footer = args['Footer'] || ''
         @video = args['Video'] || ''
-        @is_multi_video = args['IsMultiVideo'] == 'true'
+        @is_multi_video = args['IsMultiVideo'] == true
       end
 
     end
