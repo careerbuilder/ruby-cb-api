@@ -18,7 +18,8 @@ module Cb
 	        	'TabletBanner' => 'wut?',
 	        	'MobileLogo' => 'mobile, duh.',
 	        	'Footer' => 'the bottom',
-	        	'IsMultiVideo' => 'true'
+                'Video' => '123456789',
+	        	'IsMultiVideo' => false
 	        }
 
 	    sections = 
