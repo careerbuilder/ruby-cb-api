@@ -3,7 +3,7 @@ module Cb
     module Application
       class Update
         extend Cb::Utils::FluidAttributes
-        fluid_attr_accessor :application_did, :job_did, :is_submitted, :external_user_id, :bid, :sid, :site_id,
+        fluid_attr_accessor :application_did, :job_did, :is_submitted, :external_user_id, :vid, :bid, :sid, :site_id,
                             :ipath_id, :tn_did, :resume, :cover_letter, :responses
 
         def to_json

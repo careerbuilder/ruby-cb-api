@@ -8,6 +8,7 @@ Results:
     ResumeExtension:
     ResumeTitle:
   IsSubmitted: false
+  VID: Visitor ID
   BID: Browser ID
   SID: Session ID
   SiteID: Site ID

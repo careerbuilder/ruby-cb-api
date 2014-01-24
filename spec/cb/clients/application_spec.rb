@@ -49,7 +49,7 @@ module Cb
       before {
         Cb::Utils::Api.any_instance.stub(:cb_post).and_return(response_stub)
       }
-      let(:criteria) { Criteria::Application::Create.new.resume(resume).cover_letter(cover_letter).responses(responses).job_did('j123') }
+      let(:criteria) { Criteria::Application::Create.new.resume(resume).cover_letter(cover_letter).responses(responses) }
       let(:resume) { Criteria::Application::Resume.new }
       let(:cover_letter) { Criteria::Application::CoverLetter.new }
       let(:responses) { [Criteria::Application::Response.new] }
@@ -60,8 +60,8 @@ module Cb
         ).to be_a Responses::Application
       end
 
-      it 'sends #cb_post to api_client a uri with the job_did' do
-        expected_uri = "/cbapi/application/#{criteria.job_did}"
+      it 'sends #cb_post to api_client a uri with no did' do
+        expected_uri = "/cbapi/application/"
         Cb::Utils::Api.any_instance.should_receive(:cb_post).with(expected_uri, anything)
 
         client.create(criteria)
@@ -102,8 +102,8 @@ module Cb
         ).to be_a Responses::Application
       end
 
-      it 'sends #cb_put to api_client a uri with the job_did' do
-        expected_uri = "/cbapi/application/#{criteria.job_did}"
+      it 'sends #cb_put to api_client a uri with the application_did' do
+        expected_uri = "/cbapi/application/#{criteria.application_did}"
         Cb::Utils::Api.any_instance.should_receive(:cb_put).with(expected_uri, anything)
 
         client.update(criteria)

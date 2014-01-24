@@ -1,7 +1,7 @@
 module Cb
   module Models
     class Application < ApiResponseModel
-      attr_accessor :resume, :is_submitted, :bid, :sid, :site_id, :ipath_id, :application_did, :cover_letter,
+      attr_accessor :resume, :is_submitted, :vid, :bid, :sid, :site_id, :ipath_id, :application_did, :cover_letter,
                     :responses, :tn_did, :external_user_id, :redirect_url
 
       protected
@@ -13,6 +13,7 @@ module Cb
       def set_model_properties
         @resume = extract_resume
         @is_submitted = api_response['IsSubmitted'].to_s == 'true'
+        @vid = api_response['VID']
         @bid = api_response['BID']
         @sid = api_response['SID']
         @site_id = api_response['SiteID']

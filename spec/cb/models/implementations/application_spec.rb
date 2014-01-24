@@ -48,6 +48,9 @@ module Cb::Models
     end
 
     describe 'Other attributes' do
+      it 'sets vid' do
+        expect(application.vid).to eq 'Visitor ID'
+      end
       it 'sets bid' do
         expect(application.bid).to eq 'Browser ID'
       end
