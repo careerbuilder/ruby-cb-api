@@ -32,8 +32,7 @@ module Cb
       end
 
       def append_api_responses(obj, resp)
-        meta_class = obj.respond_to?('cb_response') ? obj.cb_response : Cb::Utils::MetaValues.new
-
+        meta_class = obj.respond_to?('cb_response') && !obj.cb_response.nil? ? obj.cb_response : Cb::Utils::MetaValues.new
         resp.each do |api_key, api_value|
           meta_name = format_hash_key(api_key)
           unless meta_name.empty?
@@ -52,6 +51,7 @@ module Cb
           end
         end
 
+        # Convenience method on the response data model
         obj.class.send(:attr_reader, 'api_error')
         obj.instance_variable_set(:@api_error, @api_error)
 
