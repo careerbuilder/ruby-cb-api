@@ -1,43 +1,49 @@
 module Cb
   module Clients
 
-    class SavedSearch
+    class SavedSearch < ApiRequest
+
+      def initialize
+        @list_endpoint = Cb.configuration.uri_saved_search_list
+        @show_endpoint = Cb.configuration.uri_saved_search_retrieve
+        @create_endpoint = Cb.configuration.uri_saved_search_create
+        @update_endpoint = Cb.configuration.uri_saved_search_update
+        @delete_endpoint = Cb.configuration.uri_saved_search_delete
+        super
+      end
+
       def create(saved_search)
         body = saved_search.create_to_xml
-        json = cb_client.cb_post(Cb.configuration.uri_saved_search_create, :body => body)
+        json = cb_client.cb_post(create_endpoint, :body => body)
         singular_model_response(json, saved_search.external_user_id)
       end
 
       def update(saved_search)
         body = saved_search.update_to_xml
-        json = cb_client.cb_post(Cb.configuration.uri_saved_search_update, :body => body)
+        json = cb_client.cb_post(update_endpoint, :body => body)
         singular_model_response(json, saved_search.external_user_id, saved_search.external_id)
       end
 
       def delete(saved_search)
         body = saved_search.delete_to_xml
-        json = cb_client.cb_post(Cb.configuration.uri_saved_search_delete, :body => body)
+        json = cb_client.cb_post(delete_endpoint, :body => body)
         Responses::SavedSearch::Delete.new(json)
       end
 
       def retrieve(external_user_id, external_id, host_site)
         query = retrieve_query(external_user_id, external_id, host_site)
-        json = cb_client.cb_get(Cb.configuration.uri_saved_search_retrieve, :query => query)
+        json = cb_client.cb_get(show_endpoint, :query => query)
         singular_model_response(json, external_user_id, external_id)
       end
 
       def list(external_user_id, host_site)
         query = list_query(external_user_id, host_site)
-        json = cb_client.cb_get(Cb.configuration.uri_saved_search_list, :query => query)
+        json = cb_client.cb_get(list_endpoint, :query => query)
         Responses::SavedSearch::List.new(json)
       end
 
       private
-
-      def cb_client
-        @cb_client ||= Cb.api_client.new
-      end
-
+      
       def retrieve_query(external_user_id, external_id, host_site)
         {
           :developerkey   => Cb.configuration.dev_key,
