@@ -110,6 +110,9 @@ module Cb
         @company_details_url     = figure_out_company_info(args['CompanyDetailsURL'],args['Company'],'CompanyDetailsURL')
 
 
+        load_extra_fields(args)
+
+
       end
 
       def find_company
@@ -160,6 +163,12 @@ module Cb
         else
           return @state
         end
+      end
+
+      protected
+
+      def load_extra_fields(args)
+        #for internal use only :)
       end
 
       private
