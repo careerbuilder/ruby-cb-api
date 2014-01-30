@@ -9,7 +9,7 @@ module Cb
       end
 
       it 'should get recommendations for a job' do
-        recs = Cb.recommendation.for_job 'fake-did'
+        recs = Cb.recommendation.for_job({ :JobDID => 'fake-did' })
 
         recs[0].is_a?(Cb::Models::Job).should == true
         recs.count.should > 0
@@ -25,7 +25,7 @@ module Cb
 
       it 'should get recommendations for a user' do
         test_user_external_id = 'XRHS30G60RWSQ5P1S8RG'
-        recs = Cb.recommendation.for_user test_user_external_id
+        recs = Cb.recommendation.for_user({ :ExternalID => test_user_external_id })
 
         recs.count.should > 0
         recs[0].is_a?(Cb::Models::Job).should == true

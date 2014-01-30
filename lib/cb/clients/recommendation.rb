@@ -4,11 +4,11 @@ module Cb
   module Clients
     class Recommendation
 
-      def self.for_job(did, countlimit = '25', site_id = '', co_brand = '')
+      def self.for_job(hash)
         my_api = Cb::Utils::Api.new
+        hash = set_hash_defaults(hash)
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_job,
-                                    :query => {:JobDID => did, :CountLimit => countlimit, :SiteID => site_id,
-                                               :CoBrand => co_brand, :HostSite => Cb.configuration.host_site})
+                                    :query => hash)
 
         jobs = []
         if json_hash.has_key?('ResponseRecommendJob')
@@ -28,11 +28,11 @@ module Cb
         my_api.append_api_responses(jobs, json_hash)
       end
 
-      def self.for_user(external_id, countlimit = '25', site_id = '', co_brand = '')
+      def self.for_user(hash)
         my_api = Cb::Utils::Api.new
+        hash = set_hash_defaults(hash)
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_user,
-                                    :query => {:ExternalID => external_id, :CountLimit => countlimit, :SiteID => site_id, :CoBrand => co_brand,
-                                               :HostSite => Cb.configuration.host_site})
+                                    :query => hash)
 
         jobs = []
         if json_hash.has_key?('ResponseRecommendUser')
@@ -71,6 +71,17 @@ module Cb
         my_api.append_api_responses(jobs, json_hash)
       end
 
+      private
+
+      def self.set_hash_defaults(hash)
+        hash[:CountLimit] ||= '25'
+        hash[:HostSite]   ||= Cb.configuration.host_site
+        hash
+      end
+
     end
+
+
+
   end
 end
