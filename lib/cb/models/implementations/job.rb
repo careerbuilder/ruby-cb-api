@@ -178,7 +178,7 @@ module Cb
         # company_details_url in different ways. Job search returns it in args[company] and args[company_details_url],
         # but recommendations returns it in args[company][key]. This has been ticketed to the API team, and this logic
         # will be removed when they have fixed the issue.
-        if job_search.class == String && job_search != ""
+        if job_search.class != Hash && job_search != ""
           return job_search
         elsif recommendation.class == Hash && !recommendation[rec_key].nil?
           return recommendation[rec_key]
