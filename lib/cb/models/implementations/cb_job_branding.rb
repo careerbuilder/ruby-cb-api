@@ -8,6 +8,7 @@ module Cb
 			@id = args['Id'] || ''
 			@account_id = args['AccountId'] || ''
 			@type = args['Type'] || ''
+			@tracking = args['Tracking'] || ''
 			@media = Cb::Branding::Media.new args['Media']
 			@styles = Cb::Branding::Style.new args['Styles']
 			@errors = args['Errors'] || ''
