@@ -1,7 +1,7 @@
 module Cb
 	class CbJobBranding
 
-		attr_accessor :name, :media, :sections, :styles, :widgets, :id, :account_id, :type, :errors, :show_widgets, :company_description
+		attr_accessor :name, :media, :sections, :styles, :widgets, :id, :account_id, :type, :tracking, :errors, :show_widgets, :company_description
 
 		def initialize args = {}
 			@name = args['Name'] || ''
