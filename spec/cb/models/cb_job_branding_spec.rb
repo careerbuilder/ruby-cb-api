@@ -112,6 +112,7 @@ module Cb
         job_branding.id.should == id
         job_branding.account_id.should == account_id
         job_branding.type.should == type
+        job_branding.tracking.should == tracking
         job_branding.errors.should == errors
         job_branding.company_description = company_description
         job_branding.show_widgets.should == (widgets['ShowWidgets'] == 'true')
