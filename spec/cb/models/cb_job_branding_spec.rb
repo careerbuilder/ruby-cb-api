@@ -100,6 +100,7 @@ module Cb
 	        	'Id' => id,
 	        	'AccountId' => account_id,
 	            'Type' => type,
+                'Tracking' => tracking,
 	            'Media' => media,
 	            'Styles' => styles,
 	            'Errors' => errors,
