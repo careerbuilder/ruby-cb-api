@@ -8,6 +8,7 @@ module Cb
         id = 'JBID'
         account_id = 'ADID'
         type = 'Basic'
+        tracking = '<img src="url" alt="some_text">'
         errors = { 'Message' => 'There is no job branding for this Id.' }
         company_description = 'Company name ...'
 
