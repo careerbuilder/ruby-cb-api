@@ -27,7 +27,7 @@ module Cb
       end
 
       context 'When oauth token comes back' do
-        it 'external_id should not be nil' do
+        it 'oauth_token should not be nil' do
           response = Clients::User.check_existing 'kyle@cb.gov', '1337'
           response.model.oauth_token.should_not be_nil
           response.model.oauth_token == '456xyz'
