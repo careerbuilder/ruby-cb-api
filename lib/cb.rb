@@ -9,7 +9,7 @@ def require_directory(relative_path)
   Dir[File.dirname(__FILE__) + relative_path].each { |file| require file }
 end
 
-%w(/cb/utils/*.rb /cb/clients/*.rb /cb/clients/*.rb /cb/criteria/**/*.rb /cb/models/**.rb
+%w(/cb/utils/*.rb /cb/clients/*.rb /cb/criteria/**/*.rb /cb/models/**.rb
    /cb/models/**/*.rb /cb/responses/*.rb /cb/responses/**/*.rb).each { |path| require_directory path }
 
 module Cb
