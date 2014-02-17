@@ -97,9 +97,7 @@ module Cb
         @apply_requirements           = Cb::Utils::ResponseArrayExtractor.extract(args, 'ApplyRequirements')
 
         # Company related
-        @company_name                 = args['Company'] || ''
         @company_did                  = args['CompanyDID'] || ''
-        @company_details_url          = args['CompanyDetailsURL'] || ''
         @company_image_url            = args['CompanyImageURL'] || ''
 
         # Recommendations related
@@ -107,8 +105,12 @@ module Cb
         @state                        = args['LocationState'] || ''
         @city                         = args['LocationCity'] || ''
         @zip                          = args['LocationPostalCode'] || ''
-        @company_name                 = args['Company']['CompanyName'] unless args['Company'].nil? || args['Company']['CompanyName'].nil?
-        @company_details_url          = args['Company']['CompanyDetailsURL'] unless args['Company'].nil? || args['Company']['CompanyDetailsURL'].nil?
+
+        @company_name            = figure_out_company_info(args['Company'],args['Company'],'CompanyName')
+        @company_details_url     = figure_out_company_info(args['CompanyDetailsURL'],args['Company'],'CompanyDetailsURL')
+
+
+        load_extra_fields(args)
 
 
       end
@@ -162,6 +164,30 @@ module Cb
           return @state
         end
       end
+
+      protected
+
+      def load_extra_fields(args)
+        #for internal use only :)
+      end
+
+      private
+
+      def figure_out_company_info(job_search, recommendation, rec_key)
+        #Job Search and Recommendations both use this class as a model. Unfortunately, they both return company_name and
+        # company_details_url in different ways. Job search returns it in args[company] and args[company_details_url],
+        # but recommendations returns it in args[company][key]. This has been ticketed to the API team, and this logic
+        # will be removed when they have fixed the issue.
+        if job_search.class != Hash && job_search != ""
+          return job_search
+        elsif recommendation.class == Hash && !recommendation[rec_key].nil?
+          return recommendation[rec_key]
+        else
+          return ''
+        end
+
+      end
+
     end
   end
 end

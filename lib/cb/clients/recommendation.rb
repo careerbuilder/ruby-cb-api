@@ -4,11 +4,12 @@ module Cb
   module Clients
     class Recommendation
 
-      def self.for_job(did, countlimit = '25', site_id = '', co_brand = '')
+      def self.for_job(*args)
         my_api = Cb::Utils::Api.new
+        hash = normalize_args(args)
+        hash = set_hash_defaults(hash)
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_job,
-                                    :query => {:JobDID => did, :CountLimit => countlimit, :SiteID => site_id,
-                                               :CoBrand => co_brand, :HostSite => Cb.configuration.host_site})
+                                    :query => hash)
 
         jobs = []
         if json_hash.has_key?('ResponseRecommendJob')
@@ -28,11 +29,12 @@ module Cb
         my_api.append_api_responses(jobs, json_hash)
       end
 
-      def self.for_user(external_id, countlimit = '25', site_id = '', co_brand = '')
+      def self.for_user(*args)
         my_api = Cb::Utils::Api.new
+        hash = normalize_args(args)
+        hash = set_hash_defaults(hash)
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_user,
-                                    :query => {:ExternalID => external_id, :CountLimit => countlimit, :SiteID => site_id, :CoBrand => co_brand,
-                                               :HostSite => Cb.configuration.host_site})
+                                    :query => hash)
 
         jobs = []
         if json_hash.has_key?('ResponseRecommendUser')
@@ -71,6 +73,28 @@ module Cb
         my_api.append_api_responses(jobs, json_hash)
       end
 
+      private
+
+      def self.normalize_args(args)
+        return args[0] if args[0].class == Hash
+        {
+          :ExternalID   => args[0],
+          :JobDID       => args[0],
+          :CountLimit   => args[1] || '25',
+          :SiteID       => args[2] || "",
+          :CoBrand      => args[3] || ""
+        }
+      end
+
+      def self.set_hash_defaults(hash)
+        hash[:CountLimit] ||= '25'
+        hash[:HostSite]   ||= Cb.configuration.host_site
+        hash
+      end
+
     end
+
+
+
   end
 end

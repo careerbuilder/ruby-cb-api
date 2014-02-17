@@ -49,4 +49,4 @@ You will also get meta data regarding the search itself (helpful for pagination)
 
 Coming Soon
 ================
-More documentation!
+More documentation!!
