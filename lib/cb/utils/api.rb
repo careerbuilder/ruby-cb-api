@@ -32,6 +32,14 @@ module Cb
         validated_response
       end
 
+      def cb_put(*args, &block)
+        self.class.base_uri Cb.configuration.base_uri
+        response = self.class.put(*args, &block)
+        validated_response = ResponseValidator.validate(response)
+        set_api_error(validated_response)
+        validated_response
+      end
+
       def append_api_responses(obj, resp)
         meta_class = obj.respond_to?('cb_response') ? obj.cb_response : Cb::Utils::MetaValues.new
 

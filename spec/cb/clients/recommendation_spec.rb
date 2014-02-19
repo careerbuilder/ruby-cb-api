@@ -8,8 +8,15 @@ module Cb
           to_return(:body => { ResponseRecommendJob: { Request: Hash.new, RecommendJobResults: { RecommendJobResult: [Hash.new] } } }.to_json)
       end
 
-      it 'should get recommendations for a job' do
-        recs = Cb.recommendation.for_job 'fake-did'
+      it 'should get recommendations for a job using a hash' do
+        recs = Cb.recommendation.for_job({ :JobDID => 'fake-did' })
+
+        recs[0].is_a?(Cb::Models::Job).should == true
+        recs.count.should > 0
+        recs.api_error.should == false
+        end
+      it 'should get recommendations for a job using the old way' do
+        recs = Cb.recommendation.for_job('fake-did')
 
         recs[0].is_a?(Cb::Models::Job).should == true
         recs.count.should > 0
@@ -23,9 +30,18 @@ module Cb
           to_return(:body => { ResponseRecommendUser: { Request: Hash.new, RecommendJobResults: { RecommendJobResult: [Hash.new] } } }.to_json)
       end
 
-      it 'should get recommendations for a user' do
+      it 'should get recommendations for a user using a hash' do
         test_user_external_id = 'XRHS30G60RWSQ5P1S8RG'
-        recs = Cb.recommendation.for_user test_user_external_id
+        recs = Cb.recommendation.for_user({ :ExternalID => test_user_external_id })
+
+        recs.count.should > 0
+        recs[0].is_a?(Cb::Models::Job).should == true
+        recs.api_error.should == false
+        end
+
+      it 'should get recommendations for a user using the old way' do
+        test_user_external_id = 'XRHS30G60RWSQ5P1S8RG'
+        recs = Cb.recommendation.for_user(test_user_external_id)
 
         recs.count.should > 0
         recs[0].is_a?(Cb::Models::Job).should == true
