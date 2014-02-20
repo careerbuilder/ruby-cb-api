@@ -4,19 +4,32 @@ module Cb
   describe CbJob do
     describe '#initialize' do
 
-      context 'When ApplyRequirements hash is contained in the hash passed into the constructor' do
-        let(:job_hash) {{
+      context 'With valid response data' do
+        let(:job_response) {{
           'ApplyRequirements' => {
             'ApplyRequirement' => 'noonlineapply'
-          }
+          }, 'CustomApplyType' => 'CASKIPRESUME'
         }}
-        it 'then the apply_requirements field should be set' do
-          job = Cb::CbJob.new job_hash
+        let(:job) { Cb::CbJob.new job_response }
+
+        it 'should set apply_requirements' do
           job.apply_requirements.should == ['noonlineapply']
         end
-        it 'and the ResponseArrayExtractor should have received the message, #extract' do
-          Cb::Utils::ResponseArrayExtractor.should_receive(:extract).with(job_hash, 'ApplyRequirements')
-          Cb::CbJob.new job_hash
+
+        # REFACTOR - improper spec scope
+        it 'should pass appy requirements to the ResponseArrayExtractor' do
+          Cb::Utils::ResponseArrayExtractor.should_receive(:extract).with(job_response, 'ApplyRequirements')
+          Cb::CbJob.new job_response
+        end
+
+        it 'should set custom_apply_type' do
+          job.custom_apply_type.should == 'CASKIPRESUME'
+        end
+
+        describe '#skip_resume?' do
+          it 'should evaluate as true' do
+            expect(job.skip_resume?).to be_true
+          end
         end
       end
       
