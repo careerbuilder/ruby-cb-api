@@ -10,7 +10,7 @@ module Cb
                   :details_url, :service_url, :similar_jobs_url, :apply_url,
                   :begin_date, :end_date, :posted_date,
                   :relevancy, :state, :city, :zip,
-                  :can_be_quick_applied, :apply_requirements,
+                  :can_be_quick_applied, :apply_requirements, :custom_apply_type,
                   :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id,
                   :manages_others_string,
                   :degree_required_code, :travel_required_code, :employment_type_code
@@ -98,6 +98,7 @@ module Cb
       @is_screener_apply            = args['IsScreenerApply'] || ''
       @is_shared_job                = args['IsSharedJob'] || ''
       @can_be_quick_applied         = args['CanBeQuickApplied'] || ''
+      @custom_apply_type            = args['CustomApplyType'] || ''
       @apply_requirements           = Cb::Utils::ResponseArrayExtractor.extract(args, 'ApplyRequirements')
 
       # Company related
@@ -128,27 +129,31 @@ module Cb
     end
 
     def external_application?
-      @external_application.downcase == 'true' ? true : false
+      @external_application.downcase == 'true'
     end
 
     def relocation_covered?
-      @relocation_covered.downcase == 'true' ? true : false
+      @relocation_covered.downcase == 'true'
     end
 
     def manages_others?
-      @manages_others.downcase == 'true' ? true : false
+      @manages_others.downcase == 'true'
     end
 
     def screener_apply?
-      @is_screener_apply.downcase == 'true' ? true : false
+      @is_screener_apply.downcase == 'true'
+    end
+
+    def skip_resume?
+      @custom_apply_type.downcase == 'caskipresume'
     end
 
     def shared_job?
-      @is_shared_job.downcase == 'true' ? true : false
+      @is_shared_job.downcase == 'true'
     end
 
     def can_be_quick_applied?
-      @can_be_quick_applied.downcase == 'true' ? true : false
+      @can_be_quick_applied.downcase == 'true'
     end
     
     def city
