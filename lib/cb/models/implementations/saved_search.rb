@@ -30,7 +30,7 @@ module Cb
         ret += "<HostSite>#{@hostsite}</HostSite>"
         ret += "<Cobrand>#{@cobrand}</Cobrand>"
         ret += "<SearchName>#{@search_name}</SearchName>"
-        ret += search_parameters.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
+        ret += search_parameters.to_xml
         ret += "<IsDailyEmail>#{@is_daily_email.to_s.upcase}</IsDailyEmail>"
         ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
         ret += "<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
@@ -46,7 +46,7 @@ module Cb
         ret += "<Test>#{false}</Test>"
         ret += "<EmailAddress>#{@email_address}</EmailAddress>"
         ret += "<SearchName>#{@search_name}</SearchName>"
-        ret += search_parameters.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
+        ret += search_parameters.to_xml
         ret += "<IsDailyEmail>#{@is_daily_email.to_s.upcase}</IsDailyEmail>"
         ret += "<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
         ret + "</Request>"
@@ -57,7 +57,7 @@ module Cb
         ret += "<HostSite>#{@hostsite}</HostSite>"
         ret += "<Cobrand>#{@cobrand}</Cobrand>"
         ret += "<SearchName>#{@search_name}</SearchName>"
-        ret += search_parameters.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
+        ret += search_parameters.to_xml
         ret += "<IsDailyEmail>#{@is_daily_email.to_s.upcase}</IsDailyEmail>"
         ret += "<ExternalID>#{@external_id}</ExternalID>"
         ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
@@ -155,7 +155,7 @@ module Cb
                   'PayInfoOnly'       =>  args[:pay_info_only]
               }
           }
-          XmlSimple.xml_out request
+          XmlSimple.xml_out([request], 'SuppressEmpty' => nil)
         end
       end
     end
