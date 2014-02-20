@@ -60,51 +60,43 @@ module Cb
 
         def build_check_existing_request(email, password)
           request = {
-              'Request' => {
-                  'DeveloperKey_' => Cb.configuration.dev_key,
-                  'Email' => email,
-                  'Password' => password,
-                  'Test' => 'false'
-
-              }
+              'DeveloperKey' => Cb.configuration.dev_key,
+              'Email' => email,
+              'Password' => password,
+              'Test' => 'false'
           }
-          XmlSimple.xml_out request
+          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
         end
 
         def build_retrieve_request external_id, test_mode
           request = {
-              'Request' => {
-                  'DeveloperKey_' => Cb.configuration.dev_key,
-                  'ExternalID' => external_id,
-                  'Test' => test_mode.to_s
-              }
+
+              'DeveloperKey' => Cb.configuration.dev_key,
+              'ExternalID' => external_id,
+              'Test' => test_mode.to_s
           }
-          XmlSimple.xml_out request
+          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
         end
 
         def build_change_password_request external_id, old_password, new_password, test_mode
           request = {
-              'Request' => {
-                  'DeveloperKey_' => Cb.configuration.dev_key,
-                  'ExternalID' => external_id,
-                  'Test' => test_mode.to_s,
-                  'OldPassword' => old_password,
-                  'NewPassword' => new_password
-              }
+              'DeveloperKey' => Cb.configuration.dev_key,
+              'ExternalID' => external_id,
+              'Test' => test_mode.to_s,
+              'OldPassword' => old_password,
+              'NewPassword' => new_password
           }
-          XmlSimple.xml_out request
+          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
         end
 
         def build_delete_request external_id, password, test_mode
           request = {
-              'Request' => {
-                  'DeveloperKey_' => Cb.configuration.dev_key,
-                  'ExternalID' => external_id,
-                  'Test' => test_mode.to_s,
-                  'Password' => password
-              }
+              'DeveloperKey' => Cb.configuration.dev_key,
+              'ExternalID' => external_id,
+              'Test' => test_mode.to_s,
+              'Password' => password
           }
-          XmlSimple.xml_out request
+          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
         end
 
         def api_client
