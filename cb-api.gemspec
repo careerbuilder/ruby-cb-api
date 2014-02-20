@@ -27,6 +27,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec', '>= 2.11'
   s.add_development_dependency 'rdoc', '~> 3.12.2'
   s.add_development_dependency 'rspec-pride', '~> 2.2.0'
-  s.add_development_dependency 'pry', '~> 0.9.12.1'
+  s.add_development_dependency 'pry', '0.9.12.1'
   s.add_development_dependency 'rb-readline', '~> 0.5.0'
 end

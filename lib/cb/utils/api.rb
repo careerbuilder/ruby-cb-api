@@ -13,6 +13,7 @@ module Cb
                                   :outputjson => Cb.configuration.use_json.to_s
 
         self.class.default_timeout Cb.configuration.time_out
+        self.class.headers.merge! ({'accept-encoding' => 'deflate, gzip'})
       end
 
       def cb_get(*args, &block)
@@ -26,6 +27,14 @@ module Cb
       def cb_post(*args, &block)
         self.class.base_uri Cb.configuration.base_uri
         response = self.class.post(*args, &block)
+        validated_response = ResponseValidator.validate(response)
+        set_api_error(validated_response)
+        validated_response
+      end
+
+      def cb_put(*args, &block)
+        self.class.base_uri Cb.configuration.base_uri
+        response = self.class.put(*args, &block)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
