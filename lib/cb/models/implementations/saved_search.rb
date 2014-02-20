@@ -1,3 +1,5 @@
+require 'xmlsimple'
+
 module Cb
   module Models
     class SavedSearch
@@ -28,7 +30,7 @@ module Cb
         ret += "<HostSite>#{@hostsite}</HostSite>"
         ret += "<Cobrand>#{@cobrand}</Cobrand>"
         ret += "<SearchName>#{@search_name}</SearchName>"
-        ret += search_parameters.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
+        ret += search_parameters.to_xml
         ret += "<IsDailyEmail>#{@is_daily_email.to_s.upcase}</IsDailyEmail>"
         ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
         ret += "<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
@@ -44,7 +46,7 @@ module Cb
         ret += "<Test>#{false}</Test>"
         ret += "<EmailAddress>#{@email_address}</EmailAddress>"
         ret += "<SearchName>#{@search_name}</SearchName>"
-        ret += search_parameters.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
+        ret += search_parameters.to_xml
         ret += "<IsDailyEmail>#{@is_daily_email.to_s.upcase}</IsDailyEmail>"
         ret += "<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
         ret + "</Request>"
@@ -55,7 +57,7 @@ module Cb
         ret += "<HostSite>#{@hostsite}</HostSite>"
         ret += "<Cobrand>#{@cobrand}</Cobrand>"
         ret += "<SearchName>#{@search_name}</SearchName>"
-        ret += search_parameters.to_xml(:save_with => Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
+        ret += search_parameters.to_xml
         ret += "<IsDailyEmail>#{@is_daily_email.to_s.upcase}</IsDailyEmail>"
         ret += "<ExternalID>#{@external_id}</ExternalID>"
         ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
@@ -64,26 +66,28 @@ module Cb
       end
 
       def delete_to_xml
-        Nokogiri::XML::Builder.new do
-          Request {
-            ExternalID     external_id
-            ExternalUserID external_user_id
-            HostSite       host_site
-            DeveloperKey   Cb.configuration.dev_key
-          }
-        end.to_xml
+        request = {
+            'Request' => {
+                'DeveloperKey_' => Cb.configuration.dev_key,
+                'ExternalID' => external_id,
+                'ExternalUserID' => external_user_id,
+                'HostSite' => host_site
+            }
+        }
+        XmlSimple.xml_out request
       end
 
 
 
       def delete_anon_to_xml
-        Nokogiri::XML::Builder.new do
-          Request {
-            DeveloperKey Cb.configuration.dev_key
-            ExternalID   external_id
-            Test         false
-          }
-        end.to_xml
+        request = {
+            'Request' => {
+                'DeveloperKey_' => Cb.configuration.dev_key,
+                'ExternalID' => external_id,
+                'Test' => 'false'
+            }
+        }
+        XmlSimple.xml_out request
       end
 
       class Delete
@@ -126,31 +130,32 @@ module Cb
         end
 
         def to_xml(args = {})
-          Nokogiri::XML::Builder.new do
-            SearchParameters {
-              BooleanOperator     boolean_operator
-              JobCategory         category
-              EducationCode       education_code
-              EmpType             emp_type
-              ExcludeCompanyNames exclude_company_names
-              ExcludeJobTitles    exclude_job_titles
-              ExcludeKeywords     exclude_keywords
-              Country             country
-              IndustryCodes       industry_codes
-              JobTitle            job_title
-              Keywords            keywords
-              Location            location
-              OrderBy             order_by
-              OrderDirection      order_direction
-              PayHigh             pay_high
-              PayLow              pay_low
-              PostedWithin        posted_within
-              Radius              radius
-              SpecificEducation   specific_education
-              ExcludeNational     exclude_national
-              PayInfoOnly         pay_info_only
-            }
-          end.to_xml(args)
+          request = {
+              'SearchParameters' => {
+                  'BooleanOperator' =>    args[:boolean_operator],
+                  'JobCategory'     =>    args[:category],
+                  'EducationCode'     =>  args[:education_code],
+                  'EmpType'         =>    args[:emp_type],
+                  'ExcludeCompanyNames'=> args[:exclude_company_names],
+                  'ExcludeJobTitles'  =>  args[:exclude_job_titles],
+                  'ExcludeKeywords'   =>  args[:exclude_keywords],
+                  'Country'           =>  args[:country],
+                  'IndustryCodes'     =>  args[:industry_codes],
+                  'JobTitle'          =>  args[:job_title],
+                  'Keywords'          =>  args[:keywords],
+                  'Location'          =>  args[:location],
+                  'OrderBy'           =>  args[:order_by],
+                  'OrderDirection'    =>  args[:order_direction],
+                  'PayHigh'           =>  args[:pay_high],
+                  'PayLow'            =>  args[:pay_low],
+                  'PostedWithin'      =>  args[:posted_within],
+                  'Radius'            =>  args[:radius],
+                  'SpecificEducation' =>  args[:specific_education],
+                  'ExcludeNational'   =>  args[:exclude_national],
+                  'PayInfoOnly'       =>  args[:pay_info_only]
+              }
+          }
+          XmlSimple.xml_out([request], 'SuppressEmpty' => nil)
         end
       end
     end

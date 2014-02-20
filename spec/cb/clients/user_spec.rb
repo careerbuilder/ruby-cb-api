@@ -85,14 +85,15 @@ module Cb
 
     end
 
+
     context '.build_change_password_request' do
       it 'should build xml' do
         xml = Cb.user.send :build_change_password_request, 'a', 'b', 'c', true
 
-        xml_wrapper = Nokogiri::XML.parse(xml).elements
+        xml_wrapper = XmlSimple.xml_in xml, {'KeepRoot' => true}
 
         expect(xml_wrapper.count).to be == 1 # Assert one root node.
-        expect(xml_wrapper[0].name).to be == 'Request' # Assert root node name.
+        expect(xml_wrapper.has_key? 'Request').to be true # Assert root node name.
 
         expect(xml.include?('<ExternalID>a</ExternalID>')).to be true
         expect(xml.include?('<OldPassword>b</OldPassword>')).to be true
@@ -101,6 +102,7 @@ module Cb
         expect(xml.include?("<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>")).to be true
       end
     end
+
 
     context '.delete' do
       before :each do
@@ -123,10 +125,10 @@ module Cb
       it 'should build retriev a user' do
         xml = Cb.user.send :build_retrieve_request, 'a', true
 
-        xml_wrapper = Nokogiri::XML.parse(xml).elements
+        xml_wrapper = XmlSimple.xml_in xml, {'KeepRoot' => true}
 
         expect(xml_wrapper.count).to be == 1 # Assert one root node.
-        expect(xml_wrapper[0].name).to be == 'Request' # Assert root node name.
+        expect(xml_wrapper.has_key? 'Request').to be true # Assert root node name.
 
         expect(xml.include?('<ExternalID>a</ExternalID>')).to be true
         expect(xml.include?('<Test>true</Test>')).to be true
@@ -138,10 +140,10 @@ module Cb
       it 'should build delete xml' do
         xml = Cb.user.send :build_delete_request, 'a', 'b', true
 
-        xml_wrapper = Nokogiri::XML.parse(xml).elements
+        xml_wrapper = XmlSimple.xml_in xml, {'KeepRoot' => true}
 
         expect(xml_wrapper.count).to be == 1 # Assert one root node.
-        expect(xml_wrapper[0].name).to be == 'Request' # Assert root node name.
+        expect(xml_wrapper.has_key? 'Request').to be true  # Assert root node name.
 
         expect(xml.include?('<ExternalID>a</ExternalID>')).to be true
         expect(xml.include?('<Password>b</Password>')).to be true
@@ -149,5 +151,6 @@ module Cb
         expect(xml.include?("<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>")).to be true
       end
     end
+
   end
 end
