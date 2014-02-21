@@ -17,5 +17,4 @@ describe Cb do
       end
     end
   end
-
 end

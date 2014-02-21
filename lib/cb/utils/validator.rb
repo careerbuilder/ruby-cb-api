@@ -1,4 +1,5 @@
 require 'json'
+require 'xmlsimple'
 
 module Cb
   module ResponseValidator
@@ -24,14 +25,19 @@ module Cb
 
     def self.handle_parser_error(response)
       # if it's not JSON, try XML
-      xml = Nokogiri::XML.parse(response).elements.to_s
-      if xml.blank?
+      begin
+        xml = XmlSimple.xml_in(response)
+      rescue ArgumentError, REXML::ParseException
+        xml = nil
+      end
+
+      if xml.nil?
         # if i wasn't xml either, give up and return an empty json hash
         return self.get_empty_json_hash
       else
         # if it was, return a hash from the xml UNLESS it was a generic
-        xml_hash = nori.parse(xml.to_s)
-        if xml_hash.has_key?('Response') && xml_hash['Response'].has_key?('Errors')
+        xml_hash = XmlSimple.xml_in(response)
+        if xml_hash.has_key?('Errors')
           return self.get_empty_json_hash
         else
           return xml_hash
@@ -42,10 +48,5 @@ module Cb
     def self.get_empty_json_hash
       Hash.new
     end
-
-    def self.nori
-      @nori ||= Nori.new
-    end
-
   end
 end

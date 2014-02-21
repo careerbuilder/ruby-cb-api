@@ -1,5 +1,5 @@
 require 'json'
-require 'nokogiri'
+require 'xmlsimple'
 
 module Cb
   module Clients
@@ -59,55 +59,44 @@ module Cb
         private
 
         def build_check_existing_request(email, password)
-          builder = Nokogiri::XML::Builder.new do
-            Request {
-              DeveloperKey_ Cb.configuration.dev_key
-              Email_ email
-              Password_ password
-              Test_ 'false' # Test flag. Ignored for this request.
-            }
-          end
-
-          builder.to_xml
+          request = {
+              'DeveloperKey' => Cb.configuration.dev_key,
+              'Email' => email,
+              'Password' => password,
+              'Test' => 'false'
+          }
+          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
         end
 
         def build_retrieve_request external_id, test_mode
-          builder = Nokogiri::XML::Builder.new do
-            Request {
-              ExternalID_ external_id
-              Test_ test_mode.to_s
-              DeveloperKey_ Cb.configuration.dev_key
-            }
-          end
+          request = {
 
-          builder.to_xml
+              'DeveloperKey' => Cb.configuration.dev_key,
+              'ExternalID' => external_id,
+              'Test' => test_mode.to_s
+          }
+          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
         end
 
         def build_change_password_request external_id, old_password, new_password, test_mode
-          builder = Nokogiri::XML::Builder.new do
-            Request {
-              ExternalID_ external_id
-              OldPassword_ old_password
-              NewPassword_ new_password
-              Test_ test_mode.to_s
-              DeveloperKey_ Cb.configuration.dev_key
-            }
-          end
-
-          builder.to_xml
+          request = {
+              'DeveloperKey' => Cb.configuration.dev_key,
+              'ExternalID' => external_id,
+              'Test' => test_mode.to_s,
+              'OldPassword' => old_password,
+              'NewPassword' => new_password
+          }
+          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
         end
 
         def build_delete_request external_id, password, test_mode
-          builder = Nokogiri::XML::Builder.new do
-            Request {
-              ExternalID_ external_id
-              Password_ password
-              Test_ test_mode.to_s
-              DeveloperKey_ Cb.configuration.dev_key
-            }
-          end
-
-          builder.to_xml
+          request = {
+              'DeveloperKey' => Cb.configuration.dev_key,
+              'ExternalID' => external_id,
+              'Test' => test_mode.to_s,
+              'Password' => password
+          }
+          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
         end
 
         def api_client
