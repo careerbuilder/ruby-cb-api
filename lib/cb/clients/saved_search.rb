@@ -1,16 +1,6 @@
 module Cb
-  module Clients
-
-    class SavedSearch < ApiRequest
-
-      def initialize
-        @list_endpoint = Cb.configuration.uri_saved_search_list
-        @show_endpoint = Cb.configuration.uri_saved_search_retrieve
-        @create_endpoint = Cb.configuration.uri_saved_search_create
-        @update_endpoint = Cb.configuration.uri_saved_search_update
-        @delete_endpoint = Cb.configuration.uri_saved_search_delete
-        super
-      end
+  module Clients 
+    class SavedSearch < BaseClient
 
       def create(saved_search)
         body = saved_search.create_to_xml
@@ -32,7 +22,7 @@ module Cb
 
       def retrieve(external_user_id, external_id, host_site)
         query = retrieve_query(external_user_id, external_id, host_site)
-        json = cb_client.cb_get(show_endpoint, :query => query)
+        json = cb_client.cb_get(retrieve_endpoint, :query => query)
         singular_model_response(json, external_user_id, external_id)
       end
 
@@ -65,6 +55,14 @@ module Cb
         json_hash['ExternalUserID'] = external_user_id unless external_user_id.nil?
         json_hash['ExternalID'] = external_id unless external_id.nil?
         Responses::SavedSearch::Singular.new(json_hash)
+      end
+
+      def set_endpoints
+        @list_endpoint = Cb.configuration.uri_saved_search_list
+        @retrieve_endpoint = Cb.configuration.uri_saved_search_retrieve
+        @create_endpoint = Cb.configuration.uri_saved_search_create
+        @update_endpoint = Cb.configuration.uri_saved_search_update
+        @delete_endpoint = Cb.configuration.uri_saved_search_delete
       end
     end
 

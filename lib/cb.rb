@@ -3,7 +3,7 @@ require 'cb/models/implementations/branding/styles/base'
 require 'cb/models/implementations/branding/styles/css_adapter'
 require 'cb/exceptions'
 require 'cb/convenience'
-require 'cb/clients/api_request'
+require 'cb/clients/base_client'
 
 def require_directory(relative_path)
   Dir[File.dirname(__FILE__) + relative_path].each { |file| require file }

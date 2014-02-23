@@ -1,11 +1,6 @@
 module Cb
   module Clients
-    class EmployeeTypes < ApiRequest
-
-      def initialize
-        @list_endpoint = Cb.configuration.uri_employee_types
-        super
-      end
+    class EmployeeTypes < BaseClient
 
       def search
         json = cb_client.cb_get(list_endpoint)
@@ -21,6 +16,10 @@ module Cb
 
       def new_response_object(json_response)
         Responses::EmployeeTypes::Search.new(json_response)
+      end
+
+      def set_endpoints
+        @list_endpoint = Cb.configuration.uri_employee_types
       end
     end
 
