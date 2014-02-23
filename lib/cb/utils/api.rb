@@ -13,7 +13,7 @@ module Cb
                                   :outputjson => Cb.configuration.use_json.to_s
 
         self.class.default_timeout Cb.configuration.time_out
-        self.class.headers.merge! ({'accept-encoding' => 'deflate, gzip'})
+        self.class.headers.merge! ({'accept-encoding' => 'deflate, gzip'}) unless Cb.configuration.debug_api
       end
 
       def cb_get(*args, &block)
