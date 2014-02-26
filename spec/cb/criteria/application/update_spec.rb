@@ -16,6 +16,7 @@ module Cb::Criteria
       .is_submitted(true)
       .external_user_id('external_user_123')
       .bid('bid_123')
+      .vid('hotdog_tsunami')
       .sid('sid_123')
       .site_id('site_123')
       .ipath_id('ipath_123')
@@ -54,6 +55,7 @@ module Cb::Criteria
         ExternalUserID: criteria.external_user_id,
         BID: criteria.bid,
         SID: criteria.sid,
+        VID: criteria.vid,
         SiteID: criteria.site_id,
         IPathID: criteria.ipath_id,
         TNDID: criteria.tn_did,

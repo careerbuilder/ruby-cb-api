@@ -11,6 +11,7 @@ module Cb
             JobDID: job_did,
             IsSubmitted: is_submitted,
             ExternalUserID: external_user_id,
+            VID: vid,
             BID: bid,
             SID: sid,
             SiteID: site_id,

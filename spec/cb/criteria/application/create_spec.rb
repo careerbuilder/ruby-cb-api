@@ -14,6 +14,7 @@ module Cb::Criteria
       .job_did('job_123')
       .is_submitted(false)
       .external_user_id('external_user_123')
+      .vid('hamburger_avalanche')
       .bid('bid_123')
       .sid('sid_123')
       .site_id('site_123')
@@ -50,6 +51,7 @@ module Cb::Criteria
         JobDID: criteria.job_did,
         IsSubmitted: criteria.is_submitted,
         ExternalUserID: criteria.external_user_id,
+        VID: criteria.vid,
         BID: criteria.bid,
         SID: criteria.sid,
         SiteID: criteria.site_id,
