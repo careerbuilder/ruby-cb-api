@@ -44,10 +44,6 @@ module Cb
       def get_empty_json_hash
         Hash.new
       end
-
-      def nori
-        @nori ||= Nori.new
-      end
     end
     
     # private_class_method :handle_parser_error, :get_empty_json_hash
