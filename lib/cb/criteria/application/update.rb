@@ -14,6 +14,7 @@ module Cb
             ExternalUserID: external_user_id,
             BID: bid,
             SID: sid,
+            VID: vid,
             SiteID: site_id,
             IPathID: ipath_id,
             TNDID: tn_did,
