@@ -45,7 +45,7 @@ module Cb
 
           it 'the ApplyUrl on the returned app is blank' do
             app = submit_app(external_app)
-            app.apply_url.blank?.should eq true
+            app.apply_url.empty?.should eq true
           end
         end
 

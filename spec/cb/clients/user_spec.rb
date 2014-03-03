@@ -59,7 +59,6 @@ module Cb
 
       it 'should retrieve a user' do
         user = Cb.user.retrieve 'XRHP5HT66R55L6RVP6R9', true
-
         expect(user.cb_response.errors.nil?).to be true
         expect(user.cb_response.status).to be == 'Success (Test)'
         expect(user.nil?).to be false
