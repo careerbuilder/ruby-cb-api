@@ -1,0 +1,39 @@
+ResponseBlankApplication:
+  Errors: []
+  TimeResponseSent: 2013-12-05T14:02:51.9490777-05:00
+  TimeElapsed: 10s
+  BlankApplication:
+    ApplicationSubmitServiceURL: api.careerbuilder.com/v1/application/blank
+    ApplyURL: http://www.careerbuilder.com/jobseeker/jobs/test
+    JobDID: J8A2RM68F1DL4WZ25LJ
+    JobTitle: Customer Account Specialist
+    TotalQuestions: 3
+    TotalRequiredQuestions: 2
+    Questions:
+     - Question:
+        QuestionID: ApplicantName
+        QuestionType: Basic
+        IsRequired: true
+        ExpectedResponseFormat: Text 50
+        QuestionText: Your name
+     - Question:
+        QuestionID: Resume
+        QuestionType: Basic
+        IsRequired: true
+        ExpectedResponseFormat: Text 5000
+        QuestionText: Your resume
+     - Question:
+        QuestionID: MeetsRequirements
+        QuestionType: JobSpecific
+        IsRequired: false
+        ExpectedResponseFormat: AnswerID
+        QuestionText: Do you meet all the requirements?
+        Answers:
+         - Answer:
+            QuestionID: MeetsRequirements
+            AnswerID: "Yes"
+            AnswerText: "Yes"
+         - Answer:
+            QuestionID: MeetsRequirements
+            AnswerID: "No"
+            AnswerText: "No"
