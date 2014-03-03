@@ -1,5 +1,3 @@
-require 'nori'
-
 module Cb
   module Clients
     class JobBranding

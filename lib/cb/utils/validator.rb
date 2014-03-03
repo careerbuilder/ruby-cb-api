@@ -1,52 +1,51 @@
 require 'json'
-require 'xmlsimple'
+require 'nori'
 
 module Cb
   module ResponseValidator
+    
+    class << self
+      def validate(response)
+        if response.nil? || response.response.body.nil?
+          return get_empty_json_hash
+        end
 
-    def self.validate(response)
-      if response.blank? || response.response.body.blank?
-        return self.get_empty_json_hash
-      end
+        if response.code != 200
+          # we only handle json or xml responses - html means something bad happened
+          is_html = response.response.body.include?('<!DOCTYPE html')
+          return get_empty_json_hash if is_html
+        end
+        
+        return get_empty_json_hash if response.response.body.nil?
 
-      if response.code != 200
-        # we only handle json or xml responses - html means something bad happened
-        is_html = response.response.body.include?('<!DOCTYPE html')
-        return self.get_empty_json_hash if is_html
-      end
-
-      begin
-        json = JSON.parse(response.response.body)
-        json.keys.any? ? json : self.get_empty_json_hash
-      rescue JSON::ParserError
-        self.handle_parser_error(response.response.body)
-      end
-    end
-
-    def self.handle_parser_error(response)
-      # if it's not JSON, try XML
-      begin
-        xml = XmlSimple.xml_in(response)
-      rescue ArgumentError, REXML::ParseException
-        xml = nil
-      end
-
-      if xml.nil?
-        # if i wasn't xml either, give up and return an empty json hash
-        return self.get_empty_json_hash
-      else
-        # if it was, return a hash from the xml UNLESS it was a generic
-        xml_hash = XmlSimple.xml_in(response)
-        if xml_hash.has_key?('Errors')
-          return self.get_empty_json_hash
-        else
-          return xml_hash
+        # Try to parse response as JSON.  Otherwise, return HTTParty-parsed XML
+        begin
+          json = JSON.parse(response.response.body)
+          json.keys.any? ? json : get_empty_json_hash
+        rescue JSON::ParserError
+          handle_parser_error(response.response.body)
         end
       end
-    end
 
-    def self.get_empty_json_hash
-      Hash.new
+      def handle_parser_error(response_body)
+        begin
+          response_hash = XmlSimple.xml_in(response_body)
+          # Unless there was an error, return a hash from the xml
+          if response_hash.respond_to?(:has_key?) && response_hash.has_key?('Errors')
+            return get_empty_json_hash
+          else          
+            return response_hash
+          end
+        rescue ArgumentError, REXML::ParseException
+          get_empty_json_hash
+        end
+      end
+
+      def get_empty_json_hash
+        Hash.new
+      end
     end
+    
+    # private_class_method :handle_parser_error, :get_empty_json_hash
   end
 end
