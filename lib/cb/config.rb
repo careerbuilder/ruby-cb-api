@@ -7,7 +7,7 @@ module Cb
                   :uri_recommendation_for_job, :uri_recommendation_for_user,
                   :uri_recommendation_for_company,
                   :uri_application, :uri_application_submit,
-                  :uri_application_external,
+                  :uri_application_external, :uri_blank_application,
                   :uri_application_registered, :uri_user_change_password,
                   :uri_user_delete, :uri_user_retrieve, :uri_user_check_existing,
                   :uri_job_branding,
@@ -40,6 +40,7 @@ module Cb
       @uri_application_submit             ||= '/v1/Application/submit'
       @uri_application_registered         ||= '/v3/application/registered'
       @uri_application_external           ||= '/v1/application/external'
+      @uri_blank_application              ||= '/v1/application/blank'
       @uri_user_change_password           ||= '/v2/User/ChangePW'
       @uri_user_delete                    ||= '/v2/User/delete'
       @uri_user_retrieve                  ||= '/v2/user/retrieve'
@@ -87,6 +88,7 @@ module Cb
         :uri_application_submit           => @uri_application_submit,
         :uri_application_registered       => @uri_application_registered,
         :uri_application_external         => @uri_application_external,
+        :uri_blank_application            => @uri_blank_application,
         :uri_user_change_password         => @uri_user_change_password,
         :uri_user_retrieve                => @uri_user_retrieve,
         :uri_user_check_existing          => @uri_user_check_existing,
