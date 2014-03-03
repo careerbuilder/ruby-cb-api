@@ -56,13 +56,5 @@ module Cb::Models
 			end
 		end
 
-		describe 'test' do
-			let(:application) { Cb::Clients::BlankApplication.new}
-			it 'should get the proper response' do
-				application.get({:JobDID => 'J8A2RM68F1DL4WZ25LJ'})
-
-			end
-		end
-
 	end
 end

@@ -16,7 +16,7 @@ module Cb
 			end
 
 			def response(response_hash)
-				Responses::BlankApplication.new response_hash
+				Responses::BlankApplication.new(response_hash).models
 			end
 
 			def headers(criteria)

@@ -6,7 +6,7 @@ module Cb
 			protected
 
 			def hash_containing_metadata
-				response
+				response['ResponseBlankApplication']['BlankApplication']
 			end
 
 			def validate_api_hash
