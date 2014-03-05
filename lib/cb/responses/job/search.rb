@@ -1,6 +1,6 @@
 module Cb
   module Responses
-    module Jobs
+    module Job
       class Search < ApiResponse
 
         protected

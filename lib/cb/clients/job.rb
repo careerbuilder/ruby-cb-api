@@ -7,7 +7,7 @@ module Cb
 
         def search(args)
           response = api_client.cb_get(Cb.configuration.uri_job_search, query: args)
-          Cb::Responses::Jobs::Search.new(response)
+          Cb::Responses::Job::Search.new(response)
         end
 
         def find_by_criteria(criteria)
