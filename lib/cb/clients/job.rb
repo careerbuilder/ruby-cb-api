@@ -4,6 +4,12 @@ module Cb
   module Clients
     class Job
       class << self
+
+        def search(args)
+          response = api_client.cb_get(Cb.configuration.uri_job_search, query: args)
+          Cb::Responses::Jobs::Search.new(response)
+        end
+
         def find_by_criteria(criteria)
         end
 
@@ -13,6 +19,13 @@ module Cb
           criteria.show_custom_values = true
           find_by_criteria(criteria)
         end
+
+        private
+
+        def api_client
+          @api ||= Cb::Utils::Api.new
+        end
+
       end
     end
   end

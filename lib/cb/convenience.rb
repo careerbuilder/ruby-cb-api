@@ -6,12 +6,12 @@ module Cb
         Cb::Utils::Api
       end
 
-      def job
+      def job_v1
         Cb::Clients::JobV1
       end
 
-      def jobs
-        Cb::Clients::Jobs
+      def job
+        Cb::Clients::Job
       end
 
       def job_details_criteria
