@@ -6,10 +6,6 @@ module Cb
         Cb::Utils::Api
       end
 
-      def job_v1
-        Cb::Clients::JobV1
-      end
-
       def job
         Cb::Clients::Job
       end
