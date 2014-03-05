@@ -3,6 +3,20 @@ require 'spec_helper'
 module Cb
   describe Cb::Clients::Job do
     describe '#search' do
+      context 'when the search returns with no results' do
+        before(:each) do
+          content = { ResponseJobSearch: { } }
+
+          stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).
+              to_return(body: content.to_json)
+        end
+
+        it 'returns an empty array' do
+          response = Cb.job.search(Hash.new)
+          response.model.jobs.count.should == 0
+        end
+      end
+
       context 'when the search returns with results' do
         before(:each) do
           content = { ResponseJobSearch: {

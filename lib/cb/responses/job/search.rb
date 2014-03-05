@@ -7,8 +7,6 @@ module Cb
 
         def validate_api_hash
           required_response_field(root_node, response)
-          required_response_field(results_node, response[root_node])
-          required_response_field(job_result_node, response[root_node][results_node])
         end
 
         def hash_containing_metadata
@@ -25,16 +23,8 @@ module Cb
           'ResponseJobSearch'
         end
 
-        def results_node
-          'Results'
-        end
-
-        def job_result_node
-          'JobSearchResult'
-        end
-
         def job_hashes
-          hashes = response[root_node][results_node][job_result_node]
+          hashes = response[root_node]['Results']['JobSearchResult'] rescue []
 
           if hashes.is_a?(Array)
             hashes
