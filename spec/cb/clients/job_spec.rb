@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Clients::Job do
+  describe Cb::Clients::JobV1 do
     context '::search' do
       context 'when the search returns with results' do
         before(:each) do
@@ -14,9 +14,8 @@ module Cb
         end
 
         it 'returns an array of job models' do
-          search = Cb.job.search(Hash.new)
-          search.api_error.should == false
-          search[0].is_a?(Cb::Models::Job).should == true
+          response = Cb.job.search(Hash.new)
+          response[0].is_a?(Cb::Models::Job).should == true
         end
       end
 
@@ -50,12 +49,12 @@ module Cb
 
       context 'when a criteria object is the input param' do
         it 'returns a single job model' do
-          model = Cb::Clients::Job.find_by_criteria(criteria)
+          model = Cb::Clients::JobV1.find_by_criteria(criteria)
           expect(model).to be_an_instance_of Cb::Models::Job
         end
 
         it 'returns a single job model' do
-          model = Cb::Clients::Job.find_by_criteria(criteria)
+          model = Cb::Clients::JobV1.find_by_criteria(criteria)
           expect(model).to be_an_instance_of Cb::Models::Job
         end
       end
@@ -72,7 +71,7 @@ module Cb
           end
 
           it 'returns a single job model' do
-            response = Cb::Clients::Job.new.find_by_criteria(criteria)
+            response = Cb::Clients::JobV1.new.find_by_criteria(criteria)
             expect(response.model).to be_an_instance_of Cb::Models::Job
           end
         end
@@ -84,7 +83,7 @@ module Cb
           end
 
           it 'throws an exception' do
-            expect { Cb::Clients::Job.new.find_by_criteria(criteria) }.to raise_exception Cb::ApiResponseError
+            expect { Cb::Clients::JobV1.new.find_by_criteria(criteria) }.to raise_exception Cb::ApiResponseError
           end
         end
 
@@ -94,7 +93,7 @@ module Cb
               to_return(:body => nil)
           end
           it 'throws an exception' do
-            expect { Cb::Clients::Job.new.find_by_criteria(criteria) }.to raise_exception Cb::ApiResponseError
+            expect { Cb::Clients::JobV1.new.find_by_criteria(criteria) }.to raise_exception Cb::ApiResponseError
           end
         end
       end
@@ -109,11 +108,11 @@ module Cb
         it 'constructs a criteria object, sets the input did, and calls #find_by_criteria' do
           did = 'fake-did'
 
-          Cb::Clients::Job.should_receive(:find_by_criteria).with(criteria)
+          Cb::Clients::JobV1.should_receive(:find_by_criteria).with(criteria)
           criteria.should_receive(:did=).with(did)
           criteria.should_receive(:show_custom_values=).with(true)
 
-          Cb::Clients::Job.find_by_did(did)
+          Cb::Clients::JobV1.find_by_did(did)
         end
       end
     end

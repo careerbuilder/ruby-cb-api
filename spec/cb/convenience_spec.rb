@@ -19,7 +19,7 @@ module Cb
 
     context '#job' do
       it 'returns the job api client class' do
-        expect_method_to_return_class(:job, Cb::Clients::Job)
+        expect_method_to_return_class(:job, Cb::Clients::JobV1)
       end
     end
 

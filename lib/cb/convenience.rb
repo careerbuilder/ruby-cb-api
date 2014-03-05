@@ -7,9 +7,13 @@ module Cb
       end
 
       def job
-        Cb::Clients::Job
+        Cb::Clients::JobV1
       end
-  
+
+      def jobs
+        Cb::Clients::Jobs
+      end
+
       def job_details_criteria
         Cb::Criteria::Job::Details.new
       end
