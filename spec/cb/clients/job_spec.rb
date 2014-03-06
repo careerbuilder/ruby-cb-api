@@ -46,7 +46,7 @@ module Cb
 
         it 'returns an array of job models' do
           search = Cb.job.search(Hash.new)
-          search.model.jobs[0].should be_aCb::Models::Job
+          search.model.jobs[0].should be_a Cb::Models::Job
         end
       end
 
