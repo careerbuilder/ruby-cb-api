@@ -3,7 +3,7 @@ module Cb
     module User
 
       class CheckExisting < ApiResponse
-        class Model < Struct.new(:email, :status, :external_id, :oauth_token) ; end
+        class Model < Struct.new(:email, :status, :external_id, :oauth_token, :partner_id) ; end
 
         protected
 
@@ -20,6 +20,7 @@ module Cb
           model.status = response[root_node][user_check_status_node]
           model.external_id = response[root_node][external_id_node]
           model.oauth_token = response[root_node][oauth_token_node]
+          model.partner_id = response[root_node][partner_id_node]
           model
         end
 
@@ -55,6 +56,10 @@ module Cb
 
         def oauth_token_node
           'ResponseOAuthToken'
+        end
+
+        def partner_id_node
+          'ResponsePartnerID'
         end
 
       end

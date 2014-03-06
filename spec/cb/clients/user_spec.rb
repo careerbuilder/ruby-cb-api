@@ -5,7 +5,7 @@ module Cb
 
     describe '#check_existing' do
       let(:body) do
-        { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz' } }
+        { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz', ResponsePartnerID: 'zyx654' } }
       end
       before do
         stub_request(:post, uri_stem(Cb.configuration.uri_user_check_existing)).to_return(body: body.to_json)
@@ -31,6 +31,14 @@ module Cb
           response = Clients::User.check_existing 'kyle@cb.gov', '1337'
           response.model.oauth_token.should_not be_nil
           response.model.oauth_token == '456xyz'
+        end
+      end
+
+      context 'When partner id comes back' do
+        it 'partner_id should not be nil' do
+          response = Clients::User.check_existing 'kyle@cb.gov', '1337'
+          response.model.partner_id.should_not be_nil
+          response.model.partner_id == 'zyx654'
         end
       end
 
