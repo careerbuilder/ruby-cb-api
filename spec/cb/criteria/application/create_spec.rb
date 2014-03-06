@@ -10,12 +10,12 @@ module Cb::Criteria::Application
         end
       end
 
-      context 'when test_mode is enabled' do
-        before { Cb.configuration.test_mode = true }
+      context 'when test_resources is enabled' do
+        before { Cb.configuration.test_resources = true }
         it 'converts the criteria to json' do
           expect(criteria.to_json).to eq(expected_json_with_test)
         end
-        after { Cb.configuration.test_mode = false }
+        after { Cb.configuration.test_resources = false }
       end
     end
 

@@ -37,7 +37,7 @@ module Cb
               }
             end
           }
-          crit[:Test] = true if Cb.configuration.test_mode
+          crit[:Test] = true if Cb.configuration.test_resources
           crit.to_json
         end
       end

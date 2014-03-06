@@ -1,6 +1,6 @@
 module Cb
   class Config
-    attr_accessor :dev_key, :base_uri, :debug_api, :time_out, :use_json, :host_site, :test_mode,
+    attr_accessor :dev_key, :base_uri, :debug_api, :time_out, :use_json, :host_site, :test_resources,
                   :uri_job_search, :uri_job_find,
                   :uri_company_find, :uri_job_category_search,
                   :uri_education_code, :uri_employee_types,
@@ -125,7 +125,7 @@ module Cb
       @time_out             = 5
       @use_json             = true
       @host_site            = Cb.country.US
-      @test_mode            = false
+      @test_resources       = false
 
       set_default_api_uris
     end
