@@ -7,7 +7,7 @@ module Cb
                             :cover_letter, :responses
 
         def to_json
-          {
+          crit = {
             JobDID: job_did,
             IsSubmitted: is_submitted,
             ExternalUserID: external_user_id,
@@ -35,7 +35,9 @@ module Cb
                 ResponseText: response.response_text
               }
             end
-          }.to_json
+          }
+          crit[:Test] = true if Cb.configuration.test_mode
+          crit.to_json
         end
       end
     end

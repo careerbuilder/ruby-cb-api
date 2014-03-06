@@ -7,7 +7,7 @@ module Cb
                             :ipath_id, :tn_did, :resume, :cover_letter, :responses
 
         def to_json
-          {
+          crit = {
             ApplicationDID: application_did,
             JobDID: job_did,
             IsSubmitted: is_submitted,
@@ -36,7 +36,9 @@ module Cb
                 ResponseText: response.response_text
               }
             end
-          }.to_json
+          }
+          crit[:Test] = true if Cb.configuration.test_mode
+          crit.to_json
         end
       end
     end
