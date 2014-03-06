@@ -2,105 +2,78 @@ require 'spec_helper'
 
 module Cb
   describe Cb::Clients::Job do
-    context '::search' do
+    describe '#search' do
+      context 'when the search returns with no results' do
+        before(:each) do
+          content = { ResponseJobSearch: { } }
+
+          stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).
+              to_return(body: content.to_json)
+        end
+
+        it 'returns an empty array' do
+          response = Cb.job.search(Hash.new)
+          response.model.jobs.count.should == 0
+        end
+      end
+
       context 'when the search returns with results' do
         before(:each) do
           content = { ResponseJobSearch: {
-            SearchMetaData: { SearchLocations: { SearchLocation: ['tahiti'] } },
-            Results: { JobSearchResult: [Hash.new] } } }
+              SearchMetaData: { SearchLocations: { SearchLocation: ['tahiti'] } },
+              Results: { JobSearchResult: [Hash.new] } } }
 
           stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).
-            to_return(:body => content.to_json)
+              to_return(body: content.to_json)
         end
 
         it 'returns an array of job models' do
-          search = Cb.job.search(Hash.new)
-          search.api_error.should == false
-          search[0].is_a?(Cb::Models::Job).should == true
+          response = Cb.job.search(Hash.new)
+          response.model.jobs[0].is_a?(Cb::Models::Job).should == true
         end
       end
 
       context 'When the search returns only one result' do
         before(:each) do
           content = {
-            ResponseJobSearch: {
-              SearchMetaData: { SearchLocations: { SearchLocation: ['tahiti'] } },
-              Results: { JobSearchResult: {} }
-            }
+              ResponseJobSearch: {
+                  SearchMetaData: { SearchLocations: { SearchLocation: ['tahiti'] } },
+                  Results: { JobSearchResult: {} }
+              }
           }
           stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).to_return(:body => content.to_json)
         end
 
         it 'returns an array of job models' do
           search = Cb.job.search(Hash.new)
-          search.api_error.should == false
-          search[0].is_a?(Cb::Models::Job).should == true
+          search.model.jobs[0].should be_a Cb::Models::Job
         end
       end
 
     end
 
-    context '::find_by_criteria' do
+    describe '#find_by_criteria' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_job_find)).
-          to_return(:body => { ResponseJob: { Job: Hash.new } }.to_json)
+            to_return(:body => { ResponseJob: { Job: Hash.new } }.to_json)
       end
 
       let(:criteria) { Cb::Criteria::Job::Details.new }
 
       context 'when a criteria object is the input param' do
         it 'returns a single job model' do
-          model = Cb::Clients::Job.find_by_criteria(criteria)
-          expect(model).to be_an_instance_of Cb::Models::Job
+          response = Cb::Clients::Job.find_by_criteria(criteria)
+          expect(response.model).to be_an_instance_of Cb::Models::Job
         end
 
         it 'returns a single job model' do
-          model = Cb::Clients::Job.find_by_criteria(criteria)
-          expect(model).to be_an_instance_of Cb::Models::Job
+          response = Cb::Clients::Job.find_by_criteria(criteria)
+          expect(response.model).to be_an_instance_of Cb::Models::Job
         end
       end
     end
 
-    context '#find_by_criteria' do
-      context 'with a criteria object as the input param' do
-      let(:criteria) { Cb::Criteria::Job::Details.new }
-
-        context 'when the job exists' do
-          before :all do
-            stub_request(:get, uri_stem(Cb.configuration.uri_job_find)).
-              to_return(:body => { ResponseJob: {Job: Hash.new } }.to_json)
-          end
-
-          it 'returns a single job model' do
-            response = Cb::Clients::Job.new.find_by_criteria(criteria)
-            expect(response.model).to be_an_instance_of Cb::Models::Job
-          end
-        end
-
-        context 'when the job is expired or doesn\'t exist' do
-          before :all do
-            stub_request(:get, uri_stem(Cb.configuration.uri_job_find)).
-              to_return(:body => { ResponseJob: { Errors: { Error: "No Job Here!" }} } .to_json)
-          end
-
-          it 'throws an exception' do
-            expect { Cb::Clients::Job.new.find_by_criteria(criteria) }.to raise_exception Cb::ApiResponseError
-          end
-        end
-
-        context 'with no response' do
-          before :all do
-            stub_request(:get, uri_stem(Cb.configuration.uri_job_find)).
-              to_return(:body => nil)
-          end
-          it 'throws an exception' do
-            expect { Cb::Clients::Job.new.find_by_criteria(criteria) }.to raise_exception Cb::ApiResponseError
-          end
-        end
-      end
-    end
-
-    context '::find_by_did' do
+    context '#find_by_did' do
       context 'when a string job did is input' do
         let(:criteria) { double(Cb::Criteria::Job::Details) }
 
@@ -117,5 +90,6 @@ module Cb
         end
       end
     end
+
   end
 end

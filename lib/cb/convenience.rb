@@ -9,7 +9,7 @@ module Cb
       def job
         Cb::Clients::Job
       end
-  
+
       def job_details_criteria
         Cb::Criteria::Job::Details.new
       end
