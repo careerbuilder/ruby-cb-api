@@ -5,45 +5,49 @@ module Cb
 
     describe '#check_existing' do
       let(:body) do
-        { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz' } }
+        { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz', ResponsePartnerID: 'zyx654' } }
       end
+
+      let(:response) do
+        Clients::User.check_existing 'kyle@cb.gov', '1337'
+      end
+
       before do
         stub_request(:post, uri_stem(Cb.configuration.uri_user_check_existing)).to_return(body: body.to_json)
       end
 
       context 'by interacting with the API client directly' do
         it 'returns a CheckExisting response' do
-          response = Clients::User.check_existing 'kyle@cb.gov', '1337'
           response.should be_a Responses::User::CheckExisting
         end
       end
 
       context 'When external id comes back' do
         it 'external_id should not be nil' do
-          response = Clients::User.check_existing 'kyle@cb.gov', '1337'
-          response.model.external_id.should_not be_nil
-          response.model.external_id == 'abc123'
+          response.model.external_id.should == 'abc123'
         end
       end
 
       context 'When oauth token comes back' do
         it 'oauth_token should not be nil' do
-          response = Clients::User.check_existing 'kyle@cb.gov', '1337'
-          response.model.oauth_token.should_not be_nil
-          response.model.oauth_token == '456xyz'
+          response.model.oauth_token.should == '456xyz'
+        end
+      end
+
+      context 'When partner id comes back' do
+        it 'partner_id should not be nil' do
+          response.model.partner_id.should == 'zyx654'
         end
       end
 
       context 'When user check status comes back' do
         it 'status should not be nil' do
-          response = Clients::User.check_existing 'kyle@cb.gov', '1337'
           response.model.status.should == 'EmailExistsPasswordsDoNotMatch'
         end
       end
 
       context 'When email comes back' do
         it 'email should not be nil' do
-          response = Clients::User.check_existing 'kyle@cb.gov', '1337'
           response.model.email.should == 'kyle@cb.gov'
         end
       end
