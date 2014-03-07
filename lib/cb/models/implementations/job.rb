@@ -177,13 +177,7 @@ module Cb
       end
 
       def find_company
-        if @company
-          return @company
-        else
-          @company = Cb::CompanyApi.find_for self
-
-          return @company
-        end
+        @company ||= Cb::CompanyApi.find_for self
       end
 
       def external_application?
