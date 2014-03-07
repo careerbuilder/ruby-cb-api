@@ -24,22 +24,19 @@ module Cb
 
       context 'When external id comes back' do
         it 'external_id should not be nil' do
-          response.model.external_id.should_not be_nil
-          response.model.external_id == 'abc123'
+          response.model.external_id.should == 'abc123'
         end
       end
 
       context 'When oauth token comes back' do
         it 'oauth_token should not be nil' do
-          response.model.oauth_token.should_not be_nil
-          response.model.oauth_token == '456xyz'
+          response.model.oauth_token.should == '456xyz'
         end
       end
 
       context 'When partner id comes back' do
         it 'partner_id should not be nil' do
-          response.model.partner_id.should_not be_nil
-          response.model.partner_id == 'zyx654'
+          response.model.partner_id.should == 'zyx654'
         end
       end
 
