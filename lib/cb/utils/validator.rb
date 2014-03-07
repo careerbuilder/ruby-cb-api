@@ -10,7 +10,7 @@ module Cb
         return Hash.new if !body
 
         if response.code != 200
-          return get_empty_json_hash if body.include?('<!DOCTYPE html')
+          return Hash.new if body.include?('<!DOCTYPE html')
         end
         
         try_parse_json(body) || try_parse_xml(body) || {}
