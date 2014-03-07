@@ -63,16 +63,9 @@ module Cb
           response.response.stub(:body).and_return(xml)
           validation = ResponseValidator.validate(response)
           expect(validation).to be_an_instance_of Hash
-          expect(validation).to eq({"this"=>[{"isxml"=>["yay"]}]})
+          expect(validation).to eq({"yo"=>{"this"=>{"isxml"=>"yay"}}})
         end
 
-        it 'returns an empty hash when there are errors' do
-          xml = '<Response><Errors><Error>whoa!</Error></Errors></Response>'
-          response.response.stub(:body).and_return(xml)
-          validation = ResponseValidator.validate(response)
-          expect(validation).to be_an_instance_of Hash
-          expect(validation.empty?).to eq true
-        end
       end
     end
 

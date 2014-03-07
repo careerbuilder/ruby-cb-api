@@ -1,6 +1,6 @@
 module Cb
   module Models
-    class Job
+    class Job < ApiResponseModel
       attr_accessor :did, :title, :job_skin, :job_skin_did, :job_branding, :pay, :pay_per, :commission, :bonus, :pay_other,
                     :categories, :category_codes, :degree_required, :experience_required, :travel_required,
                     :industry_codes, :manages_others_code,
@@ -21,8 +21,71 @@ module Cb
                     :relocation_covered, :manages_others
 
       def initialize(args = {})
-        return if args.nil?
+        super(args)
+      end
 
+      def find_company
+        if @company
+          return @company
+        else
+          @company = Cb::CompanyApi.find_for self
+
+          return @company
+        end
+      end
+
+      def external_application?
+        @external_application.downcase == 'true' ? true : false
+      end
+
+      def relocation_covered?
+        @relocation_covered.downcase == 'true' ? true : false
+      end
+
+      def manages_others?
+        @manages_others.downcase == 'true' ? true : false
+      end
+
+      def screener_apply?
+        @is_screener_apply.downcase == 'true' ? true : false
+      end
+
+      def shared_job?
+        @is_shared_job.downcase == 'true' ? true : false
+      end
+
+      def can_be_quick_applied?
+        @can_be_quick_applied.downcase == 'true' ? true : false
+      end
+
+      def city
+        if @city.empty?
+          return @location['City']
+        else
+          return @city
+        end
+      end
+
+      def state
+        if @state.empty?
+          return @location['State']
+        else
+          return @state
+        end
+      end
+
+      protected
+
+      def load_extra_fields(args)
+        #for internal use only :)
+      end
+
+      def required_fields
+        []
+      end
+
+      def set_model_properties
+        args = api_response
         # General
         @did                          = args['DID'] || args['JobDID'] || ''
         @title                        = args['JobTitle'] || args['Title'] || ''
@@ -111,64 +174,6 @@ module Cb
 
 
         load_extra_fields(args)
-
-
-      end
-
-      def find_company
-        if @company
-          return @company
-        else
-          @company = Cb::CompanyApi.find_for self
-
-          return @company
-        end
-      end
-
-      def external_application?
-        @external_application.downcase == 'true' ? true : false
-      end
-
-      def relocation_covered?
-        @relocation_covered.downcase == 'true' ? true : false
-      end
-
-      def manages_others?
-        @manages_others.downcase == 'true' ? true : false
-      end
-
-      def screener_apply?
-        @is_screener_apply.downcase == 'true' ? true : false
-      end
-
-      def shared_job?
-        @is_shared_job.downcase == 'true' ? true : false
-      end
-
-      def can_be_quick_applied?
-        @can_be_quick_applied.downcase == 'true' ? true : false
-      end
-
-      def city
-        if @city.empty?
-          return @location['City']
-        else
-          return @city
-        end
-      end
-
-      def state
-        if @state.empty?
-          return @location['State']
-        else
-          return @state
-        end
-      end
-
-      protected
-
-      def load_extra_fields(args)
-        #for internal use only :)
       end
 
       private
