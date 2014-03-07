@@ -86,6 +86,7 @@ module Cb
         @requirements                 = args['JobRequirements'] || ''
         @begin_date                   = args['BeginDate'] || ''
         @end_date                     = args['EndDate'] || ''
+        @has_questionnaire            = args['HasQuestionnaire'] || ''
 
         # Application
         @apply_url                    = args['ApplyURL'] || ''
@@ -147,6 +148,10 @@ module Cb
 
       def can_be_quick_applied?
         @can_be_quick_applied.downcase == 'true' ? true : false
+      end
+
+      def has_questionnaire?
+        @has_questionnaire.downcase == 'true' ? true : false
       end
 
       def city
