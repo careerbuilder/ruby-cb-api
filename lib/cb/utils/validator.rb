@@ -16,10 +16,6 @@ module Cb
         try_parse_json(body) || try_parse_xml(body) || {}
       end
 
-      def get_empty_json_hash
-        Hash.new
-      end
-
       private
 
       def try_parse_json(body)
