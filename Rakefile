@@ -9,6 +9,12 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   t.pattern = 'spec/**/*_spec.rb'
 end
 
+RSpec::Core::RakeTask.new(:smoke) do |t|
+  t.rspec_opts = '--color -fd'
+  t.pattern = 'specsmoke/**/*_spec.rb'
+end
+
+
 desc 'Run all specs then immediately open the coverage report'
 task :coverage do
   begin
