@@ -14,10 +14,6 @@ module Cb::Models
           job.apply_requirements.should == ['noonlineapply']
         end
 
-        it 'and the ResponseArrayExtractor should have received the message, #extract' do
-          Cb::Utils::ResponseArrayExtractor.should_receive(:extract).with(job_hash, 'ApplyRequirements')
-          Job.new job_hash
-        end
       end
     end
 

@@ -1,6 +1,6 @@
 module Cb
   module Models
-    class Job
+    class Job < ApiResponseModel
       attr_accessor :did, :title, :job_skin, :job_skin_did, :job_branding, :pay, :pay_per, :commission, :bonus, :pay_other,
                     :categories, :category_codes, :degree_required, :experience_required, :travel_required,
                     :industry_codes, :manages_others_code,
@@ -21,7 +21,17 @@ module Cb
                     :relocation_covered, :manages_others
 
       def initialize(args = {})
-        return if args.nil?
+        super(args)
+      end
+
+      protected
+
+      def required_fields
+        []
+      end
+
+      def set_model_properties
+        args = api_response
 
         # General
         @did                          = args['DID'] || args['JobDID'] || ''
@@ -117,13 +127,7 @@ module Cb
       end
 
       def find_company
-        if @company
-          return @company
-        else
-          @company = Cb::CompanyApi.find_for self
-
-          return @company
-        end
+        @company ||= Cb::CompanyApi.find_for self
       end
 
       def external_application?
