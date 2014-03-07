@@ -24,56 +24,6 @@ module Cb
         super(args)
       end
 
-      def find_company
-        if @company
-          return @company
-        else
-          @company = Cb::CompanyApi.find_for self
-
-          return @company
-        end
-      end
-
-      def external_application?
-        @external_application.downcase == 'true' ? true : false
-      end
-
-      def relocation_covered?
-        @relocation_covered.downcase == 'true' ? true : false
-      end
-
-      def manages_others?
-        @manages_others.downcase == 'true' ? true : false
-      end
-
-      def screener_apply?
-        @is_screener_apply.downcase == 'true' ? true : false
-      end
-
-      def shared_job?
-        @is_shared_job.downcase == 'true' ? true : false
-      end
-
-      def can_be_quick_applied?
-        @can_be_quick_applied.downcase == 'true' ? true : false
-      end
-
-      def city
-        if @city.empty?
-          return @location['City']
-        else
-          return @city
-        end
-      end
-
-      def state
-        if @state.empty?
-          return @location['State']
-        else
-          return @state
-        end
-      end
-
       protected
 
       def required_fields
