@@ -146,6 +146,7 @@ module Cb
         @requirements                 = args['JobRequirements'] || ''
         @begin_date                   = args['BeginDate'] || ''
         @end_date                     = args['EndDate'] || ''
+        @has_questionnaire            = args['HasQuestionnaire'] || ''
 
         # Application
         @apply_url                    = args['ApplyURL'] || ''
@@ -174,6 +175,62 @@ module Cb
 
 
       end
+
+      def find_company
+        if @company
+          return @company
+        else
+          @company = Cb::CompanyApi.find_for self
+
+          return @company
+        end
+      end
+
+      def external_application?
+        @external_application.downcase == 'true'
+      end
+
+      def relocation_covered?
+        @relocation_covered.downcase == 'true'
+      end
+
+      def manages_others?
+        @manages_others.downcase == 'true'
+      end
+
+      def screener_apply?
+        @is_screener_apply.downcase == 'true'
+      end
+
+      def shared_job?
+        @is_shared_job.downcase == 'true'
+      end
+
+      def can_be_quick_applied?
+        @can_be_quick_applied.downcase == 'true'
+      end
+
+      def has_questionnaire?
+        @has_questionnaire.downcase == 'true'
+      end
+
+      def city
+        if @city.empty?
+          return @location['City']
+        else
+          return @city
+        end
+      end
+
+      def state
+        if @state.empty?
+          return @location['State']
+        else
+          return @state
+        end
+      end
+
+      protected
 
       def load_extra_fields(args)
         #for internal use only :)
