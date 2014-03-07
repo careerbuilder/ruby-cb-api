@@ -127,31 +127,31 @@ module Cb
       end
 
       def external_application?
-        @external_application.downcase == 'true' ? true : false
+        @external_application.downcase == 'true'
       end
 
       def relocation_covered?
-        @relocation_covered.downcase == 'true' ? true : false
+        @relocation_covered.downcase == 'true'
       end
 
       def manages_others?
-        @manages_others.downcase == 'true' ? true : false
+        @manages_others.downcase == 'true'
       end
 
       def screener_apply?
-        @is_screener_apply.downcase == 'true' ? true : false
+        @is_screener_apply.downcase == 'true'
       end
 
       def shared_job?
-        @is_shared_job.downcase == 'true' ? true : false
+        @is_shared_job.downcase == 'true'
       end
 
       def can_be_quick_applied?
-        @can_be_quick_applied.downcase == 'true' ? true : false
+        @can_be_quick_applied.downcase == 'true'
       end
 
       def has_questionnaire?
-        @has_questionnaire.downcase == 'true' ? true : false
+        @has_questionnaire.downcase == 'true'
       end
 
       def city
