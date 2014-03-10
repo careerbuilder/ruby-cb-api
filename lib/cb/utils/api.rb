@@ -41,7 +41,7 @@ module Cb
       end
 
       def append_api_responses(obj, resp)
-        meta_class = obj.respond_to?('cb_response') ? obj.cb_response : Cb::Utils::MetaValues.new
+        meta_class = ensure_non_nil_metavalues(obj)
 
         resp.each do |api_key, api_value|
           meta_name = format_hash_key(api_key)
@@ -87,6 +87,14 @@ module Cb
       end
 
       private
+
+      def ensure_non_nil_metavalues(obj)
+        if obj.respond_to?('cb_response') && !obj.cb_response.nil?
+          obj.cb_response
+        else
+          Cb::Utils::MetaValues.new
+        end
+      end
 
       def self.camelize(input)
         input.sub!(/^[a-z\d]*/) { $&.capitalize }
