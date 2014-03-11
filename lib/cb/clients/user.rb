@@ -1,5 +1,4 @@
 require 'json'
-require 'xmlsimple'
 
 module Cb
   module Clients
@@ -58,44 +57,47 @@ module Cb
         private
 
         def build_check_existing_request(email, password)
-          request = {
-              'DeveloperKey' => Cb.configuration.dev_key,
-              'Email' => email,
-              'Password' => password,
-              'Test' => 'false'
-          }
-          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
+          <<-eos
+            <Request>
+              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+              <Email>#{email}</Email>
+              <Password>#{password}</Password>
+              <Test>false</Test>
+            </Request>
+          eos
         end
 
         def build_retrieve_request external_id, test_mode
-          request = {
-
-              'DeveloperKey' => Cb.configuration.dev_key,
-              'ExternalID' => external_id,
-              'Test' => test_mode.to_s
-          }
-          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
+          <<-eos
+            <Request>
+              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+              <ExternalID>#{external_id}</ExternalID>
+              <Test>#{test_mode.to_s}</Test>
+            </Request>
+          eos
         end
 
         def build_change_password_request external_id, old_password, new_password, test_mode
-          request = {
-              'DeveloperKey' => Cb.configuration.dev_key,
-              'ExternalID' => external_id,
-              'Test' => test_mode.to_s,
-              'OldPassword' => old_password,
-              'NewPassword' => new_password
-          }
-          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
+          <<-eos
+            <Request>
+              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+              <ExternalID>#{external_id}</ExternalID>
+              <Test>#{test_mode.to_s}</Test>
+              <OldPassword>#{old_password}</OldPassword>
+              <NewPassword>#{new_password}</NewPassword>
+            </Request>
+          eos
         end
 
         def build_delete_request external_id, password, test_mode
-          request = {
-              'DeveloperKey' => Cb.configuration.dev_key,
-              'ExternalID' => external_id,
-              'Test' => test_mode.to_s,
-              'Password' => password
-          }
-          XmlSimple.xml_out request, {'KeepRoot' => true, 'RootName' => 'Request', 'AttrPrefix' => true}
+          <<-eos
+            <Request>
+              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+              <ExternalID>#{external_id}</ExternalID>
+              <Test>#{test_mode.to_s}</Test>
+              <Password>#{password}</Password>
+            </Request>
+          eos
         end
 
         def api_client
