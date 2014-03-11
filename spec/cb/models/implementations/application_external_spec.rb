@@ -13,7 +13,7 @@ module Cb::Models
         { job_did: @job_did,
           email: @email,
           site_id: @site_id,
-          is_external_link_apply: true,
+          is_external_link_apply: @is_external_link_apply,
           ipath: @ipath
         })
     end
@@ -23,7 +23,7 @@ module Cb::Models
         @application.job_did.should == @job_did
         @application.email.should == @email
         @application.ipath.should == @ipath
-        @application.is_external_link_apply.should == true
+        @application.is_external_link_apply.should == @is_external_link_apply
         @application.site_id.should == @site_id
       end
     end
