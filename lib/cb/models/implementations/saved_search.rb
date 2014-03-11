@@ -66,28 +66,22 @@ module Cb
       end
 
       def delete_to_xml
-        request = {
-            'Request' => {
-                'DeveloperKey_' => Cb.configuration.dev_key,
-                'ExternalID' => external_id,
-                'ExternalUserID' => external_user_id,
-                'HostSite' => host_site
-            }
-        }
-        XmlSimple.xml_out request
+        <<-eos
+          <Request>
+            <HostSite>#{host_site}<HostSite>
+            <ExternalID>#{external_id}<ExternalID>
+            <ExternalUserID>#{external_user_id}<ExternalUserID>
+            <DeveloperKey>#{Cb.configuration.dev_key}<DeveloperKey>
+          </Request>
+        eos
       end
 
-
-
       def delete_anon_to_xml
-        request = {
-            'Request' => {
-                'DeveloperKey_' => Cb.configuration.dev_key,
-                'ExternalID' => external_id,
-                'Test' => 'false'
-            }
-        }
-        XmlSimple.xml_out request
+        ret =  "<Request>"
+        ret += "  <ExternalID>#{external_id}</ExternalID>"
+        ret += "  <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
+        ret += "  <Test>false</Test>"
+        ret + "</Request>"
       end
 
       class Delete
