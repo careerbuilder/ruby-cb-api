@@ -153,10 +153,42 @@ module Cb
       end
     end
 
+    describe Models::SavedSearch::SearchParameters do
+      describe '#to_xml' do
+        before { add_search_params }
+        it 'serialized correctly' do
+          expect(search_parameters.to_xml).to eq <<-eos
+            <SearchParameters>
+              <BooleanOperator>AND</BooleanOperator>
+              <JobCategory>medical</JobCategory>
+              <EducationCode>EDU#1</EducationCode>
+              <EmpType>FullTime</EmpType>
+              <ExcludeCompanyNames>CB</ExcludeCompanyNames>
+              <ExcludeJobTitles>janitor</ExcludeJobTitles>
+              <ExcludeKeywords>moom</ExcludeKeywords>
+              <Country>Merica</Country>
+              <IndustryCodes>IN123</IndustryCodes>
+              <JobTitle>nursing person</JobTitle>
+              <Keywords>nurse</Keywords>
+              <Location>ATL</Location>
+              <OrderBy>date</OrderBy>
+              <OrderDirection>up</OrderDirection>
+              <PayHigh>100</PayHigh>
+              <PayLow>2</PayLow>
+              <PostedWithin>8</PostedWithin>
+              <Radius>13</Radius>
+              <SpecificEducation>true</SpecificEducation>
+              <ExcludeNational>true</ExcludeNational>
+              <PayInfoOnly>true</PayInfoOnly>
+            </SearchParameters>
+          eos
+        end
+      end
+    end
+
     def add_search_params
       search_parameters.boolean_operator = 'AND'
       search_parameters.category = 'medical'
-      search_parameters.category = 'medical jobs'
       search_parameters.education_code = 'EDU#1'
       search_parameters.emp_type = 'FullTime'
       search_parameters.exclude_company_names = 'CB'
