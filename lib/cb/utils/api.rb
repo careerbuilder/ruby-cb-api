@@ -16,25 +16,25 @@ module Cb
         self.class.headers.merge! ({'accept-encoding' => 'deflate, gzip'}) unless Cb.configuration.debug_api
       end
 
-      def cb_get(*args, &block)
+      def cb_get(path, options={})
         self.class.base_uri Cb.configuration.base_uri
-        response = self.class.get(*args, &block)
+        response = self.class.get(path, options)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
       end
 
-      def cb_post(*args, &block)
+      def cb_post(path, options={})
         self.class.base_uri Cb.configuration.base_uri
-        response = self.class.post(*args, &block)
+        response = self.class.post(path, options)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
       end
 
-      def cb_put(*args, &block)
+      def cb_put(path, options={})
         self.class.base_uri Cb.configuration.base_uri
-        response = self.class.put(*args, &block)
+        response = self.class.put(path, options)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
