@@ -1,5 +1,3 @@
-require 'xmlsimple'
-
 module Cb
   module Models
     class SavedSearch

@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'httparty', '~> 0.11.0'
   s.add_dependency 'json', '~> 1.7', '>= 1.7.7'
   s.add_dependency 'nori', '~> 2.2.0'
-  s.add_dependency 'xml-simple', '~> 1.1.3'
 
   s.add_development_dependency 'rake', '>= 0.8.7'
   s.add_development_dependency 'webmock', '~> 1.9.0'
