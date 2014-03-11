@@ -26,15 +26,17 @@ module Cb
       end
 
       def create_to_xml
-        ret =  "<Request>"
-        ret += "<HostSite>#{@hostsite}</HostSite>"
-        ret += "<Cobrand>#{@cobrand}</Cobrand>"
-        ret += "<SearchName>#{@search_name}</SearchName>"
-        ret += search_parameters.to_xml
-        ret += "<IsDailyEmail>#{@is_daily_email.to_s.upcase}</IsDailyEmail>"
-        ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
-        ret += "<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
-        ret + "</Request>"
+        <<-eos
+          <Request>
+            <HostSite>#{host_site}</HostSite>
+            <Cobrand>#{cobrand}</Cobrand>
+            <SearchName>#{search_name}</SearchName>
+            #{search_parameters.to_xml}
+            <IsDailyEmail>#{is_daily_email.to_s.upcase}</IsDailyEmail>
+            <ExternalUserID>#{external_user_id}</ExternalUserID>
+            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+          </Request>
+        eos
       end
 
       def create_anon_to_xml
@@ -125,33 +127,32 @@ module Cb
           @pay_info_only         = args['PayInfoOnly'].nil?       ? false : args['PayInfoOnly']
         end
 
-        def to_xml(args = {})
-          request = {
-              'SearchParameters' => {
-                  'BooleanOperator' =>    args[:boolean_operator],
-                  'JobCategory'     =>    args[:category],
-                  'EducationCode'     =>  args[:education_code],
-                  'EmpType'         =>    args[:emp_type],
-                  'ExcludeCompanyNames'=> args[:exclude_company_names],
-                  'ExcludeJobTitles'  =>  args[:exclude_job_titles],
-                  'ExcludeKeywords'   =>  args[:exclude_keywords],
-                  'Country'           =>  args[:country],
-                  'IndustryCodes'     =>  args[:industry_codes],
-                  'JobTitle'          =>  args[:job_title],
-                  'Keywords'          =>  args[:keywords],
-                  'Location'          =>  args[:location],
-                  'OrderBy'           =>  args[:order_by],
-                  'OrderDirection'    =>  args[:order_direction],
-                  'PayHigh'           =>  args[:pay_high],
-                  'PayLow'            =>  args[:pay_low],
-                  'PostedWithin'      =>  args[:posted_within],
-                  'Radius'            =>  args[:radius],
-                  'SpecificEducation' =>  args[:specific_education],
-                  'ExcludeNational'   =>  args[:exclude_national],
-                  'PayInfoOnly'       =>  args[:pay_info_only]
-              }
-          }
-          XmlSimple.xml_out([request], 'SuppressEmpty' => nil)
+        def to_xml
+          <<-eos
+            <SearchParameters>
+              <BooleanOperator>#{boolean_operator}</BooleanOperator>
+              <JobCategory>#{category}</JobCategory>
+              <EducationCode>#{education_code}</EducationCode>
+              <EmpType>#{emp_type}</EmpType>
+              <ExcludeCompanyNames>#{exclude_company_names}</ExcludeCompanyNames>
+              <ExcludeJobTitles>#{exclude_job_titles}</ExcludeJobTitles>
+              <ExcludeKeywords>#{exclude_keywords}</ExcludeKeywords>
+              <Country>#{country}</Country>
+              <IndustryCodes>#{industry_codes}</IndustryCodes>
+              <JobTitle>#{job_title}</JobTitle>
+              <Keywords>#{keywords}</Keywords>
+              <Location>#{location}</Location>
+              <OrderBy>#{order_by}</OrderBy>
+              <OrderDirection>#{order_direction}</OrderDirection>
+              <PayHigh>#{pay_high}</PayHigh>
+              <PayLow>#{pay_low}</PayLow>
+              <PostedWithin>#{posted_within}</PostedWithin>
+              <Radius>#{radius}</Radius>
+              <SpecificEducation>#{specific_education}</SpecificEducation>
+              <ExcludeNational>#{exclude_national}</ExcludeNational>
+              <PayInfoOnly>#{pay_info_only}</PayInfoOnly>
+            </SearchParameters>
+          eos
         end
       end
     end
