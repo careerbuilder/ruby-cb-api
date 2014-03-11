@@ -68,10 +68,10 @@ module Cb
       def delete_to_xml
         <<-eos
           <Request>
-            <HostSite>#{host_site}<HostSite>
-            <ExternalID>#{external_id}<ExternalID>
-            <ExternalUserID>#{external_user_id}<ExternalUserID>
-            <DeveloperKey>#{Cb.configuration.dev_key}<DeveloperKey>
+            <HostSite>#{host_site}</HostSite>
+            <ExternalID>#{external_id}</ExternalID>
+            <ExternalUserID>#{external_user_id}</ExternalUserID>
+            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
           </Request>
         eos
       end
@@ -79,9 +79,9 @@ module Cb
       def delete_anon_to_xml
         <<-eos
           <Request>
-            <ExternalID>#{external_id}<ExternalID>
-            <DeveloperKey>#{Cb.configuration.dev_key}<DeveloperKey>
-            <Test>false<Test>
+            <ExternalID>#{external_id}</ExternalID>
+            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+            <Test>false</Test>
           </Request>
         eos
       end

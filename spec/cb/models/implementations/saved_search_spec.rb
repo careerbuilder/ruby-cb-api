@@ -35,10 +35,10 @@ module Cb
         xml = saved_search.delete_to_xml
         expect(xml).to eq <<-eos
           <Request>
-            <HostSite>US<HostSite>
-            <ExternalID>BigMoom<ExternalID>
-            <ExternalUserID>BigMoomGuy<ExternalUserID>
-            <DeveloperKey>who dat<DeveloperKey>
+            <HostSite>US</HostSite>
+            <ExternalID>BigMoom</ExternalID>
+            <ExternalUserID>BigMoomGuy</ExternalUserID>
+            <DeveloperKey>who dat</DeveloperKey>
           </Request>
         eos
       end
@@ -53,9 +53,9 @@ module Cb
         xml = saved_search.delete_anon_to_xml
         expect(xml).to eq <<-eos
           <Request>
-            <ExternalID>BigMoom<ExternalID>
-            <DeveloperKey>who dat<DeveloperKey>
-            <Test>false<Test>
+            <ExternalID>BigMoom</ExternalID>
+            <DeveloperKey>who dat</DeveloperKey>
+            <Test>false</Test>
           </Request>
         eos
       end
