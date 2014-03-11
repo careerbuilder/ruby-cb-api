@@ -8,7 +8,14 @@ module Cb::Models
       @email = 'dontspammebro@whoa.net'
       @site_id = 'xxx'
       @ipath = 'shiv'
-      @application = ApplicationExternal.new({job_did: @job_did, email: @email, site_id: @site_id, ipath: @ipath})
+      @is_external_link_apply = true
+      @application = ApplicationExternal.new(
+        { job_did: @job_did,
+          email: @email,
+          site_id: @site_id,
+          is_external_link_apply: true,
+          ipath: @ipath
+        })
     end
 
     context '#new' do
@@ -16,6 +23,7 @@ module Cb::Models
         @application.job_did.should == @job_did
         @application.email.should == @email
         @application.ipath.should == @ipath
+        @application.is_external_link_apply.should == true
         @application.site_id.should == @site_id
       end
     end

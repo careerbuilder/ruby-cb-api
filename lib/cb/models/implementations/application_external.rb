@@ -1,14 +1,15 @@
 module Cb
   module Models
     class ApplicationExternal
-      attr_accessor :job_did, :email, :site_id, :ipath, :apply_url
+      attr_accessor :job_did, :email, :site_id, :ipath, :apply_url, :is_external_link_apply
 
       def initialize(args = {})
-        @job_did          = args[:job_did] || ''
-        @email            = args[:email] || ''
-        @site_id          = args[:site_id] || 'cbnsv'
-        @ipath            = args[:ipath] || ''
-        @apply_url        = ''
+        @job_did                = args[:job_did] || ''
+        @email                  = args[:email] || ''
+        @site_id                = args[:site_id] || 'cbnsv'
+        @ipath                  = args[:ipath] || ''
+        @is_external_link_apply = args[:is_external_link_apply] || false
+        @apply_url              = ''
       end
 
       def to_xml
@@ -18,7 +19,7 @@ module Cb
         ret += "<JobDID>#{@job_did}</JobDID>"
         ret += "<SiteID>#{@site_id}</SiteID>"
         ret += "<IPath>#{@ipath}</IPath>"
-        ret += "<IsExternalLinkApply>false</IsExternalLinkApply>"
+        ret += "<IsExternalLinkApply>#{@is_external_link_apply}</IsExternalLinkApply>"
         ret += "<HostSite>#{Cb.configuration.host_site}</HostSite>"
         ret += "</Request>"
         ret
