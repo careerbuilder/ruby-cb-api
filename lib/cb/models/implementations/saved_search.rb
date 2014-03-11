@@ -40,18 +40,20 @@ module Cb
       end
 
       def create_anon_to_xml
-        ret =  "<Request>"
-        ret += "<HostSite>#{@hostsite}</HostSite>"
-        ret += "<Cobrand>#{@cobrand}</Cobrand>"
-        ret += "<BrowserID>#{@browser_id}</BrowserID>"
-        ret += "<SessionID>#{@session_id}</SessionID>"
-        ret += "<Test>#{false}</Test>"
-        ret += "<EmailAddress>#{@email_address}</EmailAddress>"
-        ret += "<SearchName>#{@search_name}</SearchName>"
-        ret += search_parameters.to_xml
-        ret += "<IsDailyEmail>#{@is_daily_email.to_s.upcase}</IsDailyEmail>"
-        ret += "<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
-        ret + "</Request>"
+        <<-eos
+          <Request>
+            <HostSite>#{host_site}</HostSite>
+            <Cobrand>#{cobrand}</Cobrand>
+            <BrowserID>#{browser_id}</BrowserID>
+            <SessionID>#{session_id}</SessionID>
+            <Test>false</Test>
+            <EmailAddress>#{email_address}</EmailAddress>
+            <SearchName>#{search_name}</SearchName>
+            #{search_parameters.to_xml}
+            <IsDailyEmail>#{is_daily_email.to_s.upcase}</IsDailyEmail>
+            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+          </Request>
+        eos
       end
 
       def update_to_xml

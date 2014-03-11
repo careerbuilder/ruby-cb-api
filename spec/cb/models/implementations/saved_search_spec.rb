@@ -90,6 +90,39 @@ module Cb
       end
     end
 
+    describe '#create_anon_to_xml' do
+      before {
+        saved_search.host_site = 'US'
+        saved_search.cobrand = 'AOLer'
+        saved_search.browser_id = 'my_bid'
+        saved_search.session_id = 'my_sid'
+        saved_search.email_address = 'k@cb.moom'
+        saved_search.search_name = 'Yolo'
+        add_search_params
+        saved_search.search_parameters = search_parameters
+        saved_search.is_daily_email = true
+        Cb.configuration.dev_key = 'who dat'
+      }
+      it 'serialized correctly' do
+
+        xml = saved_search.create_anon_to_xml
+        expect(xml).to eq <<-eos
+          <Request>
+            <HostSite>US</HostSite>
+            <Cobrand>AOLer</Cobrand>
+            <BrowserID>my_bid</BrowserID>
+            <SessionID>my_sid</SessionID>
+            <Test>false</Test>
+            <EmailAddress>k@cb.moom</EmailAddress>
+            <SearchName>Yolo</SearchName>
+            #{search_parameters.to_xml}
+            <IsDailyEmail>TRUE</IsDailyEmail>
+            <DeveloperKey>who dat</DeveloperKey>
+          </Request>
+        eos
+      end
+    end
+
     describe '#update_to_xml' do
       before {
         saved_search.host_site = 'US'
