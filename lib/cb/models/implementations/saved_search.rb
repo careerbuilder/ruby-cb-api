@@ -55,16 +55,18 @@ module Cb
       end
 
       def update_to_xml
-        ret =  "<Request>"
-        ret += "<HostSite>#{@hostsite}</HostSite>"
-        ret += "<Cobrand>#{@cobrand}</Cobrand>"
-        ret += "<SearchName>#{@search_name}</SearchName>"
-        ret += search_parameters.to_xml
-        ret += "<IsDailyEmail>#{@is_daily_email.to_s.upcase}</IsDailyEmail>"
-        ret += "<ExternalID>#{@external_id}</ExternalID>"
-        ret += "<ExternalUserID>#{@external_user_id}</ExternalUserID>"
-        ret += "<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
-        ret + "</Request>"
+        <<-eos
+          <Request>
+            <HostSite>#{host_site}</HostSite>
+            <Cobrand>#{cobrand}</Cobrand>
+            <SearchName>#{search_name}</SearchName>
+            #{search_parameters.to_xml}
+            <IsDailyEmail>#{is_daily_email.to_s.upcase}</IsDailyEmail>
+            <ExternalID>#{external_id}</ExternalID>
+            <ExternalUserID>#{external_user_id}</ExternalUserID>
+            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+          </Request>
+        eos
       end
 
       def delete_to_xml
