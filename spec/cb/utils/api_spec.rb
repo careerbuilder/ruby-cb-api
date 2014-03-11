@@ -5,18 +5,19 @@ module Cb
     describe Api do
       let(:api) { Api.new }
       let(:uri) { '/moom' }
+      let(:options) { {} }
 
       describe '#cb_put' do
 
         it 'sends #put to HttParty' do
-          Api.should_receive(:put).with(uri)
+          Api.should_receive(:put).with(uri, options)
           api.cb_put(uri)
         end
 
         context 'When Cb base_uri is configured' do
           before {
             Cb.configuration.base_uri = 'http://www.kylerox.org'
-            Api.stub(:put).with(uri)
+            Api.stub(:put).with(uri, options)
           }
 
           it 'sets base_uri on Api' do
@@ -29,7 +30,7 @@ module Cb
         context 'When a response is returned' do
           let(:response) { { success: 'yeah' } }
           before {
-            Api.stub(:put).with(uri).and_return(response)
+            Api.stub(:put).with(uri, options).and_return(response)
           }
 
           it 'sends #validate to ResponseValidator with the response' do
