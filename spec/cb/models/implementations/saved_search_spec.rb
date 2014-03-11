@@ -2,6 +2,8 @@ require 'spec_helper'
 
 module Cb
   describe Cb::Models::SavedSearch do
+    let(:saved_search) { Models::SavedSearch.new }
+
     context '.new' do 
       it 'should create a new saved job search object with at least minimum required params' do
         email_frequency = 'None'
@@ -23,7 +25,6 @@ module Cb
     end
 
     describe '#delete_to_xml' do
-      let(:saved_search) { Models::SavedSearch.new }
       before {
         saved_search.host_site = 'US'
         saved_search.external_id = 'BigMoom'
@@ -38,6 +39,23 @@ module Cb
             <ExternalID>BigMoom<ExternalID>
             <ExternalUserID>BigMoomGuy<ExternalUserID>
             <DeveloperKey>who dat<DeveloperKey>
+          </Request>
+        eos
+      end
+    end
+
+    describe '#delete_anon_to_xml' do
+      before {
+        saved_search.external_id = 'BigMoom'
+        Cb.configuration.dev_key = 'who dat'
+      }
+      it 'serialized correctly' do
+        xml = saved_search.delete_anon_to_xml
+        expect(xml).to eq <<-eos
+          <Request>
+            <ExternalID>BigMoom<ExternalID>
+            <DeveloperKey>who dat<DeveloperKey>
+            <Test>false<Test>
           </Request>
         eos
       end

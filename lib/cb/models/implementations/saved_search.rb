@@ -77,11 +77,13 @@ module Cb
       end
 
       def delete_anon_to_xml
-        ret =  "<Request>"
-        ret += "  <ExternalID>#{external_id}</ExternalID>"
-        ret += "  <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>"
-        ret += "  <Test>false</Test>"
-        ret + "</Request>"
+        <<-eos
+          <Request>
+            <ExternalID>#{external_id}<ExternalID>
+            <DeveloperKey>#{Cb.configuration.dev_key}<DeveloperKey>
+            <Test>false<Test>
+          </Request>
+        eos
       end
 
       class Delete
