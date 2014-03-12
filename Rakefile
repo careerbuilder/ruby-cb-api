@@ -10,7 +10,6 @@ RSpec::Core::RakeTask.new(:spec) do |t|
 end
 
 RSpec::Core::RakeTask.new(:smoke) do |t|
-  t.rspec_opts = '--color -fd'
   t.pattern = 'specsmoke/**/*_spec.rb'
 end
 
