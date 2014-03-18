@@ -29,7 +29,11 @@ module Cb
       end
 
       def parsed_time_elapsed
-        response.include?('TimeElapsed') ? response['TimeElapsed'].to_f : nil
+        begin
+          response.include?('TimeElapsed') ? response['TimeElapsed'].to_f : nil
+        rescue
+          nil
+        end
       end
     end
 
