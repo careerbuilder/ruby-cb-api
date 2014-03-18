@@ -13,7 +13,7 @@ module Cb
 
         def temporary_password(external_id)
           query = { 'ExternalID' => external_id }
-          response = api_client.cb_post(Cb.configuration.uri_user_temp_password, query: query)
+          response = api_client.cb_get(Cb.configuration.uri_user_temp_password, query: query)
           Cb::Responses::User::TemporaryPassword.new(response)
         end
 

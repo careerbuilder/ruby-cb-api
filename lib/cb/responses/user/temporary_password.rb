@@ -5,22 +5,21 @@ module Cb
       class TemporaryPassword < ApiResponse
 
         # there's really no response model here, so let's just
-        # pass the string along in a way that makes sense.
-        alias_method :temp_password, :models
+        # pass the new password along in a way that makes sense.
+        alias_method :temp_password, :model
 
         protected
 
         def validate_api_hash
-          required_response_field(root_node, response)
-          required_response_field(password_node, response[root_node])
+          required_response_field(password_node, response)
         end
 
         def extract_models
-          response[root_node][password_node]
+          response[password_node]
         end
 
         def hash_containing_metadata
-          response[root_node]
+          response
         end
 
         def raise_on_timing_parse_error
@@ -28,10 +27,6 @@ module Cb
         end
 
         private
-
-        def root_node
-          'ResponseTemporaryPassword'
-        end
 
         def password_node
           'TemporaryPassword'
