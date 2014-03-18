@@ -20,8 +20,8 @@ module Cb
         Responses::SavedSearch::Delete.new(json)
       end
 
-      def retrieve(external_user_id, external_id, host_site)
-        query = retrieve_query(external_user_id, external_id, host_site)
+      def retrieve(oauth_token, host_site)
+        query = retrieve_query(oauth_token)
         json = cb_client.cb_get(Cb.configuration.uri_saved_search_retrieve, :query => query)
         singular_model_response(json, external_user_id, external_id)
       end
@@ -38,12 +38,11 @@ module Cb
         @cb_client ||= Cb.api_client.new
       end
 
-      def retrieve_query(external_user_id, external_id, host_site)
+      def retrieve_query(oauth_token, host_site)
         {
           :developerkey   => Cb.configuration.dev_key,
-          :externalid     => external_id,
-          :externaluserid => external_user_id,
-          :hostsite       => host_site
+          :useroauthtoken => oauth_token,
+          :hostsite => host_site
         }
       end
 
