@@ -29,11 +29,17 @@ module Cb
       end
 
       def parsed_time_elapsed
-        begin
-          response.include?('TimeElapsed') ? response['TimeElapsed'].to_f : nil
-        rescue
-          nil
-        end
+        elapsed_parsable? ? response[elapsed_node].to_f : nil
+      end
+
+      def elapsed_parsable?
+        response.include?(elapsed_node) &&
+        response[elapsed_node].respond_to?(:to_f) &&
+        response[elapsed_node].to_f != 0.0 # to_f coerces nonsense strings to 0.0 :(
+      end
+      
+      def elapsed_node
+        'TimeElapsed'
       end
     end
 
