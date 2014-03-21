@@ -89,23 +89,26 @@
                             "Answers":null
                           },
                           {
-                            "maxCharacters":"50",
+                            "maxCharacters":"32",
                             "minCharacters":"1",
                             "ExpectedResponseFormat":"Text 32",
                             "IsRequired":true,
                             "QuestionID":"ApplicantPhone",
                             "QuestionText":"Your phone number",
                             "QuestionType":"ContactInfo",
-                            "Answers":null
+                            "Answers":[
+                              {"AnswerID":"Yes","AnswerText":"Yes","QuestionID":"MeetsRequirements"},
+                              {"AnswerID":"No","AnswerText":"No","QuestionID":"MeetsRequirements"}
+                            ]
                           }
                        ],
-         "Requirements":"Our ideal Licensed Practical Nurse has excellent listening**********",
-         "DegreeRequired":"2 Year Degree",
-         "TravelRequired":"Negligible",
-         "ExperienceRequired":"",
-         "ExternalApplication":false,
-         "TotalQuestions":11,
-         "TotalRequiredQuestions":10
+        "Requirements":"Our ideal Licensed Practical Nurse has excellent listening**********",
+        "DegreeRequired":"2 Year Degree",
+        "TravelRequired":"Negligible",
+        "ExperienceRequired":"Yay",
+        "ExternalApplication":false,
+        "TotalQuestions":11,
+        "TotalRequiredQuestions":10
        }
     ],
     "Errors":[],

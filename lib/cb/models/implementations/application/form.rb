@@ -31,8 +31,16 @@ module Cb
         end
 
         def extracted_questions
-          questions = api_response['QuestionList'] || Array.new
+          questions = extractable_questions? ? response_questions : Array.new
           questions.map { |question_hash| Question.new(question_hash) }
+        end
+
+        def extractable_questions?
+          !response_questions.nil? && !response_questions.empty? && response_questions.respond_to?(:map)
+        end
+
+        def response_questions
+          api_response['QuestionList']
         end
       end
 
@@ -58,8 +66,16 @@ module Cb
         end
 
         def extracted_answers
-          answers = api_response['Answers'] || Array.new
+          answers = extractable_answers? ? response_answers : Array.new
           answers.map { |answer_hash| Answer.new(answer_hash) }
+        end
+
+        def extractable_answers?
+          !response_answers.nil? && !response_answers.empty? && response_answers.respond_to?(:map)
+        end
+
+        def response_answers
+          api_response['Answers']
         end
 
         def extracted_int_or_nil(key)
@@ -77,9 +93,9 @@ module Cb
         end
 
         def set_model_properties
-          @answer_id   = api_response['AnswerID'].to_i rescue nil
+          @answer_id   = api_response['AnswerID']
           @answer_text = api_response['AnswerText']
-          @question_id = api_response['QuestionID'].to_i rescue nil
+          @question_id = api_response['QuestionID']
         end
       end
 
