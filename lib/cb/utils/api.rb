@@ -1,11 +1,20 @@
 require 'httparty'
+require 'observer'
 
 module Cb
   module Utils
     class Api
-      include HTTParty
+      include HTTParty, Observable
 
       base_uri 'https://api.careerbuilder.com'
+
+      def self.factory
+        api = Cb::Utils::Api.new
+        Cb.configuration.observers.each do |class_name|
+          api.add_observer(class_name.new)
+        end
+        api
+      end
 
       def initialize
         self.class.debug_output $stderr if Cb.configuration.debug_api
@@ -18,7 +27,9 @@ module Cb
 
       def cb_get(path, options={})
         self.class.base_uri Cb.configuration.base_uri
+        notify_observers(:cb_get_before, path, options, nil)
         response = self.class.get(path, options)
+        notify_observers(:cb_get_after, path, options, response)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
@@ -26,7 +37,9 @@ module Cb
 
       def cb_post(path, options={})
         self.class.base_uri Cb.configuration.base_uri
+        notify_observers(:cb_post_before, path, options, nil)
         response = self.class.post(path, options)
+        notify_observers(:cb_post_after, path, options, response)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
@@ -34,7 +47,9 @@ module Cb
 
       def cb_put(path, options={})
         self.class.base_uri Cb.configuration.base_uri
+        notify_observers(:cb_put_before, path, options, nil)
         response = self.class.put(path, options)
+        notify_observers(:cb_put_after, path, options, response)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response

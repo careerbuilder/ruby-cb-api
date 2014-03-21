@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+require_relative '../../support/mocks/observer'
 module Cb
   module Utils
     describe Api do
@@ -7,8 +7,27 @@ module Cb
       let(:uri) { '/moom' }
       let(:options) { {} }
 
-      describe '#cb_put' do
+      describe '#factory' do
+        context 'When we have observers' do
+          before{
+            Cb.configuration.observers.push Mocks::Observer
+          }
+          it 'we add them to the observers list' do
+            Mocks::Observer.should_receive(:new)
+            Cb::Utils::Api.any_instance.should_receive(:add_observer)
+            Cb::Utils::Api.factory
+          end
+        end
+      end
 
+      describe '#cb_put' do
+        context 'when we have observers' do
+          it 'notifies the observers' do
+            Api.should_receive(:put).with(uri, options)
+            Mocks::Observer.any_instance.should_receive(:update)
+            api.cb_put(uri)
+          end
+        end
         it 'sends #put to HttParty' do
           Api.should_receive(:put).with(uri, options)
           api.cb_put(uri)

@@ -12,7 +12,7 @@ module Cb
         end
 
         def retrieve external_id, test_mode = false
-          my_api = Cb::Utils::Api.new
+          my_api = Cb::Utils::Api.factory
           json_hash = my_api.cb_post Cb.configuration.uri_user_retrieve, :body => build_retrieve_request(external_id, true)
           if json_hash.has_key? 'ResponseUserInfo'
             if json_hash['ResponseUserInfo'].has_key? 'UserInfo'
@@ -26,7 +26,7 @@ module Cb
 
         def change_password external_id, old_password, new_password, test_mode = false
           result = false
-          my_api = Cb::Utils::Api.new
+          my_api = Cb::Utils::Api.factory
           json_hash = my_api.cb_post Cb.configuration.uri_user_change_password, :body => build_change_password_request(external_id, old_password, new_password, test_mode)
 
           if json_hash.has_key? 'ResponseUserChangePW'
@@ -41,7 +41,7 @@ module Cb
 
         def delete external_id, password, test_mode = false
           result = false
-          my_api = Cb::Utils::Api.new
+          my_api = Cb::Utils::Api.factory
           json_hash = my_api.cb_post Cb.configuration.uri_user_delete, :body => build_delete_request(external_id, password, test_mode)
 
           if json_hash.has_key? 'ResponseUserDelete'
@@ -101,7 +101,7 @@ module Cb
         end
 
         def api_client
-          Cb::Utils::Api.new
+          Cb::Utils::Api.factory
         end
 
       end
