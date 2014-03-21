@@ -1,0 +1,114 @@
+{
+  "TotalResults":1,
+  "ReturnedResults":1,
+  "Results":[
+      {
+        "JobDID":"JHT2*********",
+        "JobTitle":"Licensed Practical Nurse - LPN (Nonprofit Social Services - Nursing)",
+        "IsSharedApply":false,
+        "QuestionList":[
+                         {
+                            "ExpectedResponseFormat":"Text 50",
+                            "IsRequired":true,
+                            "QuestionID":"ApplicantName",
+                            "QuestionText":"Your name",
+                            "QuestionType":"Basic",
+                            "Answers":null
+                         },
+                         {
+                            "ExpectedResponseFormat":"Text 50",
+                            "IsRequired":true,
+                            "QuestionID":"ApplicantEmail",
+                            "QuestionText":"Your email",
+                            "QuestionType":"Basic",
+                            "Answers":null
+                         },
+                         {
+                            "ExpectedResponseFormat":"Text 5000",
+                            "IsRequired":true,
+                            "QuestionID":"Resume",
+                            "QuestionText":"Your resume",
+                            "QuestionType":"Basic",
+                            "Answers":null
+                         },
+                         {
+                            "ExpectedResponseFormat":"Text 5000",
+                            "IsRequired":false,
+                            "QuestionID":"CoverLetter",
+                            "QuestionText":"Your cover letter",
+                            "QuestionType":"Basic",
+                            "Answers":null
+                         },
+                         {
+                            "ExpectedResponseFormat":null,
+                            "IsRequired":true,
+                            "QuestionID":"MeetsRequirements",
+                            "QuestionText":"Do you meet the requirements specified by the employer for this position?",
+                            "QuestionType":"JobSpecific",
+                            "Answers":[
+                                        {"AnswerID":"Yes","AnswerText":"Yes","QuestionID":"MeetsRequirements"},
+                                        {"AnswerID":"No","AnswerText":"No","QuestionID":"MeetsRequirements"}
+                                      ]
+                          },
+                          {
+                            "ExpectedResponseFormat":"Text 128",
+                            "IsRequired":true,
+                            "QuestionID":"ApplicantAddress",
+                            "QuestionText":"Your address",
+                            "QuestionType":"ContactInfo",
+                            "Answers":null
+                          },
+                          {
+                            "ExpectedResponseFormat":"Text 64",
+                            "IsRequired":true,
+                            "QuestionID":"ApplicantCity",
+                            "QuestionText":"City",
+                            "QuestionType":"ContactInfo","Answers":null},
+                          {
+                            "ExpectedResponseFormat":"Text 50",
+                            "IsRequired":true,
+                            "QuestionID":"ApplicantState",
+                            "QuestionText":"State",
+                            "QuestionType":"ContactInfo",
+                            "Answers":null
+                          },
+                          {
+                            "ExpectedResponseFormat":"Text 32",
+                            "IsRequired":true,
+                            "QuestionID":"ApplicantPostalCode",
+                            "QuestionText":"Postal code",
+                            "QuestionType":"ContactInfo",
+                            "Answers":null
+                          },
+                          {
+                            "ExpectedResponseFormat":"Text 2",
+                            "IsRequired":true,
+                            "QuestionID":"ApplicantCountry",
+                            "QuestionText":"Country",
+                            "QuestionType":"ContactInfo",
+                            "Answers":null
+                          },
+                          {
+                            "maxCharacters":"50",
+                            "minCharacters":"1",
+                            "ExpectedResponseFormat":"Text 32",
+                            "IsRequired":true,
+                            "QuestionID":"ApplicantPhone",
+                            "QuestionText":"Your phone number",
+                            "QuestionType":"ContactInfo",
+                            "Answers":null
+                          }
+                       ],
+         "Requirements":"Our ideal Licensed Practical Nurse has excellent listening**********",
+         "DegreeRequired":"2 Year Degree",
+         "TravelRequired":"Negligible",
+         "ExperienceRequired":"",
+         "ExternalApplication":false,
+         "TotalQuestions":11,
+         "TotalRequiredQuestions":10
+       }
+    ],
+    "Errors":[],
+    "Timestamp":"2014-01-28T10:03:46.4208671-05:00",
+    "Status":"Success"
+}  
