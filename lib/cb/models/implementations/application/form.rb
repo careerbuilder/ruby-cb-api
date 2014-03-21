@@ -27,12 +27,18 @@ module Cb
           @total_required_questions = api_response['TotalRequiredQuestions'].to_i
           @experience_required      = api_response['ExperienceRequired']
           @external_application     = api_response['ExternalApplication']
-          @question_list            = api_response['QuestionList'].map { |question_hash| Question.new(question_hash) }
+          @question_list            = extracted_questions
+        end
+
+        def extracted_questions
+          questions = api_response['QuestionList'] || Array.new
+          questions.map { |question_hash| Question.new(question_hash) }
         end
       end
 
       class Question < ApiResponseModel
-        attr_reader :expected_response_format, :is_required, :question_id, :question_text, :question_type, :answers
+        attr_reader :expected_response_format, :is_required, :question_id, :question_text,
+                    :question_type, :answers, :max_characters, :min_characters
 
         protected
 
@@ -41,12 +47,23 @@ module Cb
         end
 
         def set_model_properties
-          @is_required   = api_response['IsRequired']
-          @question_id   = api_response['QuestionID']
-          @question_text = api_response['QuestionText']
-          @question_type = api_response['QuestionType']
-          @answers       = api_response['Answers'].map { |answer_hash| Answer.new(answer_hash) }
+          @is_required    = api_response['IsRequired']
+          @question_id    = api_response['QuestionID']
+          @question_text  = api_response['QuestionText']
+          @question_type  = api_response['QuestionType']
+          @answers        = extracted_answers
+          @min_characters = extracted_int_or_nil('minCharacters')
+          @max_characters = extracted_int_or_nil('maxCharacters')
           @expected_response_format = api_response['ExpectedResponseFormat']
+        end
+
+        def extracted_answers
+          answers = api_response['Answers'] || Array.new
+          answers.map { |answer_hash| Answer.new(answer_hash) }
+        end
+
+        def extracted_int_or_nil(key)
+          api_response.has_key?(key) ? api_response[key].to_i : nil
         end
       end
 
@@ -60,9 +77,9 @@ module Cb
         end
 
         def set_model_properties
-          @answer_id   = api_response['AnswerID']
+          @answer_id   = api_response['AnswerID'].to_i rescue nil
           @answer_text = api_response['AnswerText']
-          @question_id = api_response['QuestionID']
+          @question_id = api_response['QuestionID'].to_i rescue nil
         end
       end
 

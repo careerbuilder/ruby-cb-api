@@ -15,7 +15,7 @@ module Cb
       end
 
       def extract_models
-        response['Results'].map { |app_form_data| Cb::Models::ApplicationForm.new(app_form_data) }
+        response['Results'].map { |app_form_data| Cb::Models::Application::Form.new(app_form_data) }
       end
 
     end
