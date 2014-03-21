@@ -6,7 +6,7 @@ module Cb
                     :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within,
                     :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_id,
                     :external_user_id, :job_search_url, :jrdid, :errors, :browser_id, :session_id, :test, :email_address,
-                    :saved_search_parameters, :country, :search_parameters
+                    :country, :search_parameters
 
       def initialize(args={})
         @host_site                  = args['HostSite']         || String.new
@@ -15,6 +15,7 @@ module Cb
         @site_id                    = args['SiteId']           || String.new
         @is_daily_email             = args['IsDailyEmail']     || String.new
         @email_delivery_day         = args['EmailDeliveryDay'] || String.new
+        @job_search_url             = args['JobSearchUrl']     || String.new
         @external_id                = args['ExternalID']       || String.new
         @external_user_id           = args['ExternalUserID']   || String.new
         @browser_id                 = args['BrowserID']        || nil
@@ -102,7 +103,8 @@ module Cb
         attr_accessor :boolean_operator, :category, :education_code, :emp_type, :exclude_company_names, :exclude_job_titles,
                       :exclude_keywords, :exclude_national, :industry_codes, :job_title, :keywords, :location, :order_by,
                       :order_direction, :pay_high, :pay_info_only, :pay_low, :posted_within, :radius, :specific_education,
-                      :country
+                      :city, :state, :country, :company,
+                      :jc_position_level, :jc_location, :jc_advertiser_flags, :jc_job_nature
 
         def initialize(args = {})
           @boolean_operator      = args['BooleanOperator']     || String.new
@@ -113,7 +115,7 @@ module Cb
           @exclude_company_names = args['ExcludeCompanyNames'] || String.new
           @exclude_job_titles    = args['ExcludeJobTitles']    || String.new
           @exclude_keywords      = args['ExcludeKeywords']     || String.new
-          @country               = args['Country']             || String.new
+          @exclude_national      = args['ExcludeNational'].nil?   ? false : args['ExcludeNational']
           @industry_codes        = args['IndustryCodes']       || String.new
           @job_title             = args['JobTitle']            || String.new
           @keywords              = args['Keywords']            || String.new
@@ -122,11 +124,18 @@ module Cb
           @order_direction       = args['OrderDirection']      || String.new
           @pay_high              = args['PayHigh']             || 0
           @pay_low               = args['PayLow']              || 0
+          @pay_info_only         = args['PayInfoOnly'].nil?       ? false : args['PayInfoOnly']
           @posted_within         = args['PostedWithin']        || 30
           @radius                = args['Radius']              || 30
           @specific_education    = args['SpecificEducation'].nil? ? false : args['SpecificEducation']
-          @exclude_national      = args['ExcludeNational'].nil?   ? false : args['ExcludeNational']
-          @pay_info_only         = args['PayInfoOnly'].nil?       ? false : args['PayInfoOnly']
+          @city                  = args['City']                || String.new
+          @state                 = args['State']               || String.new
+          @country               = args['Country']             || String.new
+          @company               = args['Company']             || String.new
+          @jc_position_level     = args['JCPositionLevel']     || String.new
+          @jc_location           = args['JCLocation']          || String.new
+          @jc_advertiser_flags   = args['JCAdvertiserFlags']   || String.new
+          @jc_job_nature         = args['JCJobNature']         || String.new
         end
 
         def to_xml

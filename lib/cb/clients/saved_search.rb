@@ -46,10 +46,10 @@ module Cb
         }
       end
 
-      def list_query(external_user_id, host_site)
+      def list_query(oauth_token, host_site)
         {
           :developerkey   => Cb.configuration.dev_key,
-          :externaluserid => external_user_id,
+          :useroauthtoken => oauth_token,
           :hostsite       => host_site
         }
       end

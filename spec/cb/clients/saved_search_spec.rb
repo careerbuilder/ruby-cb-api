@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/mocks/saved_search'
 
 module Cb
   describe Cb::Clients::SavedSearch do
@@ -49,29 +50,14 @@ module Cb
     end
 
     context '.list' do
-      def stub_api_to_return(content)
-        stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_list)).
-          to_return(:body => content.to_json)
-      end
+      before { stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_list)).
+                to_return(:body => Mocks::SavedSearch.list.to_json) }
 
-      context 'when the saved search node contains a hash' do
-        before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: { a: 'b', b: 'c' } } } }) }
-
-        it 'should return an array with a saved search' do
-          user_saved_search = Cb.saved_search.new.list(@external_user_id, 'WM')
-          expect(user_saved_search.models).to be_an_instance_of Array
-          expect(user_saved_search.models.first).to be_an_instance_of Cb::Models::SavedSearch
-        end
-      end
-
-      context 'when the saved search node contains an array' do
-        before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: [Hash.new, Hash.new] } } }) }
-
-        it 'should return an array of saved searches' do
-          user_saved_search = Cb.saved_search.new.list(@external_user_id, 'WM')
-          expect(user_saved_search.models).to be_an_instance_of Array
-          expect(user_saved_search.models.first).to be_an_instance_of Cb::Models::SavedSearch
-        end
+      it 'should return an array of saved searches' do
+        user_saved_search = Cb.saved_search.new.list(@external_user_id, 'HS')
+        expect(user_saved_search.models).to be_an_instance_of Array
+        user_saved_search.models.count.should == 2
+        expect(user_saved_search.models.first).to be_an_instance_of Cb::Models::SavedSearch
       end
     end
 
