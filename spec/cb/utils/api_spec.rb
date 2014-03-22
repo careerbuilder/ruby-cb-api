@@ -3,28 +3,128 @@ require_relative '../../support/mocks/observer'
 module Cb
   module Utils
     describe Api do
-      let(:api) { Api.new }
+      let(:api) { Api.factory }
       let(:uri) { '/moom' }
       let(:options) { {} }
 
       describe '#factory' do
-        context 'When we have observers' do
+        it 'returns a new instance of the api class' do
+          expect(Cb::Utils::Api.factory).to be_a_kind_of(Cb::Utils::Api)
+        end
+
+        context 'when we have observers' do
           before{
-            Cb.configuration.observers.push Mocks::Observer
-          }
-          it 'we add them to the observers list' do
+            Cb.configuration.stub(:observers).and_return(Array(Mocks::Observer))
+           }
+          it 'returns an instance of Api with the observers attached' do
             Mocks::Observer.should_receive(:new)
             Cb::Utils::Api.any_instance.should_receive(:add_observer)
-            Cb::Utils::Api.factory
+            expect(Cb::Utils::Api.factory).to be_a_kind_of(Cb::Utils::Api)
           end
         end
       end
 
+      describe '#cb_get' do
+        context 'when we have observers' do
+          let(:response) { { success: 'yeah' } }
+          before{
+            Cb.configuration.stub(:observers).and_return(Array(Mocks::Observer))
+            Api.stub(:get).with(uri, options).and_return(response)
+          }
+          it 'will notify the observers' do
+            api.should_receive(:notify_observers).twice.and_call_original
+            Mocks::Observer.any_instance.should_receive(:update).with(:cb_get_before, uri, options, nil).at_most(1).times
+            Mocks::Observer.any_instance.should_receive(:update).with(:cb_get_after, uri, options, response).at_most(1).times
+            api.cb_get(uri)
+          end
+        end
+        it 'sends #post to HttParty' do
+          Api.should_receive(:get).with(uri, options)
+          api.cb_get(uri)
+        end
+
+        context 'When Cb base_uri is configured' do
+          before {
+            Cb.configuration.base_uri = 'http://www.applecat.com'
+            Api.stub(:get).with(uri, options)
+          }
+
+          it 'sets base_uri on Api' do
+            api.cb_get(uri)
+            expect(Api.base_uri).to eq 'http://www.applecat.com'
+          end
+        end
+
+        context 'When a response is returned' do
+          let(:response) { { success: 'yeah' } }
+          before {
+            Api.stub(:get).with(uri, options).and_return(response)
+          }
+
+          it 'sends #validate to ResponseValidator with the response' do
+            ResponseValidator.should_receive(:validate).with(response).and_return(response)
+            api.cb_get(uri)
+          end
+        end
+
+      end
+
+      describe '#cb_post' do
+        context 'when we have observers' do
+          let(:response) { { success: 'yeah' } }
+          before{
+            Cb.configuration.stub(:observers).and_return(Array(Mocks::Observer))
+            Api.stub(:post).with(uri, options).and_return(response)
+          }
+          it 'will notify the observers' do
+            api.should_receive(:notify_observers).twice.and_call_original
+            Mocks::Observer.any_instance.should_receive(:update).with(:cb_post_before, uri, options, nil).at_most(1).times
+            Mocks::Observer.any_instance.should_receive(:update).with(:cb_post_after, uri, options, response).at_most(1).times
+            api.cb_post(uri)
+          end
+        end
+        it 'sends #post to HttParty' do
+          Api.should_receive(:post).with(uri, options)
+          api.cb_post(uri)
+        end
+
+        context 'When Cb base_uri is configured' do
+          before {
+            Cb.configuration.base_uri = 'http://www.bananadog.org'
+            Api.stub(:post).with(uri, options)
+          }
+
+          it 'sets base_uri on Api' do
+            api.cb_post(uri)
+            expect(Api.base_uri).to eq 'http://www.bananadog.org'
+          end
+        end
+
+        context 'When a response is returned' do
+          let(:response) { { success: 'yeah' } }
+          before {
+            Api.stub(:post).with(uri, options).and_return(response)
+          }
+
+          it 'sends #validate to ResponseValidator with the response' do
+            ResponseValidator.should_receive(:validate).with(response).and_return(response)
+            api.cb_post(uri)
+          end
+        end
+
+      end
+
       describe '#cb_put' do
         context 'when we have observers' do
-          it 'notifies the observers' do
-            Api.should_receive(:put).with(uri, options)
-            Mocks::Observer.any_instance.should_receive(:update)
+          let(:response) { { success: 'yeah' } }
+          before{
+            Cb.configuration.stub(:observers).and_return(Array(Mocks::Observer))
+            Api.stub(:put).with(uri, options).and_return(response)
+          }
+          it 'will notify the observers' do
+            api.should_receive(:notify_observers).twice.and_call_original
+            Mocks::Observer.any_instance.should_receive(:update).with(:cb_put_before, uri, options, nil).at_most(1).times
+            Mocks::Observer.any_instance.should_receive(:update).with(:cb_put_after, uri, options, response).at_most(1).times
             api.cb_put(uri)
           end
         end
@@ -59,6 +159,7 @@ module Cb
         end
 
       end
+
     end
   end
 end

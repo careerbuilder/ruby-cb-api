@@ -27,9 +27,9 @@ module Cb
 
       def cb_get(path, options={})
         self.class.base_uri Cb.configuration.base_uri
-        notify_observers(:cb_get_before, path, options, nil)
+        cb_event(:cb_get_before, path, options, nil)
         response = self.class.get(path, options)
-        notify_observers(:cb_get_after, path, options, response)
+        cb_event(:cb_get_after, path, options, response)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
@@ -37,9 +37,9 @@ module Cb
 
       def cb_post(path, options={})
         self.class.base_uri Cb.configuration.base_uri
-        notify_observers(:cb_post_before, path, options, nil)
+        cb_event(:cb_post_before, path, options, nil)
         response = self.class.post(path, options)
-        notify_observers(:cb_post_after, path, options, response)
+        cb_event(:cb_post_after, path, options, response)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
@@ -47,9 +47,9 @@ module Cb
 
       def cb_put(path, options={})
         self.class.base_uri Cb.configuration.base_uri
-        notify_observers(:cb_put_before, path, options, nil)
+        cb_event(:cb_put_before, path, options, nil)
         response = self.class.put(path, options)
-        notify_observers(:cb_put_after, path, options, response)
+        cb_event(:cb_put_after, path, options, response)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
@@ -102,6 +102,11 @@ module Cb
       end
 
       private
+
+      def cb_event(api_call_type, path, options, response)
+        changed(true)
+        notify_observers(api_call_type, path, options, response)
+      end
 
       def ensure_non_nil_metavalues(obj)
         if obj.respond_to?('cb_response') && !obj.cb_response.nil?
