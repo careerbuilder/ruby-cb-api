@@ -35,7 +35,11 @@ module Cb
       def elapsed_parsable?
         response.include?(elapsed_node) &&
         response[elapsed_node].respond_to?(:to_f) &&
-        response[elapsed_node].to_f != 0.0 # to_f coerces nonsense strings to 0.0 :(
+        timing_parses_to_nonzero?
+      end
+
+      def timing_parses_to_nonzero?
+        response[elapsed_node].to_f != 0.0
       end
       
       def elapsed_node
