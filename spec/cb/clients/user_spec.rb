@@ -3,6 +3,33 @@ require 'spec_helper'
 module Cb
   describe Cb::Clients::User do
 
+    describe '#temporary_password' do
+      before do
+        stub_request(:get, uri_stem(Cb.configuration.uri_user_temp_password)).
+          with(:query => anything).
+          to_return(:body => { Errors: [], TemporaryPassword: 'hotdogs!' }.to_json)
+      end
+
+      it 'requires a single param (external id)' do
+        expect { Cb.user.temporary_password }.to raise_error(ArgumentError) do |arg_error|
+          expect(arg_error.message).to eq 'wrong number of arguments (0 for 1)'
+        end
+      end
+
+      context 'response' do
+        it 'responds to a #temp_password method' do
+          response = Cb.user.temporary_password('ex_id')
+          expect(response.temp_password).to eq 'hotdogs!'
+        end
+
+        it '#temp_password just aliases the normal #model methods' do
+          response = Cb.user.temporary_password('ex_id')
+          expect(response.temp_password).to eq response.models
+          expect(response.temp_password).to eq response.model
+        end
+      end
+    end
+
     describe '#check_existing' do
       let(:body) do
         { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz', ResponsePartnerID: 'zyx654' } }

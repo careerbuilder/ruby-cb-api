@@ -5,7 +5,7 @@ module Cb
     class EmailSubscription
 
       def self.retrieve_by_did(did, host_site = '')
-        my_api = Cb::Utils::Api.new
+        my_api = Cb::Utils::Api.instance
         json_hash = my_api.cb_get(Cb.configuration.uri_subscription_retrieve, :query => {:ExternalID => did, :Hostsite => host_site})
 
         if json_hash.has_key?('SubscriptionValues') && !json_hash['SubscriptionValues'].nil?
@@ -26,7 +26,7 @@ module Cb
         job_recs = job_recs.nil? ? 'false' : job_recs
         unsubscribe_all = unsubscribe_all.nil? ? 'false' : unsubscribe_all
 
-        my_api = Cb::Utils::Api.new
+        my_api = Cb::Utils::Api.instance
 
         xml_body = "<Request>"
         xml_body += "<DeveloperKey>" + Cb.configuration.dev_key.to_s + "</DeveloperKey>"

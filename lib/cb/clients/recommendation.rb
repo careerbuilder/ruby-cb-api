@@ -5,7 +5,7 @@ module Cb
     class Recommendation
 
       def self.for_job(*args)
-        my_api = Cb::Utils::Api.new
+        my_api = Cb::Utils::Api.instance
         hash = normalize_args(args)
         hash = set_hash_defaults(hash)
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_job,
@@ -30,7 +30,7 @@ module Cb
       end
 
       def self.for_user(*args)
-        my_api = Cb::Utils::Api.new
+        my_api = Cb::Utils::Api.instance
         hash = normalize_args(args)
         hash = set_hash_defaults(hash)
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_user,
@@ -55,7 +55,7 @@ module Cb
       end
 
       def self.for_company(company_did)
-        my_api = Cb::Utils::Api.new
+        my_api = Cb::Utils::Api.instance
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_company, :query => {:CompanyDID => company_did})
 
         jobs = []
