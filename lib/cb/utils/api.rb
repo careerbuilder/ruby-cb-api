@@ -13,11 +13,13 @@ module Cb
         Cb.configuration.observers.each do |class_name|
           api.add_observer(class_name.new)
         end
+        if Cb.configuration.debug_api && !Cb.configuration.observers.include?(Cb::Utils::ConsoleObserver)
+          api.add_observer(Cb::Utils::ConsoleObserver.new)
+        end
         api
       end
 
       def initialize
-        self.class.debug_output $stderr if Cb.configuration.debug_api
         self.class.default_params :developerkey => Cb.configuration.dev_key,
                                   :outputjson => Cb.configuration.use_json.to_s
 
