@@ -29,10 +29,10 @@ module Cb
       end
 
       def parsed_time_elapsed
-        elapsed_parsable? ? response[elapsed_node].to_f : nil
+        elapsed_node_parsable? ? response[elapsed_node].to_f : nil
       end
 
-      def elapsed_parsable?
+      def elapsed_node_parsable?
         response.include?(elapsed_node) &&
         response[elapsed_node].respond_to?(:to_f) &&
         timing_parses_to_nonzero?
