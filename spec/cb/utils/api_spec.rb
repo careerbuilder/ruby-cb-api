@@ -33,8 +33,7 @@ module Cb
           }
           it 'will notify the observers' do
             api.should_receive(:notify_observers).twice.and_call_original
-            Mocks::Observer.any_instance.should_receive(:update).with(:cb_get_before, uri, options, nil).at_most(1).times
-            Mocks::Observer.any_instance.should_receive(:update).with(:cb_get_after, uri, options, response).at_most(1).times
+            Mocks::Observer.any_instance.should_receive(:update).at_most(2).times
             api.cb_get(uri)
           end
         end
@@ -78,8 +77,7 @@ module Cb
           }
           it 'will notify the observers' do
             api.should_receive(:notify_observers).twice.and_call_original
-            Mocks::Observer.any_instance.should_receive(:update).with(:cb_post_before, uri, options, nil).at_most(1).times
-            Mocks::Observer.any_instance.should_receive(:update).with(:cb_post_after, uri, options, response).at_most(1).times
+            Mocks::Observer.any_instance.should_receive(:update).at_most(2).times
             api.cb_post(uri)
           end
         end
@@ -123,8 +121,7 @@ module Cb
           }
           it 'will notify the observers' do
             api.should_receive(:notify_observers).twice.and_call_original
-            Mocks::Observer.any_instance.should_receive(:update).with(:cb_put_before, uri, options, nil).at_most(1).times
-            Mocks::Observer.any_instance.should_receive(:update).with(:cb_put_after, uri, options, response).at_most(1).times
+            Mocks::Observer.any_instance.should_receive(:update).at_most(2).times
             api.cb_put(uri)
           end
         end

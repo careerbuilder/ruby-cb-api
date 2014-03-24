@@ -103,9 +103,13 @@ module Cb
 
       private
 
+      def api_call_model(api_call_type, path, options, response)
+        Cb::Models::ApiCall.new(api_call_type, path, options, response)
+      end
+
       def cb_event(api_call_type, path, options, response)
         changed(true)
-        notify_observers(api_call_type, path, options, response)
+        notify_observers(api_call_model(api_call_type, path, options, response))
       end
 
       def ensure_non_nil_metavalues(obj)
