@@ -24,6 +24,14 @@ module Cb
           expect { Responses::Timing.new(Object.new) }.to raise_error ExpectedResponseFieldMissing
         end
       end
+
+      context "when the timing hash looks valid but doesn't coerce to a float" do
+        it 'sets the #elapsed field to nil' do
+          valid_input_hash['TimeElapsed'] = 'lolol'
+          timing = Responses::Timing.new(valid_input_hash)
+          expect(timing.elapsed).to be_nil
+        end
+      end
     end
 
     context '#response_sent' do
