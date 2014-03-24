@@ -11,10 +11,8 @@ module Cb
       end
 
       it 'requires a single param (external id)' do
-        begin
-          Cb.user.temporary_password
-        rescue ArgumentError => ex
-          expect(ex.message).to eq 'wrong number of arguments (0 for 1)'
+        expect { Cb.user.temporary_password }.to raise_error(ArgumentError) do |arg_error|
+          expect(arg_error.message).to eq 'wrong number of arguments (0 for 1)'
         end
       end
 
