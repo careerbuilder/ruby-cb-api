@@ -31,11 +31,11 @@ module Cb
         end
 
         def extracted_questions
-          questions = extractable_questions? ? response_questions : Array.new
+          questions = iterable_questions? ? response_questions : Array.new
           questions.map { |question_hash| Question.new(question_hash) }
         end
 
-        def extractable_questions?
+        def iterable_questions?
           !response_questions.nil? && !response_questions.empty? && response_questions.respond_to?(:map)
         end
 
@@ -66,11 +66,11 @@ module Cb
         end
 
         def extracted_answers
-          answers = extractable_answers? ? response_answers : Array.new
+          answers = iterable_answers? ? response_answers : Array.new
           answers.map { |answer_hash| Answer.new(answer_hash) }
         end
 
-        def extractable_answers?
+        def iterable_answers?
           !response_answers.nil? && !response_answers.empty? && response_answers.respond_to?(:map)
         end
 
