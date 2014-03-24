@@ -3,13 +3,13 @@ require_relative '../../support/mocks/observer'
 module Cb
   module Utils
     describe Api do
-      let(:api) { Api.factory }
+      let(:api) { Api.instance }
       let(:uri) { '/moom' }
       let(:options) { {} }
 
       describe '#factory' do
         it 'returns a new instance of the api class' do
-          expect(Cb::Utils::Api.factory).to be_a_kind_of(Cb::Utils::Api)
+          expect(Cb::Utils::Api.instance).to be_a_kind_of(Cb::Utils::Api)
         end
 
         context 'when we have observers' do
@@ -19,7 +19,7 @@ module Cb
           it 'returns an instance of Api with the observers attached' do
             Mocks::Observer.should_receive(:new)
             Cb::Utils::Api.any_instance.should_receive(:add_observer)
-            expect(Cb::Utils::Api.factory).to be_a_kind_of(Cb::Utils::Api)
+            expect(Cb::Utils::Api.instance).to be_a_kind_of(Cb::Utils::Api)
           end
         end
       end

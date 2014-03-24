@@ -3,7 +3,7 @@ module Cb
     class JobBranding
 
       def self.find_by_id id
-        my_api = Cb::Utils::Api.factory
+        my_api = Cb::Utils::Api.instance
         json_hash = my_api.cb_get Cb.configuration.uri_job_branding, :query => { :id => id }
 
         if json_hash.has_key? 'Branding'

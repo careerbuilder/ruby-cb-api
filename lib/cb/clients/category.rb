@@ -5,7 +5,7 @@ module Cb
     class Category
 
       def self.search
-        my_api = Cb::Utils::Api.factory
+        my_api = Cb::Utils::Api.instance
         json_hash = my_api.cb_get(Cb.configuration.uri_job_category_search)
         categoryList = []
 
@@ -23,7 +23,7 @@ module Cb
       end
 
       def self.search_by_host_site(host_site)
-        my_api = Cb::Utils::Api.factory
+        my_api = Cb::Utils::Api.instance
         json_hash = my_api.cb_get(Cb.configuration.uri_job_category_search, :query => {:CountryCode => host_site})
         categoryList = []
 

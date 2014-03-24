@@ -18,7 +18,7 @@ module Cb
         end
 
         def api_client
-          @api ||= Cb::Utils::Api.factory
+          @api ||= Cb::Utils::Api.instance
         end
 
       end

@@ -5,7 +5,7 @@ module Cb
     class Company
 
       def self.find_by_did(did)
-        my_api = Cb::Utils::Api.factory
+        my_api = Cb::Utils::Api.instance
         json_hash = my_api.cb_get(Cb.configuration.uri_company_find, :query => {:CompanyDID => did, :hostsite=> Cb.configuration.host_site})
 
         if json_hash.has_key?('Results')

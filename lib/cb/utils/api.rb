@@ -8,7 +8,7 @@ module Cb
 
       base_uri 'https://api.careerbuilder.com'
 
-      def self.factory
+      def self.instance
         api = Cb::Utils::Api.new
         Cb.configuration.observers.each do |class_name|
           api.add_observer(class_name.new)
