@@ -15,7 +15,7 @@ module Cb
       private
 
       def cb_client
-        @client ||= Cb.api_client.new
+        @client ||= Cb::Utils::Api.instance
       end
 
       def endpoint
