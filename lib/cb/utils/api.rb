@@ -1,14 +1,25 @@
 require 'httparty'
+require 'observer'
 
 module Cb
   module Utils
     class Api
-      include HTTParty
+      include HTTParty, Observable
 
       base_uri 'https://api.careerbuilder.com'
 
+      def self.instance
+        api = Cb::Utils::Api.new
+        Cb.configuration.observers.each do |class_name|
+          api.add_observer(class_name.new)
+        end
+        if Cb.configuration.debug_api && !Cb.configuration.observers.include?(Cb::Utils::ConsoleObserver)
+          api.add_observer(Cb::Utils::ConsoleObserver.new)
+        end
+        api
+      end
+
       def initialize
-        self.class.debug_output $stderr if Cb.configuration.debug_api
         self.class.default_params :developerkey => Cb.configuration.dev_key,
                                   :outputjson => Cb.configuration.use_json.to_s
 
@@ -18,7 +29,9 @@ module Cb
 
       def cb_get(path, options={})
         self.class.base_uri Cb.configuration.base_uri
+        cb_event(:cb_get_before, path, options, nil)
         response = self.class.get(path, options)
+        cb_event(:cb_get_after, path, options, response)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
@@ -26,7 +39,9 @@ module Cb
 
       def cb_post(path, options={})
         self.class.base_uri Cb.configuration.base_uri
+        cb_event(:cb_post_before, path, options, nil)
         response = self.class.post(path, options)
+        cb_event(:cb_post_after, path, options, response)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
@@ -34,7 +49,9 @@ module Cb
 
       def cb_put(path, options={})
         self.class.base_uri Cb.configuration.base_uri
+        cb_event(:cb_put_before, path, options, nil)
         response = self.class.put(path, options)
+        cb_event(:cb_put_after, path, options, response)
         validated_response = ResponseValidator.validate(response)
         set_api_error(validated_response)
         validated_response
@@ -87,6 +104,15 @@ module Cb
       end
 
       private
+
+      def api_call_model(api_call_type, path, options, response)
+        Cb::Models::ApiCall.new(api_call_type, path, options, response)
+      end
+
+      def cb_event(api_call_type, path, options, response)
+        changed(true)
+        notify_observers(api_call_model(api_call_type, path, options, response))
+      end
 
       def ensure_non_nil_metavalues(obj)
         if obj.respond_to?('cb_response') && !obj.cb_response.nil?

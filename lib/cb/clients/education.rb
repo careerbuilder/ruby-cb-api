@@ -6,7 +6,7 @@ module Cb
 
       def self.get_for(country)
         Cb::Utils::Country.is_valid? country ? country : 'US'
-        my_api = Cb::Utils::Api.new
+        my_api = Cb::Utils::Api.instance
         json_hash = my_api.cb_get(Cb.configuration.uri_education_code, :query => {:countrycode => country})
 
         codes = []

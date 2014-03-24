@@ -45,7 +45,7 @@ module Cb
         end
 
         def api_client
-          Cb::Utils::Api.new
+          Cb::Utils::Api.instance
         end
       end
     end
