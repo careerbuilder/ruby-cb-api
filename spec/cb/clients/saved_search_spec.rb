@@ -64,7 +64,24 @@ module Cb
     context '.retrieve' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_retrieve.gsub(':did', 'xid'))).
-          to_return(:body => { SavedJobSearch: { Errors: nil, SavedSearch: Hash.new } }.to_json)
+          to_return(:body => {
+            "TotalResults"=>1,
+            "ReturnedResults"=>1,
+            "Results"=>
+            [{"DID"=>"OMG DIDs",
+              "SearchName"=>"Why can't I find a jerb?",
+              "HostSite"=>"Merkah",
+              "SiteID"=>"",
+              "Cobrand"=>"",
+              "IsDailyEmail"=>"maybe",
+              "EmailDeliveryDay"=>"YESTERDAY",
+              "JobSearchUrl"=>"blerg.com",
+              "SavedSearchParameters"=>{
+                  "Any"=>"No"}
+             }],
+            "Errors"=>[],
+            "Timestamp"=>"2014-03-25T15:29:27.8361791-04:00",
+            "Status"=>"YEY"}.to_json)
       end
 
       it 'should return a saved search model' do

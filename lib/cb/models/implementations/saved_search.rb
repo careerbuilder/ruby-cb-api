@@ -6,7 +6,7 @@ module Cb
                     :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within,
                     :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_id,
                     :external_user_id, :job_search_url, :jrdid, :errors, :browser_id, :session_id, :test, :email_address,
-                    :country, :search_parameters
+                    :country, :search_parameters, :did
 
       def initialize(args={})
         @host_site                  = args['HostSite']         || String.new

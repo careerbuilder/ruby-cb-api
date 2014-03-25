@@ -24,7 +24,7 @@ module Cb
         query = retrieve_query(oauth_token)
         uri = replace_uri_field(Cb.configuration.uri_saved_search_retrieve, ':did', external_id)
         json = cb_client.cb_get(uri, :query => query)
-        singular_model_response(json, nil, external_id)
+        Responses::SavedSearch::Retrieve.new(json)
       end
 
       def list(oauth_token)
