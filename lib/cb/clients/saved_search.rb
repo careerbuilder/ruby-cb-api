@@ -36,7 +36,7 @@ module Cb
       private
 
       def cb_client
-        @cb_client ||= Cb.api_client.new
+        @cb_client ||= Cb::Utils::Api.instance
       end
 
       def retrieve_query(oauth_token)

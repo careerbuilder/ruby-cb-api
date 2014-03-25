@@ -1,14 +1,14 @@
 module Cb
   class Config
-    attr_accessor :dev_key, :base_uri, :debug_api, :time_out, :use_json, :host_site, :test_resources,
+    attr_accessor :dev_key, :base_uri, :debug_api, :time_out, :use_json, :host_site, :test_resources, :observers,
                   :uri_job_search, :uri_job_find,
                   :uri_company_find, :uri_job_category_search,
                   :uri_education_code, :uri_employee_types,
                   :uri_recommendation_for_job, :uri_recommendation_for_user,
                   :uri_recommendation_for_company,
-                  :uri_application, :uri_application_submit,
+                  :uri_application, :uri_application_submit, :uri_application_form,
                   :uri_application_external,
-                  :uri_application_registered, :uri_user_change_password,
+                  :uri_application_registered, :uri_user_change_password, :uri_user_temp_password,
                   :uri_user_delete, :uri_user_retrieve, :uri_user_check_existing,
                   :uri_job_branding,
                   :uri_resume_own_all, :uri_resume_retrieve,
@@ -40,10 +40,12 @@ module Cb
       @uri_application_submit             ||= '/v1/Application/submit'
       @uri_application_registered         ||= '/v3/application/registered'
       @uri_application_external           ||= '/v1/application/external'
+      @uri_application_form               ||= '/cbapi/job/:did/applicationform'
       @uri_user_change_password           ||= '/v2/User/ChangePW'
       @uri_user_delete                    ||= '/v2/User/delete'
       @uri_user_retrieve                  ||= '/v2/user/retrieve'
       @uri_user_check_existing            ||= '/v2/user/checkexisting'
+      @uri_user_temp_password             ||= '/v1/user/temporarypassword'
       @uri_job_branding                   ||= '/branding'
       @uri_resume_own_all                 ||= '/v2/resume/ownall'
       @uri_resume_retrieve                ||= '/v2/resume/retrieve'
@@ -126,7 +128,7 @@ module Cb
       @use_json             = true
       @host_site            = Cb.country.US
       @test_resources       = false
-
+      @observers            = Array.new
       set_default_api_uris
     end
   end

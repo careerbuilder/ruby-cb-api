@@ -7,7 +7,7 @@ module Cb
       def self.submit_app(app)
         raise Cb::IncomingParamIsWrongTypeException unless app.is_a?(Cb::Models::ApplicationExternal)
 
-        my_api = Cb::Utils::Api.new
+        my_api = Cb::Utils::Api.instance
         xml_hash = my_api.cb_post(Cb.configuration.uri_application_external, :body => app.to_xml)
 
         if xml_hash.has_key? 'ApplyUrl'

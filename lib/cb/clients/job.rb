@@ -26,7 +26,7 @@ module Cb
         private
 
         def api_client
-          @api ||= Cb::Utils::Api.new
+          @api ||= Cb::Utils::Api.instance
         end
 
       end
