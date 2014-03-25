@@ -54,7 +54,7 @@ module Cb
                 to_return(:body => Mocks::SavedSearch.list.to_json) }
 
       it 'should return an array of saved searches' do
-        user_saved_search = Cb.saved_search.new.list(@external_user_id, 'HS')
+        user_saved_search = Cb.saved_search.new.list(@user_oauth_token)
         expect(user_saved_search.models).to be_an_instance_of Array
         user_saved_search.models.count.should == 2
         expect(user_saved_search.models.first).to be_an_instance_of Cb::Models::SavedSearch
@@ -63,12 +63,12 @@ module Cb
 
     context '.retrieve' do
       before :each do
-        stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_retrieve)).
+        stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_retrieve.gsub(':did', 'xid'))).
           to_return(:body => { SavedJobSearch: { Errors: nil, SavedSearch: Hash.new } }.to_json)
       end
 
       it 'should return a saved search model' do
-        response = Cb::Clients::SavedSearch.new.retrieve(@external_user_id, 'xid', @host_site)
+        response = Cb::Clients::SavedSearch.new.retrieve(@user_oauth_token, 'xid')
         response.model.should be_an_instance_of(Models::SavedSearch)
       end
     end

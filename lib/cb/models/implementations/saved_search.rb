@@ -21,6 +21,7 @@ module Cb
         @browser_id                 = args['BrowserID']        || nil
         @session_id                 = args['SessionID']        || String.new
         @email_address              = args['EmailAddress']     || String.new
+        @did                        = args['DID']              || String.new
         @search_parameters          = SearchParameters.new(args['SavedSearchParameters'] || {})
       end
 

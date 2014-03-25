@@ -39,12 +39,12 @@ module Cb
         it 'serialized correctly' do
           xml = saved_search.delete_to_xml
           expect(xml).to eq <<-eos
-            <Request>
-              <HostSite>US</HostSite>
-              <ExternalID>BigMoom</ExternalID>
-              <ExternalUserID>BigMoomGuy</ExternalUserID>
-              <DeveloperKey>who dat</DeveloperKey>
-            </Request>
+          <Request>
+            <HostSite>US</HostSite>
+            <ExternalID>BigMoom</ExternalID>
+            <ExternalUserID>BigMoomGuy</ExternalUserID>
+            <DeveloperKey>who dat</DeveloperKey>
+          </Request>
           eos
         end
       end
@@ -57,11 +57,11 @@ module Cb
         it 'serialized correctly' do
           xml = saved_search.delete_anon_to_xml
           expect(xml).to eq <<-eos
-            <Request>
-              <ExternalID>BigMoom</ExternalID>
-              <DeveloperKey>who dat</DeveloperKey>
-              <Test>false</Test>
-            </Request>
+          <Request>
+            <ExternalID>BigMoom</ExternalID>
+            <DeveloperKey>who dat</DeveloperKey>
+            <Test>false</Test>
+          </Request>
           eos
         end
       end
@@ -81,15 +81,15 @@ module Cb
 
           xml = saved_search.create_to_xml
           expect(xml).to eq <<-eos
-            <Request>
-              <HostSite>US</HostSite>
-              <Cobrand>AOLer</Cobrand>
-              <SearchName>Yolo</SearchName>
-              #{search_parameters.to_xml}
-              <IsDailyEmail>TRUE</IsDailyEmail>
-              <ExternalUserID>BigMoomGuy</ExternalUserID>
-              <DeveloperKey>who dat</DeveloperKey>
-            </Request>
+          <Request>
+            <HostSite>US</HostSite>
+            <Cobrand>AOLer</Cobrand>
+            <SearchName>Yolo</SearchName>
+            #{search_parameters.to_xml}
+            <IsDailyEmail>TRUE</IsDailyEmail>
+            <ExternalUserID>BigMoomGuy</ExternalUserID>
+            <DeveloperKey>who dat</DeveloperKey>
+          </Request>
           eos
         end
       end
@@ -111,18 +111,18 @@ module Cb
 
           xml = saved_search.create_anon_to_xml
           expect(xml).to eq <<-eos
-            <Request>
-              <HostSite>US</HostSite>
-              <Cobrand>AOLer</Cobrand>
-              <BrowserID>my_bid</BrowserID>
-              <SessionID>my_sid</SessionID>
-              <Test>false</Test>
-              <EmailAddress>k@cb.moom</EmailAddress>
-              <SearchName>Yolo</SearchName>
-              #{search_parameters.to_xml}
-              <IsDailyEmail>TRUE</IsDailyEmail>
-              <DeveloperKey>who dat</DeveloperKey>
-            </Request>
+          <Request>
+            <HostSite>US</HostSite>
+            <Cobrand>AOLer</Cobrand>
+            <BrowserID>my_bid</BrowserID>
+            <SessionID>my_sid</SessionID>
+            <Test>false</Test>
+            <EmailAddress>k@cb.moom</EmailAddress>
+            <SearchName>Yolo</SearchName>
+            #{search_parameters.to_xml}
+            <IsDailyEmail>TRUE</IsDailyEmail>
+            <DeveloperKey>who dat</DeveloperKey>
+          </Request>
           eos
         end
       end
@@ -143,16 +143,16 @@ module Cb
 
           xml = saved_search.update_to_xml
           expect(xml).to eq <<-eos
-            <Request>
-              <HostSite>US</HostSite>
-              <Cobrand>AOLer</Cobrand>
-              <SearchName>Yolo</SearchName>
-              #{search_parameters.to_xml}
-              <IsDailyEmail>TRUE</IsDailyEmail>
-              <ExternalID>BigMoom</ExternalID>
-              <ExternalUserID>BigMoomGuy</ExternalUserID>
-              <DeveloperKey>who dat</DeveloperKey>
-            </Request>
+          <Request>
+            <HostSite>US</HostSite>
+            <Cobrand>AOLer</Cobrand>
+            <SearchName>Yolo</SearchName>
+            #{search_parameters.to_xml}
+            <IsDailyEmail>TRUE</IsDailyEmail>
+            <ExternalID>BigMoom</ExternalID>
+            <ExternalUserID>BigMoomGuy</ExternalUserID>
+            <DeveloperKey>who dat</DeveloperKey>
+          </Request>
           eos
         end
       end
@@ -162,30 +162,30 @@ module Cb
           before { add_search_params }
           it 'serialized correctly' do
             expect(search_parameters.to_xml).to eq <<-eos
-              <SearchParameters>
-                <BooleanOperator>AND</BooleanOperator>
-                <JobCategory>medical</JobCategory>
-                <EducationCode>EDU#1</EducationCode>
-                <EmpType>FullTime</EmpType>
-                <ExcludeCompanyNames>CB</ExcludeCompanyNames>
-                <ExcludeJobTitles>janitor</ExcludeJobTitles>
-                <ExcludeKeywords>moom</ExcludeKeywords>
-                <Country>Merica</Country>
-                <IndustryCodes>IN123</IndustryCodes>
-                <JobTitle>nursing person</JobTitle>
-                <Keywords>nurse</Keywords>
-                <Location>ATL</Location>
-                <OrderBy>date</OrderBy>
-                <OrderDirection>up</OrderDirection>
-                <PayHigh>100</PayHigh>
-                <PayLow>2</PayLow>
-                <PostedWithin>8</PostedWithin>
-                <Radius>13</Radius>
-                <SpecificEducation>true</SpecificEducation>
-                <ExcludeNational>true</ExcludeNational>
-                <PayInfoOnly>true</PayInfoOnly>
-              </SearchParameters>
-            eos
+            <SearchParameters>
+              <BooleanOperator>AND</BooleanOperator>
+              <JobCategory>medical</JobCategory>
+              <EducationCode>EDU#1</EducationCode>
+              <EmpType>FullTime</EmpType>
+              <ExcludeCompanyNames>CB</ExcludeCompanyNames>
+              <ExcludeJobTitles>janitor</ExcludeJobTitles>
+              <ExcludeKeywords>moom</ExcludeKeywords>
+              <Country>Merica</Country>
+              <IndustryCodes>IN123</IndustryCodes>
+              <JobTitle>nursing person</JobTitle>
+              <Keywords>nurse</Keywords>
+              <Location>ATL</Location>
+              <OrderBy>date</OrderBy>
+              <OrderDirection>up</OrderDirection>
+              <PayHigh>100</PayHigh>
+              <PayLow>2</PayLow>
+              <PostedWithin>8</PostedWithin>
+              <Radius>13</Radius>
+              <SpecificEducation>true</SpecificEducation>
+              <ExcludeNational>true</ExcludeNational>
+              <PayInfoOnly>true</PayInfoOnly>
+            </SearchParameters>
+          eos
           end
         end
       end
@@ -215,7 +215,7 @@ module Cb
       end
 
       def mock_search_parameters_response
-        {
+        '
         "BooleanOperator":"AND",
         "Category":"category",
         "EducationCode":"DRNS",
@@ -244,7 +244,7 @@ module Cb
         "City":"city",
         "State":"state",
         "Country":"country"
-        }
+        '
       end
 
     end

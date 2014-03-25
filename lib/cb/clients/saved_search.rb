@@ -20,14 +20,15 @@ module Cb
         Responses::SavedSearch::Delete.new(json)
       end
 
-      def retrieve(oauth_token, host_site)
+      def retrieve(oauth_token, external_id)
         query = retrieve_query(oauth_token)
-        json = cb_client.cb_get(Cb.configuration.uri_saved_search_retrieve, :query => query)
-        singular_model_response(json, external_user_id, external_id)
+        uri = replace_uri_field(Cb.configuration.uri_saved_search_retrieve, ':did', external_id)
+        json = cb_client.cb_get(uri, :query => query)
+        singular_model_response(json, nil, external_id)
       end
 
-      def list(external_user_id, host_site)
-        query = list_query(external_user_id, host_site)
+      def list(oauth_token)
+        query = list_query(oauth_token)
         json = cb_client.cb_get(Cb.configuration.uri_saved_search_list, :query => query)
         Responses::SavedSearch::List.new(json)
       end
@@ -38,19 +39,17 @@ module Cb
         @cb_client ||= Cb.api_client.new
       end
 
-      def retrieve_query(oauth_token, host_site)
+      def retrieve_query(oauth_token)
         {
           :developerkey   => Cb.configuration.dev_key,
-          :useroauthtoken => oauth_token,
-          :hostsite => host_site
+          :useroauthtoken => oauth_token
         }
       end
 
-      def list_query(oauth_token, host_site)
+      def list_query(oauth_token)
         {
           :developerkey   => Cb.configuration.dev_key,
-          :useroauthtoken => oauth_token,
-          :hostsite       => host_site
+          :useroauthtoken => oauth_token
         }
       end
 
@@ -58,6 +57,10 @@ module Cb
         json_hash['ExternalUserID'] = external_user_id unless external_user_id.nil?
         json_hash['ExternalID'] = external_id unless external_id.nil?
         Responses::SavedSearch::Singular.new(json_hash)
+      end
+
+      def replace_uri_field(uri_string, field, replacement)
+        uri_string.gsub(field, replacement)
       end
     end
 
