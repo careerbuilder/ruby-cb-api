@@ -6,7 +6,7 @@ module Cb
                   :uri_education_code, :uri_employee_types,
                   :uri_recommendation_for_job, :uri_recommendation_for_user,
                   :uri_recommendation_for_company,
-                  :uri_application, :uri_application_submit,
+                  :uri_application, :uri_application_submit, :uri_application_form,
                   :uri_application_external,
                   :uri_application_registered, :uri_user_change_password, :uri_user_temp_password,
                   :uri_user_delete, :uri_user_retrieve, :uri_user_check_existing,
@@ -40,6 +40,7 @@ module Cb
       @uri_application_submit             ||= '/v1/Application/submit'
       @uri_application_registered         ||= '/v3/application/registered'
       @uri_application_external           ||= '/v1/application/external'
+      @uri_application_form               ||= '/cbapi/job/:did/applicationform'
       @uri_user_change_password           ||= '/v2/User/ChangePW'
       @uri_user_delete                    ||= '/v2/User/delete'
       @uri_user_retrieve                  ||= '/v2/user/retrieve'

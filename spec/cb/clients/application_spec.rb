@@ -127,5 +127,30 @@ module Cb
 
     end
 
+    describe '#form' do
+      let(:did) { 'hotdog sandwich' }
+      let(:response_stub) { JSON.parse File.read('spec/support/response_stubs/application_form.json') }
+      before { Cb::Utils::Api.any_instance.stub(:cb_get).and_return(response_stub) }
+
+      it 'GETs the correct url with supplied job did substituted in' do
+        expected_uri = Cb.configuration.uri_application_form.sub(':did', did)
+        Cb.api_client.any_instance.should_receive(:cb_get).with(expected_uri, anything)
+        client.form(did)
+      end
+
+      it 'returns an instance of the application form response class' do
+        response = client.form(did)
+        expect(response).to be_an_instance_of Cb::Responses::ApplicationForm
+      end
+
+      it 'sends hostsite and developer key in the headers' do
+        Cb::Utils::Api.any_instance.should_receive(:cb_get).with do |uri, hash|
+          hash[:headers]['HostSite'] == 'US'
+          hash[:headers]['DeveloperKey'] == 'mydevkey'
+        end
+
+        client.form(did)
+      end
+    end
   end
 end

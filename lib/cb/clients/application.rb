@@ -15,6 +15,12 @@ module Cb
           response cb_call(:put, criteria)
         end
 
+        def form(job_id)
+          url = Cb.configuration.uri_application_form.sub(':did', job_id)
+          response_hash = api_client.cb_get(url, headers: headers)
+          Responses::ApplicationForm.new(response_hash)
+        end
+
         private
 
         def cb_call(http_method, criteria)
