@@ -1,6 +1,6 @@
 module Cb
   module Models
-    class Application
+    class Application < ApiResponseModel
 
       class Form < ApiResponseModel
         attr_reader :job_did, :job_title, :is_shared_apply, :question_list, :requirements,
