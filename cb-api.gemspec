@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files        = Dir['{lib}/**/*.rb', 'LICENSE', '*.md']
   s.require_path = 'lib'
 
-  s.add_dependency 'httparty', '~> 0.11.0'
+  s.add_dependency 'httparty', '~> 0.13.0'
   s.add_dependency 'json', '~> 1.7', '>= 1.7.7'
   s.add_dependency 'nori', '~> 2.2.0'
 
