@@ -54,7 +54,7 @@ module Cb
                 to_return(:body => Mocks::SavedSearch.list.to_json) }
 
       it 'should return an array of saved searches' do
-        user_saved_search = Cb.saved_search.new.list(@user_oauth_token)
+        user_saved_search = Cb.saved_search.new.list(@user_oauth_token, 'WR')
         expect(user_saved_search.models).to be_an_instance_of Array
         user_saved_search.models.count.should == 2
         expect(user_saved_search.models.first).to be_an_instance_of Cb::Models::SavedSearch

@@ -21,14 +21,14 @@ module Cb
       end
 
       def retrieve(oauth_token, external_id)
-        query = retrieve_and_list_query(oauth_token)
+        query = retrieve_query(oauth_token)
         uri = replace_uri_field(Cb.configuration.uri_saved_search_retrieve, ':did', external_id)
         json = cb_client.cb_get(uri, :query => query)
         Responses::SavedSearch::Retrieve.new(json)
       end
 
-      def list(oauth_token)
-        query = retrieve_and_list_query(oauth_token)
+      def list(oauth_token, hostsite)
+        query = list_query(oauth_token, hostsite)
         json = cb_client.cb_get(Cb.configuration.uri_saved_search_list, :query => query)
         Responses::SavedSearch::List.new(json)
       end
@@ -39,10 +39,18 @@ module Cb
         @cb_client ||= Cb::Utils::Api.instance
       end
 
-      def retrieve_and_list_query(oauth_token)
+      def retrieve_query(oauth_token)
         {
-          :developerkey   => Cb.configuration.dev_key,
-          :useroauthtoken => oauth_token
+            :developerkey   => Cb.configuration.dev_key,
+            :useroauthtoken => oauth_token
+        }
+      end
+
+      def list_query(oauth_token, hostsite)
+        {
+            :developerkey   => Cb.configuration.dev_key,
+            :useroauthtoken => oauth_token,
+            :hostsite => hostsite
         }
       end
 
