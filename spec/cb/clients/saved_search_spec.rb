@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/mocks/saved_search'
 
 module Cb
   describe Cb::Clients::SavedSearch do
@@ -49,40 +50,42 @@ module Cb
     end
 
     context '.list' do
-      def stub_api_to_return(content)
-        stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_list)).
-          to_return(:body => content.to_json)
-      end
+      before { stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_list)).
+                to_return(:body => Mocks::SavedSearch.list.to_json) }
 
-      context 'when the saved search node contains a hash' do
-        before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: { a: 'b', b: 'c' } } } }) }
-
-        it 'should return an array with a saved search' do
-          user_saved_search = Cb.saved_search.new.list(@external_user_id, 'WM')
-          expect(user_saved_search.models).to be_an_instance_of Array
-          expect(user_saved_search.models.first).to be_an_instance_of Cb::Models::SavedSearch
-        end
-      end
-
-      context 'when the saved search node contains an array' do
-        before(:each) { stub_api_to_return({ SavedJobSearches: { SavedSearches: { SavedSearch: [Hash.new, Hash.new] } } }) }
-
-        it 'should return an array of saved searches' do
-          user_saved_search = Cb.saved_search.new.list(@external_user_id, 'WM')
-          expect(user_saved_search.models).to be_an_instance_of Array
-          expect(user_saved_search.models.first).to be_an_instance_of Cb::Models::SavedSearch
-        end
+      it 'should return an array of saved searches' do
+        user_saved_search = Cb.saved_search.new.list(@user_oauth_token, 'WR')
+        expect(user_saved_search.models).to be_an_instance_of Array
+        user_saved_search.models.count.should == 2
+        expect(user_saved_search.models.first).to be_an_instance_of Cb::Models::SavedSearch
       end
     end
 
     context '.retrieve' do
       before :each do
-        stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_retrieve)).
-          to_return(:body => { SavedJobSearch: { Errors: nil, SavedSearch: Hash.new } }.to_json)
+        stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_retrieve.gsub(':did', 'xid'))).
+          to_return(:body => {
+            "TotalResults"=>1,
+            "ReturnedResults"=>1,
+            "Results"=>
+            [{"DID"=>"OMG DIDs",
+              "SearchName"=>"Why can't I find a jerb?",
+              "HostSite"=>"Merkah",
+              "SiteID"=>"",
+              "Cobrand"=>"",
+              "IsDailyEmail"=>"maybe",
+              "EmailDeliveryDay"=>"YESTERDAY",
+              "JobSearchUrl"=>"blerg.com",
+              "SavedSearchParameters"=>{
+                  "Any"=>"No"}
+             }],
+            "Errors"=>[],
+            "Timestamp"=>"2014-03-25T15:29:27.8361791-04:00",
+            "Status"=>"YEY"}.to_json)
       end
 
       it 'should return a saved search model' do
-        response = Cb::Clients::SavedSearch.new.retrieve(@external_user_id, 'xid', @host_site)
+        response = Cb::Clients::SavedSearch.new.retrieve(@user_oauth_token, 'xid')
         response.model.should be_an_instance_of(Models::SavedSearch)
       end
     end

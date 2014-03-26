@@ -1,12 +1,12 @@
 module Cb
   module Responses
     module SavedSearch
-      class List < ApiResponse
-       
+
+      class Retrieve < ApiResponse
         protected
 
         def validate_api_hash
-          required_response_field(collection_node, response)
+          required_response_field(root_node, response)
         end
 
         def hash_containing_metadata
@@ -14,17 +14,17 @@ module Cb
         end
 
         def extract_models
-          model_hashes.map { |model_data| Models::SavedSearch.new(model_data) }
+          Models::SavedSearch.new(model_hash)
         end
 
         private
 
-        def collection_node
+        def root_node
           'Results'
         end
 
-        def model_hashes
-          response[collection_node]
+        def model_hash
+          response[root_node][0]
         end
       end
 

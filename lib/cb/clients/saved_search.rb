@@ -20,14 +20,15 @@ module Cb
         Responses::SavedSearch::Delete.new(json)
       end
 
-      def retrieve(external_user_id, external_id, host_site)
-        query = retrieve_query(external_user_id, external_id, host_site)
-        json = cb_client.cb_get(Cb.configuration.uri_saved_search_retrieve, :query => query)
-        singular_model_response(json, external_user_id, external_id)
+      def retrieve(oauth_token, external_id)
+        query = retrieve_query(oauth_token)
+        uri = replace_uri_field(Cb.configuration.uri_saved_search_retrieve, ':did', external_id)
+        json = cb_client.cb_get(uri, :query => query)
+        Responses::SavedSearch::Retrieve.new(json)
       end
 
-      def list(external_user_id, host_site)
-        query = list_query(external_user_id, host_site)
+      def list(oauth_token, hostsite)
+        query = list_query(oauth_token, hostsite)
         json = cb_client.cb_get(Cb.configuration.uri_saved_search_list, :query => query)
         Responses::SavedSearch::List.new(json)
       end
@@ -38,20 +39,18 @@ module Cb
         @cb_client ||= Cb::Utils::Api.instance
       end
 
-      def retrieve_query(external_user_id, external_id, host_site)
+      def retrieve_query(oauth_token)
         {
-          :developerkey   => Cb.configuration.dev_key,
-          :externalid     => external_id,
-          :externaluserid => external_user_id,
-          :hostsite       => host_site
+            :developerkey   => Cb.configuration.dev_key,
+            :useroauthtoken => oauth_token
         }
       end
 
-      def list_query(external_user_id, host_site)
+      def list_query(oauth_token, hostsite)
         {
-          :developerkey   => Cb.configuration.dev_key,
-          :externaluserid => external_user_id,
-          :hostsite       => host_site
+            :developerkey   => Cb.configuration.dev_key,
+            :useroauthtoken => oauth_token,
+            :hostsite => hostsite
         }
       end
 
@@ -59,6 +58,10 @@ module Cb
         json_hash['ExternalUserID'] = external_user_id unless external_user_id.nil?
         json_hash['ExternalID'] = external_id unless external_id.nil?
         Responses::SavedSearch::Singular.new(json_hash)
+      end
+
+      def replace_uri_field(uri_string, field, replacement)
+        uri_string.gsub(field, replacement)
       end
     end
 
