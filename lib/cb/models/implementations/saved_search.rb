@@ -104,7 +104,7 @@ module Cb
         attr_accessor :boolean_operator, :category, :education_code, :emp_type, :exclude_company_names, :exclude_job_titles,
                       :exclude_keywords, :exclude_national, :industry_codes, :job_title, :keywords, :location, :order_by,
                       :order_direction, :pay_high, :pay_info_only, :pay_low, :posted_within, :radius, :specific_education,
-                      :city, :state, :country, :company,
+                      :city, :state, :country, :company, :job_category,
                       :jc_position_level, :jc_location, :jc_advertiser_flags, :jc_job_nature
 
         def initialize(args = {})

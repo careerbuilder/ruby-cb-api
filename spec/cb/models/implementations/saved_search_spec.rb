@@ -29,7 +29,40 @@ module Cb
           user_saved_search.search_parameters.should be_a Cb::Models::SavedSearch::SearchParameters
         end
 
-        it 'should create a search parameters '
+        it 'should create a search parameter ' do
+          saved_search_parameters = Cb::Models::SavedSearch::SearchParameters.new(mock_search_parameters_response)
+
+          saved_search_parameters.boolean_operator.should       == "BooleanOperator"
+          saved_search_parameters.category.should               == "Category"
+          saved_search_parameters.city.should                   == "City"
+          saved_search_parameters.company.should                == "Company"
+          saved_search_parameters.country.should                == "Country"
+          saved_search_parameters.education_code.should         == "EducationCode"
+          saved_search_parameters.emp_type.should               == "EmpType"
+          saved_search_parameters.exclude_company_names.should  == "ExcludeCompanyNames"
+          saved_search_parameters.exclude_job_titles.should     == "ExcludeJobTitles"
+          saved_search_parameters.exclude_keywords.should       == "ExcludeKeywords"
+          saved_search_parameters.exclude_national.should       == "ExcludeNational"
+          saved_search_parameters.industry_codes.should         == "IndustryCodes"
+          saved_search_parameters.jc_advertiser_flags.should    == "JCAdvertiserFlags"
+          saved_search_parameters.jc_job_nature.should          == "JCJobNature"
+          saved_search_parameters.jc_location.should            == "JCLocation"
+          saved_search_parameters.jc_position_level.should      == "JCPositionLevel"
+          saved_search_parameters.job_category.should           == ""
+          saved_search_parameters.job_title.should              == "JobTitle"
+          saved_search_parameters.keywords.should               == "Keywords"
+          saved_search_parameters.location.should               == "Location"
+          saved_search_parameters.order_by.should               == "OrderBy"
+          saved_search_parameters.order_direction.should        == "OrderDirection"
+          saved_search_parameters.pay_high.should               == "PayHigh"
+          saved_search_parameters.pay_info_only.should          == "PayInfoOnly"
+          saved_search_parameters.pay_low.should                == "PayLow"
+          saved_search_parameters.posted_within.should          == "PostedWithin"
+          saved_search_parameters.radius.should                 == "Radius"
+          saved_search_parameters.specific_education.should     == "SpecificEducation"
+          saved_search_parameters.state.should                  == "State"
+        end
+
       end
 
       describe '#delete_to_xml' do
