@@ -14,8 +14,6 @@ module Cb
         end
 
         def extract_models
-          # these IDs comes back in weird places in the response hash,
-          # we need to move them around a little bit so things work correctly.\
           Models::SavedSearch.new(model_hash)
         end
 
