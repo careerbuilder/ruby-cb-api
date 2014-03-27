@@ -16,10 +16,10 @@ module Cb
             end
           end
 
-          my_api.append_api_responses(categoryList, json_hash['ResponseCategories'])
+          my_api.append_api_responses(categoryList, json_hash['ResponseCategories']).to_json
         end
 
-        my_api.append_api_responses(categoryList, json_hash)
+        my_api.append_api_responses(categoryList, json_hash).to_json
       end
 
       def self.search_by_host_site(host_site)
@@ -38,10 +38,10 @@ module Cb
             end
           end
 
-          my_api.append_api_responses(categoryList, json_hash['ResponseCategories'])
+          my_api.append_api_responses(categoryList, json_hash['ResponseCategories']).to_json
         end
 
-        my_api.append_api_responses(categoryList, json_hash)
+        my_api.append_api_responses(categoryList, json_hash).to_json
       end
 
     end
