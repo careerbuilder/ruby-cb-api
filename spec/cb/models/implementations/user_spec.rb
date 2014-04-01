@@ -4,6 +4,7 @@ module Cb
   describe Cb::Models::User do
     context '.new' do
       it 'should create an empty new user' do
+        external_id = 'XUID1234'
         user_status = 'being initialized in test'
         password = ''
         email = 'test@test.com'
@@ -20,7 +21,9 @@ module Cb
         birth_date = Date.today-40
 
 
-        user = Cb::Models::User.new('UserStatus' => user_status,
+        user = Cb::Models::User.new(
+        'ResponseExternalID' => external_id,
+        'UserStatus' => user_status,
         'Email' => email, 
         'Address1' => address_1, 
         'City' => city, 
@@ -34,7 +37,7 @@ module Cb
         'Gender' => gender, 
         'BirthDate' => birth_date)
 
-        
+        user.external_id.should == external_id
         user.user_status.should == user_status
         user.email.should == email
         user.address_1.should == address_1
