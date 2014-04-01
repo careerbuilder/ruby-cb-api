@@ -1,7 +1,7 @@
 module Cb
   module Models
     class User
-      attr_accessor :user_status, :password, :email, :address_1, :address_2, :city, :state,
+      attr_accessor :external_id, :user_status, :password, :email, :address_1, :address_2, :city, :state,
                     :province, :postal_code, :zip, :country_code, :first_name,
                     :last_name, :phone, :fax, :last_login, :created, :allow_partner_emails,
                     :allow_newsletter_emails, :allow_email_from_headhunter, :domain, :registration_path,
@@ -10,9 +10,10 @@ module Cb
       def initialize(args = {})
         return if args.nil?
 
+        @external_id                  = args['ResponseExternalID'] || ''
         @user_status                  = args['UserStatus'] || ''
         @password                     = ''
-        @email              		      = args['Email'] || ''
+        @email                        = args['Email'] || ''
         @address_1                    = args['Address1'] || ''
         @address_2                    = args['Address2'] || ''
         @city                         = args['City'] || ''
