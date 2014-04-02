@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 module Cb::Models
+
   describe Industry do
-    context ".new" do
+
+    context 'initialization' do
       it 'should create a new cb industry object' do
         args = { 'Name' => { '#text' => String.new, '@language' => String.new } }
         industry_obj = Industry.new(args)
