@@ -20,8 +20,8 @@ module Cb
 
       context 'search by hostsite' do
         it 'returns an array of WM industry codes' do
-          response = Cb.industry.search_by_hostsite('WM')
-          response.model.industry[0].is_a?(Cb::Models::Industry).should == true
+          response = Cb.industry.search_by_host_site('WM')
+          response.model[0].is_a?(Cb::Models::Industry).should == true
         end
       end
 
