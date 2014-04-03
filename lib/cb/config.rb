@@ -2,7 +2,7 @@ module Cb
   class Config
     attr_accessor :dev_key, :base_uri, :debug_api, :time_out, :use_json, :host_site, :test_resources, :observers,
                   :uri_job_search, :uri_job_find,
-                  :uri_company_find, :uri_job_category_search,
+                  :uri_company_find, :uri_job_category_search, :uri_job_industry_search,
                   :uri_education_code, :uri_employee_types,
                   :uri_recommendation_for_job, :uri_recommendation_for_user,
                   :uri_recommendation_for_company,
@@ -28,6 +28,7 @@ module Cb
 
     def set_default_api_uris
       @uri_job_category_search            ||= '/v1/categories'
+      @uri_job_industry_search            ||= '/v1/industrycodes'
       @uri_employee_types                 ||= '/v1/employeetypes'
       @uri_company_find                   ||= '/Employer/CompanyDetails'
       @uri_job_search                     ||= '/v1/JobSearch'
@@ -73,6 +74,7 @@ module Cb
     def to_hash
       {
         :uri_job_category_search          => @uri_job_category_search,
+        :uri_job_industry_search          => @uri_job_industry_search,
         :uri_employee_types               => @uri_employee_types,
         :dev_key                          => @dev_key,
         :host_site                        => @host_site,
