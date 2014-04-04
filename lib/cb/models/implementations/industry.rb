@@ -6,15 +6,12 @@ module Cb
 
       def initialize(args={})
         @api_response = args
-
-        @code					= args["Code"]              || String.new
-        @name					= args["Name"]["#text"]     || String.new
+        @code         = args["Code"]              || String.new
+        @name         = args["Name"]["#text"]     || String.new
         @language     = args["Name"]["@language"] || String.new
-
 
         validate_api_response
       end
-
 
       protected
 
