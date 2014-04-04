@@ -18,17 +18,6 @@ module Cb
         end
       end
 
-      context 'search by hostsite' do
-        before do
-          Cb.configuration.host_site = 'WM'
-        end
-
-        it 'returns an array of WM industry codes' do
-          response = Cb.industry.search
-          expect(response.models.first).to be_an_instance_of(Cb::Models::Industry)
-        end
-      end
-
     end
 
   end
