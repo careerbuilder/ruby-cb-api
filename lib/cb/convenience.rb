@@ -17,7 +17,11 @@ module Cb
       def category
         Cb::Clients::Category
       end
-  
+
+      def industry
+        Cb::Clients::Industry
+      end
+
       def company
         Cb::Clients::Company
       end
