@@ -16,7 +16,7 @@ module Cb
 
     context '#new' do
       it 'returns an industry response object' do
-        Responses::Industry::Search.new(response).class.should eq Responses::Industry::Search
+        expect(Responses::Industry::Search.new(response)).to be_instance_of(Responses::Industry::Search)
       end
 
       it 'instantiates new model objects' do
@@ -37,7 +37,7 @@ module Cb
           end
         end
 
-        context 'missing IndustyCodes node' do
+        context 'missing IndustryCodes node' do
           let(:response) do { 'ResponseIndustryCodes' => Hash.new } end
 
           it 'raises an error' do
@@ -59,7 +59,7 @@ module Cb
       it 'each hash in the array under IndustryCodes node makes a model' do
         hash_count = response['ResponseIndustryCodes']['IndustryCodes']['IndustryCode'].count
         model_count = Responses::Industry::Search.new(response).models.count
-        model_count.should eq hash_count
+        expect(model_count).to eq(hash_count)
       end
     end
   end

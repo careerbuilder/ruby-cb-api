@@ -11,17 +11,21 @@ module Cb
             to_return(body: content.to_json)
       end
 
-      context 'search with no params' do
+      context 'search' do
         it 'returns an array of industry codes' do
           response = Cb.industry.search
-          response.model[0].is_a?(Cb::Models::Industry).should == true
+          expect(response.models.first).to be_an_instance_of(Cb::Models::Industry)
         end
       end
 
       context 'search by hostsite' do
+        before do
+          Cb.configuration.host_site = 'WM'
+        end
+
         it 'returns an array of WM industry codes' do
-          response = Cb.industry.search_by_host_site('WM')
-          response.model[0].is_a?(Cb::Models::Industry).should == true
+          response = Cb.industry.search
+          expect(response.models.first).to be_an_instance_of(Cb::Models::Industry)
         end
       end
 

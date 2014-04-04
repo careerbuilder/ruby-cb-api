@@ -6,9 +6,10 @@ module Cb::Models
 
     context 'initialization' do
       it 'should create a new cb industry object' do
-        args = { 'Name' => { '#text' => String.new, '@language' => String.new } }
+        args = {'Code'=>'IND067', 'Name'=>{'@language'=>'en', '#text'=>'Accounting - Finance'}}
+
         industry_obj = Industry.new(args)
-        industry_obj.is_a?(Industry).should == true
+        expect(industry_obj).to be_kind_of(Industry)
       end
     end
   end
