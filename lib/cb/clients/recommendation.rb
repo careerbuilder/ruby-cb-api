@@ -3,7 +3,6 @@ require 'json'
 module Cb
   module Clients
     class Recommendation
-
       def self.for_job(*args)
         my_api = Cb::Utils::Api.instance
         hash = normalize_args(args)
@@ -12,13 +11,12 @@ module Cb
                                     :query => hash)
 
         jobs = []
+
         if json_hash.has_key?('ResponseRecommendJob')
           if json_hash['ResponseRecommendJob'].has_key?('RecommendJobResults') &&
              !json_hash['ResponseRecommendJob']['RecommendJobResults'].nil?
 
-            [json_hash['ResponseRecommendJob']['RecommendJobResults']['RecommendJobResult']].flatten.each do |cur_job|
-              jobs << Models::Job.new(cur_job)
-            end
+            jobs = create_jobs json_hash, 'Job'
 
             my_api.append_api_responses(jobs, json_hash['ResponseRecommendJob']['Request'])
           end
@@ -37,14 +35,14 @@ module Cb
                                     :query => hash)
 
         jobs = []
+
         if json_hash.has_key?('ResponseRecommendUser')
 
           if json_hash['ResponseRecommendUser'].has_key?('RecommendJobResults') &&
             !json_hash['ResponseRecommendUser']['RecommendJobResults'].nil?
 
-            json_hash['ResponseRecommendUser']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
-              jobs << Models::Job.new(cur_job)
-            end
+            jobs = create_jobs json_hash, 'User'
+
             my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser']['Request'])
           end
 
@@ -92,9 +90,15 @@ module Cb
         hash
       end
 
+      def self.create_jobs json_hash, type
+        jobs = []
+
+        [json_hash["ResponseRecommend#{type}"]['RecommendJobResults']['RecommendJobResult']].flatten.each do |api_job|
+          jobs << Models::Job.new(api_job)
+        end
+
+        jobs
+      end
     end
-
-
-
   end
 end
