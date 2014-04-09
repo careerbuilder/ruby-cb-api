@@ -16,7 +16,7 @@ module Cb
           if json_hash['ResponseRecommendJob'].has_key?('RecommendJobResults') &&
              !json_hash['ResponseRecommendJob']['RecommendJobResults'].nil?
 
-            json_hash['ResponseRecommendJob']['RecommendJobResults']['RecommendJobResult'].each do |cur_job|
+            [json_hash['ResponseRecommendJob']['RecommendJobResults']['RecommendJobResult']].flatten.each do |cur_job|
               jobs << Models::Job.new(cur_job)
             end
 
