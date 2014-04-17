@@ -55,7 +55,7 @@ module Mocks
             "HostSite":"SG",
             "SiteID":"asiteid2",
             "Cobrand":"acobrand2",
-            "IsDailyEmail":"false",
+            "IsDailyEmail":"true",
             "EmailDeliveryDay":"NONE",
             "JobSearchUrl":"ajobsearchurl2",
             "SavedSearchParameters":{
