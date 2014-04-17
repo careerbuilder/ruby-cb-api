@@ -55,7 +55,7 @@ module Mocks
             "HostSite":"SG",
             "SiteID":"asiteid2",
             "Cobrand":"acobrand2",
-            "IsDailyEmail":"false",
+            "IsDailyEmail":"true",
             "EmailDeliveryDay":"NONE",
             "JobSearchUrl":"ajobsearchurl2",
             "SavedSearchParameters":{
@@ -92,6 +92,17 @@ module Mocks
           ],
           "Errors":[
           ],
+          "Timestamp":"2014-03-18T14:02:53.3150101-04:00",
+          "Status":"Success"
+        }'
+      end
+
+      def empty_list
+        JSON.parse '{
+          "TotalResults":0,
+          "ReturnedResults":0,
+          "Results":[],
+          "Errors":[],
           "Timestamp":"2014-03-18T14:02:53.3150101-04:00",
           "Status":"Success"
         }'

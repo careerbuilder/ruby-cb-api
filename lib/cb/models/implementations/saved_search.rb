@@ -13,7 +13,7 @@ module Cb
         @cobrand                    = args['Cobrand']          || String.new
         @search_name                = args['SearchName']       || String.new
         @site_id                    = args['SiteId']           || String.new
-        @is_daily_email             = args['IsDailyEmail']     || String.new
+        @is_daily_email             = args['IsDailyEmail']     || false
         @email_delivery_day         = args['EmailDeliveryDay'] || String.new
         @job_search_url             = args['JobSearchUrl']     || String.new
         @external_id                = args['ExternalID']       || String.new

@@ -8,20 +8,20 @@ module Cb
 
       context '.new' do 
         it 'should create a new saved job search object' do
-          email_frequency = 'None'
           external_user_id = 'XRHS3LN6G55WX61GXJG8'
           host_site = 'WR'
           search_name = 'Fake Job Search 2'
           external_id = 'the id of the thing'
+          is_daily_email = false
 
-          user_saved_search = Cb::Models::SavedSearch.new('IsDailyEmail'=>email_frequency,
+          user_saved_search = Cb::Models::SavedSearch.new('IsDailyEmail'=>is_daily_email,
                                                         'ExternalUserID'=>external_user_id, 'SearchName'=>search_name,
                                                         'DID'=>external_id,
                                                         'HostSite'=>host_site,
                                                         'SearchParameters'=>mock_search_parameters_response)
           
           user_saved_search.should be_a_kind_of(Cb::Models::SavedSearch)
-          user_saved_search.is_daily_email.should == email_frequency
+          user_saved_search.is_daily_email.should == is_daily_email
           user_saved_search.host_site.should == host_site
           user_saved_search.search_name.should == search_name
           user_saved_search.external_user_id.should == external_user_id
