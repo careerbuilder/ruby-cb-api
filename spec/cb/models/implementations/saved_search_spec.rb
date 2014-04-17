@@ -8,7 +8,6 @@ module Cb
 
       context '.new' do 
         it 'should create a new saved job search object' do
-          email_frequency = 'None'
           external_user_id = 'XRHS3LN6G55WX61GXJG8'
           host_site = 'WR'
           search_name = 'Fake Job Search 2'
