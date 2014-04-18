@@ -33,9 +33,7 @@ module Cb
         cb_event(:cb_get_before, path, options, nil)
         response = self.class.get(path, options)
         cb_event(:cb_get_after, path, options, response)
-        validated_response = ResponseValidator.validate(response)
-        set_api_error(validated_response)
-        validated_response
+        validate_response(response)
       end
 
       def cb_post(path, options={})
@@ -43,9 +41,7 @@ module Cb
         cb_event(:cb_post_before, path, options, nil)
         response = self.class.post(path, options)
         cb_event(:cb_post_after, path, options, response)
-        validated_response = ResponseValidator.validate(response)
-        set_api_error(validated_response)
-        validated_response
+        validate_response(response)
       end
 
       def cb_put(path, options={})
@@ -53,9 +49,7 @@ module Cb
         cb_event(:cb_put_before, path, options, nil)
         response = self.class.put(path, options)
         cb_event(:cb_put_after, path, options, response)
-        validated_response = ResponseValidator.validate(response)
-        set_api_error(validated_response)
-        validated_response
+        validate_response(response)
       end
 
       def append_api_responses(obj, resp)
@@ -105,6 +99,12 @@ module Cb
       end
 
       private
+
+      def validate_response(response)
+        validated_response = ResponseValidator.validate(response)
+        set_api_error(validated_response)
+        validated_response
+      end
 
       def api_call_model(api_call_type, path, options, response)
         Cb::Models::ApiCall.new(api_call_type, path, options, response)
