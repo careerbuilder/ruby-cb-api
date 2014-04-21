@@ -7,6 +7,8 @@ module Cb
         protected
 
         def validate_api_hash
+          p "///////---------- RESPONSE"
+          p response
           required_response_field(root_node, response)
           required_response_field(spot_collection, response[root_node])
         end
@@ -30,7 +32,7 @@ module Cb
         end
 
         def spot_hashes
-          response[root_node][spot_collection]
+          Cb::Utils::ResponseArrayExtractor.extract(response[root_node], spot_collection)
         end
       end
 
