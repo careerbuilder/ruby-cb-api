@@ -10,7 +10,7 @@ module Cb
 
       def update(saved_search)
         body = saved_search.update_to_xml
-        json = cb_client.cb_post(Cb.configuration.uri_saved_search_update, :body => body)
+        json = cb_client.cb_put(Cb.configuration.uri_saved_search_update, :body => body)
         singular_model_response(json, saved_search.external_user_id, saved_search.external_id)
       end
 

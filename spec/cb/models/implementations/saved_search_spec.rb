@@ -11,12 +11,12 @@ module Cb
           external_user_id = 'XRHS3LN6G55WX61GXJG8'
           host_site = 'WR'
           search_name = 'Fake Job Search 2'
-          external_id = 'the id of the thing'
+          did = 'the id of the thing'
           is_daily_email = false
 
           user_saved_search = Cb::Models::SavedSearch.new('IsDailyEmail'=>is_daily_email,
                                                         'ExternalUserID'=>external_user_id, 'SearchName'=>search_name,
-                                                        'DID'=>external_id,
+                                                        'DID'=>did,
                                                         'HostSite'=>host_site,
                                                         'SearchParameters'=>mock_search_parameters_response)
           
@@ -25,7 +25,7 @@ module Cb
           user_saved_search.host_site.should == host_site
           user_saved_search.search_name.should == search_name
           user_saved_search.external_user_id.should == external_user_id
-          user_saved_search.did.should == external_id
+          user_saved_search.did.should == did
           user_saved_search.search_parameters.should be_a Cb::Models::SavedSearch::SearchParameters
         end
 
@@ -172,7 +172,7 @@ module Cb
           saved_search.search_parameters = search_parameters
           saved_search.is_daily_email = true
           saved_search.external_user_id = 'BigMoomGuy'
-          saved_search.external_id = 'BigMoom'
+          saved_search.did = 'Mooma did'
           Cb.configuration.dev_key = 'who dat'
         }
         it 'serialized correctly' do
@@ -185,7 +185,7 @@ module Cb
             <SearchName>Yolo</SearchName>
             #{search_parameters.to_xml}
             <IsDailyEmail>TRUE</IsDailyEmail>
-            <ExternalID>BigMoom</ExternalID>
+            <DID>Mooma did</DID>
             <ExternalUserID>BigMoomGuy</ExternalUserID>
             <DeveloperKey>who dat</DeveloperKey>
           </Request>

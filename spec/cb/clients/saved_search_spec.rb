@@ -31,7 +31,7 @@ module Cb
 
     context '.update' do
       before :each do
-        stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_update)).
+        stub_request(:put, uri_stem(Cb.configuration.uri_saved_search_update)).
           with(:body => anything).
           to_return(:body => { Errors: nil, SavedJobSearch: { SavedSearch: Hash.new } }.to_json)
       end

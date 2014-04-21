@@ -64,7 +64,7 @@ module Cb
             <SearchName>#{search_name}</SearchName>
             #{search_parameters.to_xml}
             <IsDailyEmail>#{is_daily_email.to_s.upcase}</IsDailyEmail>
-            <ExternalID>#{external_id}</ExternalID>
+            <DID>#{did}</DID>
             <ExternalUserID>#{external_user_id}</ExternalUserID>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
           </Request>
