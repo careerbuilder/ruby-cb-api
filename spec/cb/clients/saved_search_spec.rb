@@ -37,11 +37,11 @@ module Cb
       end
 
       it 'should update the saved search created in this test' do
-        external_id = 'xid'
+        external_id = 'DID'
         email_frequency = 'None'
         search_name = 'Fake Job Search Update'
         model = Models::SavedSearch.new({'DeveloperKey' => Cb.configuration.dev_key, 'IsDailyEmail' => email_frequency,
-                                         'ExternalUserID' => @external_user_id, 'SearchName' => search_name,
+                                         'DID' => @external_user_id, 'SearchName' => search_name,
                                          'HostSite' => @host_site, 'ExternalID' => external_id})
 
         response = Cb.saved_search.new.update(model)

@@ -51,7 +51,7 @@ module Cb
       @uri_resume_own_all                 ||= '/v2/resume/ownall'
       @uri_resume_retrieve                ||= '/v2/resume/retrieve'
       @uri_resume_create                  ||= '/v2/resume/create'
-      @uri_resume_update                  ||= '/v2/resume/update'
+      @uri_resume_update                  ||= '/cbapi/savedsearches'
       @uri_resume_delete                  ||= '/v2/resume/delete'
       @uri_saved_search_retrieve          ||= '/cbapi/savedsearches/:did'
       @uri_saved_search_create            ||= '/v2/savedsearch/create'
