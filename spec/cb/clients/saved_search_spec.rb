@@ -38,11 +38,12 @@ module Cb
 
       it 'should update the saved search created in this test' do
         external_id = 'DID'
+        oauth = '123412341234'
         email_frequency = 'None'
         search_name = 'Fake Job Search Update'
         model = Models::SavedSearch.new({'DeveloperKey' => Cb.configuration.dev_key, 'IsDailyEmail' => email_frequency,
-                                         'DID' => @external_user_id, 'SearchName' => search_name,
-                                         'HostSite' => @host_site, 'ExternalID' => external_id})
+                                         'DID' => external_id, 'SearchName' => search_name,
+                                         'HostSite' => @host_site, 'userOAuthToken' => oauth})
 
         response = Cb.saved_search.new.update(model)
         response.model.class.should eq Models::SavedSearch

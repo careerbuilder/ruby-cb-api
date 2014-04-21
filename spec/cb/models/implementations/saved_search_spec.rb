@@ -171,8 +171,8 @@ module Cb
           add_search_params
           saved_search.search_parameters = search_parameters
           saved_search.is_daily_email = true
-          saved_search.external_user_id = 'BigMoomGuy'
           saved_search.did = 'Mooma did'
+          saved_search.user_oauth_token = 'My token, mmhmmm yes'
           Cb.configuration.dev_key = 'who dat'
         }
         it 'serialized correctly' do
@@ -186,7 +186,7 @@ module Cb
             #{search_parameters.to_xml}
             <IsDailyEmail>TRUE</IsDailyEmail>
             <DID>Mooma did</DID>
-            <ExternalUserID>BigMoomGuy</ExternalUserID>
+            <userOAuthToken>My token, mmhmmm yes</userOAuthToken>
             <DeveloperKey>who dat</DeveloperKey>
           </Request>
           eos
