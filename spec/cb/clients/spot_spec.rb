@@ -13,7 +13,13 @@ module Cb
     end
 
     describe '#retrieve' do
-
+      let(:response) {
+        { 'ResponseRetrieve' => { 'SpotData' => [
+            {'ContentType' => 'yay', 'StartDate' => '1980-2-1', 'EndDate' => '1980-2-2', 'Sequence' => '1', 'Language' => 'WMEnglish' },
+            {'ContentType' => 'yay', 'StartDate' => '1980-2-1', 'EndDate' => '1980-2-2', 'Sequence' => '2', 'Language' => 'WMEnglish' }
+          ]}
+        }
+      }
       before :each do
         @criteria = Cb::Criteria::Spot::Retrieve.new
         @criteria.maxitems      = 5
@@ -21,15 +27,13 @@ module Cb
         @criteria.sortdirection = 'Descending'
         @criteria.sortfield     = 'StartDT'
         @criteria.contenttype   = 'ArticleMgt:WMArticles2'
-        @body = {
-          'ResponseRetrieve' => { 'SpotData' => [{
-            'ContentType' => 'yay', 'StartDate' => '1980-2-1', 'EndDate' => '1980-2-2', 'Sequence' => 1, 'Language' => 'WMEnglish' }]}}
-        stub_request(:get, uri_stem(Cb.configuration.uri_spot_retrieve)).to_return(:body => @body.to_json)
+
+        stub_request(:get, uri_stem(Cb.configuration.uri_spot_retrieve)).to_return(:body => response.to_json)
       end
 
       context 'when everything is working as it should' do
         def assert_response_object
-          @model.should be_a Responses::Spot::Retrieve
+          expect(@model).to be_a(Responses::Spot::Retrieve)
         end
 
         context 'by interacting with the API client directly' do
@@ -41,6 +45,16 @@ module Cb
 
         context 'by calling the API client from the Cb module convenience method' do
           it 'returns an array of Cb::Models::Spot' do
+            @model = Cb.spot.retrieve @criteria
+            assert_response_object
+          end
+        end
+
+        context 'there is a single response from spot api call instead of a collection' do
+          let(:response) {
+            { 'ResponseRetrieve' => { 'SpotData' => {'ContentType' => 'yay', 'StartDate' => '1980-2-1', 'EndDate' => '1980-2-2', 'Sequence' => '1', 'Language' => 'WMEnglish' } }}
+          }
+          it 'returns the Cb::Models::Spot as expected' do
             @model = Cb.spot.retrieve @criteria
             assert_response_object
           end

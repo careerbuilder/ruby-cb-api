@@ -12,7 +12,11 @@ module Cb
         end
 
         def extract_models
-          spot_hashes.map { |spot_data| Cb::Models::Spot.new(spot_data) }
+          if spot_hashes.kind_of?(Array)
+            spot_hashes.map { |spot_data| Cb::Models::Spot.new(spot_data) }
+          else
+            Cb::Models::Spot.new(spot_hashes)
+          end
         end
 
         def hash_containing_metadata
