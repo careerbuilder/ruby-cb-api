@@ -7,14 +7,16 @@ module Cb
         protected
 
         def validate_api_hash
-          p "///////---------- RESPONSE"
-          p response
           required_response_field(root_node, response)
           required_response_field(spot_collection, response[root_node])
         end
 
         def extract_models
-          spot_hashes.map { |spot_data| Cb::Models::Spot.new(spot_data) }
+          if spot_hashes.kind_of?(Array)
+            spot_hashes.map { |spot_data| Cb::Models::Spot.new(spot_data) }
+          else
+            Cb::Models::Spot.new(spot_hashes)
+          end
         end
 
         def hash_containing_metadata
@@ -32,7 +34,7 @@ module Cb
         end
 
         def spot_hashes
-          Cb::Utils::ResponseArrayExtractor.extract(response[root_node], spot_collection)
+          response[root_node][spot_collection]
         end
       end
 
