@@ -163,7 +163,7 @@ module Cb
         end
       end
 
-      describe '#update_to_xml' do
+      describe '#update_to_json' do
         before {
           saved_search.host_site = 'US'
           saved_search.cobrand = 'AOLer'
@@ -177,19 +177,17 @@ module Cb
         }
         it 'serialized correctly' do
 
-          xml = saved_search.update_to_xml
-          expect(xml).to eq <<-eos
-          <Request>
-            <HostSite>US</HostSite>
-            <Cobrand>AOLer</Cobrand>
-            <SearchName>Yolo</SearchName>
-            #{search_parameters.to_xml}
-            <IsDailyEmail>TRUE</IsDailyEmail>
-            <DID>Mooma did</DID>
-            <userOAuthToken>My token, mmhmmm yes</userOAuthToken>
-            <DeveloperKey>who dat</DeveloperKey>
-          </Request>
-          eos
+          json = saved_search.update_to_json
+          expect(json).to eq ({
+            "DID" => "Mooma did",
+            "SearchName" => "Yolo",
+            "HostSite" => "US",
+            "SiteID" => "",
+            "Cobrand" => "AOLer",
+            "IsDailyEmail" => true,
+            "userOAuthToken" => "My token, mmhmmm yes",
+            "SavedSearchParameters" => search_parameters.to_hash
+          }.to_json)
         end
       end
 
@@ -281,6 +279,39 @@ module Cb
         "State":"state",
         "Country":"country"
         '
+      end
+
+      def mock_saved_search_parameters_to_hash
+        {
+            "BooleanOperator" => "AND",
+            "Category" => "category",
+            "EducationCode" => "DRNS",
+            "EmpType" => "emptype",
+            "ExcludeCompanyNames" => "excludecompanynames",
+            "ExcludeJobTitles" => "excludejobtitles",
+            "ExcludeKeywords" => "excludekeywords",
+            "ExcludeNational" => false,
+            "IndustryCodes" => "industrycodes",
+            "JobTitle" => "jobtitle",
+            "Keywords" => "Sales",
+            "Location" => "Atlanta, GA",
+            "OrderBy" => "Distance",
+            "OrderDirection" => "descending",
+            "PayHigh" => 0,
+            "PayInfoOnly" => false,
+            "PayLow" => 0,
+            "PostedWithin" =>30,
+            "Radius" => 10,
+            "SpecificEducation" => false,
+            "JCPositionLevel" => "JC1",
+            "JCLocation" => "JC2",
+            "JCAdvertiserFlags" => "JC3",
+            "JCJobNature" => "JC4",
+            "Company" => "company",
+            "City" => "city",
+            "State" => "state",
+            "Country" => "country"
+        }
       end
 
     end

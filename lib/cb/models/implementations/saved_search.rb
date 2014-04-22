@@ -57,21 +57,6 @@ module Cb
         eos
       end
 
-      def update_to_xml
-        <<-eos
-          <Request>
-            <HostSite>#{host_site}</HostSite>
-            <Cobrand>#{cobrand}</Cobrand>
-            <SearchName>#{search_name}</SearchName>
-            <IsDailyEmail>#{is_daily_email.to_s.upcase}</IsDailyEmail>
-            <DID>#{did}</DID>
-            <userOAuthToken>#{user_oauth_token}</userOAuthToken>
-            #{search_parameters.to_xml}
-            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-          </Request>
-        eos
-      end
-
       def update_to_json
         hash = {
             "DID" => did,
