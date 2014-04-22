@@ -11,12 +11,12 @@ module Cb
           external_user_id = 'XRHS3LN6G55WX61GXJG8'
           host_site = 'WR'
           search_name = 'Fake Job Search 2'
-          external_id = 'the id of the thing'
+          did = 'the id of the thing'
           is_daily_email = false
 
           user_saved_search = Cb::Models::SavedSearch.new('IsDailyEmail'=>is_daily_email,
                                                         'ExternalUserID'=>external_user_id, 'SearchName'=>search_name,
-                                                        'DID'=>external_id,
+                                                        'DID'=>did,
                                                         'HostSite'=>host_site,
                                                         'SearchParameters'=>mock_search_parameters_response)
           
@@ -25,7 +25,7 @@ module Cb
           user_saved_search.host_site.should == host_site
           user_saved_search.search_name.should == search_name
           user_saved_search.external_user_id.should == external_user_id
-          user_saved_search.did.should == external_id
+          user_saved_search.did.should == did
           user_saved_search.search_parameters.should be_a Cb::Models::SavedSearch::SearchParameters
         end
 
@@ -163,7 +163,7 @@ module Cb
         end
       end
 
-      describe '#update_to_xml' do
+      describe '#update_to_json' do
         before {
           saved_search.host_site = 'US'
           saved_search.cobrand = 'AOLer'
@@ -171,25 +171,39 @@ module Cb
           add_search_params
           saved_search.search_parameters = search_parameters
           saved_search.is_daily_email = true
-          saved_search.external_user_id = 'BigMoomGuy'
-          saved_search.external_id = 'BigMoom'
+          saved_search.email_delivery_day = "FRIDAY, GET DOWN ON IT"
+          saved_search.did = 'Mooma did'
+          saved_search.user_oauth_token = 'My token, mmhmmm yes'
           Cb.configuration.dev_key = 'who dat'
         }
-        it 'serialized correctly' do
+        it 'serialized correctly with daily email true' do
 
-          xml = saved_search.update_to_xml
-          expect(xml).to eq <<-eos
-          <Request>
-            <HostSite>US</HostSite>
-            <Cobrand>AOLer</Cobrand>
-            <SearchName>Yolo</SearchName>
-            #{search_parameters.to_xml}
-            <IsDailyEmail>TRUE</IsDailyEmail>
-            <ExternalID>BigMoom</ExternalID>
-            <ExternalUserID>BigMoomGuy</ExternalUserID>
-            <DeveloperKey>who dat</DeveloperKey>
-          </Request>
-          eos
+          json = saved_search.update_to_json
+          expect(json).to eq ({
+              "DID" => "Mooma did",
+              "SearchName" => "Yolo",
+              "HostSite" => "US",
+              "SiteID" => "",
+              "Cobrand" => "AOLer",
+              "IsDailyEmail" => true,
+              "userOAuthToken" => "My token, mmhmmm yes",
+              "SavedSearchParameters" => search_parameters.to_hash
+          }.to_json)
+        end
+        it 'serialized correctly with daily email false' do
+          saved_search.is_daily_email = false
+          json = saved_search.update_to_json
+          expect(json).to eq ({
+              "DID" => "Mooma did",
+              "SearchName" => "Yolo",
+              "HostSite" => "US",
+              "SiteID" => "",
+              "Cobrand" => "AOLer",
+              "IsDailyEmail" => false,
+              "userOAuthToken" => "My token, mmhmmm yes",
+              "SavedSearchParameters" => search_parameters.to_hash,
+              "EmailDeliveryDay" => "FRIDAY, GET DOWN ON IT"
+          }.to_json)
         end
       end
 

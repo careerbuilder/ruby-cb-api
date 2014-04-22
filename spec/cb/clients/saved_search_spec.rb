@@ -31,18 +31,20 @@ module Cb
 
     context '.update' do
       before :each do
-        stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_update)).
-          with(:body => anything).
-          to_return(:body => { Errors: nil, SavedJobSearch: { SavedSearch: Hash.new } }.to_json)
+        stub_request(:put, uri_stem(Cb.configuration.uri_saved_search_update)).
+          with(:body => anything,
+               :headers => {"developerkey" => Cb.configuration.dev_key, "Content-Type" => "application/json"}).
+          to_return(:body => { Errors: nil, Results: [{ SavedSearchParameters: Hash.new }] }.to_json)
       end
 
       it 'should update the saved search created in this test' do
-        external_id = 'xid'
+        external_id = 'DID'
+        oauth = '123412341234'
         email_frequency = 'None'
         search_name = 'Fake Job Search Update'
-        model = Models::SavedSearch.new({'DeveloperKey' => Cb.configuration.dev_key, 'IsDailyEmail' => email_frequency,
-                                         'ExternalUserID' => @external_user_id, 'SearchName' => search_name,
-                                         'HostSite' => @host_site, 'ExternalID' => external_id})
+        model = Models::SavedSearch.new({'IsDailyEmail' => email_frequency,
+                                         'DID' => external_id, 'SearchName' => search_name,
+                                         'HostSite' => @host_site, 'userOAuthToken' => oauth})
 
         response = Cb.saved_search.new.update(model)
         response.model.class.should eq Models::SavedSearch

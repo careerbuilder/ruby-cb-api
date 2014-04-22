@@ -6,22 +6,23 @@ module Cb
                     :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within,
                     :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_id,
                     :external_user_id, :job_search_url, :jrdid, :errors, :browser_id, :session_id, :test, :email_address,
-                    :country, :search_parameters, :did
+                    :country, :search_parameters, :did, :user_oauth_token, :email_delivery_day
 
       def initialize(args={})
-        @host_site                  = args['HostSite']         || String.new
-        @cobrand                    = args['Cobrand']          || String.new
-        @search_name                = args['SearchName']       || String.new
-        @site_id                    = args['SiteId']           || String.new
-        @is_daily_email             = args['IsDailyEmail']     || false
-        @email_delivery_day         = args['EmailDeliveryDay'] || String.new
-        @job_search_url             = args['JobSearchUrl']     || String.new
-        @external_id                = args['ExternalID']       || String.new
-        @external_user_id           = args['ExternalUserID']   || String.new
-        @browser_id                 = args['BrowserID']        || nil
-        @session_id                 = args['SessionID']        || String.new
-        @email_address              = args['EmailAddress']     || String.new
-        @did                        = args['DID']              || String.new
+        @host_site                  = args['HostSite']         || args[:host_site]            || String.new
+        @cobrand                    = args['Cobrand']          || args[:cobrand]              || String.new
+        @search_name                = args['SearchName']       || args[:search_name]          || String.new
+        @site_id                    = args['SiteId']           || args[:site_id]              || String.new
+        @is_daily_email             = args['IsDailyEmail']     || args[:is_daily_email]       || false
+        @email_delivery_day         = args['EmailDeliveryDay'] || args[:email_delivery_day]   || String.new
+        @job_search_url             = args['JobSearchUrl']     || args[:job_search_url]       || String.new
+        @external_id                = args['ExternalID']       || args[:external_id]          || String.new
+        @external_user_id           = args['ExternalUserID']   || args[:external_user_id]     || String.new
+        @browser_id                 = args['BrowserID']        || args[:browser_id]           || nil
+        @session_id                 = args['SessionID']        || args[:session_id]           || String.new
+        @email_address              = args['EmailAddress']     || args[:email_address]        || String.new
+        @did                        = args['DID']              || args[:did]                  || String.new
+        @user_oauth_token           = args['userOAuthToken']   || args[:user_oauth_token]     || String.new
         @search_parameters          = SearchParameters.new(args['SavedSearchParameters'] || {})
       end
 
@@ -56,19 +57,19 @@ module Cb
         eos
       end
 
-      def update_to_xml
-        <<-eos
-          <Request>
-            <HostSite>#{host_site}</HostSite>
-            <Cobrand>#{cobrand}</Cobrand>
-            <SearchName>#{search_name}</SearchName>
-            #{search_parameters.to_xml}
-            <IsDailyEmail>#{is_daily_email.to_s.upcase}</IsDailyEmail>
-            <ExternalID>#{external_id}</ExternalID>
-            <ExternalUserID>#{external_user_id}</ExternalUserID>
-            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-          </Request>
-        eos
+      def update_to_json
+        hash = {
+            "DID" => did,
+            "SearchName" => search_name,
+            "HostSite" => host_site,
+            "SiteID" => site_id,
+            "Cobrand" => cobrand,
+            "IsDailyEmail" => is_daily_email,
+            "userOAuthToken" => user_oauth_token,
+            "SavedSearchParameters" => search_parameters.to_hash
+        }
+        hash["EmailDeliveryDay"] = email_delivery_day unless is_daily_email
+        hash.to_json
       end
 
       def delete_to_xml
@@ -165,6 +166,31 @@ module Cb
               <PayInfoOnly>#{pay_info_only}</PayInfoOnly>
             </SearchParameters>
           eos
+        end
+
+        def to_hash
+          {
+              "BooleanOperator" => boolean_operator,
+              "JobCategory" => job_category,
+              "EducationCode" => education_code,
+              "EmpType" => emp_type,
+              "ExcludeCompanyNames" => exclude_company_names,
+              "ExcludeJobTitles" => exclude_job_titles,
+              "Country" => country,
+              "IndustryCodes" => industry_codes,
+              "JobTitle" => job_title,
+              "Keywords" => keywords,
+              "Location" => location,
+              "OrderBy" => order_by,
+              "OrderDirection" => order_direction,
+              "PayHigh" => pay_high,
+              "PayLow" => pay_low,
+              "PostedWithin" => posted_within,
+              "Radius" => radius,
+              "SpecificEducation" => specific_education,
+              "ExcludeNational" => exclude_national,
+              "PayInfoOnly" => pay_info_only
+          }
         end
       end
     end
