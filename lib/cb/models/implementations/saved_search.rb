@@ -6,7 +6,7 @@ module Cb
                     :keywords, :order_by, :order_direction, :radius, :pay_high, :pay_low, :posted_within,
                     :pay_info_only, :location, :job_category, :company, :city, :state, :is_daily_email, :external_id,
                     :external_user_id, :job_search_url, :jrdid, :errors, :browser_id, :session_id, :test, :email_address,
-                    :country, :search_parameters, :did, :user_oauth_token
+                    :country, :search_parameters, :did, :user_oauth_token, :email_delivery_day
 
       def initialize(args={})
         @host_site                  = args['HostSite']         || args[:host_site]            || String.new
@@ -63,13 +63,28 @@ module Cb
             <HostSite>#{host_site}</HostSite>
             <Cobrand>#{cobrand}</Cobrand>
             <SearchName>#{search_name}</SearchName>
-            #{search_parameters.to_xml}
             <IsDailyEmail>#{is_daily_email.to_s.upcase}</IsDailyEmail>
             <DID>#{did}</DID>
             <userOAuthToken>#{user_oauth_token}</userOAuthToken>
+            #{search_parameters.to_xml}
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
           </Request>
         eos
+      end
+
+      def update_to_json
+        hash = {
+            "DID" => did,
+            "SearchName" => search_name,
+            "HostSite" => host_site,
+            "SiteID" => site_id,
+            "Cobrand" => cobrand,
+            "IsDailyEmail" => is_daily_email,
+            "userOAuthToken" => user_oauth_token,
+            "SavedSearchParameters" => search_parameters.to_hash
+        }
+        hash["EmailDeliveryDay"] = email_delivery_day unless is_daily_email
+        hash.to_json
       end
 
       def delete_to_xml
@@ -166,6 +181,31 @@ module Cb
               <PayInfoOnly>#{pay_info_only}</PayInfoOnly>
             </SearchParameters>
           eos
+        end
+
+        def to_hash
+          {
+              "BooleanOperator" => boolean_operator,
+              "JobCategory" => job_category,
+              "EducationCode" => education_code,
+              "EmpType" => emp_type,
+              "ExcludeCompanyNames" => exclude_company_names,
+              "ExcludeJobTitles" => exclude_job_titles,
+              "Country" => country,
+              "IndustryCodes" => industry_codes,
+              "JobTitle" => job_title,
+              "Keywords" => keywords,
+              "Location" => location,
+              "OrderBy" => order_by,
+              "OrderDirection" => order_direction,
+              "PayHigh" => pay_high,
+              "PayLow" => pay_low,
+              "PostedWithin" => posted_within,
+              "Radius" => radius,
+              "SpecificEducation" => specific_education,
+              "ExcludeNational" => exclude_national,
+              "PayInfoOnly" => pay_info_only
+          }
         end
       end
     end

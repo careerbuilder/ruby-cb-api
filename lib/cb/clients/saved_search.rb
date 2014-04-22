@@ -4,36 +4,43 @@ module Cb
     class SavedSearch
       def create(saved_search)
         body = saved_search.create_to_xml
-        json = cb_client.cb_post(Cb.configuration.uri_saved_search_create, :body => body)
+        json = cb_client.cb_post(Cb.configuration.uri_saved_search_create, body: body)
         singular_model_response(json, saved_search.external_user_id)
       end
 
       def update(saved_search)
-        body = saved_search.update_to_xml
-        json = cb_client.cb_put(Cb.configuration.uri_saved_search_update, :body => body)
+        body = saved_search.update_to_json
+        json = cb_client.cb_put(Cb.configuration.uri_saved_search_update, body: body, headers: headers)
         singular_model_response(json, saved_search.external_user_id, saved_search.external_id)
       end
 
       def delete(saved_search)
         body = saved_search.delete_to_xml
-        json = cb_client.cb_post(Cb.configuration.uri_saved_search_delete, :body => body)
+        json = cb_client.cb_post(Cb.configuration.uri_saved_search_delete, body: body)
         Responses::SavedSearch::Delete.new(json)
       end
 
       def retrieve(oauth_token, external_id)
         query = retrieve_query(oauth_token)
         uri = replace_uri_field(Cb.configuration.uri_saved_search_retrieve, ':did', external_id)
-        json = cb_client.cb_get(uri, :query => query)
+        json = cb_client.cb_get(uri, query: query)
         Responses::SavedSearch::Retrieve.new(json)
       end
 
       def list(oauth_token, hostsite)
         query = list_query(oauth_token, hostsite)
-        json = cb_client.cb_get(Cb.configuration.uri_saved_search_list, :query => query)
+        json = cb_client.cb_get(Cb.configuration.uri_saved_search_list, query: query)
         Responses::SavedSearch::List.new(json)
       end
 
       private
+
+      def headers
+        {
+            "developerkey" => Cb.configuration.dev_key,
+            'Content-Type' => "application/json"
+        }
+      end
 
       def cb_client
         @cb_client ||= Cb::Utils::Api.instance

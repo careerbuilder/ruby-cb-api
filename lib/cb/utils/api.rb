@@ -5,6 +5,7 @@ module Cb
   module Utils
     class Api
       include HTTParty, Observable
+      debug_output $stderr
 
       base_uri 'https://api.careerbuilder.com'
 
@@ -40,7 +41,7 @@ module Cb
         self.class.base_uri Cb.configuration.base_uri
         cb_event(:cb_post_before, path, options, nil)
         response = self.class.post(path, options)
-        cb_event(:cb_post_after, path, options, response)
+        cb_event(:cb_post_after, path, options, response.request)
         validate_response(response)
       end
 
