@@ -11,7 +11,7 @@ module Cb
       def update(saved_search)
         body = saved_search.update_to_json
         json = cb_client.cb_put(Cb.configuration.uri_saved_search_update, body: body, headers: headers)
-        singular_model_response(json, saved_search.external_user_id, saved_search.external_id)
+        Responses::SavedSearch::Update.new(json)
       end
 
       def delete(saved_search)
