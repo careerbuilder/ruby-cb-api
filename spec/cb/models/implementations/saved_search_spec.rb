@@ -171,22 +171,38 @@ module Cb
           add_search_params
           saved_search.search_parameters = search_parameters
           saved_search.is_daily_email = true
+          saved_search.email_delivery_day = "FRIDAY, GET DOWN ON IT"
           saved_search.did = 'Mooma did'
           saved_search.user_oauth_token = 'My token, mmhmmm yes'
           Cb.configuration.dev_key = 'who dat'
         }
-        it 'serialized correctly' do
+        it 'serialized correctly with daily email true' do
 
           json = saved_search.update_to_json
           expect(json).to eq ({
-            "DID" => "Mooma did",
-            "SearchName" => "Yolo",
-            "HostSite" => "US",
-            "SiteID" => "",
-            "Cobrand" => "AOLer",
-            "IsDailyEmail" => true,
-            "userOAuthToken" => "My token, mmhmmm yes",
-            "SavedSearchParameters" => search_parameters.to_hash
+              "DID" => "Mooma did",
+              "SearchName" => "Yolo",
+              "HostSite" => "US",
+              "SiteID" => "",
+              "Cobrand" => "AOLer",
+              "IsDailyEmail" => true,
+              "userOAuthToken" => "My token, mmhmmm yes",
+              "SavedSearchParameters" => search_parameters.to_hash
+          }.to_json)
+        end
+        it 'serialized correctly with daily email false' do
+          saved_search.is_daily_email = false
+          json = saved_search.update_to_json
+          expect(json).to eq ({
+              "DID" => "Mooma did",
+              "SearchName" => "Yolo",
+              "HostSite" => "US",
+              "SiteID" => "",
+              "Cobrand" => "AOLer",
+              "IsDailyEmail" => false,
+              "userOAuthToken" => "My token, mmhmmm yes",
+              "SavedSearchParameters" => search_parameters.to_hash,
+              "EmailDeliveryDay" => "FRIDAY, GET DOWN ON IT"
           }.to_json)
         end
       end
@@ -279,39 +295,6 @@ module Cb
         "State":"state",
         "Country":"country"
         '
-      end
-
-      def mock_saved_search_parameters_to_hash
-        {
-            "BooleanOperator" => "AND",
-            "Category" => "category",
-            "EducationCode" => "DRNS",
-            "EmpType" => "emptype",
-            "ExcludeCompanyNames" => "excludecompanynames",
-            "ExcludeJobTitles" => "excludejobtitles",
-            "ExcludeKeywords" => "excludekeywords",
-            "ExcludeNational" => false,
-            "IndustryCodes" => "industrycodes",
-            "JobTitle" => "jobtitle",
-            "Keywords" => "Sales",
-            "Location" => "Atlanta, GA",
-            "OrderBy" => "Distance",
-            "OrderDirection" => "descending",
-            "PayHigh" => 0,
-            "PayInfoOnly" => false,
-            "PayLow" => 0,
-            "PostedWithin" =>30,
-            "Radius" => 10,
-            "SpecificEducation" => false,
-            "JCPositionLevel" => "JC1",
-            "JCLocation" => "JC2",
-            "JCAdvertiserFlags" => "JC3",
-            "JCJobNature" => "JC4",
-            "Company" => "company",
-            "City" => "city",
-            "State" => "state",
-            "Country" => "country"
-        }
       end
 
     end
