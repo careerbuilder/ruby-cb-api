@@ -69,7 +69,7 @@ module Cb
 
         def temp_password?
           value = response[root_node][response_temp_password_node]
-          value.downcase == 'true' ? true : false
+          value.downcase == 'true'
         end
 
       end

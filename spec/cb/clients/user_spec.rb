@@ -110,7 +110,7 @@ module Cb
       let(:response) do
         Clients::User.check_existing 'kyle@cb.gov', '1337'
       end
-      
+
       before do
         stub_request(:post, uri_stem(Cb.configuration.uri_user_check_existing)).to_return(body: body.to_json)
       end
