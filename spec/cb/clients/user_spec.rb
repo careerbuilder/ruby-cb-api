@@ -32,7 +32,7 @@ module Cb
 
     describe '#check_existing' do
       let(:body) do
-        { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz', ResponsePartnerID: 'zyx654' } }
+        { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz', ResponsePartnerID: 'zyx654', ResponseTempPassword: 'true' } }
       end
 
       let(:response) do
@@ -52,6 +52,12 @@ module Cb
       context 'When external id comes back' do
         it 'external_id should not be nil' do
           response.model.external_id.should == 'abc123'
+        end
+      end
+
+      context 'When ResponseTempPassword comes back' do
+        it 'temp_password should not be nil' do
+          response.model.temp_password.should == 'true'
         end
       end
 
