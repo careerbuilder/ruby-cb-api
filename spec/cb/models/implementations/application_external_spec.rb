@@ -22,7 +22,7 @@ module Cb::Models
       it 'should create an empty new external application' do
         @application.job_did.should == @job_did
         @application.email.should == @email
-        @application.ipath.should == @ipath.slice(0,10)
+        @application.ipath.should == 'shivitands'
         @application.is_external_link_apply.should == @is_external_link_apply
         @application.site_id.should == @site_id
       end
