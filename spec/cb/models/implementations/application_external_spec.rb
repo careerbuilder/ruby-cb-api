@@ -20,11 +20,11 @@ module Cb::Models
 
     context '#new' do
       it 'should create an empty new external application' do
-        @application.job_did.should == @job_did
-        @application.email.should == @email
-        @application.ipath.should == 'shivitands'
-        @application.is_external_link_apply.should == @is_external_link_apply
-        @application.site_id.should == @site_id
+        expect(@application.job_did).to eq @job_did
+        expect(@application.email).to eq @email
+        expect(@application.ipath).to eq 'shivitands'
+        expect(@application.is_external_link_apply).to eq @is_external_link_apply
+        expect(@application.site_id).to eq @site_id
       end
     end
 
