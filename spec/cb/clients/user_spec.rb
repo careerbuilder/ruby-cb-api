@@ -31,70 +31,100 @@ module Cb
     end
 
     describe '#check_existing' do
-      let(:body) do
-        { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz', ResponsePartnerID: 'zyx654' } }
-      end
-
-      let(:response) do
-        Clients::User.check_existing 'kyle@cb.gov', '1337'
-      end
-
-      before do
-        stub_request(:post, uri_stem(Cb.configuration.uri_user_check_existing)).to_return(body: body.to_json)
-      end
-
-      context 'by interacting with the API client directly' do
-        it 'returns a CheckExisting response' do
-          response.should be_a Responses::User::CheckExisting
+      context 'positive tests' do
+        let(:body) do
+          { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz', ResponsePartnerID: 'zyx654', ResponseTempPassword: 'True' } }
         end
-      end
 
-      context 'When external id comes back' do
-        it 'external_id should not be nil' do
-          response.model.external_id.should == 'abc123'
+        let(:response) do
+          Clients::User.check_existing 'kyle@cb.gov', '1337'
         end
-      end
 
-      context 'When oauth token comes back' do
-        it 'oauth_token should not be nil' do
-          response.model.oauth_token.should == '456xyz'
+        before do
+          stub_request(:post, uri_stem(Cb.configuration.uri_user_check_existing)).to_return(body: body.to_json)
         end
-      end
 
-      context 'When partner id comes back' do
-        it 'partner_id should not be nil' do
-          response.model.partner_id.should == 'zyx654'
+        context 'by interacting with the API client directly' do
+          it 'returns a CheckExisting response' do
+            response.should be_a Responses::User::CheckExisting
+          end
         end
-      end
 
-      context 'When user check status comes back' do
-        it 'status should not be nil' do
-          response.model.status.should == 'EmailExistsPasswordsDoNotMatch'
+        context 'When external id comes back' do
+          it 'external_id should not be nil' do
+            response.model.external_id.should == 'abc123'
+          end
         end
-      end
 
-      context 'When email comes back' do
-        it 'email should not be nil' do
-          response.model.email.should == 'kyle@cb.gov'
+        context 'When ResponseTempPassword comes back' do
+          it 'temp_password should be true' do
+            response.model.temp_password.should == true
+          end
         end
-      end
 
-      it 'builds xml correctly' do
-        Cb::Utils::Api.any_instance.should_receive(:cb_post).with do |uri, options|
-          options[:body].should eq <<-eos
+        context 'When oauth token comes back' do
+          it 'oauth_token should not be nil' do
+            response.model.oauth_token.should == '456xyz'
+          end
+        end
+
+        context 'When partner id comes back' do
+          it 'partner_id should not be nil' do
+            response.model.partner_id.should == 'zyx654'
+          end
+        end
+
+        context 'When user check status comes back' do
+          it 'status should not be nil' do
+            response.model.status.should == 'EmailExistsPasswordsDoNotMatch'
+          end
+        end
+
+        context 'When email comes back' do
+          it 'email should not be nil' do
+            response.model.email.should == 'kyle@cb.gov'
+          end
+        end
+
+        it 'builds xml correctly' do
+          Cb::Utils::Api.any_instance.should_receive(:cb_post).with do |uri, options|
+            options[:body].should eq <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
               <Email>k@cb.com</Email>
               <Password>moom</Password>
               <Test>false</Test>
             </Request>
-          eos
-        end.and_return(JSON.parse(body.to_json))
+            eos
+          end.and_return(JSON.parse(body.to_json))
 
-        Cb.user.check_existing 'k@cb.com', 'moom'
+          Cb.user.check_existing 'k@cb.com', 'moom'
+        end
+      end
+
+      context 'negative tests' do
+
+        let(:body) do
+          { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz', ResponsePartnerID: 'zyx654', ResponseTempPassword: 'False' } }
+        end
+
+        let(:response) do
+          Clients::User.check_existing 'kyle@cb.gov', '1337'
+        end
+
+        before do
+          stub_request(:post, uri_stem(Cb.configuration.uri_user_check_existing)).to_return(body: body.to_json)
+        end
+
+        context 'When ResponseTempPassword comes back' do
+          it 'temp_password should be false' do
+            response.model.temp_password.should == false
+          end
+        end
       end
 
     end
+
 
     context '.retrieve' do
       before :each do
