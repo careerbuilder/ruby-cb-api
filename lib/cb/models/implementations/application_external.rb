@@ -18,7 +18,7 @@ module Cb
         ret += "<EmailAddress>#{@email}</EmailAddress>"
         ret += "<JobDID>#{@job_did}</JobDID>"
         ret += "<SiteID>#{@site_id}</SiteID>"
-        ret += "<IPath>#{@ipath}</IPath>"
+        ret += "<IPath>#{@ipath[0..9]}</IPath>"
         ret += "<IsExternalLinkApply>#{@is_external_link_apply}</IsExternalLinkApply>"
         ret += "<HostSite>#{Cb.configuration.host_site}</HostSite>"
         ret += "</Request>"
