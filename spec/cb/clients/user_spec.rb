@@ -31,17 +31,17 @@ module Cb
     end
 
     describe '#check_existing' do
+      let(:response) do
+        Clients::User.check_existing 'kyle@cb.gov', '1337'
+      end
+
+      before do
+        stub_request(:post, uri_stem(Cb.configuration.uri_user_check_existing)).to_return(body: body.to_json)
+      end
+
       context 'positive tests' do
         let(:body) do
           { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz', ResponsePartnerID: 'zyx654', ResponseTempPassword: 'True' } }
-        end
-
-        let(:response) do
-          Clients::User.check_existing 'kyle@cb.gov', '1337'
-        end
-
-        before do
-          stub_request(:post, uri_stem(Cb.configuration.uri_user_check_existing)).to_return(body: body.to_json)
         end
 
         context 'by interacting with the API client directly' do
@@ -103,20 +103,21 @@ module Cb
       end
 
       context 'negative tests' do
-
         let(:body) do
           { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz', ResponsePartnerID: 'zyx654', ResponseTempPassword: 'False' } }
         end
 
-        let(:response) do
-          Clients::User.check_existing 'kyle@cb.gov', '1337'
+        context 'When ResponseTempPassword comes back false' do
+          it 'temp_password should be false' do
+            response.model.temp_password.should == false
+          end
         end
 
-        before do
-          stub_request(:post, uri_stem(Cb.configuration.uri_user_check_existing)).to_return(body: body.to_json)
-        end
+        context 'When ResponseTempPassword comes back nil (not present in response)' do
+          let(:body) do
+            { ResponseUserCheck: { Request: { Email: 'kyle@cb.gov' }, Status: 'Success', UserCheckStatus: 'EmailExistsPasswordsDoNotMatch', ResponseExternalID: 'abc123', ResponseOAuthToken: '456xyz', ResponsePartnerID: 'zyx654' } }
+          end
 
-        context 'When ResponseTempPassword comes back' do
           it 'temp_password should be false' do
             response.model.temp_password.should == false
           end
