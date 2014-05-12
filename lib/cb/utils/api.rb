@@ -28,27 +28,27 @@ module Cb
         self.class.headers.merge! ({'accept-encoding' => 'deflate, gzip'}) unless Cb.configuration.debug_api
       end
 
-      def cb_get(path, options={})
+      def cb_get(path, options={}, callback_method = nil)
         self.class.base_uri Cb.configuration.base_uri
-        cb_event(:cb_get_before, path, options, nil)
+        cb_event(:cb_get_before, path, options, nil, callback_method)
         response = self.class.get(path, options)
-        cb_event(:cb_get_after, path, options, response)
+        cb_event(:cb_get_after, path, options, response, callback_method)
         validate_response(response)
       end
 
-      def cb_post(path, options={})
+      def cb_post(path, options={}, callback_method = nil)
         self.class.base_uri Cb.configuration.base_uri
-        cb_event(:cb_post_before, path, options, nil)
+        cb_event(:cb_post_before, path, options, nil, callback_method)
         response = self.class.post(path, options)
-        cb_event(:cb_post_after, path, options, response)
+        cb_event(:cb_post_after, path, options, response, callback_method)
         validate_response(response)
       end
 
-      def cb_put(path, options={})
+      def cb_put(path, options={}, callback_method = nil)
         self.class.base_uri Cb.configuration.base_uri
-        cb_event(:cb_put_before, path, options, nil)
+        cb_event(:cb_put_before, path, options, nil, callback_method)
         response = self.class.put(path, options)
-        cb_event(:cb_put_after, path, options, response)
+        cb_event(:cb_put_after, path, options, response, callback_method)
         validate_response(response)
       end
 
@@ -110,9 +110,11 @@ module Cb
         Cb::Models::ApiCall.new(api_call_type, path, options, response)
       end
 
-      def cb_event(api_call_type, path, options, response)
+      def cb_event(api_call_type, path, options, response, callback_method)
+        call_model = api_call_model(api_call_type, path, options, response)
+        callback_method.call(call_model) unless callback_method.nil?
         changed(true)
-        notify_observers(api_call_model(api_call_type, path, options, response))
+        notify_observers(call_model)
       end
 
       def ensure_non_nil_metavalues(obj)
