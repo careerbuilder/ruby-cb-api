@@ -1,8 +1,9 @@
 module Cb
   class Client
-    attr_accessor :callback_method, :returned_callback_value
+    attr_reader :callback_method, :returned_callback_value
 
     def initialize(callback_method = method(:default_callback_method))
+      raise NotAMethodError unless callback_method.class == Method
       @callback_method = callback_method
     end
 
@@ -10,20 +11,20 @@ module Cb
       @returned_callback_value = arg
     end
 
-    def make_call(criteria)
-      api_response = call_api(criteria)
-      criteria.response_object.new api_response
+    def make_request(request)
+      api_response = call_api(request)
+      request.response_object.new api_response
     end
 
     private
 
-    def call_api(criteria)
-      cb_client.method(:"cb_#{criteria.http_method}").call(
-          criteria.uri_endpoint,
+    def call_api(request)
+      cb_client.method(:"cb_#{request.http_method}").call(
+          request.uri_endpoint,
           {
-              query: criteria.query,
-              headers: criteria.headers,
-              body: criteria.body
+              query: request.query,
+              headers: request.headers,
+              body: request.body
           },
           @callback_method)
     end
