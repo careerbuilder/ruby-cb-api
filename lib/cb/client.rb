@@ -1,12 +1,13 @@
 module Cb
   class Client
-    attr_accessor :callback_method, :default_trace
+    attr_accessor :callback_method, :returned_callback_value
+
     def initialize(callback_method = method(:default_callback_method))
       @callback_method = callback_method
     end
 
     def default_callback_method(arg)
-      @default_trace = arg
+      @returned_callback_value = arg
     end
 
     def make_call(criteria)

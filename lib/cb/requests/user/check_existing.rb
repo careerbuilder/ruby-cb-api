@@ -1,7 +1,7 @@
 require_relative '../base'
 
 module Cb
-  module Criteria
+  module Requests
     module User
       class CheckExisting < Base
 

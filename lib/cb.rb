@@ -10,7 +10,8 @@ def require_directory(relative_path)
 end
 
 %w(/cb/utils/*.rb /cb/clients/**/*.rb /cb/criteria/**/*.rb /cb/models/**.rb
-   /cb/models/**/*.rb /cb/responses/*.rb /cb/responses/**/*.rb).each { |path| require_directory path }
+   /cb/models/**/*.rb /cb/responses/*.rb /cb/responses/**/*.rb
+   /cb/requests/*.rb /cb/requests/**/*.rb).each { |path| require_directory path }
 
 module Cb
   extend Convenience::ClassMethods

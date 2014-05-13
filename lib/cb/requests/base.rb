@@ -1,5 +1,5 @@
 module Cb
-  module Criteria
+  module Requests
     class Base
       attr_reader :body, :headers, :query, :uri_endpoint, :http_method, :response_object
 
@@ -7,6 +7,7 @@ module Cb
         @uri_endpoint = set_uri_endpoint
         @http_method = set_http_method
         @response_object = set_response_object
+
         @query = set_query(args)
         @headers = set_headers(args)
         @body = set_body(args)
