@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'support/mocks/callback'
+require 'support/mocks/request'
 
 module Cb
   describe Cb::Client do
@@ -12,9 +14,9 @@ module Cb
         expect{ Cb::Client.new(nil) }.to raise_error
       end
       it 'should pass a correct callback' do
-        tester = CallbackTest.new()
-        client = Cb::Client.new(tester.method(:callback_method))
-        client.callback_method.should == tester.method(:callback_method)
+        test_callback = Mocks::CallbackTest.new()
+        client = Cb::Client.new(test_callback.method(:callback_method))
+        client.callback_method.should == test_callback.method(:callback_method)
       end
     end
 
@@ -29,7 +31,7 @@ module Cb
         client.returned_callback_value.should == @callback_value
       end
       it "should call a custom callback method" do
-        callback_object = CallbackTest.new
+        callback_object = Mocks::CallbackTest.new
 
         client = Cb::Client.new(callback_object.method(:callback_method))
         client.callback_method.call(@callback_value)
@@ -51,7 +53,7 @@ module Cb
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
 
-          @request = RequestTest.new(:post)
+          @request = Mocks::RequestTest.new(:post)
         end
 
         it 'should call the api using post' do
@@ -69,7 +71,7 @@ module Cb
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
 
-          @request = RequestTest.new(:get)
+          @request = Mocks::RequestTest.new(:get)
         end
 
         it 'should call the api using post' do
@@ -87,7 +89,7 @@ module Cb
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
 
-          @request = RequestTest.new(:put)
+          @request = Mocks::RequestTest.new(:put)
         end
 
         it 'should call the api using post' do
@@ -101,34 +103,5 @@ module Cb
 
     end
 
-  end
-end
-
-class RequestTest
-  attr_reader :body, :headers, :query, :uri_endpoint, :http_method, :response_object
-
-  def initialize(arg)
-    @http_method = arg
-    @uri_endpoint = "parts unknown"
-    @response_object = ResponseTest
-  end
-end
-
-class ResponseTest
-  attr_reader :response
-
-  def initialize(arg)
-    @response = arg
-  end
-
-end
-
-class CallbackTest
-  attr_reader :callback_value
-  def initialize
-    @callback_value = false
-  end
-  def callback_method(arg)
-    @callback_value = arg
   end
 end
