@@ -16,7 +16,7 @@ module Cb
         end
 
         def set_response_object
-          Cb::Responses::User::CheckExisting
+          Cb::Responses::User::Retrieve
         end
 
         def set_query(args)
