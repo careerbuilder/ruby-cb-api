@@ -33,7 +33,7 @@ module Cb
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
               <Email>#{args[:email]}</Email>
               <Password>#{args[:password]}</Password>
-              <Test>false</Test>
+              <Test>#{(args[:test] || false).to_s}</Test>
             </Request>
           eos
         end
