@@ -22,15 +22,15 @@ module Cb
 
     context 'callback' do
       before :each do
-        @callback_value = "copy that ghost rider"
+        @callback_value = 'copy that ghost rider'
       end
 
-      it "should call the default callback method" do
+      it 'should call the default callback method' do
         client = Cb::Client.new()
         client.callback_method.call(@callback_value)
         client.returned_callback_value.should == @callback_value
       end
-      it "should call a custom callback method" do
+      it 'should call a custom callback method' do
         callback_object = Mocks::CallbackTest.new
 
         client = Cb::Client.new(callback_object.method(:callback_method))
@@ -47,7 +47,7 @@ module Cb
         @client = Cb::Client.new
       end
 
-      context "post" do
+      context 'post' do
         before :each do
           mock_api.stub(:cb_post).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
@@ -58,14 +58,14 @@ module Cb
 
         it 'should call the api using post' do
           mock_api.should_receive(:cb_post).
-              with("parts unknown", {:query=>nil, :headers=>nil, :body=>nil}, @client.method(:default_callback_method)).
+              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, @client.method(:default_callback_method)).
               and_return(Hash.new)
 
           @client.make_request(@request)
         end
       end
 
-      context "get" do
+      context 'get' do
         before :each do
           mock_api.stub(:cb_get).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
@@ -76,14 +76,14 @@ module Cb
 
         it 'should call the api using post' do
           mock_api.should_receive(:cb_get).
-              with("parts unknown", {:query=>nil, :headers=>nil, :body=>nil}, @client.method(:default_callback_method)).
+              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, @client.method(:default_callback_method)).
               and_return(Hash.new)
 
           @client.make_request(@request)
         end
       end
 
-      context "put" do
+      context 'put' do
         before :each do
           mock_api.stub(:cb_put).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
@@ -94,7 +94,7 @@ module Cb
 
         it 'should call the api using post' do
           mock_api.should_receive(:cb_put).
-              with("parts unknown", {:query=>nil, :headers=>nil, :body=>nil}, @client.method(:default_callback_method)).
+              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, @client.method(:default_callback_method)).
               and_return(Hash.new)
 
           @client.make_request(@request)

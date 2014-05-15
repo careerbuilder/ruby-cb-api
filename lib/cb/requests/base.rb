@@ -16,27 +16,39 @@ module Cb
       private
 
       def set_uri_endpoint
-        raise NotImplemented
+        raise NotImplementedError "set_uri_endpoint not implemented"
       end
 
       def set_http_method
-        raise NotImplemented
+        raise NotImplementedError "set_http_method not implemented"
       end
 
       def set_response_object
-        raise NotImplemented
+        raise NotImplementedError "set_response_body not implemented"
       end
 
       def set_query(args)
-        raise NotImplemented
+        raise NotImplementedError "set_query not implemented"
       end
 
       def set_headers(args)
-        raise NotImplemented
+        raise NotImplementedError "set_headers not implemented"
       end
 
       def set_body(args)
-        raise NotImplemented
+        raise NotImplementedError "set_body not implemented"
+      end
+
+      private
+
+      def NotImplementedError(message)
+        Cb::Requests::NotImplementedError.new(message)
+      end
+    end
+
+    class NotImplementedError < StandardError
+      def initialize(message = "Method not implemented")
+        super
       end
     end
   end
