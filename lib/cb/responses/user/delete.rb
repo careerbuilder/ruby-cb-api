@@ -3,7 +3,7 @@ module Cb
     module User
 
       class Delete < ApiResponse
-        class Model < Struct.new(:success) ; end
+        class Model < Struct.new(:status) ; end
 
         protected
 
@@ -14,7 +14,7 @@ module Cb
 
         def extract_models
           model = Model.new
-          model.success = response[root_node][success_node]
+          model.status = response[root_node][status_node]
           model
         end
 
@@ -36,8 +36,8 @@ module Cb
           'Request'
         end
 
-        def success_node
-          'Success'
+        def status_node
+          'Status'
         end
       end
 

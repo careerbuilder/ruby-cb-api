@@ -9,7 +9,6 @@ module Cb
         def validate_api_hash
           required_response_field(root_node, response)
           required_response_field(request_node, response[root_node])
-          required_response_field(user_info_node, response[root_node])
         end
 
         def extract_models
