@@ -28,15 +28,15 @@ module Cb
       end
 
       def set_query(args)
-        raise NotImplementedError "set_query not implemented"
+        nil
       end
 
       def set_headers(args)
-        raise NotImplementedError "set_headers not implemented"
+        nil
       end
 
       def set_body(args)
-        raise NotImplementedError "set_body not implemented"
+        nil
       end
 
       private

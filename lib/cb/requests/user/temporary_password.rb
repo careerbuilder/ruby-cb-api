@@ -25,14 +25,6 @@ module Cb
           }
         end
 
-        def set_headers(args)
-          nil
-        end
-
-        def set_body(args)
-          nil
-        end
-
       end
     end
   end

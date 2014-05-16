@@ -19,14 +19,6 @@ module Cb
           Cb::Responses::User::Retrieve
         end
 
-        def set_query(args)
-          nil
-        end
-
-        def set_headers(args)
-          nil
-        end
-
         def set_body(args)
           <<-eos
             <Request>
