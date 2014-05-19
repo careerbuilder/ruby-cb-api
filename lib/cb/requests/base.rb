@@ -1,54 +1,29 @@
 module Cb
   module Requests
     class Base
-      attr_reader :body, :headers, :query, :uri_endpoint, :http_method, :response_object
 
-      def initialize(args)
-        @uri_endpoint = set_uri_endpoint
-        @http_method = set_http_method
-        @response_object = set_response_object
-
-        @query = set_query(args)
-        @headers = set_headers(args)
-        @body = set_body(args)
+      def initialize(argument_hash)
+        @args = argument_hash || {}
       end
 
-      private
-
-      def set_uri_endpoint
-        raise NotImplementedError "set_uri_endpoint not implemented"
+      def endpoint_uri
+        raise NotImplementedError.new __method__
       end
 
-      def set_http_method
-        raise NotImplementedError "set_http_method not implemented"
+      def http_method
+        raise NotImplementedError.new __method__
       end
 
-      def set_response_object
-        raise NotImplementedError "set_response_body not implemented"
-      end
-
-      def set_query(args)
+      def query
         nil
       end
 
-      def set_headers(args)
+      def headers
         nil
       end
 
-      def set_body(args)
+      def body
         nil
-      end
-
-      private
-
-      def NotImplementedError(message)
-        Cb::Requests::NotImplementedError.new(message)
-      end
-    end
-
-    class NotImplementedError < StandardError
-      def initialize(message = "Method not implemented")
-        super
       end
     end
   end

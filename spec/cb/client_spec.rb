@@ -1,22 +1,20 @@
 require 'spec_helper'
 require 'support/mocks/callback'
 require 'support/mocks/request'
+require 'support/mocks/response'
 
 module Cb
   describe Cb::Client do
 
     context 'initialize' do
-      it 'should use the default callback method' do
+      it 'should not use a callback block' do
         client = Cb::Client.new()
-        client.callback_method.should == client.method(:default_callback_method)
+        client.callback_block.should == nil
       end
-      it 'should pass nil as callback' do
-        expect{ Cb::Client.new(nil) }.to raise_error
-      end
+
       it 'should pass a correct callback' do
-        test_callback = Mocks::CallbackTest.new()
-        client = Cb::Client.new(test_callback.method(:callback_method))
-        client.callback_method.should == test_callback.method(:callback_method)
+        client = Cb::Client.new {}
+        client.callback_block.class.should == Proc
       end
     end
 
@@ -25,17 +23,11 @@ module Cb
         @callback_value = 'copy that ghost rider'
       end
 
-      it 'should call the default callback method' do
-        client = Cb::Client.new()
-        client.callback_method.call(@callback_value)
-        client.returned_callback_value.should == @callback_value
-      end
       it 'should call a custom callback method' do
-        callback_object = Mocks::CallbackTest.new
-
-        client = Cb::Client.new(callback_object.method(:callback_method))
-        client.callback_method.call(@callback_value)
-        callback_object.callback_value.should == @callback_value
+        callback_test = nil
+        client = Cb::Client.new { |callback| callback_test = callback}
+        client.callback_block.call(@callback_value)
+        callback_test.should == @callback_value
       end
     end
 
@@ -52,16 +44,17 @@ module Cb
           mock_api.stub(:cb_post).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
+          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::ResponseTest)
 
           @request = Mocks::RequestTest.new(:post)
         end
 
         it 'should call the api using post' do
           mock_api.should_receive(:cb_post).
-              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, @client.method(:default_callback_method)).
+              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, nil).
               and_return(Hash.new)
 
-          @client.make_request(@request)
+          @client.execute(@request)
         end
       end
 
@@ -70,16 +63,17 @@ module Cb
           mock_api.stub(:cb_get).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
+          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::ResponseTest)
 
           @request = Mocks::RequestTest.new(:get)
         end
 
         it 'should call the api using post' do
           mock_api.should_receive(:cb_get).
-              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, @client.method(:default_callback_method)).
+              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, nil).
               and_return(Hash.new)
 
-          @client.make_request(@request)
+          @client.execute(@request)
         end
       end
 
@@ -88,16 +82,17 @@ module Cb
           mock_api.stub(:cb_put).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
+          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::ResponseTest)
 
           @request = Mocks::RequestTest.new(:put)
         end
 
         it 'should call the api using post' do
           mock_api.should_receive(:cb_put).
-              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, @client.method(:default_callback_method)).
+              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, nil).
               and_return(Hash.new)
 
-          @client.make_request(@request)
+          @client.execute(@request)
         end
       end
 

@@ -14,9 +14,8 @@ module Cb
         end
 
         it 'should be correctly configured' do
-          @request.uri_endpoint.should == Cb.configuration.uri_user_retrieve
+          @request.endpoint_uri.should == Cb.configuration.uri_user_retrieve
           @request.http_method.should == :post
-          @request.response_object.should == Cb::Responses::User::Retrieve
         end
 
         it 'should have a basic query string' do
@@ -47,9 +46,8 @@ module Cb
         end
 
         it 'should be correctly configured' do
-          @request.uri_endpoint.should == Cb.configuration.uri_user_retrieve
+          @request.endpoint_uri.should == Cb.configuration.uri_user_retrieve
           @request.http_method.should == :post
-          @request.response_object.should == Cb::Responses::User::Retrieve
         end
 
         it 'should have a basic query string' do

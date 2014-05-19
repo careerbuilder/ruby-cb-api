@@ -5,23 +5,17 @@ module Cb
     module User
       class TemporaryPassword < Base
 
-        private
-
-        def set_uri_endpoint
+        def endpoint_uri
           Cb.configuration.uri_user_temp_password
         end
 
-        def set_http_method
+        def http_method
           :get
         end
 
-        def set_response_object
-          Cb::Responses::User::TemporaryPassword
-        end
-
-        def set_query(args)
+        def query
           {
-              'ExternalID' => args[:external_id]
+              'ExternalID' => @args[:external_id]
           }
         end
 

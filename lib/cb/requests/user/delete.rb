@@ -5,27 +5,21 @@ module Cb
     module User
       class Delete < Base
 
-        private
-
-        def set_uri_endpoint
+        def endpoint_uri
           Cb.configuration.uri_user_delete
         end
 
-        def set_http_method
+        def http_method
           :post
         end
 
-        def set_response_object
-          Cb::Responses::User::Delete
-        end
-
-        def set_body(args)
+        def body
           <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>#{args[:external_id]}</ExternalID>
-              <Test>#{(args[:test] || false).to_s}</Test>
-              <Password>#{args[:password]}</Password>
+              <ExternalID>#{@args[:external_id]}</ExternalID>
+              <Test>#{(@args[:test] || false).to_s}</Test>
+              <Password>#{@args[:password]}</Password>
             </Request>
           eos
         end
