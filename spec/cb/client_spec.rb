@@ -31,7 +31,7 @@ module Cb
       end
     end
 
-    context 'api call' do
+    context 'api call no block' do
 
       let(:mock_api) { double(Cb::Utils::Api) }
 
@@ -51,7 +51,7 @@ module Cb
 
         it 'should call the api using post' do
           mock_api.should_receive(:cb_post).
-              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, nil).
+              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
           @client.execute(@request)
@@ -70,7 +70,7 @@ module Cb
 
         it 'should call the api using post' do
           mock_api.should_receive(:cb_get).
-              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, nil).
+              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
           @client.execute(@request)
@@ -89,7 +89,7 @@ module Cb
 
         it 'should call the api using post' do
           mock_api.should_receive(:cb_put).
-              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}, nil).
+              with('parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
           @client.execute(@request)
@@ -97,6 +97,5 @@ module Cb
       end
 
     end
-
   end
 end

@@ -22,7 +22,7 @@ module Cb
           headers: request.headers,
           body: request.body
         },
-        @callback_block)
+        &@callback_block)
     end
 
     def cb_client
