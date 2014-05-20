@@ -44,7 +44,7 @@ module Cb
           mock_api.stub(:cb_post).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
+          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:post)
         end
@@ -63,7 +63,7 @@ module Cb
           mock_api.stub(:cb_get).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
+          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:get)
         end
@@ -82,7 +82,7 @@ module Cb
           mock_api.stub(:cb_put).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
+          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:put)
         end
@@ -110,7 +110,7 @@ module Cb
           mock_api.stub(:cb_post).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
+          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:post)
         end
@@ -130,7 +130,7 @@ module Cb
           mock_api.stub(:cb_get).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
+          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:get)
         end
@@ -150,7 +150,7 @@ module Cb
           mock_api.stub(:cb_put).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
+          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:put)
         end

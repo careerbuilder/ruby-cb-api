@@ -8,7 +8,7 @@ module Cb
 
     def execute(request)
       api_response = call_api(request)
-      response_class = Cb::Utils::ResponseMap.finder(request.class)
+      response_class = Cb::Utils::ResponseMap.response_for(request.class)
       response_class.new api_response
     end
 

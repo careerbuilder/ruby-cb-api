@@ -2,7 +2,7 @@ module Cb
   module Utils
     class ResponseMap
       class << self
-        def finder request_class
+        def response_for request_class
           response_class = response_hash[request_class]
           return response_class unless response_class.nil?
           raise ResponseNotFoundError.new request_class
