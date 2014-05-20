@@ -32,8 +32,8 @@ module Cb
           @request.body.should == <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>#{nil}</ExternalID>
-              <Test>#{(false).to_s}</Test>
+              <ExternalID></ExternalID>
+              <Test>false</Test>
             </Request>
           eos
         end
@@ -64,8 +64,8 @@ module Cb
           @request.body.should == <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>#{'external id'}</ExternalID>
-              <Test>#{'true'}</Test>
+              <ExternalID>external id</ExternalID>
+              <Test>true</Test>
             </Request>
           eos
         end

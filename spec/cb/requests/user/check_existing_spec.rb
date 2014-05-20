@@ -32,8 +32,8 @@ module Cb
           @request.body.should == <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <Email>#{nil}</Email>
-              <Password>#{nil}</Password>
+              <Email></Email>
+              <Password></Password>
               <Test>false</Test>
             </Request>
           eos
@@ -65,8 +65,8 @@ module Cb
           @request.body.should == <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <Email>#{"email"}</Email>
-              <Password>#{"password"}</Password>
+              <Email>email</Email>
+              <Password>password</Password>
               <Test>false</Test>
             </Request>
           eos

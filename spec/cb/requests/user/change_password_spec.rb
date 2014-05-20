@@ -32,10 +32,10 @@ module Cb
           @request.body.should == <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>#{nil}</ExternalID>
-              <Test>#{false.to_s}</Test>
-              <OldPassword>#{nil}</OldPassword>
-              <NewPassword>#{nil}</NewPassword>
+              <ExternalID></ExternalID>
+              <Test>false</Test>
+              <OldPassword></OldPassword>
+              <NewPassword></NewPassword>
             </Request>
           eos
         end
@@ -68,10 +68,10 @@ module Cb
           @request.body.should == <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>#{'external id'}</ExternalID>
-              <Test>#{'true'}</Test>
-              <OldPassword>#{'old password'}</OldPassword>
-              <NewPassword>#{'new password'}</NewPassword>
+              <ExternalID>external id</ExternalID>
+              <Test>true</Test>
+              <OldPassword>old password</OldPassword>
+              <NewPassword>new password</NewPassword>
             </Request>
           eos
         end
