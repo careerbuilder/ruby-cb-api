@@ -56,7 +56,7 @@ module Cb
       @uri_saved_search_retrieve          ||= '/cbapi/savedsearches/:did'
       @uri_saved_search_create            ||= '/v2/savedsearch/create'
       @uri_saved_search_update            ||= '/cbapi/SavedSearches'
-      @uri_saved_search_delete            ||= '/v1/savedsearch/delete'
+      @uri_saved_search_delete            ||= '/cbapi/savedsearches/:did'
       @uri_saved_search_list              ||= '/cbapi/savedsearches'
       @uri_anon_saved_search_create       ||= '/v1/anonymoussavedjobsearch/create'
       @uri_anon_saved_search_delete       ||= '/v1/anonymoussavedjobsearch/delete'
