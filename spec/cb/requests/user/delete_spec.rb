@@ -43,10 +43,10 @@ module Cb
       context 'with arguments' do
         before :each do
           @request = Cb::Requests::User::Delete.new({
-              external_id: 'external id',
-              test: 'true',
-              password: 'password'
-                                                    })
+            external_id: 'external id',
+            test: 'true',
+            password: 'password'
+          })
         end
 
         it 'should be correctly configured' do

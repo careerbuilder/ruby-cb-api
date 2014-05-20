@@ -43,9 +43,9 @@ module Cb
       context 'with arguments' do
         before :each do
           @request = Cb::Requests::User::CheckExisting.new({
-              email: "email",
-              password: "password"
-                                                           })
+            email: "email",
+            password: "password"
+          })
         end
 
         it 'should be correctly configured' do

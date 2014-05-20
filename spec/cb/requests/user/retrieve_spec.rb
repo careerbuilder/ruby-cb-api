@@ -42,9 +42,9 @@ module Cb
       context 'with arguments' do
         before :each do
           @request = Cb::Requests::User::Retrieve.new({
-              :external_id => 'external id',
-              :test => 'true'
-                                                      })
+            :external_id => 'external id',
+            :test => 'true'
+          })
         end
 
         it 'should be correctly configured' do

@@ -44,11 +44,11 @@ module Cb
       context 'with arguments' do
         before :each do
           @request = Cb::Requests::User::ChangePassword.new({
-              external_id: 'external id',
-              test: 'true',
-              old_password: 'old password',
-              new_password: 'new password'
-                                                            })
+            external_id: 'external id',
+            test: 'true',
+            old_password: 'old password',
+            new_password: 'new password'
+          })
         end
 
         it 'should be correctly configured' do

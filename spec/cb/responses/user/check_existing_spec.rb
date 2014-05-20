@@ -30,7 +30,7 @@ module Cb
 
           it 'raises an error' do
             expect { Responses::User::CheckExisting.new(json_hash) }.
-                to raise_error ExpectedResponseFieldMissing
+              to raise_error ExpectedResponseFieldMissing
           end
         end
       end

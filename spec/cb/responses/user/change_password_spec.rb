@@ -4,11 +4,11 @@ module Cb
   describe Responses::User::ChangePassword do
     let(:json_hash) do
       {
-          'Errors' => '',
-          'ResponseUserChangePW' => {
-            'Request' => {},
-            'Status' => 'Made it!!!!!!!!'
-          }
+        'Errors' => '',
+        'ResponseUserChangePW' => {
+          'Request' => {},
+          'Status' => 'Made it!!!!!!!!'
+        }
       }
     end
 

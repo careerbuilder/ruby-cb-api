@@ -36,8 +36,8 @@ module Cb
       context 'with arguments' do
         before :each do
           @request = Cb::Requests::User::TemporaryPassword.new({
-              external_id: 'external id'
-                                                               })
+            external_id: 'external id'
+          })
         end
 
         it 'should be correctly configured' do

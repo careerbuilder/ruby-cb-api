@@ -4,11 +4,11 @@ module Cb
   describe Responses::User::Delete do
     let(:json_hash) do
       {
-          'Errors' => '',
-          'ResponseUserDelete' => {
-            'Request' => 'Can you hear me?',
-            'Status' => 'trifled whale'
-          }
+        'Errors' => '',
+        'ResponseUserDelete' => {
+          'Request' => 'Can you hear me?',
+          'Status' => 'trifled whale'
+        }
       }
     end
 
@@ -24,7 +24,7 @@ module Cb
 
           it 'raises an error' do
             expect { Responses::User::Delete.new(json_hash) }.
-                to raise_error ExpectedResponseFieldMissing
+              to raise_error ExpectedResponseFieldMissing
           end
         end
       end

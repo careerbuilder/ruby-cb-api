@@ -4,10 +4,10 @@ module Cb
   describe Responses::User::Retrieve do
     let(:json_hash) do
       {
-          'Errors' => '',
-          'ResponseUserInfo' => {
-              'Request' => "HEY"
-          }
+        'Errors' => '',
+        'ResponseUserInfo' => {
+            'Request' => "HEY"
+        }
       }
     end
 
@@ -23,7 +23,7 @@ module Cb
 
           it 'raises an error' do
             expect { Responses::User::Retrieve.new(json_hash) }.
-                to raise_error ExpectedResponseFieldMissing
+              to raise_error ExpectedResponseFieldMissing
           end
         end
       end
