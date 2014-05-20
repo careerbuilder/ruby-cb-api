@@ -1,7 +1,7 @@
 require 'support/mocks/response'
 
 module Mocks
-  class RequestTest
+  class Request
 
     def initialize(arg)
       @arg = arg

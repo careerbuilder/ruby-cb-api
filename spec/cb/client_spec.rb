@@ -44,9 +44,9 @@ module Cb
           mock_api.stub(:cb_post).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::ResponseTest)
+          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
 
-          @request = Mocks::RequestTest.new(:post)
+          @request = Mocks::Request.new(:post)
         end
 
         it 'should call the api using post' do
@@ -63,9 +63,9 @@ module Cb
           mock_api.stub(:cb_get).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::ResponseTest)
+          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
 
-          @request = Mocks::RequestTest.new(:get)
+          @request = Mocks::Request.new(:get)
         end
 
         it 'should call the api using post' do
@@ -82,9 +82,9 @@ module Cb
           mock_api.stub(:cb_put).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::ResponseTest)
+          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
 
-          @request = Mocks::RequestTest.new(:put)
+          @request = Mocks::Request.new(:put)
         end
 
         it 'should call the api using post' do
@@ -110,9 +110,9 @@ module Cb
           mock_api.stub(:cb_post).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::ResponseTest)
+          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
 
-          @request = Mocks::RequestTest.new(:post)
+          @request = Mocks::Request.new(:post)
         end
 
         it 'should call the api using post' do
@@ -130,9 +130,9 @@ module Cb
           mock_api.stub(:cb_get).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::ResponseTest)
+          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
 
-          @request = Mocks::RequestTest.new(:get)
+          @request = Mocks::Request.new(:get)
         end
 
         it 'should call the api using post' do
@@ -150,9 +150,9 @@ module Cb
           mock_api.stub(:cb_put).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::ResponseTest)
+          Cb::Utils::ResponseMap.stub(:finder).and_return(Mocks::Response)
 
-          @request = Mocks::RequestTest.new(:put)
+          @request = Mocks::Request.new(:put)
         end
 
         it 'should call the api using post' do

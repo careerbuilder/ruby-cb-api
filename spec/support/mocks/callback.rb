@@ -1,5 +1,5 @@
 module Mocks
-  class CallbackTest
+  class Callback
     attr_reader :callback_value
     def initialize
       @callback_value = false

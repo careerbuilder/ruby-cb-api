@@ -1,5 +1,5 @@
 module Mocks
-  class ResponseTest
+  class Response
     attr_reader :response
 
     def initialize(arg)
