@@ -5,7 +5,9 @@ module Cb
 
     context 'initialize without arguments' do
       it 'should not raise error' do
-        expect{ Cb::Requests::User::ChangePassword.new({}) }.to_not raise_error()
+        request = Cb::Requests::User::ChangePassword.new({})
+        expect { request.http_method }.to_not raise_error()
+        expect { request.endpoint_uri }.to_not raise_error()
       end
 
       context 'without arguments' do
