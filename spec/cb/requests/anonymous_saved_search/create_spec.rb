@@ -38,7 +38,7 @@ module Cb
             <Test>false</Test>
             <EmailAddress></EmailAddress>
             <SearchName></SearchName>
-            
+
             <IsDailyEmail></IsDailyEmail>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
           </Request>
@@ -106,7 +106,7 @@ module Cb
             <Test>true</Test>
             <EmailAddress>email</EmailAddress>
             <SearchName>search name</SearchName>
-                        <SearchParameters>
+            <SearchParameters>
               <BooleanOperator>boolean operator</BooleanOperator>
               <JobCategory>job category</JobCategory>
               <EducationCode>education code</EducationCode>

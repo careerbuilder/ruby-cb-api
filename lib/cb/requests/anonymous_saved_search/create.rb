@@ -23,7 +23,7 @@ module Cb
             <Test>#{(@args[:test] || false).to_s}</Test>
             <EmailAddress>#{@args[:email_address]}</EmailAddress>
             <SearchName>#{@args[:search_name]}</SearchName>
-            #{search_parameters(@args[:search_parameters]) unless @args[:search_parameters].nil?}
+#{search_parameters(@args[:search_parameters]) unless @args[:search_parameters].nil?}
             <IsDailyEmail>#{@args[:is_daily_email]}</IsDailyEmail>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
           </Request>
@@ -57,7 +57,7 @@ module Cb
               <ExcludeNational>#{args[:exclude_national]}</ExcludeNational>
               <PayInfoOnly>#{args[:pay_info_only]}</PayInfoOnly>
             </SearchParameters>
-          eos
+eos
         end
 
       end
