@@ -71,18 +71,6 @@ module Cb
         hash["EmailDeliveryDay"] = email_delivery_day unless is_daily_email
         hash.to_json
       end
-
-      def delete_to_xml
-        <<-eos
-          <Request>
-            <HostSite>#{host_site}</HostSite>
-            <ExternalID>#{external_id}</ExternalID>
-            <ExternalUserID>#{external_user_id}</ExternalUserID>
-            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-          </Request>
-        eos
-      end
-
       def delete_anon_to_xml
         <<-eos
           <Request>

@@ -52,6 +52,14 @@ module Cb
         validate_response(response)
       end
 
+      def cb_delete(path, options={}, &block)
+        self.class.base_uri Cb.configuration.base_uri
+        cb_event(:cb_delete_before, path, options, nil, &block)
+        response = self.class.delete(path, options)
+        cb_event(:cb_delete_after, path, options, response, &block)
+        validate_response(response)
+      end
+
       def append_api_responses(obj, resp)
         meta_class = ensure_non_nil_metavalues(obj)
 
