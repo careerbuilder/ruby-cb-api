@@ -15,7 +15,8 @@ module Cb
     private
 
     def call_api(request)
-      cb_client.method(:"cb_#{request.http_method}").call(
+      cb_client.cb_make_request(
+        request.http_method,
         request.endpoint_uri,
         {
           query: request.query,

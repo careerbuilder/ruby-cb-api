@@ -29,34 +29,26 @@ module Cb
       end
 
       def cb_get(path, options={}, &block)
-        self.class.base_uri Cb.configuration.base_uri
-        cb_event(:cb_get_before, path, options, nil, &block)
-        response = self.class.get(path, options)
-        cb_event(:cb_get_after, path, options, response, &block)
-        validate_response(response)
+        cb_make_request(:get, path, options, &block)
       end
 
       def cb_post(path, options={}, &block)
-        self.class.base_uri Cb.configuration.base_uri
-        cb_event(:cb_post_before, path, options, nil, &block)
-        response = self.class.post(path, options)
-        cb_event(:cb_post_after, path, options, response, &block)
-        validate_response(response)
+        cb_make_request(:post, path, options, &block)
       end
 
       def cb_put(path, options={}, &block)
-        self.class.base_uri Cb.configuration.base_uri
-        cb_event(:cb_put_before, path, options, nil, &block)
-        response = self.class.put(path, options)
-        cb_event(:cb_put_after, path, options, response, &block)
-        validate_response(response)
+        cb_make_request(:put, path, options, &block)
       end
 
       def cb_delete(path, options={}, &block)
+        cb_make_request(:delete, path, options, &block)
+      end
+
+      def cb_make_request(http_method, path, options={}, &block)
         self.class.base_uri Cb.configuration.base_uri
-        cb_event(:cb_delete_before, path, options, nil, &block)
-        response = self.class.delete(path, options)
-        cb_event(:cb_delete_after, path, options, response, &block)
+        cb_event(:"cb_#{http_method.to_s}_before", path, options, nil, &block)
+        response = self.class.method(http_method).call(path, options)
+        cb_event(:"cb_#{http_method.to_s}_after", path, options, response, &block)
         validate_response(response)
       end
 
