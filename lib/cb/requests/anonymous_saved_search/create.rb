@@ -20,10 +20,10 @@ module Cb
             <Cobrand>#{@args[:cobrand]}</Cobrand>
             <BrowserID>#{@args[:browser_id]}</BrowserID>
             <SessionID>#{@args[:session_id]}</SessionID>
-            <Test>false</Test>
+            <Test>#{(@args[:test] || false).to_s}</Test>
             <EmailAddress>#{@args[:email_address]}</EmailAddress>
             <SearchName>#{@args[:search_name]}</SearchName>
-            #{search_parameters(@args[:search_parameters])}
+            #{search_parameters(@args[:search_parameters]) unless @args[:search_parameters].nil?}
             <IsDailyEmail>#{@args[:is_daily_email]}</IsDailyEmail>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
           </Request>
@@ -36,7 +36,7 @@ module Cb
           <<-eos
             <SearchParameters>
               <BooleanOperator>#{args[:boolean_operator]}</BooleanOperator>
-              <JobCategory>#{args[:category]}</JobCategory>
+              <JobCategory>#{args[:job_category]}</JobCategory>
               <EducationCode>#{args[:education_code]}</EducationCode>
               <EmpType>#{args[:emp_type]}</EmpType>
               <ExcludeCompanyNames>#{args[:exclude_company_names]}</ExcludeCompanyNames>
