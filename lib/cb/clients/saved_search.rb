@@ -15,12 +15,12 @@ module Cb
       end
 
       def delete(hash)
-        uri = replace_uri_field(Cb.configuration.uri_saved_search_delete, ':did', hash[:user_oauth_token])
+        uri = replace_uri_field(Cb.configuration.uri_saved_search_delete, ':did', hash[:did])
         json = cb_client.cb_delete(
           uri,
           {
             headers: { 'HostSite' => hash[:host_site] },
-            query: { "DID" =>hash[:did] }
+            query: { "UserOAuthToken" =>hash[:user_oauth_token] }
           }
         )
         Responses::SavedSearch::Delete.new(json)

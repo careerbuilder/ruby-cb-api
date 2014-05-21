@@ -107,13 +107,14 @@ module Cb
 
     context '.delete' do
       before :each do
-        stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_delete)).
+        stub_request(:delete, "https://api.careerbuilder.com/cbapi/savedsearches/xid?UserOAuthToken=oauth&developerkey=mydevkey&outputjson=true").
+          with(:headers => {'Accept-Encoding'=>'deflate, gzip', 'Developerkey'=>'mydevkey', 'Hostsite'=>'host site'}).
           to_return(:body => { Errors: nil, Status: 'Success' }.to_json)
       end
 
       it 'should delete a saved search without error' do
-        model = Models::SavedSearch.new({'ExternalID'=>'xid','ExternalUserID'=>@external_user_id, 'HostSite'=>@host_site})
-        Cb.saved_search.new.delete(model)
+        hash = {did: 'xid', user_oauth_token: "oauth", host_site: "host site"}
+        Cb.saved_search.new.delete(hash)
       end
     end
 

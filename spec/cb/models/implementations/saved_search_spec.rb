@@ -65,26 +65,6 @@ module Cb
 
       end
 
-      describe '#delete_to_xml' do
-        before {
-          saved_search.host_site = 'US'
-          saved_search.external_id = 'BigMoom'
-          saved_search.external_user_id = 'BigMoomGuy'
-          Cb.configuration.dev_key = 'who dat'
-        }
-        it 'serialized correctly' do
-          xml = saved_search.delete_to_xml
-          expect(xml).to eq <<-eos
-          <Request>
-            <HostSite>US</HostSite>
-            <ExternalID>BigMoom</ExternalID>
-            <ExternalUserID>BigMoomGuy</ExternalUserID>
-            <DeveloperKey>who dat</DeveloperKey>
-          </Request>
-          eos
-        end
-      end
-
       describe '#delete_anon_to_xml' do
         before {
           saved_search.external_id = 'BigMoom'
