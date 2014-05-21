@@ -202,6 +202,55 @@ module Cb
 
       end
 
+      describe '#make_http_request' do
+        context ':delete' do
+          context 'when we have observers' do
+            let(:response) { { success: 'yeah' } }
+            before{
+              Cb.configuration.stub(:observers).and_return(Array(Mocks::Observer))
+              Api.stub(:delete).with(uri, options).and_return(response)
+            }
+            it 'will notify the observers' do
+              api.should_receive(:notify_observers).twice.and_call_original
+              Mocks::Observer.any_instance.should_receive(:update).at_most(2).times
+              api.make_http_request(:delete, uri)
+            end
+          end
+          it 'sends #delete to HttParty' do
+            Api.should_receive(:delete).with(uri, options)
+            api.make_http_request(:delete, uri)
+          end
+
+          context 'When Cb base_uri is configured' do
+            before {
+              Cb.configuration.base_uri = 'http://www.kylerox.org'
+              Api.stub(:delete).with(uri, options)
+            }
+
+            it 'sets base_uri on Api' do
+              api.make_http_request(:delete, uri)
+
+              expect(Api.base_uri).to eq 'http://www.kylerox.org'
+            end
+          end
+
+          context 'When a response is returned' do
+            let(:response) { { success: 'yeah' } }
+            before {
+              Api.stub(:delete).with(uri, options).and_return(response)
+            }
+
+            it 'sends #validate to ResponseValidator with the response' do
+              ResponseValidator.should_receive(:validate).with(response).and_return(response)
+              api.make_http_request(:delete, uri)
+            end
+          end
+        end
+      end
+
+
+
+
     end
   end
 end
