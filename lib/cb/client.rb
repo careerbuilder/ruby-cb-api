@@ -15,7 +15,7 @@ module Cb
     private
 
     def call_api(request)
-      cb_client.cb_make_request(
+      cb_client.make_http_request(
         request.http_method,
         request.endpoint_uri,
         {
