@@ -213,12 +213,12 @@ module Cb
             it 'will notify the observers' do
               api.should_receive(:notify_observers).twice.and_call_original
               Mocks::Observer.any_instance.should_receive(:update).at_most(2).times
-              api.http_request(:delete, uri)
+              api.execute_http_request(:delete, uri)
             end
           end
           it 'sends #delete to HttParty' do
             Api.should_receive(:delete).with(uri, options)
-            api.http_request(:delete, uri)
+            api.execute_http_request(:delete, uri)
           end
 
           context 'When Cb base_uri is configured' do
@@ -228,7 +228,7 @@ module Cb
             }
 
             it 'sets base_uri on Api' do
-              api.http_request(:delete, uri)
+              api.execute_http_request(:delete, uri)
 
               expect(Api.base_uri).to eq 'http://www.kylerox.org'
             end
@@ -242,7 +242,7 @@ module Cb
 
             it 'sends #validate to ResponseValidator with the response' do
               ResponseValidator.should_receive(:validate).with(response).and_return(response)
-              api.http_request(:delete, uri)
+              api.execute_http_request(:delete, uri)
             end
           end
         end
