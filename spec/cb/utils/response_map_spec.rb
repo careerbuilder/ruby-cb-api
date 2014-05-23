@@ -1,17 +1,31 @@
 
 module Cb
   describe Cb::Utils::ResponseMap do
-    context '.finder' do
+    context '.response_for' do
+
+      let(:response_map) { Cb::Utils::ResponseMap }
+
       it 'should throw an error on a bad entry' do
-        expect { Cb::Utils::ResponseMap.response_for("Hello") }.to raise_error(Cb::Utils::ResponseNotFoundError)
+        expect { response_map.response_for("Hello") }.to raise_error(Cb::Utils::ResponseNotFoundError)
+      end
+
+      it 'should test anonymous saved search' do
+        request_namespace = Cb::Requests::AnonymousSavedSearch
+        response_namespace = Cb::Responses::AnonymousSavedSearch
+
+        response_map.response_for(request_namespace::Create).should == response_namespace::Create
+        response_map.response_for(request_namespace::Delete).should == response_namespace::Delete
       end
 
       it 'should test user methods' do
-        Cb::Utils::ResponseMap.response_for(Cb::Requests::User::ChangePassword).should == Cb::Responses::User::ChangePassword
-        Cb::Utils::ResponseMap.response_for(Cb::Requests::User::CheckExisting).should == Cb::Responses::User::CheckExisting
-        Cb::Utils::ResponseMap.response_for(Cb::Requests::User::Delete).should == Cb::Responses::User::Delete
-        Cb::Utils::ResponseMap.response_for(Cb::Requests::User::Retrieve).should == Cb::Responses::User::Retrieve
-        Cb::Utils::ResponseMap.response_for(Cb::Requests::User::TemporaryPassword).should == Cb::Responses::User::TemporaryPassword
+        request_namespace = Cb::Requests::User
+        response_namespace = Cb::Responses::User
+
+        response_map.response_for(request_namespace::ChangePassword).should == response_namespace::ChangePassword
+        response_map.response_for(request_namespace::CheckExisting).should == response_namespace::CheckExisting
+        response_map.response_for(request_namespace::Delete).should == response_namespace::Delete
+        response_map.response_for(request_namespace::Retrieve).should == response_namespace::Retrieve
+        response_map.response_for(request_namespace::TemporaryPassword).should == response_namespace::TemporaryPassword
       end
 
     end

@@ -15,7 +15,8 @@ module Cb
     private
 
     def call_api(request)
-      cb_client.method(:"cb_#{request.http_method}").call(
+      http_wrapper.execute_http_request(
+        request.http_method,
         request.endpoint_uri,
         {
           query: request.query,
@@ -25,7 +26,7 @@ module Cb
         &@callback_block)
     end
 
-    def cb_client
+    def http_wrapper
       Cb::Utils::Api.instance
     end
   end
