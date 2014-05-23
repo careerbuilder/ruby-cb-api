@@ -1,7 +1,7 @@
 
 module Cb
   describe Cb::Utils::ResponseMap do
-    context '.finder' do
+    context '.response_for' do
 
       let(:response_map) { Cb::Utils::ResponseMap }
 
