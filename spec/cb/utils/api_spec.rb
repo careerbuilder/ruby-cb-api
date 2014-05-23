@@ -202,7 +202,7 @@ module Cb
 
       end
 
-      describe '#http_request' do
+      describe '#execute_http_request' do
         context ':delete' do
           context 'when we have observers' do
             let(:response) { { success: 'yeah' } }
