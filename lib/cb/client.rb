@@ -15,7 +15,7 @@ module Cb
     private
 
     def call_api(request)
-      cb_client.make_http_request(
+      api_wrapper.http_request(
         request.http_method,
         request.endpoint_uri,
         {
@@ -26,7 +26,7 @@ module Cb
         &@callback_block)
     end
 
-    def cb_client
+    def api_wrapper
       Cb::Utils::Api.instance
     end
   end

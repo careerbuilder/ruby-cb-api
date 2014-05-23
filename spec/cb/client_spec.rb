@@ -41,7 +41,7 @@ module Cb
 
       context 'post' do
         before :each do
-          mock_api.stub(:make_http_request).and_return(Hash.new)
+          mock_api.stub(:http_request).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
           Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
@@ -50,7 +50,7 @@ module Cb
         end
 
         it 'should call the api using post' do
-          mock_api.should_receive(:make_http_request).
+          mock_api.should_receive(:http_request).
               with(:post, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
@@ -60,7 +60,7 @@ module Cb
 
       context 'get' do
         before :each do
-          mock_api.stub(:make_http_request).and_return(Hash.new)
+          mock_api.stub(:http_request).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
           Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
@@ -69,7 +69,7 @@ module Cb
         end
 
         it 'should call the api using get' do
-          mock_api.should_receive(:make_http_request).
+          mock_api.should_receive(:http_request).
               with(:get, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
@@ -79,7 +79,7 @@ module Cb
 
       context 'put' do
         before :each do
-          mock_api.stub(:make_http_request).and_return(Hash.new)
+          mock_api.stub(:http_request).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
           Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
@@ -88,7 +88,7 @@ module Cb
         end
 
         it 'should call the api using put' do
-          mock_api.should_receive(:make_http_request).
+          mock_api.should_receive(:http_request).
               with(:put, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
@@ -107,7 +107,7 @@ module Cb
 
       context 'post' do
         before :each do
-          mock_api.stub(:make_http_request).and_return(Hash.new)
+          mock_api.stub(:http_request).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
           Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
@@ -116,7 +116,7 @@ module Cb
         end
 
         it 'should call the api using post' do
-          mock_api.should_receive(:make_http_request).
+          mock_api.should_receive(:http_request).
               with(:post, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_yield("test").
               and_return(Hash.new)
@@ -127,7 +127,7 @@ module Cb
 
       context 'get' do
         before :each do
-          mock_api.stub(:make_http_request).and_return(Hash.new)
+          mock_api.stub(:http_request).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
           Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
@@ -136,7 +136,7 @@ module Cb
         end
 
         it 'should call the api using get' do
-          mock_api.should_receive(:make_http_request).
+          mock_api.should_receive(:http_request).
               with(:get, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_yield("test").
               and_return(Hash.new)
@@ -147,7 +147,7 @@ module Cb
 
       context 'put' do
         before :each do
-          mock_api.stub(:make_http_request).and_return(Hash.new)
+          mock_api.stub(:http_request).and_return(Hash.new)
           mock_api.stub(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
           Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
@@ -156,7 +156,7 @@ module Cb
         end
 
         it 'should call the api using put' do
-          mock_api.should_receive(:make_http_request).
+          mock_api.should_receive(:http_request).
               with(:put, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_yield("test").
               and_return(Hash.new)
