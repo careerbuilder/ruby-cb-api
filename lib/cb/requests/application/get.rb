@@ -13,10 +13,6 @@ module Cb
           :get
         end
 
-        def body
-
-        end
-
       end
     end
   end

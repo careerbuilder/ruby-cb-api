@@ -6,23 +6,19 @@ module Cb
       class Form < Base
 
         def endpoint_uri
-          Cb.configuration.uri_user_change_password
+          Cb.configuration.uri_application_form.sub ':did', @args[:did]
         end
 
         def http_method
-          :post
+          :get
         end
 
-        def body
-          <<-eos
-            <Request>
-              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>#{@args[:external_id]}</ExternalID>
-              <Test>#{(@args[:test] || false).to_s}</Test>
-              <OldPassword>#{@args[:old_password]}</OldPassword>
-              <NewPassword>#{@args[:new_password]}</NewPassword>
-            </Request>
-          eos
+        def headers
+          {
+            'DeveloperKey' => Cb.configuration.dev_key,
+            'HostSite' => Cb.configuration.host_site,
+            'Content-Type' => 'application/json'
+          }
         end
 
       end
