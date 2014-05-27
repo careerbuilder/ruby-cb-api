@@ -6,7 +6,7 @@ module Cb
       class Get < Base
 
         def endpoint_uri
-          Cb.configuration.uri_user_change_password
+          Cb.configuration.uri_application.sub ':did', @args[:did]
         end
 
         def http_method
@@ -14,15 +14,7 @@ module Cb
         end
 
         def body
-          <<-eos
-            <Request>
-              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>#{@args[:external_id]}</ExternalID>
-              <Test>#{(@args[:test] || false).to_s}</Test>
-              <OldPassword>#{@args[:old_password]}</OldPassword>
-              <NewPassword>#{@args[:new_password]}</NewPassword>
-            </Request>
-          eos
+
         end
 
       end

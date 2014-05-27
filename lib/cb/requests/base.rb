@@ -25,6 +25,13 @@ module Cb
       def body
         nil
       end
+
+      private
+
+      def test?
+        (@args[:test] || Cb.configuration.test_resources || false).to_s
+      end
+
     end
   end
 end

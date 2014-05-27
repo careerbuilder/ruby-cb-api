@@ -1,12 +1,14 @@
 require_relative '../base'
+require_relative 'utils'
 
 module Cb
   module Requests
     module Application
       class Create < Base
+        include Cb::Requests::ApplicationUtils
 
         def endpoint_uri
-          Cb.configuration.uri_user_change_password
+          Cb.configuration.uri_application.sub ':did', ''
         end
 
         def http_method
@@ -14,15 +16,21 @@ module Cb
         end
 
         def body
-          <<-eos
-            <Request>
-              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>#{@args[:external_id]}</ExternalID>
-              <Test>#{(@args[:test] || false).to_s}</Test>
-              <OldPassword>#{@args[:old_password]}</OldPassword>
-              <NewPassword>#{@args[:new_password]}</NewPassword>
-            </Request>
-          eos
+          {
+            JobDID: @args[:job_did],
+            IsSubmitted: @args[:is_submitted],
+            ExternalUserID: @args[:external_user_id],
+            VID: @args[:vid],
+            BID: @args[:bid],
+            SID: @args[:sid],
+            SiteID: @args[:site_id],
+            IPathID: @args[:ipath_id],
+            TNDID: @args[:tn_did],
+            Resume:  resume_info(@args[:resume]),
+            CoverLetter: cover_letter_info(@args[:cover_letter]),
+            Responses: responses_parser(@args[:responses]),
+            Test: test?
+          }.to_json
         end
 
       end
