@@ -10,7 +10,9 @@ module Cb
       end
 
       it 'should test application external methods' do
-        response_map.response_for(Cb::Requests::ApplicationExternal::SubmitApplication).should == Cb::Responses::ApplicationExternal::SubmitApplication
+        request_namespace = Cb::Requests::ApplicationExternal
+        #response_namespace = Cb::Responses::ApplicationExternal
+        response_map.response_for(request_namespace::SubmitApplication).should == Cb::Responses::SubmitApplication
       end
 
       it 'should test anonymous saved search' do
