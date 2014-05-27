@@ -6,7 +6,7 @@ module Cb
       class Get < Base
 
         def endpoint_uri
-          Cb.configuration.uri_application.sub ':did', @args[:did]
+          Cb.configuration.uri_application.sub ':did', @args[:did].to_s
         end
 
         def http_method
