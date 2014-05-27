@@ -2,9 +2,8 @@
 module Cb
   module Requests
     module ApplicationUtils
-      private
 
-      def self.resume_info(resume)
+      def resume_info(resume)
         return nil if resume.nil?
         {
           ExternalResumeID: resume[:external_resume_id],
@@ -15,7 +14,7 @@ module Cb
         }
       end
 
-      def self.cover_letter_info(cover_letter)
+      def cover_letter_info(cover_letter)
         return nil if cover_letter.nil?
         {
           CoverLetterID: cover_letter[:cover_letter_id],
@@ -24,7 +23,8 @@ module Cb
         }
       end
 
-      def self.responses_parser(responses)
+      def responses_parser(responses)
+        return if responses.nil?
         responses.map do |response|
           {
             QuestionID: response[:question_id],
