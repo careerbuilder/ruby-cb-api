@@ -13,6 +13,13 @@ module Cb
           :get
         end
 
+        def headers
+          {
+            'DeveloperKey' => Cb.configuration.dev_key,
+            'HostSite' => Cb.configuration.host_site,
+            'Content-Type' => 'application/json'
+          }
+        end
       end
     end
   end

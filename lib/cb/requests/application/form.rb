@@ -6,7 +6,7 @@ module Cb
       class Form < Base
 
         def endpoint_uri
-          Cb.configuration.uri_application_form.sub ':did', @args[:did].to_s
+          Cb.configuration.uri_application_form.sub ':did', @args[:application_did].to_s
         end
 
         def http_method
