@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 module Cb
   describe Responses::ApplicationExternal::SubmitApplication do
     let(:json_hash) do

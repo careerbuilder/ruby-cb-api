@@ -54,7 +54,7 @@ module Cb
             cobrand: 'cobrand',
             browser_id: 'browser id',
             session_id: 'session id',
-            email_address: 'email',
+            email_address: 'email@example.com',
             search_name: 'search name',
             search_parameters: {
               boolean_operator: 'boolean operator',
@@ -67,19 +67,19 @@ module Cb
               country: 'country',
               industry_codes: 'industry codes',
               job_title: 'job title',
-              keywords: 'keywords',
-              location: 'location',
+              keywords: 'jobs',
+              location: 'atlanta',
               order_by: 'order by',
               order_direction: 'order direction',
-              pay_high: 'pay high',
-              pay_low: 'pay low',
-              posted_within: 'posted within',
-              radius: 'radius',
-              specific_education: 'specific education',
-              exclude_national: 'exclude national',
-              pay_info_only: 'pay info only'
+              pay_high: '100',
+              pay_low: '10',
+              posted_within: '3',
+              radius: '50',
+              specific_education: 'false',
+              exclude_national: 'false',
+              pay_info_only: 'false'
             },
-            is_daily_email: false
+            is_daily_email: true
           })
         end
 
@@ -104,7 +104,7 @@ module Cb
             <BrowserID>browser id</BrowserID>
             <SessionID>session id</SessionID>
             <Test>true</Test>
-            <EmailAddress>email</EmailAddress>
+            <EmailAddress>email@example.com</EmailAddress>
             <SearchName>search name</SearchName>
             <SearchParameters>
               <BooleanOperator>boolean operator</BooleanOperator>
@@ -117,20 +117,20 @@ module Cb
               <Country>country</Country>
               <IndustryCodes>industry codes</IndustryCodes>
               <JobTitle>job title</JobTitle>
-              <Keywords>keywords</Keywords>
-              <Location>location</Location>
+              <Keywords>jobs</Keywords>
+              <Location>atlanta</Location>
               <OrderBy>order by</OrderBy>
               <OrderDirection>order direction</OrderDirection>
-              <PayHigh>pay high</PayHigh>
-              <PayLow>pay low</PayLow>
-              <PostedWithin>posted within</PostedWithin>
-              <Radius>radius</Radius>
-              <SpecificEducation>specific education</SpecificEducation>
-              <ExcludeNational>exclude national</ExcludeNational>
-              <PayInfoOnly>pay info only</PayInfoOnly>
+              <PayHigh>100</PayHigh>
+              <PayLow>10</PayLow>
+              <PostedWithin>3</PostedWithin>
+              <Radius>50</Radius>
+              <SpecificEducation>false</SpecificEducation>
+              <ExcludeNational>false</ExcludeNational>
+              <PayInfoOnly>false</PayInfoOnly>
             </SearchParameters>
 
-            <IsDailyEmail>false</IsDailyEmail>
+            <IsDailyEmail>true</IsDailyEmail>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
           </Request>
           eos
