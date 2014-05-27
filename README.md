@@ -61,4 +61,24 @@ You will also get meta data regarding the search itself (helpful for pagination)
 
 Coming Soon
 ================
-More documentation!!
+The way that requests are handled is being completely redone. You will now only need to instantiate a single client class and pass it a request object.
+
+You may now pass a block that will be executed before and after each API call. This will provide the same information that the Observer methods do.
+
+    client = Cb::Client.new { |request_metadata| storage_device.add(request_metadata) }
+
+Or just call it without the block if you don't care about an individual call's observer info
+
+    client = Cb::Client.new
+
+Pass it a request object, and you will receive the appropriate response object back
+
+    request = Cb::Requests::Endpoint::CallName.new( { key1: 'value1', key2: 'value2' } )
+    response = client.execute request
+
+Currently, this workflow only works on the following endpoints:
+
+* User
+* Anonymous Saved Search
+
+Look here for future updates on this refactor!
