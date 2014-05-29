@@ -15,6 +15,11 @@ module Cb
             Cb::Requests::AnonymousSavedSearch::Create => Cb::Responses::AnonymousSavedSearch::Create,
             Cb::Requests::AnonymousSavedSearch::Delete => Cb::Responses::AnonymousSavedSearch::Delete,
 
+            Cb::Requests::Application::Create => Cb::Responses::Application,
+            Cb::Requests::Application::Form => Cb::Responses::ApplicationForm,
+            Cb::Requests::Application::Get => Cb::Responses::Application,
+            Cb::Requests::Application::Update => Cb::Responses::Application,
+
             Cb::Requests::ApplicationExternal::SubmitApplication => Cb::Responses::ApplicationExternal::SubmitApplication,
 
             Cb::Requests::User::ChangePassword => Cb::Responses::User::ChangePassword,

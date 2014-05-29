@@ -20,7 +20,7 @@ module Cb
             <Cobrand>#{@args[:cobrand]}</Cobrand>
             <BrowserID>#{@args[:browser_id]}</BrowserID>
             <SessionID>#{@args[:session_id]}</SessionID>
-            <Test>#{(@args[:test] || false).to_s}</Test>
+            <Test>#{test?}</Test>
             <EmailAddress>#{@args[:email_address]}</EmailAddress>
             <SearchName>#{@args[:search_name]}</SearchName>
 #{search_parameters(@args[:search_parameters]) unless @args[:search_parameters].nil?}

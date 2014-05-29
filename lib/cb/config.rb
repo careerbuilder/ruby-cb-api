@@ -7,7 +7,7 @@ module Cb
                   :uri_recommendation_for_job, :uri_recommendation_for_user,
                   :uri_recommendation_for_company,
                   :uri_application, :uri_application_submit, :uri_application_form,
-                  :uri_application_external,
+                  :uri_application_external, :uri_application_create,
                   :uri_application_registered, :uri_user_change_password, :uri_user_temp_password,
                   :uri_user_delete, :uri_user_retrieve, :uri_user_check_existing,
                   :uri_job_branding,
@@ -38,6 +38,7 @@ module Cb
       @uri_recommendation_for_user        ||= '/v1/Recommendations/ForUser'
       @uri_recommendation_for_company     ||= '/Employer/JobRecommendation'
       @uri_application                    ||= '/cbapi/application/:did'
+      @uri_application_create             ||= '/cbapi/application/'
       @uri_application_submit             ||= '/v1/Application/submit'
       @uri_application_registered         ||= '/v3/application/registered'
       @uri_application_external           ||= '/v1/application/external'

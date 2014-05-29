@@ -24,6 +24,16 @@ module Cb
         response_map.response_for(request_namespace::Delete).should == response_namespace::Delete
       end
 
+      it 'should test application methods' do
+        request_namespace = Cb::Requests::Application
+        response_namespace = Cb::Responses::Application
+
+        response_map.response_for(request_namespace::Create).should == response_namespace
+        response_map.response_for(request_namespace::Update).should == response_namespace
+        response_map.response_for(request_namespace::Get).should == response_namespace
+        response_map.response_for(request_namespace::Form).should == Cb::Responses::ApplicationForm
+      end
+
       it 'should test user methods' do
         request_namespace = Cb::Requests::User
         response_namespace = Cb::Responses::User

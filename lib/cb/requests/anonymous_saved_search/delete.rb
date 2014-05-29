@@ -18,7 +18,7 @@ module Cb
           <Request>
             <ExternalID>#{@args[:external_id]}</ExternalID>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-            <Test>#{(@args[:test] || false).to_s}</Test>
+            <Test>#{test?}</Test>
           </Request>
           eos
         end

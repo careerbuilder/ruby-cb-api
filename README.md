@@ -79,6 +79,7 @@ Pass it a request object, and you will receive the appropriate response object b
 Currently, this workflow only works on the following endpoints:
 
 * Anonymous Saved Search
+* Application
 * Application External
 * User
 
