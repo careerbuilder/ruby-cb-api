@@ -45,9 +45,9 @@ module Cb
               SiteID: nil,
               IPathID: nil,
               TNDID: nil,
-              Resume:  nil,
-              CoverLetter: nil,
-              Responses: nil,
+              Resume:  {},
+              CoverLetter: {},
+              Responses: [],
               Test: 'false'
             }.to_json
         end

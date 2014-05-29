@@ -4,7 +4,7 @@ module Cb
     module ApplicationUtils
 
       def resume_info(resume)
-        return nil if resume.nil?
+        return {} if resume.nil?
         {
           ExternalResumeID: resume[:external_resume_id],
           ResumeFileName: resume[:resume_file_name],
@@ -15,7 +15,7 @@ module Cb
       end
 
       def cover_letter_info(cover_letter)
-        return nil if cover_letter.nil?
+        return {} if cover_letter.nil?
         {
           CoverLetterID: cover_letter[:cover_letter_id],
           CoverLetterText: cover_letter[:cover_letter_text],
@@ -24,7 +24,7 @@ module Cb
       end
 
       def responses_parser(responses)
-        return if responses.nil?
+        return [] if responses.nil?
         responses.map do |response|
           {
             QuestionID: response[:question_id],
