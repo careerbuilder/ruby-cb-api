@@ -5,7 +5,7 @@ module Cb
     module ApplicationExternal
       class SubmitApplication < ApiResponse
 
-        class Model < Struct.new(:errors, :apply_url) ; end
+        class Model < Struct.new(:apply_url) ; end
 
         protected
 
@@ -18,7 +18,6 @@ module Cb
 
         def extract_models
           model = Model.new
-          model.errors = response[errors]
           model.apply_url = response[apply_url]
           model
         end

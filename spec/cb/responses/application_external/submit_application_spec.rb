@@ -16,7 +16,6 @@ module Cb
       it 'instantiates new model objects' do
         response = Responses::ApplicationExternal::SubmitApplication.new(json_hash)
 
-        response.model.errors.should == nil
         response.model.apply_url.should == "website.com"
       end
 
