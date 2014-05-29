@@ -3,7 +3,7 @@ module Cb
     class Base
 
       def initialize(argument_hash)
-        raise ArgumentError.new("#{argument_hash.class} is not a Hash") unless argument_hash.class == Hash
+        raise ArgumentError.new("#{argument_hash.class} is not a Hash") unless argument_hash.is_a?(Hash)
         @args = argument_hash
       end
 
