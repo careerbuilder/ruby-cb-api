@@ -9,6 +9,13 @@ module Cb
         expect { response_map.response_for("Hello") }.to raise_error(Cb::Utils::ResponseNotFoundError)
       end
 
+      it 'should test application external methods' do
+        request_namespace = Cb::Requests::ApplicationExternal
+        response_namespace = Cb::Responses::ApplicationExternal
+
+        response_map.response_for(request_namespace::SubmitApplication).should == response_namespace::SubmitApplication
+      end
+
       it 'should test anonymous saved search' do
         request_namespace = Cb::Requests::AnonymousSavedSearch
         response_namespace = Cb::Responses::AnonymousSavedSearch

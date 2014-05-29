@@ -80,6 +80,7 @@ Currently, this workflow only works on the following endpoints:
 
 * Anonymous Saved Search
 * Application
+* Application External
 * User
 
 Look here for future updates on this refactor!
