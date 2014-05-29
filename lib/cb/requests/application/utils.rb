@@ -23,7 +23,7 @@ module Cb
         }
       end
 
-      def responses_parser(responses)
+      def parsed_responses(responses)
         return [] if responses.nil?
         responses.map do |response|
           {

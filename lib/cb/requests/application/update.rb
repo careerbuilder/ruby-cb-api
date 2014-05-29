@@ -37,7 +37,7 @@ module Cb
             TNDID: @args[:tn_did],
             Resume:  resume_info(@args[:resume]),
             CoverLetter: cover_letter_info(@args[:cover_letter]),
-            Responses: responses_parser(@args[:responses]),
+            Responses: parsed_responses(@args[:responses]),
             Test: test?
           }.to_json
         end
