@@ -29,7 +29,7 @@ module Cb
       private
 
       def test?
-        (@args[:test] || Cb.configuration.test_resources || false).to_s
+        (@args[:test] || Cb.configuration.test_resources).to_s
       end
 
     end
