@@ -33,7 +33,7 @@ module Cb
           return '' unless @args[:ipath].class == String
           ipath_length = 10
 
-          @args[:ipath].slice(0, ipath_length) || '' unless @args.nil? || @args[:ipath].nil?
+          @args[:ipath].slice(0, ipath_length)
         end
 
       end

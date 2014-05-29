@@ -3,7 +3,8 @@ module Cb
     class Base
 
       def initialize(argument_hash)
-        @args = argument_hash || {}
+        raise ArgumentError.new("#{argument_hash.class} is not a Hash") unless argument_hash.class == Hash
+        @args = argument_hash
       end
 
       def endpoint_uri
