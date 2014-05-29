@@ -16,7 +16,7 @@ module Cb
         end
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_application.sub(':did', '')
+          @request.endpoint_uri.should == Cb.configuration.uri_application_create
           @request.http_method.should == :post
         end
 
@@ -93,7 +93,7 @@ module Cb
         end
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_application.sub(':did', '')
+          @request.endpoint_uri.should == Cb.configuration.uri_application_create
           @request.http_method.should == :post
         end
 

@@ -8,7 +8,7 @@ module Cb
         include Cb::Requests::ApplicationUtils
 
         def endpoint_uri
-          Cb.configuration.uri_application.sub ':did', ''
+          Cb.configuration.uri_application_create
         end
 
         def http_method
