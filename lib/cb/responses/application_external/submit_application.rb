@@ -14,6 +14,7 @@ module Cb
         end
 
         def validate_api_hash
+          required_response_field(apply_url, response)
         end
 
         def extract_models
@@ -23,10 +24,6 @@ module Cb
         end
 
         private
-
-        def errors
-          'Errors'
-        end
 
         def apply_url
           'ApplyUrl'
