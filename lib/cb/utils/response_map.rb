@@ -22,6 +22,8 @@ module Cb
 
             Cb::Requests::ApplicationExternal::SubmitApplication => Cb::Responses::ApplicationExternal::SubmitApplication,
 
+            Cb::Requests::Company::Find => Cb::Responses::Company::Find,
+
             Cb::Requests::User::ChangePassword => Cb::Responses::User::ChangePassword,
             Cb::Requests::User::CheckExisting => Cb::Responses::User::CheckExisting,
             Cb::Requests::User::Delete => Cb::Responses::User::Delete,

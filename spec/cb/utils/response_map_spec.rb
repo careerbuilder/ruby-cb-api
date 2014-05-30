@@ -9,6 +9,13 @@ module Cb
         expect { response_map.response_for("Hello") }.to raise_error(Cb::Utils::ResponseNotFoundError)
       end
 
+      it 'should test company methods' do
+        request_namespace = Cb::Requests::Company
+        response_namespace = Cb::Responses::Company
+
+        response_map.response_for(request_namespace::Find).should == response_namespace::Find
+      end
+
       it 'should test application external methods' do
         request_namespace = Cb::Requests::ApplicationExternal
         response_namespace = Cb::Responses::ApplicationExternal
