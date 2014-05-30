@@ -8,7 +8,7 @@ module Cb
         protected
 
         def hash_containing_metadata
-          response
+          response[results_node]
         end
 
         def validate_api_hash
@@ -18,7 +18,7 @@ module Cb
 
         def extract_models
           Cb::Models::Company.new(company)
-        end
+          end
 
         private
 
