@@ -15,10 +15,6 @@ module Cb
           Models::User.new response[root_node][user_info_node]
         end
 
-        def metadata_containing_node
-          response[root_node]
-        end
-
         def hash_containing_metadata
           response
         end
