@@ -12,26 +12,26 @@ module Cb
 
       context 'without arguments' do
         before :each do
-          @request = Cb::Requests::Education::Get.new({})
+          expect(@request = Cb::Requests::Education::Get.new({})
         end
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_education_code
-          @request.http_method.should == :get
+          expect(@request.endpoint_uri).to eq Cb.configuration.uri_education_code
+          expect(@request.http_method).to eq :get
         end
 
         it 'should have a basic query string' do
-          @request.query.should == {
+          expect(@request.query).to eq {
             CountryCode: nil
           }
         end
 
         it 'should have basic headers' do
-          @request.headers.should == nil
+          expect(@request.headers).to eq nil
         end
 
         it 'should have a basic body' do
-          @request.body.should == nil
+          expect(@request.body).to eq nil
         end
       end
 
@@ -43,22 +43,22 @@ module Cb
         end
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_education_code
-          @request.http_method.should == :get
+          expect(@request.endpoint_uri).to eq Cb.configuration.uri_education_code
+          expect(@request.http_method).to eq :get
         end
 
         it 'should have a basic query string' do
-          @request.query.should == {
+          expect(@request.query).to eq {
             CountryCode: "Hello"
           }
         end
 
         it 'should have basic headers' do
-          @request.headers.should == nil
+          expect(@request.headers).to eq nil
         end
 
         it 'should have a basic body' do
-          @request.body.should == nil
+          expect(@request.body).to eq nil
         end
       end
     end
