@@ -24,6 +24,8 @@ module Cb
 
             Cb::Requests::Category::Search => Cb::Responses::Category::Search,
 
+            Cb::Requests::Education::Get => Cb::Responses::Education::Get,
+
             Cb::Requests::Company::Find => Cb::Responses::Company::Find,
 
             Cb::Requests::User::ChangePassword => Cb::Responses::User::ChangePassword,

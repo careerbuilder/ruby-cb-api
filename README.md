@@ -82,6 +82,7 @@ Currently, this workflow only works on the following endpoints:
 * Application
 * Application External
 * Category
+* Education
 * Company
 * User
 

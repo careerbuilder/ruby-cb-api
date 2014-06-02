@@ -1,19 +1,27 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Requests::Company::Find do
+  describe Cb::Requests::Education::Get do
 
     describe '#new' do
+      it 'should not raise error' do
+        request = Cb::Requests::Education::Get.new({})
+        expect { request.http_method }.to_not raise_error()
+        expect { request.endpoint_uri }.to_not raise_error()
+      end
+
       context 'without arguments' do
-        before(:each) { @request = Cb::Requests::Company::Find.new({}) }
+        before :each do
+          @request = Cb::Requests::Education::Get.new({})
+        end
 
         it 'should be correctly configured' do
-          expect(@request.endpoint_uri).to eq Cb.configuration.uri_company_find
+          expect(@request.endpoint_uri).to eq Cb.configuration.uri_education_code
           expect(@request.http_method).to eq :get
         end
 
         it 'should have a basic query string' do
-          expect(@request.query).to eq ({:CompanyDID => nil, :HostSite=> Cb.configuration.host_site})
+          expect(@request.query).to eq ({CountryCode: nil})
         end
 
         it 'should have basic headers' do
@@ -27,18 +35,18 @@ module Cb
 
       context 'with arguments' do
         before :each do
-          @request = Cb::Requests::Company::Find.new({
-            did: "hello"
+          @request = Cb::Requests::Education::Get.new({
+            country_code: 'Hello'
           })
         end
 
         it 'should be correctly configured' do
-          expect(@request.endpoint_uri).to eq Cb.configuration.uri_company_find
+          expect(@request.endpoint_uri).to eq Cb.configuration.uri_education_code
           expect(@request.http_method).to eq :get
         end
 
         it 'should have a basic query string' do
-          expect(@request.query).to eq ({:CompanyDID => "hello", :HostSite=> Cb.configuration.host_site})
+          expect(@request.query).to eq ({CountryCode: "Hello"})
         end
 
         it 'should have basic headers' do
@@ -50,6 +58,5 @@ module Cb
         end
       end
     end
-
   end
 end
