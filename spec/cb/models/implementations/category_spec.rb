@@ -7,12 +7,13 @@ module Cb::Models
         args = { 'Name' => { '#text' => 'name', '@language' => 'lang' },
                  'Code' => 'code' }
         category_obj = Category.new(args)
-        category_obj.is_a?(Category).should == true
+
+        expect(category_obj.is_a?(Category)).to eq(true)
 
 
-        category_obj.CategoryCode.should == 'code'
-        category_obj.CategoryLanguage.should == 'lang'
-        category_obj.CategoryName.should == 'name'
+        expect(category_obj.CategoryCode).to eq('code')
+        expect(category_obj.CategoryLanguage).to eq('lang')
+        expect(category_obj.CategoryName).to eq('name')
 
       end
     end
