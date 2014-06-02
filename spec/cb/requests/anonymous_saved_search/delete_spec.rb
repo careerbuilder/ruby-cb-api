@@ -4,16 +4,8 @@ module Cb
   describe Cb::Requests::AnonymousSavedSearch::Delete do
 
     context 'initialize without arguments' do
-      it 'should not raise error' do
-        request = Cb::Requests::AnonymousSavedSearch::Delete.new({})
-        expect { request.http_method }.to_not raise_error()
-        expect { request.endpoint_uri }.to_not raise_error()
-      end
-
       context 'without arguments' do
-        before :each do
-          @request = Cb::Requests::AnonymousSavedSearch::Delete.new({})
-        end
+        before(:each) { @request = Cb::Requests::AnonymousSavedSearch::Delete.new({}) }
 
         it 'should be correctly configured' do
           @request.endpoint_uri.should == Cb.configuration.uri_anon_saved_search_delete
