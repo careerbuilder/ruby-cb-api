@@ -3,7 +3,7 @@ require 'spec_helper'
 module Cb
   describe Cb::Requests::Education::Get do
 
-    context 'initialize without arguments' do
+    describe '#new' do
       it 'should not raise error' do
         request = Cb::Requests::Education::Get.new({})
         expect { request.http_method }.to_not raise_error()
@@ -12,7 +12,7 @@ module Cb
 
       context 'without arguments' do
         before :each do
-          expect(@request = Cb::Requests::Education::Get.new({})
+          @request = Cb::Requests::Education::Get.new({})
         end
 
         it 'should be correctly configured' do
@@ -21,9 +21,7 @@ module Cb
         end
 
         it 'should have a basic query string' do
-          expect(@request.query).to eq {
-            CountryCode: nil
-          }
+          expect(@request.query).to eq ({CountryCode: nil})
         end
 
         it 'should have basic headers' do
@@ -48,9 +46,7 @@ module Cb
         end
 
         it 'should have a basic query string' do
-          expect(@request.query).to eq {
-            CountryCode: "Hello"
-          }
+          expect(@request.query).to eq ({CountryCode: "Hello"})
         end
 
         it 'should have basic headers' do
@@ -62,6 +58,5 @@ module Cb
         end
       end
     end
-
   end
 end

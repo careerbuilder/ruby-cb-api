@@ -3,7 +3,7 @@ require 'spec_helper'
 module Cb
   describe Cb::Requests::Company::Find do
 
-    context 'initialize without arguments' do
+    describe '#new' do
       context 'without arguments' do
         before(:each) { @request = Cb::Requests::Company::Find.new({}) }
 
