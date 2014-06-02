@@ -9,6 +9,13 @@ module Cb
         expect { response_map.response_for("Hello") }.to raise_error(Cb::Utils::ResponseNotFoundError)
       end
 
+      it 'should test education methods' do
+        request_namespace = Cb::Requests::Education
+        response_namespace = Cb::Responses::Education
+
+        response_map.response_for(request_namespace::Get).should == response_namespace::Get
+      end
+
       it 'should test category methods' do
         request_namespace = Cb::Requests::Category
         response_namespace = Cb::Responses::Category
