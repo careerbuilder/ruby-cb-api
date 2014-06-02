@@ -73,7 +73,7 @@ module Cb
       it 'instantiates new model objects' do
         response = Responses::Company::Find.new(json_hash)
 
-        response.model.class.should == Cb::Models::Company
+        expect(response.model).to be_a Cb::Models::Company
       end
 
     end
