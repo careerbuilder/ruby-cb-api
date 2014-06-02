@@ -22,6 +22,8 @@ module Cb
 
             Cb::Requests::ApplicationExternal::SubmitApplication => Cb::Responses::ApplicationExternal::SubmitApplication,
 
+            Cb::Requests::Category::Search => Cb::Responses::Category::Search,
+
             Cb::Requests::Company::Find => Cb::Responses::Company::Find,
 
             Cb::Requests::User::ChangePassword => Cb::Responses::User::ChangePassword,

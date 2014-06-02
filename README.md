@@ -81,6 +81,7 @@ Currently, this workflow only works on the following endpoints:
 * Anonymous Saved Search
 * Application
 * Application External
+* Category
 * Company
 * User
 
