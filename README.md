@@ -83,6 +83,7 @@ Currently, this workflow only works on the following endpoints:
 * Application External
 * Category
 * Education
+* Company
 * User
 
 Look here for future updates on this refactor!
