@@ -1,0 +1,129 @@
+require 'spec_helper'
+
+module Cb
+  describe Cb::Requests::EmailSubscription::Modify do
+
+    describe '#new' do
+      context 'without arguments' do
+        before(:each) { @request = Cb::Requests::EmailSubscription::Modify.new({}) }
+
+        it 'should be correctly configured' do
+          expect(@request.endpoint_uri).to eq Cb.configuration.uri_subscription_modify
+          expect(@request.http_method).to eq :post
+        end
+
+        it 'should have a basic query string' do
+          expect(@request.query).to eq nil
+        end
+
+        it 'should have basic headers' do
+          expect(@request.headers).to eq nil
+        end
+
+        it 'should have a basic body' do
+          expect(@request.body).to eq <<eos
+<Request>
+<DeveloperKey>#{Cb.configuration.dev_key.to_s}</DeveloperKey>
+<ExternalID></ExternalID>
+<Hostsite></Hostsite>
+<CareerResources></CareerResources>
+<ProductSponsorInfo></ProductSponsorInfo>
+<ApplicantSurveyInvites></ApplicantSurveyInvites>
+<JobRecs></JobRecs>
+<DJR></DJR>
+<UnsubscribeAll></UnsubscribeAll>
+</Request>
+eos
+        end
+      end
+
+      context 'with arguments' do
+        before :each do
+          @request = Cb::Requests::EmailSubscription::Modify.new({
+            external_id: 'external id',
+            host_site: 'host site',
+            career_resources: 'career resources',
+            product_sponsor_info: 'product sponsor info',
+            applicant_survey_invites: 'applicant survey invites',
+            job_recs: 'job recs',
+            djr: 'djr',
+            unsubscribe_all: 'unsubscribe all'
+          })
+        end
+
+        it 'should be correctly configured' do
+          expect(@request.endpoint_uri).to eq Cb.configuration.uri_subscription_modify
+          expect(@request.http_method).to eq :post
+        end
+
+        it 'should have a basic query string' do
+          expect(@request.query).to eq nil
+        end
+
+        it 'should have basic headers' do
+          expect(@request.headers).to eq nil
+        end
+
+        it 'should have a basic body' do
+          expect(@request.body).to eq <<eos
+<Request>
+<DeveloperKey>#{Cb.configuration.dev_key.to_s}</DeveloperKey>
+<ExternalID>external id</ExternalID>
+<Hostsite>host site</Hostsite>
+<CareerResources>career resources</CareerResources>
+<ProductSponsorInfo>product sponsor info</ProductSponsorInfo>
+<ApplicantSurveyInvites>applicant survey invites</ApplicantSurveyInvites>
+<JobRecs>job recs</JobRecs>
+<DJR>djr</DJR>
+<UnsubscribeAll>unsubscribe all</UnsubscribeAll>
+</Request>
+eos
+        end
+      end
+
+      context 'ensure unsubscribe all works' do
+        before :each do
+          @request = Cb::Requests::EmailSubscription::Modify.new({
+            external_id: 'external id',
+            host_site: 'host site',
+            career_resources: 'career resources',
+            product_sponsor_info: 'product sponsor info',
+            applicant_survey_invites: 'applicant survey invites',
+            job_recs: 'job recs',
+            djr: 'djr',
+            unsubscribe_all: 'true'
+          })
+        end
+
+        it 'should be correctly configured' do
+          expect(@request.endpoint_uri).to eq Cb.configuration.uri_subscription_modify
+          expect(@request.http_method).to eq :post
+        end
+
+        it 'should have a basic query string' do
+          expect(@request.query).to eq nil
+        end
+
+        it 'should have basic headers' do
+          expect(@request.headers).to eq nil
+        end
+
+        it 'should have a basic body' do
+          expect(@request.body).to eq <<eos
+<Request>
+<DeveloperKey>#{Cb.configuration.dev_key.to_s}</DeveloperKey>
+<ExternalID>external id</ExternalID>
+<Hostsite>host site</Hostsite>
+<CareerResources>false</CareerResources>
+<ProductSponsorInfo>false</ProductSponsorInfo>
+<ApplicantSurveyInvites>false</ApplicantSurveyInvites>
+<JobRecs>false</JobRecs>
+<DJR>false</DJR>
+<UnsubscribeAll>true</UnsubscribeAll>
+</Request>
+eos
+        end
+      end
+    end
+  end
+end

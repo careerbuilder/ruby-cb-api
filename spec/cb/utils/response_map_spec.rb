@@ -10,6 +10,14 @@ module Cb
       end
 
       it 'should test education methods' do
+        request_namespace = Cb::Requests::EmailSubscription
+        response_namespace = Cb::Responses::EmailSubscription
+
+        expect(response_map.response_for(request_namespace::Retrieve)).to eq response_namespace::Response
+        expect(response_map.response_for(request_namespace::Modify)).to eq response_namespace::Response
+      end
+
+      it 'should test education methods' do
         request_namespace = Cb::Requests::Education
         response_namespace = Cb::Responses::Education
 

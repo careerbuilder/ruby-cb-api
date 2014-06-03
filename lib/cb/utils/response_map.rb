@@ -24,9 +24,12 @@ module Cb
 
             Cb::Requests::Category::Search => Cb::Responses::Category::Search,
 
+            Cb::Requests::Company::Find => Cb::Responses::Company::Find,
+
             Cb::Requests::Education::Get => Cb::Responses::Education::Get,
 
-            Cb::Requests::Company::Find => Cb::Responses::Company::Find,
+            Cb::Requests::EmailSubscription::Retrieve => Cb::Responses::EmailSubscription::Response,
+            Cb::Requests::EmailSubscription::Modify => Cb::Responses::EmailSubscription::Response,
 
             Cb::Requests::User::ChangePassword => Cb::Responses::User::ChangePassword,
             Cb::Requests::User::CheckExisting => Cb::Responses::User::CheckExisting,
