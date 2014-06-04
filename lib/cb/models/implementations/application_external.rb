@@ -9,7 +9,7 @@ module Cb
         @job_did                = args[:job_did] || ''
         @email                  = args[:email] || ''
         @site_id                = args[:site_id] || 'cbnsv'
-        @ipath                  = args[:ipath].slice(0,IPATH_LENGTH) || ''
+        @ipath                  = args[:ipath].slice(0, IPATH_LENGTH) rescue ''
         @is_external_link_apply = args[:is_external_link_apply] || false
         @apply_url              = ''
       end
