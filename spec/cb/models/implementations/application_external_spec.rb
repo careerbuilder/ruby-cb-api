@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 module Cb::Models
+
   describe ApplicationExternal do
 
     before :all do
@@ -20,11 +21,22 @@ module Cb::Models
 
     context '#new' do
       it 'should create an empty new external application' do
+        application = ApplicationExternal.new
+        expect(application.job_did).to eq ''
+        expect(application.email).to eq ''
+        expect(application.ipath).to eq ''
+        expect(application.is_external_link_apply).to eq false
+        expect(application.site_id).to eq 'cbnsv'
+        expect(application.apply_url).to eq ''
+      end
+
+      it 'should create a populated external application' do
         expect(@application.job_did).to eq @job_did
         expect(@application.email).to eq @email
         expect(@application.ipath).to eq 'shivitands'
         expect(@application.is_external_link_apply).to eq @is_external_link_apply
         expect(@application.site_id).to eq @site_id
+        expect(@application.apply_url).to eq ''
       end
     end
 
@@ -35,6 +47,6 @@ module Cb::Models
       end
     end
 
-
   end
+
 end
