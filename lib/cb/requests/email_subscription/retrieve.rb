@@ -15,8 +15,8 @@ module Cb
 
         def query
           {
-            ExternalID: @args[:external_id],
-            HostSite: @args[:host_site]
+            ExternalID: args[:external_id],
+            HostSite: args[:host_site]
           }
         end
 
