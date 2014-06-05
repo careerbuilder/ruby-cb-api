@@ -2,6 +2,8 @@ module Cb
   module Requests
     class Base
 
+      attr_reader :args
+
       def initialize(argument_hash)
         raise ArgumentError.new("#{argument_hash.class} is not a Hash") unless argument_hash.is_a?(Hash)
         @args = argument_hash
@@ -30,7 +32,7 @@ module Cb
       private
 
       def test?
-        (@args[:test] || Cb.configuration.test_resources).to_s
+        (args[:test] || Cb.configuration.test_resources).to_s
       end
 
     end

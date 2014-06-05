@@ -17,14 +17,14 @@ module Cb
           <<eos
 <Request>
 <DeveloperKey>#{Cb.configuration.dev_key.to_s}</DeveloperKey>
-<ExternalID>#{@args[:external_id]}</ExternalID>
-<Hostsite>#{@args[:host_site]}</Hostsite>
-<CareerResources>#{validate @args[:career_resources]}</CareerResources>
-<ProductSponsorInfo>#{validate @args[:product_sponsor_info]}</ProductSponsorInfo>
-<ApplicantSurveyInvites>#{validate @args[:applicant_survey_invites]}</ApplicantSurveyInvites>
-<JobRecs>#{validate @args[:job_recs]}</JobRecs>
-<DJR>#{validate @args[:djr]}</DJR>
-<UnsubscribeAll>#{@args[:unsubscribe_all]}</UnsubscribeAll>
+<ExternalID>#{args[:external_id]}</ExternalID>
+<Hostsite>#{args[:host_site]}</Hostsite>
+<CareerResources>#{validate args[:career_resources]}</CareerResources>
+<ProductSponsorInfo>#{validate args[:product_sponsor_info]}</ProductSponsorInfo>
+<ApplicantSurveyInvites>#{validate args[:applicant_survey_invites]}</ApplicantSurveyInvites>
+<JobRecs>#{validate args[:job_recs]}</JobRecs>
+<DJR>#{validate args[:djr]}</DJR>
+<UnsubscribeAll>#{args[:unsubscribe_all]}</UnsubscribeAll>
 </Request>
 eos
         end
@@ -37,7 +37,7 @@ eos
         end
 
         def unsubscribe_all?
-          @args[:unsubscribe_all] == "true" || @args[:unsubscribe_all] == true
+          args[:unsubscribe_all] == "true" || args[:unsubscribe_all] == true
         end
 
       end
