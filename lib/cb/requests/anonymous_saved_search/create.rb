@@ -16,15 +16,15 @@ module Cb
         def body
           <<-eos
           <Request>
-            <HostSite>#{@args[:host_site]}</HostSite>
-            <Cobrand>#{@args[:cobrand]}</Cobrand>
-            <BrowserID>#{@args[:browser_id]}</BrowserID>
-            <SessionID>#{@args[:session_id]}</SessionID>
+            <HostSite>#{args[:host_site]}</HostSite>
+            <Cobrand>#{args[:cobrand]}</Cobrand>
+            <BrowserID>#{args[:browser_id]}</BrowserID>
+            <SessionID>#{args[:session_id]}</SessionID>
             <Test>#{test?}</Test>
-            <EmailAddress>#{@args[:email_address]}</EmailAddress>
-            <SearchName>#{@args[:search_name]}</SearchName>
-#{search_parameters(@args[:search_parameters]) unless @args[:search_parameters].nil?}
-            <IsDailyEmail>#{@args[:is_daily_email]}</IsDailyEmail>
+            <EmailAddress>#{args[:email_address]}</EmailAddress>
+            <SearchName>#{args[:search_name]}</SearchName>
+#{search_parameters(args[:search_parameters]) unless args[:search_parameters].nil?}
+            <IsDailyEmail>#{args[:is_daily_email]}</IsDailyEmail>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
           </Request>
           eos

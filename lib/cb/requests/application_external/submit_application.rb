@@ -17,12 +17,12 @@ module Cb
           <<-eos
           <Request>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-            <EmailAddress>#{@args[:email_address]}</EmailAddress>
-            <JobDID>#{@args[:job_did]}</JobDID>
-            <SiteID>#{@args[:site_id]}</SiteID>
+            <EmailAddress>#{args[:email_address]}</EmailAddress>
+            <JobDID>#{args[:job_did]}</JobDID>
+            <SiteID>#{args[:site_id]}</SiteID>
             <IPath>#{ipath}</IPath>
-            <IsExternalLinkApply>#{@args[:is_external_link_apply]}</IsExternalLinkApply>
-            <HostSite>#{@args[:host_site] || Cb.configuration.host_site}</HostSite>
+            <IsExternalLinkApply>#{args[:is_external_link_apply]}</IsExternalLinkApply>
+            <HostSite>#{args[:host_site] || Cb.configuration.host_site}</HostSite>
           </Request>
           eos
         end
@@ -30,10 +30,10 @@ module Cb
         private
 
         def ipath
-          return '' unless @args[:ipath].is_a?(String)
+          return '' unless args[:ipath].is_a?(String)
           ipath_length = 10
 
-          @args[:ipath].slice(0, ipath_length)
+          args[:ipath].slice(0, ipath_length)
         end
 
       end

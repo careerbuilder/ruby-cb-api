@@ -15,7 +15,7 @@ module Cb
 
         def query
           {
-            CountryCode: @args[:host_site]
+            CountryCode: args[:host_site]
           }
         end
 

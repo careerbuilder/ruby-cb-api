@@ -15,7 +15,7 @@ module Cb
 
         def query
           {
-            :CompanyDID => @args[:did],
+            :CompanyDID => args[:did],
             :HostSite=> Cb.configuration.host_site
           }
         end
