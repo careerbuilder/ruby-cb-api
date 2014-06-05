@@ -17,9 +17,9 @@ module Cb
           <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>#{@args[:external_id]}</ExternalID>
+              <ExternalID>#{args[:external_id]}</ExternalID>
               <Test>#{test?}</Test>
-              <Password>#{@args[:password]}</Password>
+              <Password>#{args[:password]}</Password>
             </Request>
           eos
         end

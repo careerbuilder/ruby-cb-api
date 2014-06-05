@@ -15,7 +15,7 @@ module Cb
 
         def query
           {
-              'ExternalID' => @args[:external_id]
+              'ExternalID' => args[:external_id]
           }
         end
 

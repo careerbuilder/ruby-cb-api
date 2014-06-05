@@ -17,10 +17,10 @@ module Cb
           <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>#{@args[:external_id]}</ExternalID>
+              <ExternalID>#{args[:external_id]}</ExternalID>
               <Test>#{test?}</Test>
-              <OldPassword>#{@args[:old_password]}</OldPassword>
-              <NewPassword>#{@args[:new_password]}</NewPassword>
+              <OldPassword>#{args[:old_password]}</OldPassword>
+              <NewPassword>#{args[:new_password]}</NewPassword>
             </Request>
           eos
         end
