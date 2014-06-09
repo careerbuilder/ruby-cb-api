@@ -25,18 +25,18 @@ module Cb
 
         def body
           {
-            JobDID: @args[:job_did],
-            IsSubmitted: @args[:is_submitted],
-            ExternalUserID: @args[:external_user_id],
-            VID: @args[:vid],
-            BID: @args[:bid],
-            SID: @args[:sid],
-            SiteID: @args[:site_id],
-            IPathID: @args[:ipath_id],
-            TNDID: @args[:tn_did],
-            Resume:  resume_info(@args[:resume]),
-            CoverLetter: cover_letter_info(@args[:cover_letter]),
-            Responses: parsed_responses(@args[:responses]),
+            JobDID: args[:job_did],
+            IsSubmitted: args[:is_submitted],
+            ExternalUserID: args[:external_user_id],
+            VID: args[:vid],
+            BID: args[:bid],
+            SID: args[:sid],
+            SiteID: args[:site_id],
+            IPathID: args[:ipath_id],
+            TNDID: args[:tn_did],
+            Resume:  resume_info(args[:resume]),
+            CoverLetter: cover_letter_info(args[:cover_letter]),
+            Responses: parsed_responses(args[:responses]),
             Test: test?
           }.to_json
         end

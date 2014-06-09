@@ -16,7 +16,7 @@ module Cb
         def body
           <<-eos
           <Request>
-            <ExternalID>#{@args[:external_id]}</ExternalID>
+            <ExternalID>#{args[:external_id]}</ExternalID>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
             <Test>#{test?}</Test>
           </Request>

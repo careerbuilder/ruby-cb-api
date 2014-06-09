@@ -8,6 +8,14 @@ module Cb
           raise ResponseNotFoundError.new request_class
         end
 
+        protected
+
+        def response_hash_extension
+          {
+            response_hash_extension_not_implemented: true
+          }
+        end
+
         private
 
         def response_hash
@@ -24,16 +32,19 @@ module Cb
 
             Cb::Requests::Category::Search => Cb::Responses::Category::Search,
 
+            Cb::Requests::Company::Find => Cb::Responses::Company::Find,
+
             Cb::Requests::Education::Get => Cb::Responses::Education::Get,
 
-            Cb::Requests::Company::Find => Cb::Responses::Company::Find,
+            Cb::Requests::EmailSubscription::Retrieve => Cb::Responses::EmailSubscription::Response,
+            Cb::Requests::EmailSubscription::Modify => Cb::Responses::EmailSubscription::Response,
 
             Cb::Requests::User::ChangePassword => Cb::Responses::User::ChangePassword,
             Cb::Requests::User::CheckExisting => Cb::Responses::User::CheckExisting,
             Cb::Requests::User::Delete => Cb::Responses::User::Delete,
             Cb::Requests::User::Retrieve => Cb::Responses::User::Retrieve,
             Cb::Requests::User::TemporaryPassword => Cb::Responses::User::TemporaryPassword
-          }
+          }.merge response_hash_extension
         end
 
       end

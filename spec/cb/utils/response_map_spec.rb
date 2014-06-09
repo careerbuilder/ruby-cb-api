@@ -9,6 +9,18 @@ module Cb
         expect { response_map.response_for("Hello") }.to raise_error(Cb::Utils::ResponseNotFoundError)
       end
 
+      it 'should test that response_hash_extension is not implemented' do
+        expect(response_map.response_for(:response_hash_extension_not_implemented)).to eq(true)
+      end
+
+      it 'should test education methods' do
+        request_namespace = Cb::Requests::EmailSubscription
+        response_namespace = Cb::Responses::EmailSubscription
+
+        expect(response_map.response_for(request_namespace::Retrieve)).to eq response_namespace::Response
+        expect(response_map.response_for(request_namespace::Modify)).to eq response_namespace::Response
+      end
+
       it 'should test education methods' do
         request_namespace = Cb::Requests::Education
         response_namespace = Cb::Responses::Education

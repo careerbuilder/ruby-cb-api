@@ -17,8 +17,8 @@ module Cb
           <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <Email>#{@args[:email]}</Email>
-              <Password>#{@args[:password]}</Password>
+              <Email>#{args[:email]}</Email>
+              <Password>#{args[:password]}</Password>
               <Test>#{test?}</Test>
             </Request>
           eos

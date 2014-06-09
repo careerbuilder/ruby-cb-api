@@ -2,11 +2,11 @@ require_relative '../base'
 
 module Cb
   module Requests
-    module Category
-      class Search < Base
+    module EmailSubscription
+      class Retrieve < Base
 
         def endpoint_uri
-          Cb.configuration.uri_job_category_search
+          Cb.configuration.uri_subscription_retrieve
         end
 
         def http_method
@@ -15,7 +15,8 @@ module Cb
 
         def query
           {
-            CountryCode: args[:host_site]
+            ExternalID: args[:external_id],
+            HostSite: args[:host_site]
           }
         end
 
