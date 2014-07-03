@@ -46,10 +46,9 @@ module Cb
     end
 
     describe '#create' do
-      before {
-        Cb::Utils::Api.any_instance.stub(:cb_post).and_return(response_stub)
-      }
-      let(:criteria) { Criteria::Application::Create.new.resume(resume).cover_letter(cover_letter).responses(responses) }
+      before { Cb::Utils::Api.any_instance.stub(:cb_post).and_return(response_stub) }
+      let(:criteria) { Criteria::Application::Create.new.resume(resume).cover_letter(cover_letter).responses(responses).host_site(host_site) }
+      let(:host_site) { nil }
       let(:resume) { Criteria::Application::Resume.new }
       let(:cover_letter) { Criteria::Application::CoverLetter.new }
       let(:responses) { [Criteria::Application::Response.new] }
@@ -81,6 +80,18 @@ module Cb
         end
 
         client.create(criteria)
+      end
+
+      context 'when we receive a host site in our criteria' do
+        let(:host_site) { 'GR' }
+        
+        it 'sends #cb_post to api_client headers with the host_site from criteria' do
+          Cb::Utils::Api.any_instance.should_receive(:cb_post).with do |uri, hash|
+            hash[:headers]['HostSite'] == 'GR'
+          end
+
+          client.create(criteria)
+        end
       end
     end
 

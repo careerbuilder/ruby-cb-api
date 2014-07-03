@@ -30,6 +30,7 @@ module Cb::Criteria::Application
       .site_id('site_123')
       .ipath_id('ipath_123')
       .tn_did('tn_123')
+      .host_site('US')
       .resume(resume)
       .cover_letter(cover_letter)
       .responses(responses)
