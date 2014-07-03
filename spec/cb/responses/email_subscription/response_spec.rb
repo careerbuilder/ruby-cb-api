@@ -7,11 +7,15 @@ module Cb
         "Errors" => [],
         "Status" => "Success",
         "SubscriptionValues" => {
-          "CareerResources" => true,
-          "ProductSponsorInfo" => false,
-          "ApplicantSurveyInvites" => true,
-          "JobRecs" => true,
-          "DJR" => false}}
+            "CareerResources" => true,
+            "ProductSponsorInfo" => false,
+            "ApplicantSurveyInvites" => true,
+            "JobRecs" => true,
+            "DJR" => false,
+            "ResumeViewed" => true,
+            "ApplicationViewed" => false
+          }
+        }
     end
 
     context '#new' do
@@ -29,6 +33,8 @@ module Cb
         expect(model.applicant_survey_invites).to eq 'true'
         expect(model.job_recs).to eq 'true'
         expect(model.djr).to eq 'false'
+        expect(model.resume_viewed).to eq 'true'
+        expect(model.application_viewed).to eq 'false'
       end
 
     end

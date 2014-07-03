@@ -15,15 +15,17 @@ module Cb
         my_api.append_api_responses(subscription, json_hash)
       end
 
-      def self.modify_subscription ext_id, host_site, career_resources, product_sponsor_info, applicant_survey_invites, job_recs, unsubscribe_all
+      def self.modify_subscription ext_id, host_site, career_resources, product_sponsor_info, applicant_survey_invites, job_recs, resume_viewed, application_viewed, unsubscribe_all
         if unsubscribe_all && unsubscribe_all != 'false'
-          career_resources = product_sponsor_info = applicant_survey_invites = job_recs = false.to_s
+          career_resources = product_sponsor_info = applicant_survey_invites = job_recs = resume_viewed = application_viewed = false.to_s
         end
 
         career_resources = career_resources.nil? ? 'false' : career_resources
         product_sponsor_info = product_sponsor_info.nil? ? 'false' : product_sponsor_info
         applicant_survey_invites = applicant_survey_invites.nil? ? 'false' : applicant_survey_invites
         job_recs = job_recs.nil? ? 'false' : job_recs
+        resume_viewed = resume_viewed.nil? ? 'false' : resume_viewed
+        application_viewed = application_viewed.nil? ? 'false' : application_viewed
         unsubscribe_all = unsubscribe_all.nil? ? 'false' : unsubscribe_all
 
         my_api = Cb::Utils::Api.instance
@@ -36,6 +38,8 @@ module Cb
         xml_body += "<ProductSponsorInfo>" + product_sponsor_info.to_s + "</ProductSponsorInfo>"
         xml_body += "<ApplicantSurveyInvites>" + applicant_survey_invites.to_s + "</ApplicantSurveyInvites>"
         xml_body += "<JobRecs>" + job_recs.to_s + "</JobRecs>"
+        xml_body += "<ResumeViewed>" + resume_viewed.to_s + "</ResumeViewed>"
+        xml_body += "<ApplicationViewed>" + application_viewed.to_s + "</ApplicationViewed>"
         xml_body += "<UnsubscribeAll>" + unsubscribe_all.to_s + "</UnsubscribeAll>"
         xml_body += "</Request>"
 

@@ -31,6 +31,8 @@ module Cb
 <ApplicantSurveyInvites></ApplicantSurveyInvites>
 <JobRecs></JobRecs>
 <DJR></DJR>
+<ResumeViewed></ResumeViewed>
+<ApplicationViewed></ApplicationViewed>
 <UnsubscribeAll></UnsubscribeAll>
 </Request>
 eos
@@ -47,6 +49,8 @@ eos
             applicant_survey_invites: 'applicant survey invites',
             job_recs: 'job recs',
             djr: 'djr',
+            resume_viewed: 'resume viewed',
+            application_viewed: 'application viewed',
             unsubscribe_all: 'unsubscribe all'
           })
         end
@@ -75,6 +79,8 @@ eos
 <ApplicantSurveyInvites>applicant survey invites</ApplicantSurveyInvites>
 <JobRecs>job recs</JobRecs>
 <DJR>djr</DJR>
+<ResumeViewed>resume viewed</ResumeViewed>
+<ApplicationViewed>application viewed</ApplicationViewed>
 <UnsubscribeAll>unsubscribe all</UnsubscribeAll>
 </Request>
 eos
@@ -91,6 +97,8 @@ eos
             applicant_survey_invites: 'applicant survey invites',
             job_recs: 'job recs',
             djr: 'djr',
+            resume_viewed: 'resume viewed',
+            application_viewed: 'application viewed',
             unsubscribe_all: 'true'
           })
         end
@@ -119,6 +127,8 @@ eos
 <ApplicantSurveyInvites>false</ApplicantSurveyInvites>
 <JobRecs>false</JobRecs>
 <DJR>false</DJR>
+<ResumeViewed>false</ResumeViewed>
+<ApplicationViewed>false</ApplicationViewed>
 <UnsubscribeAll>true</UnsubscribeAll>
 </Request>
 eos
