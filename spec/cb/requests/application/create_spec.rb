@@ -56,6 +56,7 @@ module Cb
             site_id: 'site id',
             ipath_id: 'ipath id',
             tn_did: 'tn did',
+            host_site: 'GR',
             resume: {
               external_resume_id: 'external resume id',
               resume_file_name: 'resume file name',
@@ -96,7 +97,7 @@ module Cb
         it 'should have basic headers' do
           @request.headers.should == {
             'DeveloperKey' => Cb.configuration.dev_key,
-            'HostSite' => Cb.configuration.host_site,
+            'HostSite' => 'GR',
             'Content-Type' => 'application/json'
           }
         end
