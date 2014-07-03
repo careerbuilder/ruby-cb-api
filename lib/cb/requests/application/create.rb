@@ -18,7 +18,7 @@ module Cb
         def headers
           {
             'DeveloperKey' => Cb.configuration.dev_key,
-            'HostSite' => Cb.configuration.host_site,
+            'HostSite' => (args[:host_site] || Cb.configuration.host_site),
             'Content-Type' => 'application/json'
           }
         end
