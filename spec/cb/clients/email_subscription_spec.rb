@@ -100,7 +100,7 @@ module Cb
             with(target_uri, kind_of(Hash)).
             and_return(Hash.new)
 
-          Cb::Clients::EmailSubscription.modify_subscription(nil, nil, nil, nil, nil, nil, true)
+          Cb::Clients::EmailSubscription.modify_subscription(nil, nil, nil, nil, nil, nil, nil, nil, true)
         end
       end
 
@@ -109,7 +109,8 @@ module Cb
 
         it 'returns an email subscription model' do
           model = Cb::Clients::EmailSubscription.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
-                                                               'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
+                                                               'applicant_survey_invites', 'job_recs', 'resume_viewed', 
+                                                               'application_viewed', 'unsubscribe_all')
           expect_email_sub_model(model)
         end
       end
@@ -119,7 +120,8 @@ module Cb
 
         it 'returns nil' do
           model = Cb::Clients::EmailSubscription.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
-                                                               'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
+                                                               'applicant_survey_invites', 'job_recs', 'resume_viewed', 
+                                                               'application_viewed', 'unsubscribe_all')
           expect(model.nil?).to be_true
         end
 
@@ -129,7 +131,8 @@ module Cb
           mock_api.should_receive(:append_api_responses)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
           Cb::Clients::EmailSubscription.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
-                                                        'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
+                                                        'applicant_survey_invites', 'job_recs', 'resume_viewed', 
+                                                        'application_viewed', 'unsubscribe_all')
         end
       end
 
