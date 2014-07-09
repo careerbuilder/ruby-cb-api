@@ -46,13 +46,14 @@ module Cb
         end
 
         def delete(external_id, password, test_mode = false)
-          result = false
+          result = Cb::Utils::MetaValues.new
           my_api = Cb::Utils::Api.instance
           json_hash = my_api.cb_post Cb.configuration.uri_user_delete, :body => build_delete_request(external_id, password, test_mode)
 
           if json_hash.has_key? 'ResponseUserDelete'
             if json_hash['ResponseUserDelete'].has_key?('Status') && json_hash['ResponseUserDelete']['Status'].include?('Success')
-              result = true
+              result.class.send(:attr_reader, 'success')
+              result.instance_variable_set(:@success, 'true')
             end
             my_api.append_api_responses result, json_hash['ResponseUserDelete']
           end
