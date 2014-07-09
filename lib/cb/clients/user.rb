@@ -45,10 +45,10 @@ module Cb
           my_api.append_api_responses result, json_hash
         end
 
-        def delete(delete_info)
+        def delete(delete_criteria)
           my_api = Cb::Utils::Api.instance
           uri = Cb::configuration.uri_user_delete
-          response = my_api.cb_post(uri, :body => delete_info.to_xml)
+          response = my_api.cb_post(uri, :body => delete_criteria.to_xml)
 
           Cb::Responses::User::Delete.new(response) if response.has_key?('ResponseUserDelete')
         end
