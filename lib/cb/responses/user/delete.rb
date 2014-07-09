@@ -19,7 +19,7 @@ module Cb
         end
 
         def hash_containing_metadata
-          response
+          response[root_node]
         end
 
         private
