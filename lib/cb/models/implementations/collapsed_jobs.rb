@@ -7,6 +7,14 @@ module Cb
         super(args)
       end
 
+      def job_count
+        @jobs_in_group
+      end
+
+      def all_jobs
+        @jobs
+      end
+
       protected
 
       def required_fields
