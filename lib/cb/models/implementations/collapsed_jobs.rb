@@ -24,7 +24,7 @@ module Cb
       def set_model_properties
         args = api_response
         @jobs_in_group = args['NumberJobsInGroup']
-        @job_description = get_jobs(args['GroupedSearchResults'])
+        @job_description = get_jobs(args['GroupedSearchResults']['JobSearchResult'])
         @grouping_value = args['GroupingValue']
       end
 
