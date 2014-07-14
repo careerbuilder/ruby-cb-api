@@ -1,9 +1,9 @@
 module Cb
   module Models
     class CollapsedJobs < ApiResponseModel
-      attr_accessor :jobs_in_group, :jobs, :grouping_value
+      attr_accessor :jobs_in_group, :job_description, :grouping_value
 
-      def initialize(args={})
+      def initialize(args = {})
         super(args)
       end
 
@@ -12,7 +12,7 @@ module Cb
       end
 
       def all_jobs
-        @jobs
+        @job_description
       end
 
       protected
@@ -23,10 +23,9 @@ module Cb
 
       def set_model_properties
         args = api_response
-
-        @jobs_in_group = args[0]['NumberJobsInGroup']
-        @jobs = get_jobs(args[0]['GroupedSearchResults'])
-        @grouping_valueargs[0]['GroupingValue']
+        @jobs_in_group = args['NumberJobsInGroup']
+        @job_description = get_jobs(args['GroupedSearchResults'])
+        @grouping_value = args['GroupingValue']
       end
 
       def get_jobs(jobs_hash)

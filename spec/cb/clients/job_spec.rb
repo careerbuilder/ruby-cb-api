@@ -77,7 +77,7 @@ module Cb
 
         it 'returns a collapsed job response' do
           search = Cb.job.search(Hash.new)
-          expect(search.model.grouped_jobs.jobs[0]).to be_a Cb::Models::Job
+          expect(search.model.grouped_jobs[0].job_description).to be_a Cb::Models::Job
         end
       end
     end
