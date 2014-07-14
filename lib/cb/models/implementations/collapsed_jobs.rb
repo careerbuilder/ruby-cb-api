@@ -11,7 +11,7 @@ module Cb
         @jobs_in_group
       end
 
-      def all_jobs
+      def job
         @job_description
       end
 

@@ -79,6 +79,8 @@ module Cb
           search = Cb.job.search(Hash.new)
           expect(search.model.grouped_jobs[0].job_description).to be_a Cb::Models::Job
           expect(search.model.grouped_jobs[0].grouping_value).to eq "123321"
+          expect(search.model.grouped_jobs[0].job_count).to eq 1
+          expect(search.model.grouped_jobs[0].job).to eq search.model.grouped_jobs[0].job_description
         end
       end
     end
