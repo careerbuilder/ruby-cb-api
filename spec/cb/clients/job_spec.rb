@@ -74,6 +74,11 @@ module Cb
 
           stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).to_return(:body => content.to_json)
         end
+
+        it 'returns a collapsed job response' do
+          search = Cb.job.search(Hash.new)
+          expect(search.model.grouped_jobs.jobs[0]).to be_a Cb::Models::Job
+        end
       end
     end
 

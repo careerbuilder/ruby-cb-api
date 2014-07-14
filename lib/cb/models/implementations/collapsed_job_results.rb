@@ -1,4 +1,4 @@
-module CB
+module Cb
   module Models
     class CollapsedJobResults
       attr_reader :args_hash, :total_count, :last_item_index, :search_location, :grouped_jobs, :grouping_parameter
@@ -15,7 +15,7 @@ module CB
 
       def extract_collapsed_jobs(collapsed_jobs)
         collapsed_jobs.collect do |collapsed_job|
-          CollapsedJobs.new(job_hash)
+          CollapsedJobs.new(collapsed_job)
         end
       end
 

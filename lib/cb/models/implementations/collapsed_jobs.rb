@@ -24,15 +24,13 @@ module Cb
       def set_model_properties
         args = api_response
 
-        @jobs_in_group = args['NumberJobsInGroup']
-        @jobs = get_jobs(args['GroupedSearchResults'])
-        @grouping_valueargs['GroupingValue']
+        @jobs_in_group = args[0]['NumberJobsInGroup']
+        @jobs = get_jobs(args[0]['GroupedSearchResults'])
+        @grouping_valueargs[0]['GroupingValue']
       end
 
       def get_jobs(jobs_hash)
-        jobs_hash.collect do |job|
-          Job.new(job)
-        end
+        Job.new(jobs_hash)
       end
     end
   end
