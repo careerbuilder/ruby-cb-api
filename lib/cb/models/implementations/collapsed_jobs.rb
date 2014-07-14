@@ -1,7 +1,7 @@
 module Cb
   module Models
     class CollapsedJobs < ApiResponseModel
-      attr_accessor :jobs_in_group, :jobs
+      attr_accessor :jobs_in_group, :jobs, grouping_value
 
       def initialize(args={})
         super(args)
@@ -26,6 +26,7 @@ module Cb
 
         @jobs_in_group = args['NumberJobsInGroup']
         @jobs = get_jobs(args['GroupedSearchResults'])
+        @grouping_valueargs['GroupingValue']
       end
 
       def get_jobs(jobs_hash)

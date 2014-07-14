@@ -50,6 +50,30 @@ module Cb
         end
       end
 
+      context 'When the search returns with collapsed results' do
+        before(:each)do
+          content = {
+            ResponseJobSearch: {
+              GroupedJobSearchResults: {
+                SearchResults: {
+                  JobSearchResultsGroup:
+                  [
+                    {
+                      NumberJobsInGroup: 1,
+                      GroupedSearchResults: {
+                        JobSearchResult: {
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+
+          stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).to_return(:body => content.to_json)
+        end
+      end
     end
 
     describe '#find_by_criteria' do
