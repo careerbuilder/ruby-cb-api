@@ -60,6 +60,7 @@ module Cb
                   [
                     {
                       NumberJobsInGroup: 1,
+                      GroupingValue: "123321",
                       GroupedSearchResults: {
                         JobSearchResult: {
                         }

@@ -1,7 +1,7 @@
 module Cb
   module Models
     class CollapsedJobs < ApiResponseModel
-      attr_accessor :jobs_in_group, :jobs, grouping_value
+      attr_accessor :jobs_in_group, :jobs, :grouping_value
 
       def initialize(args={})
         super(args)
