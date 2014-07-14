@@ -15,9 +15,7 @@ module CB
 
       def extract_collapsed_jobs(collapsed_jobs)
         collapsed_jobs.collect do |collapsed_job|
-          collapsed_job.collect do |job_hash|
-            Job.new(job_hash)
-          end
+          CollapsedJobs.new(job_hash)
         end
       end
 
