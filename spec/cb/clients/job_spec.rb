@@ -50,47 +50,43 @@ module Cb
         end
       end
 
-      context 'When the search returns with collapsed results' do
-        before(:each)do
-          content = {
-            ResponseJobSearch: {
-              GroupedJobSearchResults: {
-                SearchResults: {
-                  JobSearchResultsGroup:
-                  [
-                    {
-                      NumberJobsInGroup: 1,
-                      GroupingValue: "123321",
-                      GroupedSearchResults: {
-                        JobSearchResult: {
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
 
+      context 'When the search returns with collapsed results' do
+        let(:search) {Cb.job.search(Hash.new)}
+        let(:content) do {
+            ResponseJobSearch: {
+                GroupedJobSearchResults: {
+                    SearchResults: {
+                        JobSearchResultsGroup:
+                            [
+                                {
+                                    NumberJobsInGroup: 1,
+                                    GroupingValue: "123321",
+                                    GroupedSearchResults: {
+                                        JobSearchResult: {
+                                        }
+                                    }
+                                }
+                            ]
+                    }
+                }
+            }
+        }
+        end
+
+        before do
           stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).to_return(:body => content.to_json)
         end
 
-        it 'returns a collapsed job response' do
-          search = Cb.job.search(Hash.new)
-          expect(search.model).to be_a Cb::Models::CollapsedJobResults
-          expect(search.model.grouped_jobs[0].job_description).to be_a Cb::Models::Job
-        end
+        it { expect(search.model).to be_a Cb::Models::CollapsedJobResults }
+        it { expect(search.model.grouped_jobs[0].job_description).to be_a Cb::Models::Job }
+        it { expect(search.model.grouped_jobs[0].grouping_value).to eq '123321' }
+        it { expect(search.model.grouped_jobs[0].job_count).to eq 1 }
+        it { expect(search.model.grouped_jobs[0].job).to eq search.model.grouped_jobs[0].job_description  }
 
-        it 'has accessors needed' do
-          search = Cb.job.search(Hash.new)
-          expect(search.model.grouped_jobs[0].grouping_value).to eq "123321"
-          expect(search.model.grouped_jobs[0].job_count).to eq 1
-          expect(search.model.grouped_jobs[0].job).to eq search.model.grouped_jobs[0].job_description
-        end
       end
+
     end
-
-
 
     describe '#find_by_criteria' do
       before :each do
