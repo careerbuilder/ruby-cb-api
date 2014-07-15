@@ -45,19 +45,12 @@ module Cb
           my_api.append_api_responses result, json_hash
         end
 
-        def delete(external_id, password, test_mode = false)
-          result = false
+        def delete(delete_criteria)
           my_api = Cb::Utils::Api.instance
-          json_hash = my_api.cb_post Cb.configuration.uri_user_delete, :body => build_delete_request(external_id, password, test_mode)
+          uri = Cb::configuration.uri_user_delete
+          response = my_api.cb_post(uri, :body => delete_criteria.to_xml)
 
-          if json_hash.has_key? 'ResponseUserDelete'
-            if json_hash['ResponseUserDelete'].has_key?('Status') && json_hash['ResponseUserDelete']['Status'].include?('Success')
-              result = true
-            end
-            my_api.append_api_responses result, json_hash['ResponseUserDelete']
-          end
-
-          my_api.append_api_responses result, json_hash
+          Cb::Responses::User::Delete.new(response) if response.has_key?('ResponseUserDelete')
         end
 
         private
@@ -91,17 +84,6 @@ module Cb
               <Test>#{test_mode.to_s}</Test>
               <OldPassword>#{old_password}</OldPassword>
               <NewPassword>#{new_password}</NewPassword>
-            </Request>
-          eos
-        end
-
-        def build_delete_request(external_id, password, test_mode)
-          <<-eos
-            <Request>
-              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>#{external_id}</ExternalID>
-              <Test>#{test_mode.to_s}</Test>
-              <Password>#{password}</Password>
             </Request>
           eos
         end

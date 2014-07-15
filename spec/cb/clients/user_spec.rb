@@ -184,16 +184,16 @@ module Cb
       before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_user_delete)).
             with(:body => anything).
-            to_return(:body => { ResponseUserDelete: { Status: 'Success (Test)' } }.to_json)
+            to_return(:body => { ResponseUserDelete: { Request: {}, Status: 'Success (Test)' } }.to_json)
       end
 
       it 'should delete a user', :vcr => { :cassette_name => 'user/delete/success' } do
-        result = Cb.user.delete 'xid', 'passwort', true
 
-        expect(result.cb_response.errors.nil?).to be true
-        expect(result.cb_response.status).to be == 'Success (Test)'
-        expect(result).to be true
-        result.api_error.should == false
+        result = Cb.user.delete(Cb::Criteria::User::Delete.new(external_id: 'xid', password: 'passwort'))
+
+        expect(result).to be_an_instance_of Cb::Responses::User::Delete
+        expect(result.model.nil?).to be false
+        expect(result.model.status).to eq 'Success (Test)'
       end
     end
 
@@ -217,16 +217,17 @@ module Cb
       it 'builds xml correctly' do
         Cb::Utils::Api.any_instance.should_receive(:cb_post).with do |uri, options|
           options[:body].should eq <<-eos
-            <Request>
-              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>ext_id</ExternalID>
-              <Test>true</Test>
-              <Password>pw</Password>
-            </Request>
+<?xml version="1.0"?>
+<Request>
+  <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+  <Password>pw</Password>
+  <ExternalID>ext_id</ExternalID>
+  <Test>true</Test>
+</Request>
           eos
         end.and_return({})
 
-        Cb.user.delete 'ext_id', 'pw', true
+        Cb.user.delete(Cb::Criteria::User::Delete.new(external_id: 'ext_id', password: 'pw', test: true))
       end
     end
 
