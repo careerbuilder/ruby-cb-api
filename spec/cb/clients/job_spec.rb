@@ -53,18 +53,7 @@ module Cb
 
       context 'When the search returns with collapsed results' do
         let(:search) {Cb.job.search(Hash.new)}
-        let(:content) do {
-          ResponseJobSearch: { GroupedJobSearchResults: { SearchResults: {
-            JobSearchResultsGroup:[
-              {
-                NumberJobsInGroup: 1,
-                GroupingValue: "123321",
-                GroupedSearchResults: {JobSearchResult: {}}
-              }
-            ]
-          }}}
-        }
-        end
+        let(:content) {JSON.parse(File.read('spec/support/response_stubs/collapsed_search.json'))}
 
         before do
           stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).to_return(:body => content.to_json)
