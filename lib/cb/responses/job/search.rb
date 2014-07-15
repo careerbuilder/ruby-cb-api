@@ -14,7 +14,11 @@ module Cb
         end
 
         def extract_models
-          Models::JobResults.new(response[root_node], job_hashes)
+          if is_collapsed
+            Models::CollapsedJobResults.new(response[root_node])
+          else
+            Models::JobResults.new(response[root_node], job_hashes)
+          end
         end
 
         private
@@ -33,6 +37,9 @@ module Cb
           end
         end
 
+        def is_collapsed
+          response[root_node].key?('GroupedJobSearchResults')
+        end
       end
     end
   end
