@@ -54,22 +54,15 @@ module Cb
       context 'When the search returns with collapsed results' do
         let(:search) {Cb.job.search(Hash.new)}
         let(:content) do {
-          ResponseJobSearch: {
-            GroupedJobSearchResults: {
-              SearchResults: {
-                JobSearchResultsGroup:[
-                  {
-                    NumberJobsInGroup: 1,
-                    GroupingValue: "123321",
-                    GroupedSearchResults: {
-                      JobSearchResult: {
-                      }
-                    }
-                  }
-                ]
+          ResponseJobSearch: { GroupedJobSearchResults: { SearchResults: {
+            JobSearchResultsGroup:[
+              {
+                NumberJobsInGroup: 1,
+                GroupingValue: "123321",
+                GroupedSearchResults: {JobSearchResult: {}}
               }
-            }
-          }
+            ]
+          }}}
         }
         end
 
