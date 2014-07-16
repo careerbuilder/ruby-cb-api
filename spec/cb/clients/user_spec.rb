@@ -143,43 +143,6 @@ module Cb
       end
     end
 
-    context '.change_password' do
-      before :each do
-        stub_request(:post, uri_stem(Cb.configuration.uri_user_change_password)).
-            with(:body => anything).
-            to_return(:body => { ResponseUserChangePW: { Status: 'Success (Test)' } }.to_json)
-      end
-
-      it 'should change a user password' do
-        result = Cb.user.change_password 'XRHL3TC5VWHV37S9J55S', 'BikeTire3', 'BikeTire3', true
-
-        expect(result.cb_response.errors.nil?).to eq true
-        expect(result.cb_response.status).to eq 'Success (Test)'
-        expect(result).to eq true
-        result.api_error.should eq false
-      end
-
-    end
-
-    describe '#change_password' do
-      it 'builds xml correctly' do
-        Cb::Utils::Api.any_instance.should_receive(:cb_post).with do |uri, options|
-          options[:body].should eq <<-eos
-            <Request>
-              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>ext_id</ExternalID>
-              <Test>true</Test>
-              <OldPassword>old_pw</OldPassword>
-              <NewPassword>new_pw</NewPassword>
-            </Request>
-          eos
-        end.and_return({})
-
-        Cb.user.change_password 'ext_id', 'old_pw', 'new_pw', true
-      end
-    end
-
-
     context '.delete' do
       before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_user_delete)).
@@ -245,16 +208,15 @@ module Cb
 
         it 'should return a proper response when the change password call fails' do
           allow_any_instance_of(Cb::Utils::Api).to receive(:cb_post).and_return(api_return_fail)
-          response = Cb::Clients::User.change_pwd(user_info_change_password).model
+          response = Cb.user.change_password(user_info_change_password).model
           expect(response.status).to eq 'Fail'
         end
 
         it 'should return a proper response when the change password call succeeds' do
           allow_any_instance_of(Cb::Utils::Api).to receive(:cb_post).and_return(api_return_success)
-          response = Cb::Clients::User.change_pwd(user_info_change_password).model
+          response = Cb.user.change_password(user_info_change_password).model
           expect(response.status).to eq 'Success'
         end
-
       end
     end
   end

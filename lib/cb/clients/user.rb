@@ -30,22 +30,7 @@ module Cb
           my_api.append_api_responses user, json_hash
         end
 
-        def change_password(external_id, old_password, new_password, test_mode = false)
-          result = false
-          my_api = Cb::Utils::Api.instance
-          json_hash = my_api.cb_post Cb.configuration.uri_user_change_password, :body => build_change_password_request(external_id, old_password, new_password, test_mode)
-
-          if json_hash.has_key? 'ResponseUserChangePW'
-            if json_hash['ResponseUserChangePW'].has_key?('Status') && json_hash['ResponseUserChangePW']['Status'].include?('Success')
-              result = true
-            end
-            my_api.append_api_responses result, json_hash['ResponseUserChangePW']
-          end
-
-          my_api.append_api_responses result, json_hash
-        end
-
-        def change_pwd(user_info)
+        def change_password(user_info)
           my_api = Cb::Utils::Api.instance
           uri = Cb::configuration.uri_user_change_password
           response = my_api.cb_post(uri, :body => user_info.to_xml)
