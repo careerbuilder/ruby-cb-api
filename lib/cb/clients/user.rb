@@ -45,6 +45,14 @@ module Cb
           my_api.append_api_responses result, json_hash
         end
 
+        def change_pwd(user_info)
+          my_api = Cb::Utils::Api.instance
+          uri = Cb::configuration.uri_user_change_password
+          response = my_api.cb_post(uri, :body => user_info.to_xml)
+
+          Cb::Responses::User::ChangePassword.new(response) if response.has_key?('ResponseUserChangePW')
+        end
+
         def delete(delete_criteria)
           my_api = Cb::Utils::Api.instance
           uri = Cb::configuration.uri_user_delete

@@ -231,5 +231,31 @@ module Cb
       end
     end
 
+    describe  '#change_pwd' do
+      context 'When an user makes a change password request' do
+        let(:user_info_change_password) {
+          Cb::Criteria::User::ChangePassword.new({
+                                                external_id: '123TEST',
+                                                old_password: 'MyPassWord123',
+                                                new_password: 'MyNewPassword123',
+                                                test: 'false'
+                                            }) }
+        let(:api_return_fail) do { 'ResponseUserChangePW' => { 'Request' => { 'ExternalID' => 'EXT12345', 'Errors' => 'An error occurred' }, 'Status' => 'Fail' } } end
+        let(:api_return_success) do { 'ResponseUserChangePW' => { 'Request' => { 'ExternalID' => 'EXT12345', 'Errors' => '' }, 'Status' => 'Success' } } end
+
+        it 'should return a proper response when the change password call fails' do
+          allow_any_instance_of(Cb::Utils::Api).to receive(:cb_post).and_return(api_return_fail)
+          response = Cb::Clients::User.change_pwd(user_info_change_password).model
+          expect(response.status).to eq 'Fail'
+        end
+
+        it 'should return a proper response when the change password call succeeds' do
+          allow_any_instance_of(Cb::Utils::Api).to receive(:cb_post).and_return(api_return_success)
+          response = Cb::Clients::User.change_pwd(user_info_change_password).model
+          expect(response.status).to eq 'Success'
+        end
+
+      end
+    end
   end
 end
