@@ -1,3 +1,2 @@
 module Cb
-  VERSION = '9.0.0'
-end
+  VERSION = '11.0.0'
