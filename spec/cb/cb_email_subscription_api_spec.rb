@@ -120,7 +120,7 @@ module Cb
         it 'returns nil' do
           model = Cb::EmailSubscriptionApi.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
                                                                'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
-          expect(model.nil?).to be_true
+          expect(model.nil?).to be_truthy
         end
 
         it 'appends api responses to the nil returned value' do

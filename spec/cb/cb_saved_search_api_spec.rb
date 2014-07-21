@@ -24,7 +24,7 @@ module Cb
         user_saved_search = Cb.saved_search_api.create({'DeveloperKey'=>Cb.configuration.dev_key, 'IsDailyEmail'=>email_frequency,
                             'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
                                   'HostSite'=>@host_site})
-        user_saved_search.cb_response.errors.nil?.should be_true
+        user_saved_search.cb_response.errors.nil?.should be_truthy
         user_saved_search.api_error.should == false
       end
     end
@@ -45,7 +45,7 @@ module Cb
                                                         'ExternalUserID'=>@external_user_id, 'SearchName'=>search_name,
                                                         'HostSite'=>@host_site, 'ExternalID'=>external_id})
 
-        user_saved_search.cb_response.errors.nil?.should be_true
+        user_saved_search.cb_response.errors.nil?.should be_truthy
         user_saved_search.api_error.should == false
       end
     end

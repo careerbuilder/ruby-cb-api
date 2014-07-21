@@ -28,7 +28,7 @@ module Cb
 
         describe '#skip_resume?' do
           it 'should evaluate as true' do
-            expect(job.skip_resume?).to be_true
+            expect(job.skip_resume?).to be_truthy
           end
         end
       end
