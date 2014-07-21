@@ -91,46 +91,6 @@ module Cb
           mock_api.stub(:cb_post)
           Cb::Utils::Api.stub(:new).and_return(mock_api)
         end
-
-        it 'uses HTTP (non-SSL) to the email subscription modify endpoint' do
-          insecure_api_method = :cb_post
-          target_uri = Cb.configuration.uri_subscription_modify
-
-          mock_api.should_receive(insecure_api_method).
-            with(target_uri, kind_of(Hash)).
-            and_return(Hash.new)
-
-          Cb::Clients::EmailSubscription.modify_subscription(nil, nil, nil, nil, nil, nil, true)
-        end
-      end
-
-      context 'when API response hash contains all required fields' do
-        before(:each) { stub_api_to_return({ SubscriptionValues: { things: 'stuff' } }) }
-
-        it 'returns an email subscription model' do
-          model = Cb::Clients::EmailSubscription.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
-                                                               'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
-          expect_email_sub_model(model)
-        end
-      end
-
-      context 'when API response hash does not have the required fields' do
-        before(:each) { stub_api_to_return(Hash.new) }
-
-        it 'returns nil' do
-          model = Cb::Clients::EmailSubscription.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
-                                                               'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
-          expect(model.nil?).to be_true
-        end
-
-        it 'appends api responses to the nil returned value' do
-          mock_api = double(Cb::Utils::Api)
-          mock_api.stub(:cb_post).and_return(Hash.new)
-          mock_api.should_receive(:append_api_responses)
-          Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Clients::EmailSubscription.modify_subscription('xid', 'host_site', 'career_resources', 'product_sponser_info',
-                                                        'applicant_survey_invites', 'job_recs', 'unsubscribe_all')
-        end
       end
 
     end # modify_subscription
