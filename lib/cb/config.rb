@@ -67,42 +67,15 @@ module Cb
     end
 
     def to_hash
-      {
-        :uri_job_category_search          => @uri_job_category_search,
-        :uri_job_industry_search          => @uri_job_industry_search,
-        :uri_employee_types               => @uri_employee_types,
-        :dev_key                          => @dev_key,
-        :host_site                        => @host_site,
-        :time_out  	                      => @time_out,
-        :use_json                         => @use_json,
-        :uri_job_search                   => @uri_job_search,
-        :uri_job_find                     => @uri_job_find,
-        :uri_company_find                 => @uri_company_find,
-        :uri_education_code               => @uri_education_code,
-        :uri_recommendation_for_job       => @uri_recommendation_for_job,
-        :uri_recommendation_for_user      => @uri_recommendation_for_user,
-        :uri_recommendation_for_company   => @uri_recommendation_for_company,
-        :uri_application                  => @uri_application,
-        :uri_application_submit           => @uri_application_submit,
-        :uri_application_registered       => @uri_application_registered,
-        :uri_application_external         => @uri_application_external,
-        :uri_user_change_password         => @uri_user_change_password,
-        :uri_user_retrieve                => @uri_user_retrieve,
-        :uri_user_check_existing          => @uri_user_check_existing,
-        :uri_job_branding                 => @uri_job_branding,
-        :uri_saved_search_retrieve        => @uri_saved_search_retrieve,
-        :uri_saved_search_create          => @uri_saved_search_create,
-        :uri_saved_search_update          => @uri_saved_search_update,
-        :uri_saved_search_delete          => @uri_saved_search_delete,
-        :uri_saved_search_list            => @uri_saved_search_list,
-        :uri_anon_saved_search_create     => @uri_anon_saved_search_create,
-        :uri_tn_join_questions            => @uri_tn_join_questions,
-        :uri_subscription_retrieve        => @uri_subscription_retrieve,
-        :uri_subscription_modify          => @uri_subscription_modify,
-        :uri_saved_job_search_create      => @uri_saved_job_search_create,
-        :uri_spot_retrieve                => @uri_spot_retrieve,
-        :uri_work_status_list             => @uri_work_status_list
-      }
+      hash = {}
+
+      instance_variables.each do |instance_variable|
+        attribute = instance_variable[1..-1].to_sym
+
+        hash[attribute] = send attribute
+      end
+
+      hash
     end
 
     def set_base_uri (uri)
@@ -110,10 +83,8 @@ module Cb
     end
 
     protected
-    #################################################################
 
     def set_defaults
-
       @dev_key              = 'ruby-cb-api'  # Get a developer key at http://api.careerbuilder.com
       @base_uri             = 'https://api.careerbuilder.com'
       @debug_api            = false
@@ -124,5 +95,6 @@ module Cb
       @observers            = Array.new
       set_default_api_uris
     end
+
   end
 end
