@@ -1,27 +1,42 @@
 module Cb
   class Config
-    attr_accessor :dev_key, :base_uri, :debug_api, :time_out, :use_json, :host_site, :test_resources, :observers,
-                  :uri_job_search, :uri_job_find,
-                  :uri_company_find, :uri_job_category_search, :uri_job_industry_search,
-                  :uri_education_code, :uri_employee_types,
-                  :uri_recommendation_for_job, :uri_recommendation_for_user,
-                  :uri_recommendation_for_company,
-                  :uri_application, :uri_application_submit, :uri_application_form,
-                  :uri_application_external, :uri_application_create,
-                  :uri_application_registered, :uri_user_change_password, :uri_user_temp_password,
-                  :uri_user_delete, :uri_user_retrieve, :uri_user_check_existing,
-                  :uri_job_branding,
-                  :uri_saved_search_retrieve, :uri_saved_search_create, :uri_saved_search_update, :uri_saved_search_list, :uri_saved_search_delete,
-                  :uri_anon_saved_search_create, :uri_anon_saved_search_delete,
-                  :uri_saved_job_search_create,
-                  :uri_job_branding, :uri_tn_join_questions, :uri_tn_job_info, :uri_tn_join_form_geo,
-                  :uri_tn_join_form_branding, :uri_tn_member_create,
-                  :uri_subscription_retrieve, :uri_subscription_modify,
-                  :uri_spot_retrieve, :uri_work_status_list
 
     def initialize
       Cb::Utils::Country.inject_convenience_methods
       set_defaults
+
+      instance_variables.each { |instance_variable| self.class.send :attr_accessor, instance_variable[1..-1].to_sym }
+    end
+
+    def to_hash
+      hash = {}
+
+      instance_variables.each do |instance_variable|
+        attribute = instance_variable[1..-1].to_sym
+
+        hash[attribute] = send attribute
+      end
+
+      hash
+    end
+
+    def set_base_uri(uri)
+      @base_uri = uri
+    end
+
+    protected
+    #################################################################
+
+    def set_defaults
+      @dev_key              = 'ruby-cb-api'  # Get a developer key at http://api.careerbuilder.com
+      @base_uri             = 'https://api.careerbuilder.com'
+      @debug_api            = false
+      @time_out             = 5
+      @use_json             = true
+      @host_site            = Cb.country.US
+      @test_resources       = false
+      @observers            = Array.new
+      set_default_api_uris
     end
 
     def set_default_api_uris
@@ -64,37 +79,6 @@ module Cb
       @uri_saved_job_search_create        ||= '/v2/savedsearch/create'
       @uri_spot_retrieve                  ||= '/v2/spot/load'
       @uri_work_status_list               ||= '/v1/resume/workstatuslist'
-    end
-
-    def to_hash
-      hash = {}
-
-      instance_variables.each do |instance_variable|
-        attribute = instance_variable[1..-1].to_sym
-
-        hash[attribute] = send attribute
-      end
-
-      hash
-    end
-
-    def set_base_uri (uri)
-      @base_uri = uri
-    end
-
-    protected
-    #################################################################
-
-    def set_defaults
-      @dev_key              = 'ruby-cb-api'  # Get a developer key at http://api.careerbuilder.com
-      @base_uri             = 'https://api.careerbuilder.com'
-      @debug_api            = false
-      @time_out             = 5
-      @use_json             = true
-      @host_site            = Cb.country.US
-      @test_resources       = false
-      @observers            = Array.new
-      set_default_api_uris
     end
 
   end
