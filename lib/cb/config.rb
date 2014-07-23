@@ -4,8 +4,7 @@ module Cb
     def initialize
       Cb::Utils::Country.inject_convenience_methods
       set_defaults
-
-      instance_variables.each { |instance_variable| self.class.send :attr_accessor, instance_variable[1..-1].to_sym }
+      set_attr_accessors
     end
 
     def to_hash
@@ -79,6 +78,13 @@ module Cb
       @uri_saved_job_search_create        ||= '/v2/savedsearch/create'
       @uri_spot_retrieve                  ||= '/v2/spot/load'
       @uri_work_status_list               ||= '/v1/resume/workstatuslist'
+    end
+
+    private
+    #################################################################
+
+    def set_attr_accessors
+      instance_variables.each { |instance_variable| self.class.send :attr_accessor, instance_variable[1..-1].to_sym }
     end
 
   end
