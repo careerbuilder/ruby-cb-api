@@ -6,8 +6,8 @@ module Cb
       {
         "WorkStatusRetrieveResponse" => {
           "Errors" => nil,
-          "WorkStatuses" => {
-            "WorkStatus" => {
+          "WorkStatuses" => [
+            {
               "Key" => "CTCT",
               "Description" => [
                 {
@@ -24,7 +24,7 @@ module Cb
                 }
               ]
             }
-          }
+          ]
         }
       }
     end
