@@ -4,28 +4,26 @@ module Cb
   describe Responses::Education::Get do
     let(:json_hash) do
       {
-        "WorkStatusRetrieveResponse" => {
-          "Errors" => nil,
-          "WorkStatuses" => [
-            {
-              "Key" => "CTCT",
-              "Description" => [
-                {
-                  "Language" => "French",
-                  "Value" => "Citoyen"
-                },
-                {
-                  "Language" => "Dutch",
-                  "Value" => "Inwoner"
-                },
-                {
-                  "Language" => "English",
-                  "Value" => "US Citizen"
-                }
-              ]
-            }
-          ]
-        }
+        "Errors" => nil,
+        "WorkStatuses" => [
+          {
+            "Key" => "CTCT",
+            "Description" => [
+              {
+                "Language" => "French",
+                "Value" => "Citoyen"
+              },
+              {
+                "Language" => "Dutch",
+                "Value" => "Inwoner"
+              },
+              {
+                "Language" => "English",
+                "Value" => "US Citizen"
+              }
+            ]
+          }
+        ]
       }
     end
 

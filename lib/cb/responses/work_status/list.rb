@@ -12,8 +12,7 @@ module Cb
         end
 
         def validate_api_hash
-          required_response_field(response_node, response)
-          required_response_field(work_status_codes_node, response[response_node])
+          required_response_field(work_statuses_node, response)
         end
 
         def extract_models
@@ -22,16 +21,12 @@ module Cb
 
         private
 
-        def response_node
-          "WorkStatusRetrieveResponse"
-        end
-
-        def work_status_codes_node
+        def work_statuses_node
           "WorkStatuses"
         end
 
         def model_array
-          response[response_node][work_status_codes_node]
+          response[work_statuses_node]
         end
 
       end
