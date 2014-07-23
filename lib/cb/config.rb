@@ -17,7 +17,7 @@ module Cb
                   :uri_job_branding, :uri_tn_join_questions, :uri_tn_job_info, :uri_tn_join_form_geo,
                   :uri_tn_join_form_branding, :uri_tn_member_create,
                   :uri_subscription_retrieve, :uri_subscription_modify,
-                  :uri_spot_retrieve
+                  :uri_spot_retrieve, :uri_work_status_list
 
     def initialize
       Cb::Utils::Country.inject_convenience_methods
@@ -63,6 +63,7 @@ module Cb
       @uri_subscription_modify            ||= '/v1/user/subscription?version=v2'
       @uri_saved_job_search_create        ||= '/v2/savedsearch/create'
       @uri_spot_retrieve                  ||= '/v2/spot/load'
+      @uri_work_status_list               ||= '/v1/resume/workstatuslist'
     end
 
     def to_hash
@@ -99,7 +100,8 @@ module Cb
         :uri_subscription_retrieve        => @uri_subscription_retrieve,
         :uri_subscription_modify          => @uri_subscription_modify,
         :uri_saved_job_search_create      => @uri_saved_job_search_create,
-        :uri_spot_retrieve                => @uri_spot_retrieve
+        :uri_spot_retrieve                => @uri_spot_retrieve,
+        :uri_work_status_list             => @uri_work_status_list
       }
     end
 
