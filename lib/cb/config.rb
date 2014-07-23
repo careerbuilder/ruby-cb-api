@@ -83,6 +83,7 @@ module Cb
     end
 
     protected
+    #################################################################
 
     def set_defaults
       @dev_key              = 'ruby-cb-api'  # Get a developer key at http://api.careerbuilder.com
