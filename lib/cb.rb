@@ -22,7 +22,6 @@ module Cb
 
   def self.configuration
     @configuration ||= Cb::Config.new
-    @configuration.set_default_api_uris
     @configuration
   end
 end
