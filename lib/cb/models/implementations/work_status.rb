@@ -18,7 +18,7 @@ module Cb
           @value    = args['Value']    || ''
         end
       end
+      
     end
-    
   end
 end
