@@ -77,6 +77,13 @@ module Cb
         expect(response_map.response_for(request_namespace::Retrieve)).to eq(response_namespace::Retrieve)
         expect(response_map.response_for(request_namespace::TemporaryPassword)).to eq(response_namespace::TemporaryPassword)
       end
+
+      it 'should test resumes work status methods' do
+        request_namespace = Cb::Requests::WorkStatus
+        response_namespace = Cb::Responses::WorkStatus
+
+        expect(response_map.response_for(request_namespace::List)).to eq response_namespace::List
+      end
     end
   end
 end

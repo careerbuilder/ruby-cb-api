@@ -43,7 +43,9 @@ module Cb
             Cb::Requests::User::CheckExisting => Cb::Responses::User::CheckExisting,
             Cb::Requests::User::Delete => Cb::Responses::User::Delete,
             Cb::Requests::User::Retrieve => Cb::Responses::User::Retrieve,
-            Cb::Requests::User::TemporaryPassword => Cb::Responses::User::TemporaryPassword
+            Cb::Requests::User::TemporaryPassword => Cb::Responses::User::TemporaryPassword,
+
+            Cb::Requests::WorkStatus::List => Cb::Responses::WorkStatus::List
           }.merge response_hash_extension
         end
 
