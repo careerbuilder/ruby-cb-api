@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Responses::Education::Get do
+  describe Responses::WorkStatus::List do
     let(:json_hash) do
       {
         "Errors" => nil,
