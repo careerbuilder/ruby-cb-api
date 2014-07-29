@@ -19,6 +19,7 @@ module Cb
         created = Time.now
         gender = 'male'
         birth_date = Date.today-40
+        work_status = 'US Citizen'
 
 
         user = Cb::Models::User.new(
@@ -29,13 +30,14 @@ module Cb
         'City' => city, 
         'State' => state, 
         'Zip' => zip, 
-        'CountryCode' => country_code, 
+        'CountryCode' => country_code,
         'FirstName' => first_name, 
         'LastName' => last_name, 
         'Phone' => phone, 
         'CreatedDT' => created, 
         'Gender' => gender, 
-        'BirthDate' => birth_date)
+        'BirthDate' => birth_date,
+        'WorkStatus' => work_status)
 
         user.external_id.should == external_id
         user.user_status.should == user_status
@@ -51,6 +53,7 @@ module Cb
         user.created.should == created
         user.gender.should == gender
         user.birth_date.should == birth_date
+        user.work_status == work_status
       end
     end
 

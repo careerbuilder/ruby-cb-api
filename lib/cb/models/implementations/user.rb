@@ -5,7 +5,7 @@ module Cb
                     :province, :postal_code, :zip, :country_code, :first_name,
                     :last_name, :phone, :fax, :last_login, :created, :allow_partner_emails,
                     :allow_newsletter_emails, :allow_email_from_headhunter, :domain, :registration_path,
-                    :user_type, :gender, :birth_date, :cobrand_code, :resume_stats, :custom_values
+                    :user_type, :gender, :birth_date, :cobrand_code, :resume_stats, :custom_values, :work_status
 
       def initialize(args = {})
         return if args.nil?
@@ -39,6 +39,7 @@ module Cb
         @cobrand_code                 = args['CoBrandCode'] || ''
         @resume_stats                 = args['ResumeStats'] || ''
         @custom_values                = args['CustomValues'] || ''
+        @work_status                  = args['WorkStatus'] || ''
       end
 
       def custom_value custom_value_key
