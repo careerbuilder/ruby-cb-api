@@ -54,7 +54,7 @@ module Cb
           expect(user.created).to eq(created)
           expect(user.gender).to eq(gender)
           expect(user.birth_date).to eq(birth_date)
-          expect(user.work_status).to eq eq(work_status)
+          expect(user.work_status).to eq(work_status)
         end
       end
       
