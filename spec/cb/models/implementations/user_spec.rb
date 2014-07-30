@@ -40,21 +40,21 @@ module Cb
             'BirthDate' => birth_date,
             'WorkStatus' => work_status)
 
-          user.external_id.should == external_id
-          user.user_status.should == user_status
-          user.email.should == email
-          user.address_1.should == address_1
-          user.city.should == city
-          user.state.should == state
-          user.zip.should == zip
-          user.country_code.should == country_code
-          user.first_name.should == first_name
-          user.last_name.should == last_name
-          user.phone.should == phone
-          user.created.should == created
-          user.gender.should == gender
-          user.birth_date.should == birth_date
-          user.work_status == work_status
+          expect(user.external_id).to eq(external_id)
+          expect(user.user_status).to eq(user_status)
+          expect(user.email).to eq(email)
+          expect(user.address_1).to eq(address_1)
+          expect(user.city).to eq(city)
+          expect(user.state).to eq(state)
+          expect(user.zip).to eq(zip)
+          expect(user.country_code).to eq(country_code)
+          expect(user.first_name).to eq(first_name)
+          expect(user.last_name).to eq(last_name)
+          expect(user.phone).to eq(phone)
+          expect(user.created).to eq(created)
+          expect(user.gender).to eq(gender)
+          expect(user.birth_date).to eq(birth_date)
+          expect(user.work_status).to eq eq(work_status)
         end
       end
       
@@ -62,36 +62,36 @@ module Cb
         it 'should create an empty user' do
           user = Cb::Models::User.new
 
-          expect(user.external_id).should eq('')
-          expect(user.user_status).should eq('')
-          expect(user.password).should eq('')
-          expect(user.email).should eq('')
-          expect(user.address_1).should eq('')
-          expect(user.address_2).should eq('')
-          expect(user.city).should eq('')
-          expect(user.state).should eq('')
-          expect(user.province).should eq('')
-          expect(user.postal_code).should eq('')
-          expect(user.zip).should eq('')
-          expect(user.country_code).should eq('')
-          expect(user.first_name).should eq('')
-          expect(user.last_name).should eq('')
-          expect(user.phone).should eq('')
-          expect(user.fax).should eq('')
-          expect(user.last_login).should eq('')
-          expect(user.created).should eq('')
-          expect(user.allow_partner_emails).should eq('')
-          expect(user.allow_newsletter_emails).should eq('')
-          expect(user.allow_email_from_headhunter).should eq('')
-          expect(user.domain).should eq('')
-          expect(user.registration_path).should eq('')
-          expect(user.user_type).should eq('')
-          expect(user.gender).should eq('')
-          expect(user.birth_date).should eq('')
-          expect(user.cobrand_code).should eq('')
-          expect(user.resume_stats).should eq('')
-          expect(user.custom_values).should eq('')
-          expect(user.work_status).should eq('')
+          expect(user.external_id).to eq('')
+          expect(user.user_status).to eq('')
+          expect(user.password).to eq('')
+          expect(user.email).to eq('')
+          expect(user.address_1).to eq('')
+          expect(user.address_2).to eq('')
+          expect(user.city).to eq('')
+          expect(user.state).to eq('')
+          expect(user.province).to eq('')
+          expect(user.postal_code).to eq('')
+          expect(user.zip).to eq('')
+          expect(user.country_code).to eq('')
+          expect(user.first_name).to eq('')
+          expect(user.last_name).to eq('')
+          expect(user.phone).to eq('')
+          expect(user.fax).to eq('')
+          expect(user.last_login).to eq('')
+          expect(user.created).to eq('')
+          expect(user.allow_partner_emails).to eq('')
+          expect(user.allow_newsletter_emails).to eq('')
+          expect(user.allow_email_from_headhunter).to eq('')
+          expect(user.domain).to eq('')
+          expect(user.registration_path).to eq('')
+          expect(user.user_type).to eq('')
+          expect(user.gender).to eq('')
+          expect(user.birth_date).to eq('')
+          expect(user.cobrand_code).to eq('')
+          expect(user.resume_stats).to eq('')
+          expect(user.custom_values).to eq('')
+          expect(user.work_status).to eq('')
         end
       end
     end
