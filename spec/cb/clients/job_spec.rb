@@ -80,7 +80,7 @@ module Cb
         it { expect(grouped_jobs.job_description).to be_a Cb::Models::Job }
         it { expect(grouped_jobs.grouping_value).to eq '123321' }
         it { expect(grouped_jobs.job_count).to eq 1 }
-        it { expect(grouped_jobs.job).to eq search.model.grouped_jobs[0].job_description  }
+        it { expect(grouped_jobs.job).to eq grouped_jobs.job_description  }
 
       end
 
