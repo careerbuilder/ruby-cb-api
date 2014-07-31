@@ -67,6 +67,22 @@ module Cb
 
       end
 
+      context 'When the search returns with 1 collapsed result and CB Serialization' do
+        let(:search) {Cb.job.search(Hash.new)}
+        let(:content) {JSON.parse(File.read('spec/support/response_stubs/single_result_in_collapsed_search_with_CB_serialization.json'))}
+
+        before do
+          stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).to_return(:body => content.to_json)
+        end
+
+        it { expect(search.model).to be_a Cb::Models::CollapsedJobResults }
+        it { expect(search.model.grouped_jobs[0].job_description).to be_a Cb::Models::Job }
+        it { expect(search.model.grouped_jobs[0].grouping_value).to eq '123321' }
+        it { expect(search.model.grouped_jobs[0].job_count).to eq 1 }
+        it { expect(search.model.grouped_jobs[0].job).to eq search.model.grouped_jobs[0].job_description  }
+
+      end
+
     end
 
     describe '#find_by_criteria' do
