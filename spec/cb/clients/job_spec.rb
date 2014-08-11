@@ -17,11 +17,15 @@ module Cb
         end
       end
 
-      context 'when the search returns nil' do
+      context 'when the search returns a location conflict' do
         before(:each) do
           content = { ResponseJobSearch: {
-                      'Request' => {
-                          'JobSearchResult' => nil
+                      'Results' => {
+                          'LocationConflict' => {
+                            'Location' => 'Atlantica Aeneas Hotel, CY',
+                            'Location' => 'Atlantica Miramare Beach, CY',
+                            'Location' => 'Atlantica Sungarden Beach Hotel, CY'
+                          }
                         }
                       }
                     }
