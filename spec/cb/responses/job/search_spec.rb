@@ -4,16 +4,12 @@ module Cb
   describe Responses::Job::Search do
     let(:json_hash) do
       {
-          'ResponseJobSearch' => {
-              'Request' => {},
-              'Status' => 'Success'
-          }
+          'ResponseJobSearch' => nil
       }
     end
 
     context 'when input response hash cannot be validated due to' do
       context 'nil job_hashes' do
-        let(:json_hash) do { 'yey' =>  nil } end
 
         it 'raises an error' do
           expect { Responses::Job::Search.new(json_hash) }.
