@@ -71,6 +71,19 @@ module Cb
         my_api.append_api_responses(jobs, json_hash)
       end
 
+      def self.for_resume(oauth_token, resume_hash)
+        json_hash = oauth_token.get(Cb.configuration.uri_recommendation_for_resume, :query => {:resume_hash => resume_hash})
+        jobs = []
+        if json_hash.has_key?('Data')
+          if json_hash['Data'].has_key?('Results')
+            json_hash['Data']['Results'].each do |cur_job|
+              jobs << Models::recommended_job.new(cur_job)
+            end
+          end
+        end
+        jobs
+      end
+
       private
 
       def self.normalize_args(args)
