@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Cb::Models
   describe RecommendedJob do
-    describe '#initialize' do
+    describe '#new' do
       context 'When ApplyRequirements hash is containd in the hash passed into the constructor' do
         let(:job_hash) do
           { 'ApplyRequirements' => { 'ApplyRequirement' => 'noonlineapply' }}

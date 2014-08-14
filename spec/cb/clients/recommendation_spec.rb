@@ -74,18 +74,16 @@ module Cb
     end
 
     context '.for_resume' do
-      let(:content) {JSON.parse(File.read('spec/support/response_stubs/recommendations_for_resume.json'))}
-      let(:token) {Mocks::OAuthToken.new(content)}
-      let(:rec_call) {Cb.recommendation.for_resume(token, Hash.new)}
-      let(:resume_hash) {Hash.new}
-      let(:url) {Cb.configuration.uri_recommendation_for_resume}
-      before do
+      let(:content) { JSON.parse(File.read('spec/support/response_stubs/recommendations_for_resume.json')) }
+      let(:token) { Mocks::OAuthToken.new(content) }
+      let(:rec_call) { Cb.recommendation.for_resume(token, Hash.new) }
+      let(:resume_hash) { Hash.new }
+      let(:url) { Cb.configuration.uri_recommendation_for_resume }
 
-      end
-      it{ expect(rec_call.results).to be_a Array}
-      it{ expect(rec_call.results.length).to eq(2)}
-      it{ expect(rec_call.results[0]).to be_a Cb::Models::RecommendedJob}
-      it{ expect(rec_call.results[0].id).to eq('J3F3G46BMCZP88L6MSN')}
+      it{ expect(rec_call.results).to be_a Array }
+      it{ expect(rec_call.results.length).to eq(2) }
+      it{ expect(rec_call.results[0]).to be_a Cb::Models::RecommendedJob }
+      it{ expect(rec_call.results[0].id).to eq('J3F3G46BMCZP88L6MSN') }
     end
   end
 end
