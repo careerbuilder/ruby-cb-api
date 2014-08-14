@@ -17,6 +17,29 @@ module Cb
         end
       end
 
+      context 'when the search returns a location conflict' do
+        before(:each) do
+          content = { ResponseJobSearch: {
+                      'Results' => {
+                          'LocationConflict' => {
+                            'Location' => 'Atlantica Aeneas Hotel, CY',
+                            'Location' => 'Atlantica Miramare Beach, CY',
+                            'Location' => 'Atlantica Sungarden Beach Hotel, CY'
+                          }
+                        }
+                      }
+                    }
+
+          stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).
+              to_return(body: content.to_json)
+        end
+
+        it 'returns an empty array' do
+          response = Cb.job.search(Hash.new)
+          response.model.jobs.count.should == 0
+        end
+      end
+
       context 'when the search returns with results' do
         before(:each) do
           content = { ResponseJobSearch: {
