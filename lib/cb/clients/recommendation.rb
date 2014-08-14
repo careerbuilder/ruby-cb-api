@@ -73,7 +73,7 @@ module Cb
 
       def self.for_resume(oauth_token, resume_hash)
         json_hash = oauth_token.get(Cb.configuration.uri_recommendation_for_resume, :query => {:resume_hash => resume_hash})
-        oauth_recs_to_jobs(json_hash)
+        Models::Recommendations.new(json_hash)
       end
 
       private
@@ -105,17 +105,6 @@ module Cb
         jobs
       end
 
-      def self.oauth_recs_to_jobs(api_response)
-        jobs = []
-        if api_response.has_key?('data')
-          if api_response['data'].has_key?('results')
-            api_response['data']['results'].each do |cur_job|
-              jobs << Models::RecommendedJob.new(cur_job)
-            end
-          end
-        end
-        jobs
-      end
     end
   end
 end

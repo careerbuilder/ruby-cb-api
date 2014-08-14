@@ -7,12 +7,8 @@ module Cb
                   :matcher_id, :pay, :categories, :apply_requirements,
                   :skills, :posted
 
-      def initialize(args={})
-        super(args)
-      end
-
       def required_fields
-        []
+        [id, job_title]
       end
 
       def set_model_properties

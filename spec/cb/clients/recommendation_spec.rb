@@ -82,9 +82,10 @@ module Cb
       before do
 
       end
-      it{ expect(rec_call).to be_a Array}
-      it{ expect(rec_call.length).to eq(2)}
-      it{ expect(rec_call[0]).to be_a Cb::Models::RecommendedJob}
+      it{ expect(rec_call.results).to be_a Array}
+      it{ expect(rec_call.results.length).to eq(2)}
+      it{ expect(rec_call.results[0]).to be_a Cb::Models::RecommendedJob}
+      it{ expect(rec_call.results[0].id).to eq('J3F3G46BMCZP88L6MSN')}
     end
   end
 end
