@@ -3,10 +3,6 @@ module Cb
     module Recommendation
       class Recommendations < ApiResponse
 
-        def required_fields
-          [results, search_metadata]
-        end
-
         def validate_api_hash
           required_response_field(root_node, response)
           required_response_field('results', response[root_node])
