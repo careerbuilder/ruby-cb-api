@@ -79,6 +79,7 @@ module Cb
       let(:rec_call) { Cb.recommendation.for_resume(token, Hash.new) }
       let(:resume_hash) { Hash.new }
       let(:url) { Cb.configuration.uri_recommendation_for_resume }
+
       it{ expect(rec_call.model).to be_a Array }
       it{ expect(rec_call.model.length).to eq(2) }
       it{ expect(rec_call.model[0]).to be_a Cb::Models::RecommendedJob }

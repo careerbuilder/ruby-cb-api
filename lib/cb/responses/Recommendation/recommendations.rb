@@ -9,6 +9,7 @@ module Cb
 
         def validate_api_hash
           required_response_field(root_node, response)
+          required_response_field('results', response[root_node])
         end
 
         def hash_containing_metadata
@@ -17,16 +18,7 @@ module Cb
 
 
         def extract_models
-          args = response
-          @results = []
-          if args.has_key?('data')
-            if args['data'].has_key?('results')
-              args['data']['results'].each do |cur_job|
-                @results << Models::RecommendedJob.new(cur_job)
-              end
-            end
-          end
-          @results
+          response[root_node]['results'].map { |cur_job| Models::RecommendedJob.new(cur_job) }
         end
 
         def root_node
