@@ -73,7 +73,7 @@ module Cb
 
       def self.for_resume(oauth_token, resume_hash)
         json_hash = oauth_token.get(Cb.configuration.uri_recommendation_for_resume, :query => {:resume_hash => resume_hash})
-        Models::Recommendations.new(json_hash)
+        Responses::Recommendation::Recommendations.new(json_hash)
       end
 
       private
