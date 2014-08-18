@@ -30,24 +30,49 @@ module Cb
     end
 
     context '.update' do
-      before :each do
-        stub_request(:put, uri_stem(Cb.configuration.uri_saved_search_update)).
-          with(:body => anything,
-               :headers => {"developerkey" => Cb.configuration.dev_key, "Content-Type" => "application/json"}).
-          to_return(:body => { Errors: nil, Results: [{ SavedSearchParameters: Hash.new }] }.to_json)
+      context 'with host_site passed in the request header' do
+        before do
+          stub_request(:put, uri_stem(Cb.configuration.uri_saved_search_update)).
+            with(:body => anything,
+                 :headers => {"developerkey" => Cb.configuration.dev_key, "Content-Type" => "application/json", "HostSite" => 'GR' }).
+            to_return(:body => { Errors: nil, Results: [{ SavedSearchParameters: Hash.new }] }.to_json)
+        end
+
+        it 'should update the saved search created in this test' do
+          external_id = 'DID'
+          oauth = '123412341234'
+          email_frequency = 'None'
+          search_name = 'Fake Job Search Update'
+          model = Models::SavedSearch.new({'IsDailyEmail' => email_frequency,
+                                           'DID' => external_id, 'SearchName' => search_name,
+                                           'HostSite' => 'GR', 'userOAuthToken' => oauth})
+
+          response = Cb.saved_search.new.update(model)
+          response.model.class.should eq Models::SavedSearch
+        end
       end
 
-      it 'should update the saved search created in this test' do
-        external_id = 'DID'
-        oauth = '123412341234'
-        email_frequency = 'None'
-        search_name = 'Fake Job Search Update'
-        model = Models::SavedSearch.new({'IsDailyEmail' => email_frequency,
-                                         'DID' => external_id, 'SearchName' => search_name,
-                                         'HostSite' => @host_site, 'userOAuthToken' => oauth})
+      context 'with no host_site passed in the request header' do
+        before do
+          stub_request(:put, uri_stem(Cb.configuration.uri_saved_search_update)).
+              with(:body => anything,
+                   :headers => {"developerkey" => Cb.configuration.dev_key, "Content-Type" => "application/json", "HostSite" => 'US' }).
+              to_return(:body => { Errors: nil, Results: [{ SavedSearchParameters: Hash.new }] }.to_json)
+        end
 
-        response = Cb.saved_search.new.update(model)
-        response.model.class.should eq Models::SavedSearch
+        it 'should update the saved search created in this test' do
+          external_id = 'DID'
+          oauth = '123412341234'
+          email_frequency = 'None'
+          search_name = 'update_headers(saved_search.host_site)Fake Job Search Update'
+          model = Models::SavedSearch.new({'IsDailyEmail' => email_frequency,
+                                           'DID' => external_id, 'SearchName' => search_name,
+                                           'HostSite' => nil, 'userOAuthToken' => oauth})
+
+
+          response = Cb.saved_search.new.update(model)
+          response.model.class.should eq Models::SavedSearch
+        end
       end
     end
 
