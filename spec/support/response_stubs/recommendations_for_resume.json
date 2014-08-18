@@ -1,0 +1,89 @@
+{
+    "data":{
+        "results":[
+            {
+                "id":"J3F3G46BMCZP88L6MSN",
+                "job_title":"REMOTE: Sr .Net Developer",
+                "city":"Alpharetta",
+                "admin_area_1":"GA",
+                "latitude":34.0843,
+                "longitude":-84.2249,
+                "company_name":"",
+                "company_id":"",
+                "job_details_url":"http://api.careerbuilder.com/v1/joblink/?DID=J3F3G46BMCZP88L6MSN&TrackingID=&HostSite=US",
+                "employment_type":"Full-Time",
+                "education_required":"Not Specified",
+                "experience_required":"Not Specified",
+                "matcher_id":"CX",
+                "pay":"N/A",
+                "categories":[
+                    "JN020",
+                    "JN008"
+                ],
+                "apply_requirements":[
+                    "CanBulkApply"
+                ],
+                "skills":[
+                    "c-sharp",
+                    "firebug",
+                    "ado.net",
+                    "javascript",
+                    "jquery",
+                    "asp.net",
+                    "Chrome",
+                    "workflow",
+                    "sql",
+                    "c++"
+                ],
+                "posted":"2014-08-01T00:00:00"
+            },
+            {
+                "id":"JHV5BL6PJWB3PDHQK7R",
+                "job_title":".NET Developer",
+                "city":"Atlanta",
+                "admin_area_1":"GA",
+                "latitude":33.74831,
+                "longitude":-84.39111,
+                "company_name":"Visionaire Partners",
+                "company_id":"chq2zv70wt1b3g3f5df",
+                "job_details_url":"http://api.careerbuilder.com/v1/joblink/?DID=JHV5BL6PJWB3PDHQK7R&TrackingID=&HostSite=US",
+                "employment_type":"Full-Time",
+                "education_required":"Not Specified",
+                "experience_required":"Not Specified",
+                "matcher_id":"CX",
+                "pay":"N/A",
+                "categories":[
+                    "JN008"
+                ],
+                "apply_requirements":[
+                    "HasAOReview"
+                ],
+                "skills":[
+                    "c-sharp",
+                    "microsoft sharepoint",
+                    "asp.net",
+                    "java (programming language)",
+                    "sql"
+                ],
+                "posted":"2014-08-06T00:00:00"
+            }
+        ]
+    },
+    "search_metadata":{
+        "results_altered_by_users_search_preferences":false,
+        "search_locations":[
+            {
+                "city":"Atlanta",
+                "admin_area_1":"GA",
+                "country_code":"US",
+                "radius":"30",
+                "postal_code":"",
+                "valid":true
+            }
+        ],
+        "top_classified_job_title":"Front End Developer 2170",
+        "geo_search_enabled":true,
+        "geo_search_filtered":true,
+        "results_are_grouped":true
+    }
+}
