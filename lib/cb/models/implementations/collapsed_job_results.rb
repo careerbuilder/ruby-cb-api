@@ -5,7 +5,7 @@ module Cb
       def initialize(args_hash)
         @args_hash = args_hash
         @last_item_index = args_hash['LastItemIndex']
-        @search_location = args_hash['SearchMetaData']['SearchLocations']['SearchLocation'] rescue nil
+        @search_location = [args_hash['SearchMetaData']['SearchLocations']['SearchLocation']].flatten.first rescue nil
         @grouping_parameter = args_hash['GroupedJobSearchResults']['GroupingParameter']
         @grouped_jobs = extract_collapsed_jobs(Cb::Utils::ResponseArrayExtractor.extract(args_hash['GroupedJobSearchResults'],
                                                                                          'SearchResults', 'JobSearchResultsGroup'))
