@@ -30,9 +30,9 @@ module Cb::Models
             ]
           end
 
-          it 'sets search_location to the first one' do
+          it 'sets search_location to the array of them' do
             results = JobResults.new(results_hash, {})
-            expect(results.search_location).to eq search_location[0]
+            expect(results.search_location).to eq search_location
           end
         end
       end

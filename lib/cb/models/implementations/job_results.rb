@@ -10,7 +10,7 @@ module Cb
         @city = args_hash['City']
         @state_code = args_hash['StateCode']
         @postal_code = args_hash['PostalCode']
-        @search_location = [args_hash['SearchMetaData']['SearchLocations']['SearchLocation']].flatten.first rescue nil
+        @search_location = args_hash['SearchMetaData']['SearchLocations']['SearchLocation'] rescue nil
       end
 
       private
