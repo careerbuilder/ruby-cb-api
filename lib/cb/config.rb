@@ -77,7 +77,7 @@ module Cb
       @uri_tn_join_form_geo               ||= '/tn/JoinForm/Geo'
       @uri_tn_join_form_branding          ||= '/talentnetwork/config/layout/branding'
       @uri_tn_member_create               ||= '/talentnetwork/member/create'
-      @uri_subscription_retrieve          ||= '/v1/user/subscription/retrieve'
+      @uri_subscription_retrieve          ||= '/v1/user/subscription/retrieve?version=v2'
       @uri_subscription_modify            ||= '/v1/user/subscription?version=v2'
       @uri_saved_job_search_create        ||= '/v2/savedsearch/create'
       @uri_spot_retrieve                  ||= '/v2/spot/load'
