@@ -10,7 +10,7 @@ module Cb
 
       def update(saved_search)
         body = saved_search.update_to_json
-        json = cb_client.cb_put(Cb.configuration.uri_saved_search_update, body: body, headers: headers)
+        json = cb_client.cb_put(Cb.configuration.uri_saved_search_update, body: body, headers: update_headers(saved_search.host_site))
         Responses::SavedSearch::Update.new(json)
       end
 
@@ -41,10 +41,11 @@ module Cb
 
       private
 
-      def headers
+      def update_headers host_site
         {
             "developerkey" => Cb.configuration.dev_key,
-            'Content-Type' => "application/json"
+            'Content-Type' => "application/json",
+            'HostSite' => ( host_site.blank? ? Cb.configuration.host_site : host_site )
         }
       end
 

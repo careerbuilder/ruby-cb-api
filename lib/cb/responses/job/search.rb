@@ -32,6 +32,8 @@ module Cb
 
           if hashes.is_a?(Array)
             hashes
+          elsif hashes.nil?
+            []
           else
             [hashes]
           end

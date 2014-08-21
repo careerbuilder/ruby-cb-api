@@ -1,0 +1,16 @@
+{
+    "ResponseJobSearch": {
+        "GroupedJobSearchResults": {
+            "SearchResults": {
+                "JobSearchResultsGroup":{
+                    "NumberJobsInGroup": 1,
+                    "GroupingValue": "123321",
+                    "GroupedSearchResults": {
+                        "JobSearchResult": {}
+                    }
+                }
+
+            }
+        }
+    }
+}

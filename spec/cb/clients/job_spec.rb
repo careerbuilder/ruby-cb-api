@@ -17,6 +17,29 @@ module Cb
         end
       end
 
+      context 'when the search returns a location conflict' do
+        before(:each) do
+          content = { ResponseJobSearch: {
+                      'Results' => {
+                          'LocationConflict' => {
+                            'Location' => 'Atlantica Aeneas Hotel, CY',
+                            'Location' => 'Atlantica Miramare Beach, CY',
+                            'Location' => 'Atlantica Sungarden Beach Hotel, CY'
+                          }
+                        }
+                      }
+                    }
+
+          stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).
+              to_return(body: content.to_json)
+        end
+
+        it 'returns an empty array' do
+          response = Cb.job.search(Hash.new)
+          response.model.jobs.count.should == 0
+        end
+      end
+
       context 'when the search returns with results' do
         before(:each) do
           content = { ResponseJobSearch: {
@@ -64,6 +87,23 @@ module Cb
         it { expect(search.model.grouped_jobs[0].grouping_value).to eq '123321' }
         it { expect(search.model.grouped_jobs[0].job_count).to eq 1 }
         it { expect(search.model.grouped_jobs[0].job).to eq search.model.grouped_jobs[0].job_description  }
+
+      end
+
+      context 'When the search returns with 1 collapsed result and CB Serialization' do
+        let(:search) {Cb.job.search(Hash.new)}
+        let(:content) {JSON.parse(File.read('spec/support/response_stubs/single_result_in_collapsed_search_with_CB_serialization.json'))}
+        let(:grouped_jobs) { search.model.grouped_jobs[0]}
+
+        before do
+          stub_request(:get, uri_stem(Cb.configuration.uri_job_search)).to_return(:body => content.to_json)
+        end
+
+        it { expect(search.model).to be_a Cb::Models::CollapsedJobResults }
+        it { expect(grouped_jobs.job_description).to be_a Cb::Models::Job }
+        it { expect(grouped_jobs.grouping_value).to eq '123321' }
+        it { expect(grouped_jobs.job_count).to eq 1 }
+        it { expect(grouped_jobs.job).to eq grouped_jobs.job_description  }
 
       end
 

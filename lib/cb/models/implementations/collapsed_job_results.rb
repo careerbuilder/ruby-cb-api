@@ -7,7 +7,8 @@ module Cb
         @last_item_index = args_hash['LastItemIndex']
         @search_location = args_hash['SearchMetaData']['SearchLocations']['SearchLocation'] rescue nil
         @grouping_parameter = args_hash['GroupedJobSearchResults']['GroupingParameter']
-        @grouped_jobs = extract_collapsed_jobs(args_hash['GroupedJobSearchResults']['SearchResults']['JobSearchResultsGroup'])
+        @grouped_jobs = extract_collapsed_jobs(Cb::Utils::ResponseArrayExtractor.extract(args_hash['GroupedJobSearchResults'],
+                                                                                         'SearchResults', 'JobSearchResultsGroup'))
         @total_pages = args_hash['TotalPages']
         @total_count = args_hash['TotalCount']
         @first_item_index = args_hash['FirstItemIndex']
