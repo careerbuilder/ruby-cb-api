@@ -83,12 +83,6 @@ module Cb
       end
     end
 
-    context '#email_subscription' do
-      it 'returns the email subscription api client class' do
-        expect_method_to_return_class(:email_subscription, Cb::Clients::EmailSubscription)
-      end
-    end
-
     context '#employee_types' do
       it 'returns the email subscription api client class' do
         expect_method_to_return_class(:employee_types, Cb::Clients::EmployeeTypes)
