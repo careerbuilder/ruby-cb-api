@@ -6,7 +6,8 @@ module Cb
                     :industry_codes, :manages_others_code,
                     :contact_email_url, :contact_fax, :contact_name, :contact_phone,
                     :company_name, :company_did, :company_details_url, :company_image_url, :company,
-                    :description_teaser, :external_apply_url, :job_tracking_url, :location, :distance, :latitude, :longitude, :location_formatted,
+                    :description_teaser, :external_apply_url, :job_tracking_url, 
+                    :location, :distance, :latitude, :longitude, :location_formatted, :location_metro_city,
                     :description, :requirements, :employment_type,
                     :details_url, :service_url, :similar_jobs_url, :apply_url,
                     :begin_date, :end_date, :posted_date,
@@ -14,7 +15,7 @@ module Cb
                     :can_be_quick_applied, :apply_requirements,
                     :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id,
                     :manages_others_string,
-                    :degree_required_code, :travel_required_code, :employment_type_code
+                    :degree_required_code, :travel_required_code, :employment_type_code, :experience_required_code
 
       attr_writer   :external_application, :is_screener_apply,
                     :is_shared_job,
@@ -92,6 +93,7 @@ module Cb
         @location_street_1            = args['LocationStreet1'] || ''
         @location_street_2            = args['LocationStreet2'] || ''
         @location_formatted           = args['LocationFormatted'] || ''
+        @location_metro_city          = args['LocationMetroCity'] || ''
 
         # Job Skin Related
         @job_skin                     = args.has_key?("JobSkin") && !args["JobSkin"].nil? ? args['JobSkin']['#cdata-section'] : ''
