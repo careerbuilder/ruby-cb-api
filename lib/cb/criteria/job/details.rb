@@ -4,7 +4,7 @@ module Cb
       class Details
         extend Cb::Utils::FluidAttributes
 
-        fluid_attr_accessor :did, :show_job_skin, :site_id, :lhs, :cobrand, :show_apply_requirements, :show_custom_values
+        fluid_attr_accessor :did, :show_job_skin, :site_id, :lhs, :cobrand, :show_apply_requirements, :show_custom_values, :retrieve_onet_code
       end
     end
   end
