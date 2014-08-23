@@ -15,7 +15,7 @@ module Cb
                     :can_be_quick_applied, :apply_requirements,
                     :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id,
                     :manages_others_string,
-                    :degree_required_code, :travel_required_code, :employment_type_code, :experience_required_code
+                    :degree_required_code, :travel_required_code, :employment_type_code
 
       attr_writer   :external_application, :is_screener_apply,
                     :is_shared_job,
@@ -124,7 +124,6 @@ module Cb
         @degree_required              = args['DegreeRequired'] || ''
         @degree_required_code         = args['DegreeRequiredCode'] || ''
         @experience_required          = args['ExperienceRequired'] || ''
-        @experience_required_code     = args['ExperienceRequiredCode'] || ''
         @travel_required              = args['TravelRequired'] || ''
         @travel_required_code         = args['TravelRequiredCode'] || ''
         @relocation_covered           = args['RelocationCovered'] || ''
