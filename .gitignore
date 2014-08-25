@@ -15,3 +15,5 @@ Gemfile.lock
 .env
 .yardoc
 doc/
+.ruby-version
+.ruby-gemset
