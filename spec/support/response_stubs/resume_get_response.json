@@ -1,0 +1,94 @@
+{
+
+    "TotalResults": 1,
+    "ReturnedResults": 1,
+    "Results": [
+        {
+            "userIdentifier": "userID",
+            "resumeHash": "hashMe",
+            "desiredJobTitle": "master of everything",
+            "privacySetting": "Public",
+            "workExperience": [
+                {
+                    "jobTitle": "Hair Stylist and Colorist",
+                    "companyName": "Swan Beauty Parlor",
+                    "employmentType": "ETNS",
+                    "startDate": "2009-09-01T00:00:00",
+                    "endDate": "2014-08-25T00:00:00",
+                    "currentlyEmployedHere": true
+                },
+                {
+                    "jobTitle": "Hair Stylist",
+                    "companyName": "Sweet Dreams Beauty Salon",
+                    "employmentType": "ETNS",
+                    "startDate": "2008-06-01T00:00:00",
+                    "endDate": "2009-09-01T00:00:00",
+                    "currentlyEmployedHere": false
+                },
+                {
+                    "jobTitle": "Assistant/Receptionist",
+                    "companyName": "Oak Park Beauty",
+                    "employmentType": "ETNS",
+                    "startDate": "2006-09-01T00:00:00",
+                    "endDate": "2008-06-01T00:00:00",
+                    "currentlyEmployedHere": false
+                },
+                {
+                    "jobTitle": "Lead role",
+                    "companyName": "The Sound of Music",
+                    "employmentType": "ETNS",
+                    "startDate": "2007-03-01T00:00:00",
+                    "endDate": "2007-05-31T00:00:00",
+                    "currentlyEmployedHere": false
+                },
+                {
+                    "jobTitle": "",
+                    "companyName": "Child Cancer Research",
+                    "employmentType": "ETNS",
+                    "startDate": "2006-03-01T00:00:00",
+                    "endDate": "2006-05-31T00:00:00",
+                    "currentlyEmployedHere": false
+                }
+            ],
+            "salaryInformation": {
+                "mostRecentPayAmount": 0,
+                "PerHourOrPerYear": "",
+                "CurrencyCode": "",
+                "annualBonus": 0,
+                "annualCommission": 0,
+                "jobTitle": ""
+            },
+            "educations": [
+                {
+                    "schoolName": "ABC School of Hair Design Cosmetology",
+                    "majorOrProgram": "",
+                    "degree": "CE3",
+                    "graduationDate": "2008-05-01T00:00:00"
+                },
+                {
+                    "schoolName": "Oak Park River Forest High School",
+                    "majorOrProgram": "Not Applicable",
+                    "degree": "CE31",
+                    "graduationDate": "2007-05-01T00:00:00"
+                }
+            ],
+            "skillsAndQualifications": {
+                "accreditationsAndCertifications": "",
+                "languagesSpoken": [
+                    ""
+                ],
+                "managementExperience": false,
+                "sizeOfTeamManaged": 0
+            },
+            "relocations": [ ],
+            "governmentAndMilitary": {
+                "securityClearance": false,
+                "militaryExperience": ""
+            }
+        }
+    ],
+    "Errors": [ ],
+    "Timestamp": "2014-08-26T10:29:32.8536064-04:00",
+    "Status": "Success"
+
+}
