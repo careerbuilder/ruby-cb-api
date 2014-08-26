@@ -11,9 +11,9 @@ module Cb
       end
 
       it {expect(resume_get_call).to be_a Responses::Resumes::ResumeGet}
-      it {expect(resume_get_call.model).to be_a Cb::Models::Resume}
-      it {expect(resume_get_call.model.user_identifier).to eq('userID')}
-      it {expect(resume_get_call.model.resume_hash).to eq('hashMe')}
+      it {expect(resume_get_call.model[0]).to be_a Cb::Models::Resume}
+      it {expect(resume_get_call.model[0].user_identifier).to eq 'userID'}
+      it {expect(resume_get_call.model[0].resume_hash).to eq 'hashMe'}
     end
   end
 end
