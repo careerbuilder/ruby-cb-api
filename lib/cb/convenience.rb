@@ -77,6 +77,10 @@ module Cb
       def spot
         Cb::Clients::Spot
       end
+
+      def resumes
+        Cb::Clients::Resumes
+      end
       
     end
   end
