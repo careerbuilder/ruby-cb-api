@@ -80,7 +80,13 @@
                 "managementExperience": false,
                 "sizeOfTeamManaged": 0
             },
-            "relocations": [ ],
+            "relocations": [
+                {
+                    "city": "duluth",
+                    "stateProvince": "GA",
+                    "country": "US"
+                }
+            ],
             "governmentAndMilitary": {
                 "securityClearance": false,
                 "militaryExperience": ""

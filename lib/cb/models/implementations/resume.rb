@@ -44,11 +44,13 @@ module Cb
       end
 
       def extract_relocations
-
+        api_response['relocations'].collect do |relocation|
+          Resumes::Relocation.new(relocation)
+        end
       end
 
       def extract_government_and_military
-
+        Resumes::GovernmentAndMilitary.new(api_response['governmentAndMilitary'])
       end
     end
   end
