@@ -8,15 +8,15 @@ module Cb
         def set_model_properties
           args = api_response
           @most_recent_pay_amount = args['mostRecentPayAmount']
-          @per_hour_or_per_year = args['perHourOrPerYear']
-          @currency_code = args['currencyCode']
+          @per_hour_or_per_year = args['PerHourOrPerYear']
+          @currency_code = args['CurrencyCode']
           @job_title = args['jobTitle']
           @annual_bonus = args['annualBonus']
           @annual_commission = args['annualCommission']
         end
 
         def required_fields
-          []
+          ['PerHourOrPerYear', 'mostRecentPayAmount']
         end
       end
     end

@@ -34,7 +34,9 @@ module Cb
       end
 
       def extract_educations
-
+        api_response['educations'].collect do |education|
+          Resumes::Education.new(education)
+        end
       end
 
       def extract_skills_and_qualifications
