@@ -18,10 +18,12 @@ module Cb
       it {expect(model.work_experience).to be_an Array}
       it {expect(model.work_experience[0]).to be_a Cb::Models::Resumes::WorkExperience}
       it {expect(model.salary_information).to be_a Cb::Models::Resumes::SalaryInformation}
-      it {expect(model.educations).to be_a Array}
+      it {expect(model.educations).to be_an Array}
       it {expect(model.educations[0]).to be_a Cb::Models::Resumes::Education}
       it {expect(model.skills_and_qualifications).to be_a Cb::Models::Resumes::SkillsAndQualifications}
-      it {expect(model.relocations).to be_a Array}
+      it {expect(model.skills_and_qualifications.languages_spoken).to be_an Array}
+      it {expect(model.skills_and_qualifications.languages_spoken[0]).to be_a String}
+      it {expect(model.relocations).to be_an Array}
       it {expect(model.relocations[0]).to be_a Cb::Models::Resumes::Relocation}
       it {expect(model.government_and_military).to be_a Cb::Models::Resumes::GovernmentAndMilitary}
     end

@@ -40,7 +40,7 @@ module Cb
       end
 
       def extract_skills_and_qualifications
-
+        Resumes::SkillsAndQualifications.new(api_response['skillsAndQualifications'])
       end
 
       def extract_relocations
