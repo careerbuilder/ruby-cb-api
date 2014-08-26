@@ -7,7 +7,7 @@ module Cb
       let(:resume_get_call) {Cb.resumes.getOneByHash(Hash.new)}
 
       it {expect(resume_get_call).to be_a Responses::ResumeGet}
-      it {expect(resume_get_tcall.model).to be_a Cb::Models::Resume}
+      it {expect(resume_get_call.model).to be_a Cb::Models::Resume}
       it {expect(resume_get_call.model.user_identifier).to eq('userID')}
       it {expect(resume_get_call.model.resume_hash).to eq('hashMe')}
     end
