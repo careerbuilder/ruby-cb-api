@@ -24,33 +24,45 @@ module Cb
 
       private
       def extract_work_experience
-        api_response['workExperience'].collect do |experience|
-          Resumes::WorkExperience.new(experience)
+        if !api_response['workExperience'].nil?
+          api_response['workExperience'].collect do |experience|
+            Resumes::WorkExperience.new(experience)
+          end
         end
       end
 
       def extract_salary_information
-        Resumes::SalaryInformation.new(api_response['salaryInformation'])
+        if(!api_response['salaryInformation'].nil?)
+          Resumes::SalaryInformation.new(api_response['salaryInformation'])
+        end
       end
 
       def extract_educations
-        api_response['educations'].collect do |education|
-          Resumes::Education.new(education)
+        if !api_response['educations'].nil?
+          api_response['educations'].collect do |education|
+            Resumes::Education.new(education)
+          end
         end
       end
 
       def extract_skills_and_qualifications
-        Resumes::SkillsAndQualifications.new(api_response['skillsAndQualifications'])
+        if !api_response['skillsAndQualifications'].nil?
+          Resumes::SkillsAndQualifications.new(api_response['skillsAndQualifications'])
+        end
       end
 
       def extract_relocations
-        api_response['relocations'].collect do |relocation|
-          Resumes::Relocation.new(relocation)
+        if !api_response['relocations'].nil?
+          api_response['relocations'].collect do |relocation|
+            Resumes::Relocation.new(relocation)
+          end
         end
       end
 
       def extract_government_and_military
-        Resumes::GovernmentAndMilitary.new(api_response['governmentAndMilitary'])
+        if !api_response['governmentAndMilitary'].nil?
+          Resumes::GovernmentAndMilitary.new(api_response['governmentAndMilitary'])
+        end
       end
     end
   end
