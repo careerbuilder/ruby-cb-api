@@ -2,16 +2,16 @@ module Cb
   module Models
     module Resumes
       class GovernmentAndMilitary < ApiResponseModel
-        attr_accessor :security_clearance, :military_experience
+        attr_accessor :has_security_clearance, :military_experience
 
         def set_model_properties
           args = api_response
-          @security_clearance = args['securityClearance']
+          @has_security_clearance = args['hasSecurityClearance']
           @military_experience = args['militaryExperience']
         end
 
         def required_fields
-          ['securityClearance', 'militaryExperience']
+          ['hasSecurityClearance', 'militaryExperience']
         end
       end
     end

@@ -36,11 +36,11 @@ module CB
 
       context 'When APIResponse has skills and qualifications' do
         let(:resume_hash) do
-          {'skillsAndQualifications' => {'accreditationsAndCirtifications' => 'skillz'},
+          {'skillsAndQualifications' => {'accreditationsAndCertifications' => 'skillz'},
            'userIdentifier' => 'user'}
         end
 
-        it {expect(resume.skills_and_qualifications.accreditations_and_cirtifications).to eq 'skillz'}
+        it {expect(resume.skills_and_qualifications.accreditations_and_certifications).to eq 'skillz'}
         context 'and when it has a language in its skills' do
           before do
             resume_hash['skillsAndQualifications'].merge!({'languagesSpoken' => ['english']})
@@ -52,22 +52,22 @@ module CB
 
       context 'When APIResponse has Relocation' do
         let(:resume_hash) do
-          {'relocations' => [{'city' => 'city', 'stateProvince' => 'state', 'country' => 'country'}],
+          {'relocations' => [{'city' => 'city', 'adminArea' => 'st', 'countryCode' => 'co'}],
            'userIdentifier' => 'user'}
         end
 
         it {expect(resume.relocations[0].city).to eq 'city'}
-        it {expect(resume.relocations[0].state_province).to eq 'state'}
-        it {expect(resume.relocations[0].country).to eq 'country'}
+        it {expect(resume.relocations[0].admin_area).to eq 'st'}
+        it {expect(resume.relocations[0].country_code).to eq 'co'}
       end
 
-      context 'When APIResponse has education' do
+      context 'When APIResponse has government and military' do
         let(:resume_hash) do
-          {'governmentAndMilitary' => {'securityClearance' => true, 'militaryExperience' => 'army'},
+          {'governmentAndMilitary' => {'hasSecurityClearance' => true, 'militaryExperience' => 'army'},
            'userIdentifier' => 'user'}
         end
 
-        it {expect(resume.government_and_military.security_clearance).to eq true}
+        it {expect(resume.government_and_military.has_security_clearance).to eq true}
         it {expect(resume.government_and_military.military_experience).to eq 'army'}
       end
     end

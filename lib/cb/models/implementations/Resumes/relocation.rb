@@ -2,17 +2,17 @@ module Cb
   module Models
     module Resumes
       class Relocation < ApiResponseModel
-        attr_accessor :city, :state_province, :country
+        attr_accessor :city, :admin_area, :country_code
 
         def set_model_properties
           args = api_response
           @city = args['city']
-          @state_province = args['stateProvince']
-          @country = args['country']
+          @admin_area = args['adminArea']
+          @country_code = args['countryCode']
         end
 
         def required_fields
-          ['city', 'stateProvince', 'country']
+          ['city', 'adminArea', 'countryCode']
         end
       end
     end

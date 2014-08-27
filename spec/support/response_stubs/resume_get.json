@@ -77,24 +77,23 @@
                 "languagesSpoken": [
                     "english"
                 ],
-                "managementExperience": false,
+                "hasManagementExperience": false,
                 "sizeOfTeamManaged": 0
             },
             "relocations": [
                 {
-                    "city": "duluth",
-                    "stateProvince": "GA",
-                    "country": "US"
-                }
-            ],
+                    "city": "city",
+                    "adminArea": "st",
+                    "countryCode": "co"
+                }],
             "governmentAndMilitary": {
-                "securityClearance": false,
+                "hasSecurityClearance": false,
                 "militaryExperience": ""
             }
         }
     ],
     "Errors": [ ],
-    "Timestamp": "2014-08-26T10:29:32.8536064-04:00",
+    "Timestamp": "2014-08-27T13:18:14.5606365-04:00",
     "Status": "Success"
 
 }
