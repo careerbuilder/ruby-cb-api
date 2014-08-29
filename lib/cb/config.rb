@@ -82,7 +82,7 @@ module Cb
       @uri_saved_job_search_create        ||= '/v2/savedsearch/create'
       @uri_spot_retrieve                  ||= '/v2/spot/load'
       @uri_work_status_list               ||= '/v1/resume/workstatuslist'
-      @uri_resume_get                     ||= 'cbapi/resumes/:resumedid'
+      @uri_resume_get                     ||= 'cbapi/resumes/:resume_hash'
     end
 
     def set_attr_accessors
