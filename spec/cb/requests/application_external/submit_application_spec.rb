@@ -30,6 +30,7 @@ module Cb
             <IPath></IPath>
             <IsExternalLinkApply></IsExternalLinkApply>
             <HostSite>#{Cb.configuration.host_site}</HostSite>
+            <SessionIdentifier></SessionIdentifier>
           </Request>
           eos
         end
@@ -43,7 +44,8 @@ module Cb
             job_did: 'job did',
             site_id: 'site id',
             ipath: 'ipath id over length of 10',
-            is_external_link_apply: 'is external link apply'
+            is_external_link_apply: 'is external link apply',
+            sid: 'session id'
           })
         end
 
@@ -70,6 +72,7 @@ module Cb
             <IPath>ipath id o</IPath>
             <IsExternalLinkApply>is external link apply</IsExternalLinkApply>
             <HostSite>host site</HostSite>
+            <SessionIdentifier>session id</SessionIdentifier>
           </Request>
           eos
         end
