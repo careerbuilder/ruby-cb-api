@@ -18,7 +18,7 @@ module Cb
         end
 
         def extract_languages_spoken
-          if !api_response['languagesSpoken'].nil?
+          unless api_response['languagesSpoken'].nil?
             api_response['languagesSpoken'].collect do |language|
               language
             end
