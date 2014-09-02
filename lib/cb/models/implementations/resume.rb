@@ -1,11 +1,12 @@
 module Cb
   module Models
     class Resume < ApiResponseModel
-      attr_accessor :user_identifier, :resume_hash, :privacy_setting, :work_experience, :salary_information,
+      attr_accessor :desired_job_title, :user_identifier, :resume_hash, :privacy_setting, :work_experience, :salary_information,
                     :educations, :skills_and_qualifications, :relocations, :government_and_military
 
       def set_model_properties
         args = api_response
+        @desired_job_title = args['desiredJobTitle']
         @user_identifier = args['userIdentifier']
         @resume_hash = args['resumeHash']
         @privacy_setting = args['privacySetting']
