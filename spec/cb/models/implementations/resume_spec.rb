@@ -4,6 +4,13 @@ module CB
   module Models
     describe '#new' do
       let (:resume) {Cb::Models::Resume.new(resume_hash)}
+      let(:error) do
+        begin
+          resume
+        rescue Cb::ExpectedResponseFieldMissing => e
+          e.message
+        end
+      end
 
       context 'When APIResponse has work experience' do
         let(:resume_hash) do
@@ -12,6 +19,27 @@ module CB
         end
 
         it {expect(resume.work_experience[0].job_title).to eq 'jerbs'}
+      end
+
+      context 'when APIResponse has invalid work experience' do
+
+        context 'and specifically its the jobTitle missing' do
+          let(:resume_hash) do
+            {'workExperience' => [{ 'currentlyEmployedHere' => 'false'}],
+             'userIdentifier' => 'user'}
+          end
+
+          it {expect(error).to eq('jobTitle')}
+        end
+
+        context 'and specifically its the currentlyEmployedHere missing' do
+          let(:resume_hash) do
+            {'workExperience' => [{'jobTitle' => 'jerbs'}],
+             'userIdentifier' => 'user'}
+          end
+
+          it {expect(error).to eq('currentlyEmployedHere')}
+        end
       end
 
       context 'When APIResponse has salary information' do
@@ -24,6 +52,33 @@ module CB
         it {expect(resume.salary_information.most_recent_pay_amount).to eq 100.00}
       end
 
+      context 'When APIResponse hash invalid salary information' do
+        let(:error) do
+          begin
+            resume
+          rescue Cb::ExpectedResponseFieldMissing => e
+            e.message
+          end
+        end
+
+        context 'and it is specifically the PerHourOrPerYear missing' do
+          let(:resume_hash) do
+            {'salaryInformation' => {'jobTitle' => 'jerbs',
+                                     'mostRecentPayAmount' => 100.00},'userIdentifier' => 'user'}
+          end
+
+          it {expect(error).to eq('PerHourOrPerYear')}
+        end
+
+        context 'and it is specifically the mostRecentPayAmount missing' do
+          let(:resume_hash) do
+            {'salaryInformation' => {'jobTitle' => 'jerbs', 'PerHourOrPerYear' => 'PerHour'},'userIdentifier' => 'user'}
+          end
+
+          it {expect(error).to eq('mostRecentPayAmount')}
+        end
+      end
+
       context 'When APIResponse has education' do
         let(:resume_hash) do
           {'educations' => [{'schoolName' => 'skool', 'majorOrProgram' => 'major'}],
@@ -32,6 +87,27 @@ module CB
 
         it {expect(resume.educations[0].school_name).to eq 'skool'}
         it {expect(resume.educations[0].major_or_program).to eq 'major'}
+      end
+
+      context 'When APIResponse hash invalid education' do
+
+        context 'and it is specifically the schoolName missing' do
+          let(:resume_hash) do
+            {'educations' => [{'majorOrProgram' => 'major'}],
+             'userIdentifier' => 'user'}
+          end
+
+          it {expect(error).to eq('schoolName')}
+        end
+
+        context 'and it is specifically the majorOrProgram missing' do
+          let(:resume_hash) do
+            {'educations' => [{'schoolName' => 'skool'}],
+             'userIdentifier' => 'user'}
+          end
+
+          it {expect(error).to eq('majorOrProgram')}
+        end
       end
 
       context 'When APIResponse has skills and qualifications' do
@@ -61,6 +137,36 @@ module CB
         it {expect(resume.relocations[0].country_code).to eq 'co'}
       end
 
+      context 'When APIResponse hash invalid Relocation' do
+
+        context 'and it is specifically the city missing' do
+          let(:resume_hash) do
+            {'relocations' => [{'adminArea' => 'st', 'countryCode' => 'co'}],
+             'userIdentifier' => 'user'}
+          end
+
+          it {expect(error).to eq('city')}
+        end
+
+        context 'and it is specifically the adminArea missing' do
+          let(:resume_hash) do
+            {'relocations' => [{'city' => 'city','countryCode' => 'co'}],
+             'userIdentifier' => 'user'}
+          end
+
+          it {expect(error).to eq('adminArea')}
+        end
+
+        context 'and it is specifically the countryCode missing' do
+          let(:resume_hash) do
+            {'relocations' => [{'city' => 'city', 'adminArea' => 'st'}],
+             'userIdentifier' => 'user'}
+          end
+
+          it {expect(error).to eq('countryCode')}
+        end
+      end
+
       context 'When APIResponse has government and military' do
         let(:resume_hash) do
           {'governmentAndMilitary' => {'hasSecurityClearance' => true, 'militaryExperience' => 'army'},
@@ -69,6 +175,27 @@ module CB
 
         it {expect(resume.government_and_military.has_security_clearance).to eq true}
         it {expect(resume.government_and_military.military_experience).to eq 'army'}
+      end
+
+      context 'When APIResponse hash invalid Relocation' do
+
+        context 'and it is specifically the hasSecurityClearance missing' do
+          let(:resume_hash) do
+            {'governmentAndMilitary' => {'militaryExperience' => 'army'},
+             'userIdentifier' => 'user'}
+          end
+
+          it {expect(error).to eq('hasSecurityClearance')}
+        end
+
+        context 'and it is specifically the militaryExperience missing' do
+          let(:resume_hash) do
+            {'governmentAndMilitary' => {'hasSecurityClearance' => true},
+             'userIdentifier' => 'user'}
+          end
+
+          it {expect(error).to eq('militaryExperience')}
+        end
       end
     end
   end
