@@ -4,11 +4,12 @@ module Cb
   describe Cb::Clients::Resumes do
     context 'When a single resume is asked for with .get_resume_by_hash' do
       let(:content) {JSON.parse(File.read('spec/support/response_stubs/resume_get.json')) }
-      let(:resume_get_call) {Cb.resumes.get_resume_by_hash(Hash.new)}
+      let(:request) {{resume_hash: 'testHash'}}
+      let(:resume_get_call) {Cb.resumes.get_resume_by_hash(request)}
       let(:model) {resume_get_call.model[0]}
 
       before :each do
-        stub_request(:get, uri_stem(Cb.configuration.uri_resume_get)).to_return(:body => content.to_json)
+        stub_request(:get, uri_stem(Cb.configuration.uri_resume_get.gsub(':resume_hash', request[:resume_hash]))).to_return(:body => content.to_json)
       end
 
       it {expect(resume_get_call).to be_a Responses::Resumes::ResumeGet}
