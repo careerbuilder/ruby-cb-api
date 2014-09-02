@@ -17,18 +17,16 @@ module Cb
 
         private
 
-        def query
-          {
-              :externalUserID => @api_args[:externalUserID]
-          }
+        def get_resume_by_hash_response
+          api_client.cb_get(uri, query: query)
         end
-
+        
         def uri
           Cb.configuration.uri_resume_get.gsub(':resume_hash', @api_args[:resume_hash])
         end
 
-        def get_resume_by_hash_response
-          api_client.cb_get(uri, query: query)
+        def query
+          { :externalUserID => @api_args[:externalUserID] }
         end
 
       end
