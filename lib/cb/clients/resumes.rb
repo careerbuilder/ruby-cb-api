@@ -11,10 +11,6 @@ module Cb
           Cb::Responses::Resumes::ResumeGet.new(get_resume_by_hash_response)
         end
 
-        def api_client
-          @api ||= Cb::Utils::Api.instance
-        end
-
         private
 
         def get_resume_by_hash_response
@@ -27,6 +23,10 @@ module Cb
 
         def query
           { :externalUserID => @api_args[:externalUserID] }
+        end
+
+        def api_client
+          @api ||= Cb::Utils::Api.instance
         end
 
       end
