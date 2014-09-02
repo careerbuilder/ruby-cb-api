@@ -13,20 +13,20 @@ module Cb
       end
 
       it {expect(resume_get_call).to be_a Responses::Resumes::ResumeGet}
-      it {expect(model).to be_a Cb::Models::Resume}
+      it {expect(model).to be_a Models::Resume}
       it {expect(model.user_identifier).to eq 'userID'}
       it {expect(model.resume_hash).to eq 'hashMe'}
       it {expect(model.work_experience).to be_an Array}
-      it {expect(model.work_experience[0]).to be_a Cb::Models::Resumes::WorkExperience}
-      it {expect(model.salary_information).to be_a Cb::Models::Resumes::SalaryInformation}
+      it {expect(model.work_experience[0]).to be_a Models::Resumes::WorkExperience}
+      it {expect(model.salary_information).to be_a Models::Resumes::SalaryInformation}
       it {expect(model.educations).to be_an Array}
-      it {expect(model.educations[0]).to be_a Cb::Models::Resumes::Education}
-      it {expect(model.skills_and_qualifications).to be_a Cb::Models::Resumes::SkillsAndQualifications}
+      it {expect(model.educations[0]).to be_a Models::Resumes::Education}
+      it {expect(model.skills_and_qualifications).to be_a Models::Resumes::SkillsAndQualifications}
       it {expect(model.skills_and_qualifications.languages_spoken).to be_an Array}
       it {expect(model.skills_and_qualifications.languages_spoken[0]).to be_a String}
       it {expect(model.relocations).to be_an Array}
-      it {expect(model.relocations[0]).to be_a Cb::Models::Resumes::Relocation}
-      it {expect(model.government_and_military).to be_a Cb::Models::Resumes::GovernmentAndMilitary}
+      it {expect(model.relocations[0]).to be_a Models::Resumes::Relocation}
+      it {expect(model.government_and_military).to be_a Models::Resumes::GovernmentAndMilitary}
     end
   end
 end
