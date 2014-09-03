@@ -23,6 +23,7 @@ module Cb
             <IPath>#{ipath}</IPath>
             <IsExternalLinkApply>#{args[:is_external_link_apply]}</IsExternalLinkApply>
             <HostSite>#{args[:host_site] || Cb.configuration.host_site}</HostSite>
+            <SessionIdentifier>#{args[:sid]}</SessionIdentifier>
           </Request>
           eos
         end
