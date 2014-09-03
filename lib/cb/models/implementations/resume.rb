@@ -5,11 +5,10 @@ module Cb
                     :educations, :skills_and_qualifications, :relocations, :government_and_military
 
       def set_model_properties
-        args = api_response
-        @desired_job_title = args['desiredJobTitle']
-        @user_identifier = args['userIdentifier']
-        @resume_hash = args['resumeHash']
-        @privacy_setting = args['privacySetting']
+        @desired_job_title = api_response['desiredJobTitle']
+        @user_identifier = api_response['userIdentifier']
+        @resume_hash = api_response['resumeHash']
+        @privacy_setting = api_response['privacySetting']
         @work_experience = extract_work_experience
         @salary_information = extract_salary_information
         @educations = extract_educations

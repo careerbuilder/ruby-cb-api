@@ -6,13 +6,12 @@ module Cb
                       :job_title, :annual_bonus, :annual_commission
 
         def set_model_properties
-          args = api_response
-          @most_recent_pay_amount = args['mostRecentPayAmount']
-          @per_hour_or_per_year = args['PerHourOrPerYear']
-          @currency_code = args['CurrencyCode']
-          @job_title = args['jobTitle']
-          @annual_bonus = args['annualBonus']
-          @annual_commission = args['annualCommission']
+          @most_recent_pay_amount = api_response['mostRecentPayAmount']
+          @per_hour_or_per_year = api_response['PerHourOrPerYear']
+          @currency_code = api_response['CurrencyCode']
+          @job_title = api_response['jobTitle']
+          @annual_bonus = api_response['annualBonus']
+          @annual_commission = api_response['annualCommission']
         end
 
         def required_fields

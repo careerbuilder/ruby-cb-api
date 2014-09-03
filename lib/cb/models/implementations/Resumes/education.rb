@@ -5,11 +5,10 @@ module Cb
         attr_accessor :school_name, :major_or_program, :degree, :graduation_date
 
         def set_model_properties
-          args = api_response
-          @school_name = args['schoolName']
-          @major_or_program = args['majorOrProgram']
-          @degree = args['degree']
-          @graduation_date = args['graduationDate']
+          @school_name = api_response['schoolName']
+          @major_or_program = api_response['majorOrProgram']
+          @degree = api_response['degree']
+          @graduation_date = api_response['graduationDate']
         end
 
         def required_fields

@@ -5,10 +5,9 @@ module Cb
         attr_accessor :city, :admin_area, :country_code
 
         def set_model_properties
-          args = api_response
-          @city = args['city']
-          @admin_area = args['adminArea']
-          @country_code = args['countryCode']
+          @city = api_response['city']
+          @admin_area = api_response['adminArea']
+          @country_code = api_response['countryCode']
         end
 
         def required_fields

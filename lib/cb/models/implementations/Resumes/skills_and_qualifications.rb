@@ -6,11 +6,10 @@ module Cb
                       :has_management_experience, :size_of_team_managed
 
         def set_model_properties
-          args = api_response
-          @accreditations_and_certifications = args['accreditationsAndCertifications']
+          @accreditations_and_certifications = api_response['accreditationsAndCertifications']
           @languages_spoken = extract_languages_spoken
-          @has_management_experience = args['hasManagementExperience']
-          @size_of_team_managed = args['sizeOfTeamManaged']
+          @has_management_experience = api_response['hasManagementExperience']
+          @size_of_team_managed = api_response['sizeOfTeamManaged']
         end
 
         def required_fields
