@@ -7,7 +7,7 @@ module Cb
 
         def get_resume_by_hash(criteria)
           response = api_client.cb_get(uri(criteria), query: criteria.to_h)
-          Cb::Responses::Resumes::ResumeGet.new(response)
+          Cb::Responses::Resumes::Get.new(response)
         end
 
         private

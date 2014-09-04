@@ -13,7 +13,7 @@ module Cb
         stub_request(:get, uri_stem(Cb.configuration.uri_resume_get.gsub(':resume_hash', resume_hash))).to_return(:body => content.to_json)
       end
 
-      it { expect(resume_get_call).to be_a Responses::Resumes::ResumeGet }
+      it { expect(resume_get_call).to be_a Responses::Resumes::Get }
       it { expect(model).to be_a Models::Resume }
       it { expect(model.user_identifier).to_not be_nil }
       it { expect(model.resume_hash).to_not be_nil }
