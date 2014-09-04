@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 module Cb
   describe Convenience::ClassMethods do
 
@@ -113,6 +115,7 @@ module Cb
         expect_method_to_return_class(:spot, Cb::Clients::Spot)
       end
     end
+
   end
 
 end

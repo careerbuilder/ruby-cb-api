@@ -20,6 +20,8 @@ module Cb
 
         def response_hash
           {
+            Cb::Requests::Resumes::Get => Cb::Responses::Resumes::Get,
+
             Cb::Requests::AnonymousSavedSearch::Create => Cb::Responses::AnonymousSavedSearch::Create,
             Cb::Requests::AnonymousSavedSearch::Delete => Cb::Responses::AnonymousSavedSearch::Delete,
 
