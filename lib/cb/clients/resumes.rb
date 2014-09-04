@@ -4,18 +4,16 @@ module Cb
   module Clients
     class Resumes
       class << self
-        attr_reader :critera
 
         def get_resume_by_hash(criteria)
-          @criteria = criteria
-          response = api_client.cb_get(uri, query: @criteria.to_h)
+          response = api_client.cb_get(uri(criteria), query: criteria.to_h)
           Cb::Responses::Resumes::ResumeGet.new(response)
         end
 
         private
         
-        def uri
-          Cb.configuration.uri_resume_get.gsub(':resume_hash', @criteria.resume_hash)
+        def uri(criteria)
+          Cb.configuration.uri_resume_get.gsub(':resume_hash', criteria.resume_hash)
         end
 
         def api_client
