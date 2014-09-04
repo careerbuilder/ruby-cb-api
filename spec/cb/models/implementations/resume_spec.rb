@@ -34,8 +34,7 @@ module Cb
 
         context 'and specifically its the currentlyEmployedHere missing' do
           let(:resume_hash) do
-            { 'workExperience' => [{ 'jobTitle' => 'jerbs' }],
-             'userIdentifier' => 'user' }
+            { 'workExperience' => [{ 'jobTitle' => 'jerbs' }],'userIdentifier' => 'user' }
           end
 
           it { expect(error).to eq('currentlyEmployedHere') }
@@ -45,7 +44,7 @@ module Cb
       context 'When APIResponse has salary information' do
         let(:resume_hash) do
           { 'salaryInformation' => { 'jobTitle' => 'jerbs', 'PerHourOrPerYear' => 'PerHour',
-          'mostRecentPayAmount' => 100.00 },'userIdentifier' => 'user' }
+            'mostRecentPayAmount' => 100.00 },'userIdentifier' => 'user' }
         end
 
         it { expect(resume.salary_information.job_title).to_not be_nil }
@@ -57,7 +56,7 @@ module Cb
         context 'and it is specifically the PerHourOrPerYear missing' do
           let(:resume_hash) do
             { 'salaryInformation' => { 'jobTitle' => 'jerbs',
-                                     'mostRecentPayAmount' => 100.00 },'userIdentifier' => 'user' }
+              'mostRecentPayAmount' => 100.00 },'userIdentifier' => 'user' }
           end
 
           it { expect(error).to eq('PerHourOrPerYear') }
@@ -65,7 +64,8 @@ module Cb
 
         context 'and it is specifically the mostRecentPayAmount missing' do
           let(:resume_hash) do
-            { 'salaryInformation' => { 'jobTitle' => 'jerbs', 'PerHourOrPerYear' => 'PerHour' },'userIdentifier' => 'user' }
+            { 'salaryInformation' => { 'jobTitle' => 'jerbs', 'PerHourOrPerYear' => 'PerHour' },
+              'userIdentifier' => 'user' }
           end
 
           it { expect(error).to eq('mostRecentPayAmount') }

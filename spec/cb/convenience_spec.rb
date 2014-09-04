@@ -116,11 +116,6 @@ module Cb
       end
     end
 
-    context '#resumes' do
-      it 'returns the resumes api client class' do
-        expect_method_to_return_class(:resumes, Cb::Clients::Resumes)
-      end
-    end
   end
 
 end
