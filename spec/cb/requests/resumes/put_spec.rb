@@ -21,8 +21,8 @@ module Cb
           }
         end
 
-        it 'should have a basic body' do
-          @request.body.should == nil
+        it 'should have a body' do
+          @request.body.should_not == nil
         end
       end
 
@@ -41,14 +41,14 @@ module Cb
 
         it 'should have basic headers' do
           @request.headers.should == {
-              'DeveloperKey' => Cb.configuration.dev_key,
-              'HostSite' => Cb.configuration.host_site,
-              'Content-Type' => 'application/json'
-          }
+                                     'DeveloperKey' => Cb.configuration.dev_key,
+                                     'HostSite' => Cb.configuration.host_site,
+                                     'Content-Type' => 'application/json'
+                                     }
         end
 
         it 'should have a basic body' do
-          @request.body.should == nil
+          @request.body.should_not == nil
         end
       end
     end

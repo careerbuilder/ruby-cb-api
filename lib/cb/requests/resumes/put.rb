@@ -14,25 +14,24 @@ module Cb
 
         def headers
           {
-            'DeveloperKey' => Cb.configuration.dev_key,
-            'HostSite' => Cb.configuration.host_site,
-            'Content-Type' => 'application/json'
+          'DeveloperKey' => Cb.configuration.dev_key,
+          'HostSite' => Cb.configuration.host_site,
+          'Content-Type' => 'application/json'
           }
         end
 
         def body
           {
-            userIdentifier: args[:user_identifier],
-            resumeHash: args[:resume_hash],
-            desiredJobTitle: args[:desired_job_title],
-            privacySetting: args[:privacy_setting],
-            workExperience: args[:salary_information].nil? ? something : salary_information(args[:salary_information]),
-            workExperience: work_experience,
-            salaryInformation: salary_information(args[:salary_information]),
-            educations: educations,
-            skillsAndQualifications: skills_and_qualifications(args[:skills_and_qualifications]),
-            relocations: relocations,
-            governmentAndMilitary: government_and_military(args[:government_and_military])
+          userIdentifier: args[:user_identifier],
+          resumeHash: args[:resume_hash],
+          desiredJobTitle: args[:desired_job_title],
+          privacySetting: args[:privacy_setting],
+          workExperience: work_experience,
+          salaryInformation: salary_information(args[:salary_information]),
+          educations: educations,
+          skillsAndQualifications: skills_and_qualifications(args[:skills_and_qualifications]),
+          relocations: relocations,
+          governmentAndMilitary: government_and_military(args[:government_and_military])
           }.to_json
         end
 
@@ -52,14 +51,16 @@ module Cb
         end
 
         def salary_information(salary)
-          {
-          mostRecentPayAmount: salary[:most_recent_pay_amount],
-          PerHourOrPerYear: salary[:per_hour_or_per_year],
-          CurrencyCode: salary[:currency_code],
-          jobTitle: salary[:job_title],
-          annualBonus: salary[:annual_bonus],
-          annualCommission: salary[:annual_commission],
-          }
+          unless salary.nil?
+            {
+            mostRecentPayAmount: salary[:most_recent_pay_amount],
+            PerHourOrPerYear: salary[:per_hour_or_per_year],
+            CurrencyCode: salary[:currency_code],
+            jobTitle: salary[:job_title],
+            annualBonus: salary[:annual_bonus],
+            annualCommission: salary[:annual_commission],
+            }
+          end
         end
 
         def educations
@@ -76,19 +77,16 @@ module Cb
         end
 
         def skills_and_qualifications(skills)
-          {
-          accreditationsAndCertifications: skills[:accreditations_and_certifications],
-          languagesSpoken: languages_spoken(skills[:languages_spoken]),
-          hasManagementExperience: skills[:has_management_experience],
-          sizeOfTeamManaged: skills[:size_of_team_managed]
-          }
-        end
-
-        def languages_spoken(languages)
-          languages.collect do |languages_spoken|
-            languages_spoken
+          unless skills.nil?
+            {
+            accreditationsAndCertifications: skills[:accreditations_and_certifications],
+            languagesSpoken: skills[:languages_spoken],
+            hasManagementExperience: skills[:has_management_experience],
+            sizeOfTeamManaged: skills[:size_of_team_managed]
+            }
           end
         end
+
 
         def relocations
           unless args[:relocations].nil?
@@ -103,11 +101,14 @@ module Cb
         end
 
         def government_and_military(government)
+          unless government.nil?
             {
             hasSecurityClearance: government[:has_security_clearance],
             militaryExperience: government[:military_experience]
             }
+          end
         end
+
       end
     end
   end
