@@ -146,44 +146,44 @@ module Cb
               'privacySetting'=> 'Public',
               'workExperience'=> [
                   {
-                      'jobTitle'=> 'Hair Stylist and Colorist',
-                      'companyName'=> 'Swan Beauty Parlor',
-                      'employmentType'=> 'ETNS',
-                      'startDate'=> '2009-09-01T00:00:00',
-                      'endDate'=> '2014-08-28T00:00:00',
-                      'currentlyEmployedHere'=> true
+                  'jobTitle'=> 'Hair Stylist and Colorist',
+                  'companyName'=> 'Swan Beauty Parlor',
+                  'employmentType'=> 'ETNS',
+                  'startDate'=> '2009-09-01T00:00:00',
+                  'endDate'=> '2014-08-28T00:00:00',
+                  'currentlyEmployedHere'=> true
                   },
                   {
-                      'jobTitle'=> 'Hair Stylist',
-                      'companyName'=> 'Sweet Dreams Beauty Salon',
-                      'employmentType'=> 'ETNS',
-                      'startDate'=> '2008-06-01T00:00:00',
-                      'endDate'=> '2009-09-01T00:00:00',
-                      'currentlyEmployedHere'=> false
+                  'jobTitle'=> 'Hair Stylist',
+                  'companyName'=> 'Sweet Dreams Beauty Salon',
+                  'employmentType'=> 'ETNS',
+                  'startDate'=> '2008-06-01T00:00:00',
+                  'endDate'=> '2009-09-01T00:00:00',
+                  'currentlyEmployedHere'=> false
                   },
                   {
-                      'jobTitle'=> 'Assistant/Receptionist',
-                      'companyName'=> 'Oak Park Beauty',
-                      'employmentType'=> 'ETNS',
-                      'startDate'=> '2006-09-01T00:00:00',
-                      'endDate'=> '2008-06-01T00:00:00',
-                      'currentlyEmployedHere'=> false
+                  'jobTitle'=> 'Assistant/Receptionist',
+                  'companyName'=> 'Oak Park Beauty',
+                  'employmentType'=> 'ETNS',
+                  'startDate'=> '2006-09-01T00:00:00',
+                  'endDate'=> '2008-06-01T00:00:00',
+                  'currentlyEmployedHere'=> false
                   },
                   {
-                      'jobTitle'=> 'Lead role',
-                      'companyName'=> 'The Sound of Music',
-                      'employmentType'=> 'ETNS',
-                      'startDate'=> '2007-03-01T00:00:00',
-                      'endDate'=> '2007-05-31T00:00:00',
-                      'currentlyEmployedHere'=> false
+                  'jobTitle'=> 'Lead role',
+                  'companyName'=> 'The Sound of Music',
+                  'employmentType'=> 'ETNS',
+                  'startDate'=> '2007-03-01T00:00:00',
+                  'endDate'=> '2007-05-31T00:00:00',
+                  'currentlyEmployedHere'=> false
                   },
                   {
-                      'jobTitle'=> 'magic place',
-                      'companyName'=> 'Child Cancer Research',
-                      'employmentType'=> 'ETNS',
-                      'startDate'=> '2006-03-01T00:00:00',
-                      'endDate'=> '2006-05-31T00:00:00',
-                      'currentlyEmployedHere'=> false
+                  'jobTitle'=> 'magic place',
+                  'companyName'=> 'Child Cancer Research',
+                  'employmentType'=> 'ETNS',
+                  'startDate'=> '2006-03-01T00:00:00',
+                  'endDate'=> '2006-05-31T00:00:00',
+                  'currentlyEmployedHere'=> false
                   }
               ],
               'salaryInformation'=> {
@@ -196,16 +196,16 @@ module Cb
               },
               'educations'=> [
                   {
-                      'schoolName'=> 'Hair dids and magic fluits academy.',
-                      'major'=> 'Gettin Hair did',
-                      'degreeCode'=> 'CE3',
-                      'graduationDate'=> '2008-05-01T00:00:00'
+                  'schoolName'=> 'Hair dids and magic fluits academy.',
+                  'major'=> 'Gettin Hair did',
+                  'degreeCode'=> 'CE3',
+                  'graduationDate'=> '2008-05-01T00:00:00'
                   },
                   {
-                      'schoolName'=> 'Oak Park River Forest High School',
-                      'major'=> 'Not Applicable',
-                      'degreeCode'=> 'CE31',
-                      'graduationDate'=> '2007-05-01T00:00:00'
+                  'schoolName'=> 'Oak Park River Forest High School',
+                  'major'=> 'Not Applicable',
+                  'degreeCode'=> 'CE31',
+                  'graduationDate'=> '2007-05-01T00:00:00'
                   }
               ],
               'skillsAndQualifications'=> {
@@ -216,14 +216,14 @@ module Cb
               },
               'relocations'=> [
                   {
-                      'city'=> 'atlanta',
-                      'adminArea'=> '',
-                      'countryCode'=> 'us'
+                  'city'=> 'atlanta',
+                  'adminArea'=> '',
+                  'countryCode'=> 'us'
                   },
                   {
-                      'city'=> 'winter',
-                      'adminArea'=> '',
-                      'countryCode'=> 'us'
+                  'city'=> 'winter',
+                  'adminArea'=> '',
+                  'countryCode'=> 'us'
                   }
               ],
               'governmentAndMilitary'=> {
