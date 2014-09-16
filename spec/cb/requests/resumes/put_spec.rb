@@ -197,13 +197,13 @@ module Cb
               'educations'=> [
                   {
                   'schoolName'=> 'Hair dids and magic fluits academy.',
-                  'major'=> 'Gettin Hair did',
+                  'majorOrProgram'=> 'Gettin Hair did',
                   'degreeCode'=> 'CE3',
                   'graduationDate'=> '2008-05-01T00:00:00'
                   },
                   {
                   'schoolName'=> 'Oak Park River Forest High School',
-                  'major'=> 'Not Applicable',
+                  'majorOrProgram'=> 'Not Applicable',
                   'degreeCode'=> 'CE31',
                   'graduationDate'=> '2007-05-01T00:00:00'
                   }
