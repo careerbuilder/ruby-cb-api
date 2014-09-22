@@ -2,7 +2,7 @@ module Mocks
   class Resume
     class << self
 
-      def complete_resume_hash
+      def snake_case_resume_hash
         {
           user_identifier: 'userID',
           resume_hash: 'resumeHash',
@@ -94,6 +94,101 @@ module Mocks
               has_security_clearance: false,
               military_experience: ''
           }
+        }
+      end
+
+      def camel_case_resume_hash
+        {
+            'userIdentifier'=> 'userID',
+            'resumeHash'=> 'resumeHash',
+            'desiredJobTitle'=> 'TrainHopper',
+            'privacySetting'=> 'Public',
+            'workExperience'=> [
+                {
+                    'jobTitle'=> 'Hair Stylist and Colorist',
+                    'companyName'=> 'Swan Beauty Parlor',
+                    'employmentType'=> 'ETNS',
+                    'startDate'=> '2009-09-01T00:00:00',
+                    'endDate'=> '2014-08-28T00:00:00',
+                    'currentlyEmployedHere'=> true
+                },
+                {
+                    'jobTitle'=> 'Hair Stylist',
+                    'companyName'=> 'Sweet Dreams Beauty Salon',
+                    'employmentType'=> 'ETNS',
+                    'startDate'=> '2008-06-01T00:00:00',
+                    'endDate'=> '2009-09-01T00:00:00',
+                    'currentlyEmployedHere'=> false
+                },
+                {
+                    'jobTitle'=> 'Assistant/Receptionist',
+                    'companyName'=> 'Oak Park Beauty',
+                    'employmentType'=> 'ETNS',
+                    'startDate'=> '2006-09-01T00:00:00',
+                    'endDate'=> '2008-06-01T00:00:00',
+                    'currentlyEmployedHere'=> false
+                },
+                {
+                    'jobTitle'=> 'Lead role',
+                    'companyName'=> 'The Sound of Music',
+                    'employmentType'=> 'ETNS',
+                    'startDate'=> '2007-03-01T00:00:00',
+                    'endDate'=> '2007-05-31T00:00:00',
+                    'currentlyEmployedHere'=> false
+                },
+                {
+                    'jobTitle'=> 'magic place',
+                    'companyName'=> 'Child Cancer Research',
+                    'employmentType'=> 'ETNS',
+                    'startDate'=> '2006-03-01T00:00:00',
+                    'endDate'=> '2006-05-31T00:00:00',
+                    'currentlyEmployedHere'=> false
+                }
+            ],
+            'salaryInformation'=> {
+                'mostRecentPayAmount'=> 0,
+                'perHourOrPerYear'=> 'Hour',
+                'currencyCode'=> 'USD',
+                'jobTitle'=> 'magic place',
+                'annualBonus'=> 0,
+                'annualCommission'=> 0,
+            },
+            'educations'=> [
+                {
+                    'schoolName'=> 'Hair dids and magic fluits academy.',
+                    'majorOrProgram'=> 'Gettin Hair did',
+                    'degreeCode'=> 'CE3',
+                    'graduationDate'=> '2008-05-01T00:00:00'
+                },
+                {
+                    'schoolName'=> 'Oak Park River Forest High School',
+                    'majorOrProgram'=> 'Not Applicable',
+                    'degreeCode'=> 'CE31',
+                    'graduationDate'=> '2007-05-01T00:00:00'
+                }
+            ],
+            'skillsAndQualifications'=> {
+                'accreditationsAndCertifications'=> '',
+                'languagesSpoken'=> ['english', 'spanish'],
+                'hasManagementExperience'=> false,
+                'sizeOfTeamManaged'=> 0
+            },
+            'relocations'=> [
+                {
+                    'city'=> 'atlanta',
+                    'adminArea'=> '',
+                    'countryCode'=> 'us'
+                },
+                {
+                    'city'=> 'winter',
+                    'adminArea'=> '',
+                    'countryCode'=> 'us'
+                }
+            ],
+            'governmentAndMilitary'=> {
+                'hasSecurityClearance'=> false,
+                'militaryExperience'=> ''
+            }
         }
       end
 
