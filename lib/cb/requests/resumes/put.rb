@@ -38,83 +38,77 @@ module Cb
         private
 
         def extract_work_experience
-          if args[:work_experience]
-            args[:work_experience].collect do |experience|
-              {
-                jobTitle: experience[:job_title],
-                companyName: experience[:company_name],
-                employmentType: experience[:employment_type],
-                startDate: experience[:start_date],
-                endDate: experience[:end_date],
-                currentlyEmployedHere: experience[:currently_employed_here]
-              }
-            end
+          return [] if args[:work_experience].blank?
+          args[:work_experience].collect do |experience|
+            {
+              jobTitle: experience[:job_title],
+              companyName: experience[:company_name],
+              employmentType: experience[:employment_type],
+              startDate: experience[:start_date],
+              endDate: experience[:end_date],
+              currentlyEmployedHere: experience[:currently_employed_here]
+            }
           end
         end
 
         def extract_salary_information
-          if args[:salary_information]
-            salary = args[:salary_information]
-            {
-              mostRecentPayAmount: salary[:most_recent_pay_amount],
-              perHourOrPerYear: salary[:per_hour_or_per_year],
-              currencyCode: salary[:currency_code],
-              jobTitle: salary[:job_title],
-              annualBonus: salary[:annual_bonus],
-              annualCommission: salary[:annual_commission],
-            }
-          end
+          salary = args[:salary_information]
+          return {} if salary.blank?
+          {
+            mostRecentPayAmount: salary[:most_recent_pay_amount],
+            perHourOrPerYear: salary[:per_hour_or_per_year],
+            currencyCode: salary[:currency_code],
+            jobTitle: salary[:job_title],
+            annualBonus: salary[:annual_bonus],
+            annualCommission: salary[:annual_commission],
+          }
         end
 
         def extract_educations
-          if args[:educations]
-            args[:educations].collect do |education|
-              {
-                schoolName: education[:school_name],
-                majorOrProgram: education[:major],
-                degreeCode: education[:degree_code],
-                graduationDate: education[:graduation_date]
-              }
-            end
+          return [] if args[:educations].blank?
+          args[:educations].collect do |education|
+            {
+              schoolName: education[:school_name],
+              majorOrProgram: education[:major],
+              degreeCode: education[:degree_code],
+              graduationDate: education[:graduation_date]
+            }
           end
         end
 
         def extract_skills_and_qualifications
-          if args[:skills_and_qualifications]
-            skills = args[:skills_and_qualifications]
-            {
-              accreditationsAndCertifications: skills[:accreditations_and_certifications],
-              languagesSpoken: skills[:languages_spoken],
-              hasManagementExperience: skills[:has_management_experience],
-              sizeOfTeamManaged: skills[:size_of_team_managed]
-            }
-          end
+          skills = args[:skills_and_qualifications]
+          return {} if skills.blank?
+          {
+            accreditationsAndCertifications: skills[:accreditations_and_certifications],
+            languagesSpoken: skills[:languages_spoken],
+            hasManagementExperience: skills[:has_management_experience],
+            sizeOfTeamManaged: skills[:size_of_team_managed]
+          }
         end
 
 
         def extract_relocations
-          if args[:relocations]
-            args[:relocations].collect do |relocate|
-              {
-                city: relocate[:city],
-                adminArea: relocate[:admin_area],
-                countryCode: relocate[:country_code]
-              }
-            end
-          end
-        end
-
-        def extract_government_and_military
-          if args[:government_and_military]
-            government = args[:government_and_military]
+          return [] unless args[:relocations]
+          args[:relocations].collect do |relocate|
             {
-              hasSecurityClearance: government[:has_security_clearance],
-              militaryExperience: government[:military_experience]
+              city: relocate[:city],
+              adminArea: relocate[:admin_area],
+              countryCode: relocate[:country_code]
             }
           end
         end
 
+        def extract_government_and_military
+          government = args[:government_and_military]
+          return {} if government.blank?
+          {
+            hasSecurityClearance: government[:has_security_clearance],
+            militaryExperience: government[:military_experience]
+          }
+        end
       end
     end
   end
 end
+
