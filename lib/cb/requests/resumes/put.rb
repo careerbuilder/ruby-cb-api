@@ -26,17 +26,19 @@ module Cb
             resumeHash: args[:resume_hash],
             desiredJobTitle: args[:desired_job_title],
             privacySetting: args[:privacy_setting],
-            workExperience: extract_work_experience(args[:work_experience]),
-            salaryInformation: extract_salary_information(args[:salary_information]),
-            educations: extract_educations(args[:educations]),
-            skillsAndQualifications: extract_skills_and_qualifications(args[:skills_and_qualifications]),
-            relocations: extract_relocations(args[:relocations]),
-            governmentAndMilitary: extract_government_and_military(args[:government_and_military])
+            workExperience: extract_work_experience,
+            salaryInformation: extract_salary_information,
+            educations: extract_educations,
+            skillsAndQualifications: extract_skills_and_qualifications,
+            relocations: extract_relocations,
+            governmentAndMilitary: extract_government_and_military
           }.to_json
         end
 
-        def extract_work_experience(work_experience)
-          if work_experience
+        private
+
+        def extract_work_experience
+          if args[:work_experience]
             args[:work_experience].collect do |experience|
               {
                 jobTitle: experience[:job_title],
@@ -50,8 +52,9 @@ module Cb
           end
         end
 
-        def extract_salary_information(salary)
-          if salary
+        def extract_salary_information
+          if args[:salary_information]
+            salary = args[:salary_information]
             {
               mostRecentPayAmount: salary[:most_recent_pay_amount],
               perHourOrPerYear: salary[:per_hour_or_per_year],
@@ -63,9 +66,9 @@ module Cb
           end
         end
 
-        def extract_educations(educations)
-          if educations
-            educations.collect do |education|
+        def extract_educations
+          if args[:educations]
+            args[:educations].collect do |education|
               {
                 schoolName: education[:school_name],
                 majorOrProgram: education[:major],
@@ -76,8 +79,9 @@ module Cb
           end
         end
 
-        def extract_skills_and_qualifications(skills)
-          if skills
+        def extract_skills_and_qualifications
+          if args[:skills_and_qualifications]
+            skills = args[:skills_and_qualifications]
             {
               accreditationsAndCertifications: skills[:accreditations_and_certifications],
               languagesSpoken: skills[:languages_spoken],
@@ -88,8 +92,8 @@ module Cb
         end
 
 
-        def extract_relocations(relocations)
-          if relocations
+        def extract_relocations
+          if args[:relocations]
             args[:relocations].collect do |relocate|
               {
                 city: relocate[:city],
@@ -100,8 +104,9 @@ module Cb
           end
         end
 
-        def extract_government_and_military(government)
-          if government
+        def extract_government_and_military
+          if args[:government_and_military]
+            government = args[:government_and_military]
             {
               hasSecurityClearance: government[:has_security_clearance],
               militaryExperience: government[:military_experience]
