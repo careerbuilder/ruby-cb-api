@@ -1,3 +1,5 @@
+require_relative 'get.rb'
+
 module Cb
   module Responses
     module Resumes
