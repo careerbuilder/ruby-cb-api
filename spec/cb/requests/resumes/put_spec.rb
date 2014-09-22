@@ -18,9 +18,12 @@ module Cb
         end
 
         it 'should have basic headers' do
-          @request.headers.should ==  { 'DeveloperKey' => Cb.configuration.dev_key,
-                                        'HostSite' => Cb.configuration.host_site,
-                                        'Content-Type' => 'application/json' }
+          @request.headers.should ==
+            {
+              'DeveloperKey' => Cb.configuration.dev_key,
+              'HostSite' => Cb.configuration.host_site,
+              'Content-Type' => 'application/json'
+            }
         end
 
         it 'should have a body' do
@@ -41,11 +44,11 @@ module Cb
 
         it 'should have basic headers' do
           @request.headers.should ==
-              {
+            {
               'DeveloperKey' => Cb.configuration.dev_key,
               'HostSite' => Cb.configuration.host_site,
               'Content-Type' => 'application/json'
-              }
+            }
         end
 
         it 'should have a basic body' do

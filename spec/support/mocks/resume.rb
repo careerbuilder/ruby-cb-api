@@ -8,186 +8,198 @@ module Mocks
           resume_hash: 'resumeHash',
           desired_job_title: 'TrainHopper',
           privacy_setting: 'Public',
-          work_experience: [
+          work_experience:
+            [
               {
-                  job_title: 'Hair Stylist and Colorist',
-                  company_name: 'Swan Beauty Parlor',
-                  employment_type: 'ETNS',
-                  start_date: '2009-09-01T00:00:00',
-                  end_date: '2014-08-28T00:00:00',
-                  currently_employed_here: true
+                job_title: 'Hair Stylist and Colorist',
+                company_name: 'Swan Beauty Parlor',
+                employment_type: 'ETNS',
+                start_date: '2009-09-01T00:00:00',
+                end_date: '2014-08-28T00:00:00',
+                currently_employed_here: true
               },
               {
-                  job_title: 'Hair Stylist',
-                  company_name: 'Sweet Dreams Beauty Salon',
-                  employment_type: 'ETNS',
-                  start_date: '2008-06-01T00:00:00',
-                  end_date: '2009-09-01T00:00:00',
-                  currently_employed_here: false
+                job_title: 'Hair Stylist',
+                company_name: 'Sweet Dreams Beauty Salon',
+                employment_type: 'ETNS',
+                start_date: '2008-06-01T00:00:00',
+                end_date: '2009-09-01T00:00:00',
+                currently_employed_here: false
               },
               {
-                  job_title: 'Assistant/Receptionist',
-                  company_name: 'Oak Park Beauty',
-                  employment_type: 'ETNS',
-                  start_date: '2006-09-01T00:00:00',
-                  end_date: '2008-06-01T00:00:00',
-                  currently_employed_here: false
+                job_title: 'Assistant/Receptionist',
+                company_name: 'Oak Park Beauty',
+                employment_type: 'ETNS',
+                start_date: '2006-09-01T00:00:00',
+                end_date: '2008-06-01T00:00:00',
+                currently_employed_here: false
               },
               {
-                  job_title: 'Lead role',
-                  company_name: 'The Sound of Music',
-                  employment_type: 'ETNS',
-                  start_date: '2007-03-01T00:00:00',
-                  end_date: '2007-05-31T00:00:00',
-                  currently_employed_here: false
+                job_title: 'Lead role',
+                company_name: 'The Sound of Music',
+                employment_type: 'ETNS',
+                start_date: '2007-03-01T00:00:00',
+                end_date: '2007-05-31T00:00:00',
+                currently_employed_here: false
               },
               {
-                  job_title: 'magic place',
-                  company_name: 'Child Cancer Research',
-                  employment_type: 'ETNS',
-                  start_date: '2006-03-01T00:00:00',
-                  end_date: '2006-05-31T00:00:00',
-                  currently_employed_here: false
+                job_title: 'magic place',
+                company_name: 'Child Cancer Research',
+                employment_type: 'ETNS',
+                start_date: '2006-03-01T00:00:00',
+                end_date: '2006-05-31T00:00:00',
+                currently_employed_here: false
               }
-          ],
-          salary_information: {
+            ],
+          salary_information:
+            {
               most_recent_pay_amount: 0,
               per_hour_or_per_year: 'Hour',
               currency_code: 'USD',
               annual_bonus: 0,
               annual_commission: 0,
               job_title: 'magic place'
-          },
-          educations: [
+            },
+          educations:
+            [
               {
-                  school_name: 'Hair dids and magic fluits academy.',
-                  major: 'Gettin Hair did',
-                  degree_code: 'CE3',
-                  graduation_date: '2008-05-01T00:00:00'
+                school_name: 'Hair dids and magic fluits academy.',
+                major: 'Gettin Hair did',
+                degree_code: 'CE3',
+                graduation_date: '2008-05-01T00:00:00'
               },
               {
-                  school_name: 'Oak Park River Forest High School',
-                  major: 'Not Applicable',
-                  degree_code: 'CE31',
-                  graduation_date: '2007-05-01T00:00:00'
+                school_name: 'Oak Park River Forest High School',
+                major: 'Not Applicable',
+                degree_code: 'CE31',
+                graduation_date: '2007-05-01T00:00:00'
               }
-          ],
-          skills_and_qualifications: {
+            ],
+          skills_and_qualifications:
+            {
               accreditations_and_certifications: '',
               languages_spoken: [ 'english', 'spanish'],
               has_management_experience: false,
               size_of_team_managed: 0
-          },
-          relocations: [
+            },
+          relocations:
+            [
               {
-                  city: 'atlanta',
-                  admin_area: '',
-                  country_code: 'us'
+                city: 'atlanta',
+                admin_area: '',
+                country_code: 'us'
               },
               {
-                  city: 'winter',
-                  admin_area: '',
-                  country_code: 'us'
+                city: 'winter',
+                admin_area: '',
+                country_code: 'us'
               }
-          ],
-          government_and_military: {
+            ],
+          government_and_military:
+            {
               has_security_clearance: false,
               military_experience: ''
-          }
+            }
         }
       end
 
       def camel_case_resume_hash
         {
-            'userIdentifier'=> 'userID',
-            'resumeHash'=> 'resumeHash',
-            'desiredJobTitle'=> 'TrainHopper',
-            'privacySetting'=> 'Public',
-            'workExperience'=> [
-                {
-                    'jobTitle'=> 'Hair Stylist and Colorist',
-                    'companyName'=> 'Swan Beauty Parlor',
-                    'employmentType'=> 'ETNS',
-                    'startDate'=> '2009-09-01T00:00:00',
-                    'endDate'=> '2014-08-28T00:00:00',
-                    'currentlyEmployedHere'=> true
-                },
-                {
-                    'jobTitle'=> 'Hair Stylist',
-                    'companyName'=> 'Sweet Dreams Beauty Salon',
-                    'employmentType'=> 'ETNS',
-                    'startDate'=> '2008-06-01T00:00:00',
-                    'endDate'=> '2009-09-01T00:00:00',
-                    'currentlyEmployedHere'=> false
-                },
-                {
-                    'jobTitle'=> 'Assistant/Receptionist',
-                    'companyName'=> 'Oak Park Beauty',
-                    'employmentType'=> 'ETNS',
-                    'startDate'=> '2006-09-01T00:00:00',
-                    'endDate'=> '2008-06-01T00:00:00',
-                    'currentlyEmployedHere'=> false
-                },
-                {
-                    'jobTitle'=> 'Lead role',
-                    'companyName'=> 'The Sound of Music',
-                    'employmentType'=> 'ETNS',
-                    'startDate'=> '2007-03-01T00:00:00',
-                    'endDate'=> '2007-05-31T00:00:00',
-                    'currentlyEmployedHere'=> false
-                },
-                {
-                    'jobTitle'=> 'magic place',
-                    'companyName'=> 'Child Cancer Research',
-                    'employmentType'=> 'ETNS',
-                    'startDate'=> '2006-03-01T00:00:00',
-                    'endDate'=> '2006-05-31T00:00:00',
-                    'currentlyEmployedHere'=> false
-                }
-            ],
-            'salaryInformation'=> {
-                'mostRecentPayAmount'=> 0,
-                'perHourOrPerYear'=> 'Hour',
-                'currencyCode'=> 'USD',
+          'userIdentifier'=> 'userID',
+          'resumeHash'=> 'resumeHash',
+          'desiredJobTitle'=> 'TrainHopper',
+          'privacySetting'=> 'Public',
+          'workExperience'=>
+            [
+              {
+                'jobTitle'=> 'Hair Stylist and Colorist',
+                'companyName'=> 'Swan Beauty Parlor',
+                'employmentType'=> 'ETNS',
+                'startDate'=> '2009-09-01T00:00:00',
+                'endDate'=> '2014-08-28T00:00:00',
+                'currentlyEmployedHere'=> true
+              },
+              {
+                'jobTitle'=> 'Hair Stylist',
+                'companyName'=> 'Sweet Dreams Beauty Salon',
+                'employmentType'=> 'ETNS',
+                'startDate'=> '2008-06-01T00:00:00',
+                'endDate'=> '2009-09-01T00:00:00',
+                'currentlyEmployedHere'=> false
+              },
+              {
+                'jobTitle'=> 'Assistant/Receptionist',
+                'companyName'=> 'Oak Park Beauty',
+                'employmentType'=> 'ETNS',
+                'startDate'=> '2006-09-01T00:00:00',
+                'endDate'=> '2008-06-01T00:00:00',
+                'currentlyEmployedHere'=> false
+              },
+              {
+                'jobTitle'=> 'Lead role',
+                'companyName'=> 'The Sound of Music',
+                'employmentType'=> 'ETNS',
+                'startDate'=> '2007-03-01T00:00:00',
+                'endDate'=> '2007-05-31T00:00:00',
+                'currentlyEmployedHere'=> false
+              },
+              {
                 'jobTitle'=> 'magic place',
-                'annualBonus'=> 0,
-                'annualCommission'=> 0,
-            },
-            'educations'=> [
-                {
-                    'schoolName'=> 'Hair dids and magic fluits academy.',
-                    'majorOrProgram'=> 'Gettin Hair did',
-                    'degreeCode'=> 'CE3',
-                    'graduationDate'=> '2008-05-01T00:00:00'
-                },
-                {
-                    'schoolName'=> 'Oak Park River Forest High School',
-                    'majorOrProgram'=> 'Not Applicable',
-                    'degreeCode'=> 'CE31',
-                    'graduationDate'=> '2007-05-01T00:00:00'
-                }
+                'companyName'=> 'Child Cancer Research',
+                'employmentType'=> 'ETNS',
+                'startDate'=> '2006-03-01T00:00:00',
+                'endDate'=> '2006-05-31T00:00:00',
+                'currentlyEmployedHere'=> false
+              }
             ],
-            'skillsAndQualifications'=> {
-                'accreditationsAndCertifications'=> '',
-                'languagesSpoken'=> ['english', 'spanish'],
-                'hasManagementExperience'=> false,
-                'sizeOfTeamManaged'=> 0
+          'salaryInformation'=>
+            {
+              'mostRecentPayAmount'=> 0,
+              'perHourOrPerYear'=> 'Hour',
+              'currencyCode'=> 'USD',
+              'jobTitle'=> 'magic place',
+              'annualBonus'=> 0,
+              'annualCommission'=> 0,
             },
-            'relocations'=> [
-                {
-                    'city'=> 'atlanta',
-                    'adminArea'=> '',
-                    'countryCode'=> 'us'
-                },
-                {
-                    'city'=> 'winter',
-                    'adminArea'=> '',
-                    'countryCode'=> 'us'
-                }
+          'educations'=>
+            [
+              {
+                'schoolName'=> 'Hair dids and magic fluits academy.',
+                'majorOrProgram'=> 'Gettin Hair did',
+                'degreeCode'=> 'CE3',
+                'graduationDate'=> '2008-05-01T00:00:00'
+              },
+              {
+                'schoolName'=> 'Oak Park River Forest High School',
+                'majorOrProgram'=> 'Not Applicable',
+                'degreeCode'=> 'CE31',
+                'graduationDate'=> '2007-05-01T00:00:00'
+              }
             ],
-            'governmentAndMilitary'=> {
-                'hasSecurityClearance'=> false,
-                'militaryExperience'=> ''
+          'skillsAndQualifications'=>
+            {
+              'accreditationsAndCertifications'=> '',
+              'languagesSpoken'=> ['english', 'spanish'],
+              'hasManagementExperience'=> false,
+              'sizeOfTeamManaged'=> 0
+            },
+          'relocations'=>
+            [
+              {
+                'city'=> 'atlanta',
+                'adminArea'=> '',
+                'countryCode'=> 'us'
+              },
+              {
+                'city'=> 'winter',
+                'adminArea'=> '',
+                'countryCode'=> 'us'
+              }
+            ],
+          'governmentAndMilitary'=>
+            {
+              'hasSecurityClearance'=> false,
+              'militaryExperience'=> ''
             }
         }
       end
