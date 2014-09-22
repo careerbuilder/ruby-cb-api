@@ -56,6 +56,5 @@ module Cb
         end
       end
     end
-
   end
 end
