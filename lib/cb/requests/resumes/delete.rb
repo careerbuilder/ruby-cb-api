@@ -1,3 +1,5 @@
+require_relative '../base'
+
 module Cb
   module Requests
     module Resumes

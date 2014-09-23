@@ -23,6 +23,7 @@ module Cb
             Cb::Requests::Resumes::Get => Cb::Responses::Resume,
             Cb::Requests::Resumes::Put => Cb::Responses::Resume,
             Cb::Requests::Resumes::Delete => Cb::Responses::Resume,
+            Cb::Requests::Resumes::List => Cb::Responses::List,
 
             Cb::Requests::AnonymousSavedSearch::Create => Cb::Responses::AnonymousSavedSearch::Create,
             Cb::Requests::AnonymousSavedSearch::Delete => Cb::Responses::AnonymousSavedSearch::Delete,
