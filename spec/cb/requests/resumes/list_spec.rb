@@ -27,9 +27,7 @@ module Cb
 
       context 'with arguments' do
         before :each do
-          @request = Cb::Requests::Resumes::List.new({
-                                                        oauth_token: 'token',
-                                                    })
+          @request = Cb::Requests::Resumes::List.new({ oauth_token: 'token' })
         end
 
         it 'will be correctly configured' do
