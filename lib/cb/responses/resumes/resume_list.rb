@@ -1,6 +1,6 @@
 module Cb
   module Responses
-    class List < ApiResponse
+    class ResumeList < ApiResponse
       def validate_api_hash
         required_response_field(root_node, response)
       end
