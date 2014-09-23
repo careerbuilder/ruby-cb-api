@@ -84,6 +84,8 @@ module Cb
       @uri_work_status_list               ||= '/v1/resume/workstatuslist'
       @uri_resume_get                     ||= '/cbapi/resumes/:resume_hash'
       @uri_resume_put                     ||= '/cbapi/resumes/:resume_hash'
+      @uri_resume_delete                  ||= '/cbapi/resumes/:resume_hash'
+      @uri_resume_list                    ||= '/v3/resume/list'
     end
 
     def set_attr_accessors
