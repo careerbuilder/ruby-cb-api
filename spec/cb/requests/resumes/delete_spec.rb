@@ -19,7 +19,7 @@ module Cb
         it 'will have basic headers' do
           @request.headers.should == {
               'DeveloperKey' => Cb.configuration.dev_key,
-              'HostSite' => Cb.configuration.host_site,
+              'HostSite' => '',
               'Content-Type' => 'application/json'
           }
         end
@@ -49,7 +49,7 @@ module Cb
         it 'will have basic headers' do
           @request.headers.should == {
               'DeveloperKey' => Cb.configuration.dev_key,
-              'HostSite' => Cb.configuration.host_site,
+              'HostSite' => '',
               'Content-Type' => 'application/json'
           }
         end

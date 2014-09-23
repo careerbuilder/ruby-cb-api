@@ -6,7 +6,7 @@ module Cb
       end
 
       def extract_models
-        response[root_node].map do |resume| Models::ResumeListing.new(resume) end
+        response[root_node].map { |resume| Models::ResumeListing.new(resume) }
       end
 
       def hash_containing_metadata
