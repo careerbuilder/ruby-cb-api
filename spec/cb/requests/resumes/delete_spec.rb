@@ -7,16 +7,16 @@ module Cb
       context 'without arguments' do
         before(:each) { @request = Cb::Requests::Resumes::Delete.new({}) }
 
-        it 'should be correctly configured' do
+        it 'will be correctly configured' do
           @request.endpoint_uri.should == Cb.configuration.uri_resume_delete.sub(':resume_hash', nil.to_s)
           @request.http_method.should == :delete
         end
 
-        it 'should have a basic query string' do
+        it 'will have a basic query string' do
           @request.query.should eq({ externalUserID: nil })
         end
 
-        it 'should have basic headers' do
+        it 'will have basic headers' do
           @request.headers.should == {
               'DeveloperKey' => Cb.configuration.dev_key,
               'HostSite' => Cb.configuration.host_site,
@@ -24,7 +24,7 @@ module Cb
           }
         end
 
-        it 'should have a basic body' do
+        it 'will have a basic body' do
           @request.body.should == nil
         end
       end
@@ -37,16 +37,16 @@ module Cb
                                                     })
         end
 
-        it 'should be correctly configured' do
+        it 'will be correctly configured' do
           @request.endpoint_uri.should == Cb.configuration.uri_resume_get.sub(':resume_hash', 'resumeHash')
           @request.http_method.should == :delete
         end
 
-        it 'should have a basic query string' do
+        it 'will have a basic query string' do
           @request.query.should eq ({ externalUserID: 'externalUserId' })
         end
 
-        it 'should have basic headers' do
+        it 'will have basic headers' do
           @request.headers.should == {
               'DeveloperKey' => Cb.configuration.dev_key,
               'HostSite' => Cb.configuration.host_site,
@@ -54,7 +54,7 @@ module Cb
           }
         end
 
-        it 'should have a basic body' do
+        it 'will have a basic body' do
           @request.body.should == nil
         end
       end

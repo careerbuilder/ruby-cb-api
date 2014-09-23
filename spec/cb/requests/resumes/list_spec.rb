@@ -7,20 +7,20 @@ module Cb
       context 'without arguments' do
         before(:each) { @request = Cb::Requests::Resumes::List.new({}) }
 
-        it 'should be correctly configured' do
+        it 'will be correctly configured' do
           @request.endpoint_uri.should == Cb.configuration.uri_resume_list
           @request.http_method.should == :get
         end
 
-        it 'should have a basic query string' do
+        it 'will have a basic query string' do
           @request.query.should eq({ DeveloperKey: Cb.configuration.dev_key, HostSite: Cb.configuration.host_site, OAuthToken: nil })
         end
 
-        it 'should have basic headers' do
+        it 'will have basic headers' do
           @request.headers.should == nil
         end
 
-        it 'should have a basic body' do
+        it 'will have a basic body' do
           @request.body.should == nil
         end
       end
@@ -32,20 +32,20 @@ module Cb
                                                     })
         end
 
-        it 'should be correctly configured' do
+        it 'will be correctly configured' do
           @request.endpoint_uri.should == Cb.configuration.uri_resume_list
           @request.http_method.should == :get
         end
 
-        it 'should have a basic query string' do
+        it 'will have a basic query string' do
           @request.query.should eq ({ DeveloperKey: Cb.configuration.dev_key, HostSite: Cb.configuration.host_site, OAuthToken: 'token' })
         end
 
-        it 'should have basic headers' do
+        it 'will have basic headers' do
           @request.headers.should == nil
         end
 
-        it 'should have a basic body' do
+        it 'will have a basic body' do
           @request.body.should == nil
         end
       end
