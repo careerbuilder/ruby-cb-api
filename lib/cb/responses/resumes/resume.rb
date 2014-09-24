@@ -13,6 +13,10 @@ module Cb
         response
       end
 
+      def status
+        response['Status']
+      end
+
       def root_node
         'Results'
       end
