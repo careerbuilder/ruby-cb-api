@@ -13,7 +13,7 @@ module Cb
         end
 
         it 'will have a basic query string' do
-          request.query.should eq({ DeveloperKey: Cb.configuration.dev_key, HostSite: Cb.configuration.host_site, OAuthToken: nil })
+          request.query.should eq({ HostSite: Cb.configuration.host_site, OAuthToken: nil })
         end
 
         it 'will have basic headers' do
@@ -34,7 +34,7 @@ module Cb
         end
 
         it 'will have a basic query string' do
-          request.query.should eq ({ DeveloperKey: Cb.configuration.dev_key, HostSite: Cb.configuration.host_site, OAuthToken: 'token' })
+          request.query.should eq ({ HostSite: Cb.configuration.host_site, OAuthToken: 'token' })
         end
 
         it 'will have basic headers' do
