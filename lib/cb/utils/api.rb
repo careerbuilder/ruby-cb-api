@@ -29,23 +29,23 @@ module Cb
       end
 
       def cb_get(path, options={}, &block)
-        execute_http_request(:get, path, options, &block)
+        execute_http_request(:get, nil, path, options, &block)
       end
 
       def cb_post(path, options={}, &block)
-        execute_http_request(:post, path, options, &block)
+        execute_http_request(:post, nil, path, options, &block)
       end
 
       def cb_put(path, options={}, &block)
-        execute_http_request(:put, path, options, &block)
+        execute_http_request(:put, nil, path, options, &block)
       end
 
       def cb_delete(path, options={}, &block)
-        execute_http_request(:delete, path, options, &block)
+        execute_http_request(:delete, nil, path, options, &block)
       end
 
-      def execute_http_request(http_method, path, options={}, &block)
-        self.class.base_uri Cb.configuration.base_uri
+      def execute_http_request(http_method, uri, path, options={}, &block)
+        self.class.base_uri(uri || Cb.configuration.base_uri)
         cb_event(:"cb_#{http_method.to_s}_before", path, options, nil, &block)
         response = self.class.method(http_method).call(path, options)
         cb_event(:"cb_#{http_method.to_s}_after", path, options, response, &block)

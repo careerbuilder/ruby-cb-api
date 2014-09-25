@@ -7,6 +7,10 @@ module Mocks
       @arg = arg
     end
 
+    def base_uri
+      'www.google.com/poop'
+    end
+
     def body
       nil
     end

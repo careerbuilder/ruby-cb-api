@@ -9,6 +9,10 @@ module Cb
         @args = argument_hash
       end
 
+      def base_uri
+        Cb.config.base_uri
+      end
+
       def endpoint_uri
         raise NotImplementedError.new __method__
       end
