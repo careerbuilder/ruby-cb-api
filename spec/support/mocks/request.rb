@@ -8,7 +8,7 @@ module Mocks
     end
 
     def base_uri
-      'www.google.com/poop'
+      'www.example.com'
     end
 
     def body
