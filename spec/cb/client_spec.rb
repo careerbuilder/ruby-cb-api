@@ -5,7 +5,7 @@ require 'support/mocks/response'
 
 module Cb
   describe Cb::Client do
-    let(:base_uri) { 'www.google.com/poop' }
+    let(:base_uri) { 'www.example.com' }
 
     context 'initialize' do
       it 'should not use a callback block' do
