@@ -248,25 +248,32 @@ module Cb
         end
       end
 
-      context 'base_uri gets the override' do
+      describe '#base_uri' do
         let(:base_uri) { 'http://www.careerbuilder.com' }
+        let(:default_uri) { 'http://www.kylerox.org' }
         before {
-          Cb.configuration.base_uri = 'http://www.kylerox.org'
+          Cb.configuration.base_uri = default_uri
           Api.stub(:delete).with(path, options)
         }
 
-        it 'sets an override' do
-          api.execute_http_request(:delete, base_uri, path)
-          expect(Api.base_uri).to eq base_uri
+        context 'passes a base uri' do
+          before {
+            api.execute_http_request(:delete, base_uri, path)
+          }
+          it 'sets an override' do
+            expect(Api.base_uri).to eq base_uri
+          end
         end
 
-        it 'doesn\'t set an override' do
-          api.execute_http_request(:delete, nil, path)
-          expect(Api.base_uri).to eq 'http://www.kylerox.org'
+        context 'passes nil' do
+          before {
+            api.execute_http_request(:delete, nil, path)
+          }
+          it 'doesn\'t set an override' do
+            expect(Api.base_uri).to eq default_uri
+          end
         end
-
       end
-
     end
   end
 end
