@@ -5,6 +5,7 @@ require 'support/mocks/response'
 
 module Cb
   describe Cb::Client do
+    let(:base_uri) { 'www.example.com' }
 
     context 'initialize' do
       it 'should not use a callback block' do
@@ -51,7 +52,7 @@ module Cb
 
         it 'should call the api using post' do
           mock_api.should_receive(:execute_http_request).
-              with(:post, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
+              with(:post, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
           @client.execute(@request)
@@ -70,7 +71,7 @@ module Cb
 
         it 'should call the api using get' do
           mock_api.should_receive(:execute_http_request).
-              with(:get, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
+              with(:get, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
           @client.execute(@request)
@@ -89,7 +90,7 @@ module Cb
 
         it 'should call the api using put' do
           mock_api.should_receive(:execute_http_request).
-              with(:put, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
+              with(:put, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
           @client.execute(@request)
@@ -117,7 +118,7 @@ module Cb
 
         it 'should call the api using post' do
           mock_api.should_receive(:execute_http_request).
-              with(:post, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
+              with(:post, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_yield("test").
               and_return(Hash.new)
 
@@ -137,7 +138,7 @@ module Cb
 
         it 'should call the api using get' do
           mock_api.should_receive(:execute_http_request).
-              with(:get, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
+              with(:get, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_yield("test").
               and_return(Hash.new)
 
@@ -157,7 +158,7 @@ module Cb
 
         it 'should call the api using put' do
           mock_api.should_receive(:execute_http_request).
-              with(:put, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
+              with(:put, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_yield("test").
               and_return(Hash.new)
 
