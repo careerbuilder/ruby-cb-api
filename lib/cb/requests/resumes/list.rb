@@ -14,7 +14,6 @@ module Cb
 
         def query
           {
-              DeveloperKey: Cb.configuration.dev_key,
               HostSite: args[:host_site] || Cb.configuration.host_site,
               OAuthToken: args[:oauth_token]
           }
