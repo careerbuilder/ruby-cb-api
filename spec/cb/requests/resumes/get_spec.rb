@@ -30,7 +30,6 @@ module Cb
       end
 
       context 'with arguments' do
-
         let (:request) do
           Cb::Requests::Resumes::Get.new({ resume_hash: 'resumeHash', external_user_id: 'externalUserId' })
         end
@@ -57,6 +56,5 @@ module Cb
         end
       end
     end
-
   end
 end
