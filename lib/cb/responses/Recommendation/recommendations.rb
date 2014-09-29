@@ -11,7 +11,6 @@ module Cb
         response[root_node]
       end
 
-
       def extract_models
         response[root_node]['results'].map { |cur_job| Models::RecommendedJob.new(cur_job) }
       end
