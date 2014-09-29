@@ -52,7 +52,6 @@ module Cb
         my_api.append_api_responses(jobs, json_hash)
       end
 
-
       def self.for_company(company_did)
         my_api = Cb::Utils::Api.instance
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_company, :query => {:CompanyDID => company_did})
