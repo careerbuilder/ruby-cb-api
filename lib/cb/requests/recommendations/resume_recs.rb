@@ -6,7 +6,7 @@ module Cb
       class Resume < Base
 
         def endpoint_uri
-          Cb.configuration.uri_recommendation_for_resume.sub ':resume_hash', @args[:resume_hash].to_s
+          Cb.configuration.uri_recommendation_for_resume.sub(':resume_hash', @args[:resume_hash].to_s)
         end
 
         def http_method
