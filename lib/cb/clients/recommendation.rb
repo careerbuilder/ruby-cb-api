@@ -52,6 +52,7 @@ module Cb
         my_api.append_api_responses(jobs, json_hash)
       end
 
+
       def self.for_company(company_did)
         my_api = Cb::Utils::Api.instance
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_company, :query => {:CompanyDID => company_did})
@@ -69,11 +70,6 @@ module Cb
         end
 
         my_api.append_api_responses(jobs, json_hash)
-      end
-
-      def self.for_resume(oauth_token, resume_hash)
-        json_hash = oauth_token.get(Cb.configuration.uri_recommendation_for_resume, :query => {:resume_hash => resume_hash})
-        Responses::Recommendations.new(json_hash)
       end
 
       private
