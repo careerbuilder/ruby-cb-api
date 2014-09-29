@@ -14,17 +14,17 @@ module Cb
         end
 
         def headers
-        {
-          'DeveloperKey' => Cb.configuration.dev_key,
-          'HostSite' => Cb.configuration.host_site,
-          'Content-Type' => 'application/json'
-        }
+          {
+            'DeveloperKey' => Cb.configuration.dev_key,
+            'HostSite' => Cb.configuration.host_site,
+            'Content-Type' => 'application/json'
+          }
         end
 
         def query
-        {
-          :externalID => args[:external_user_id]
-        }
+          {
+            :externalID => args[:external_user_id]
+          }
         end
 
       end

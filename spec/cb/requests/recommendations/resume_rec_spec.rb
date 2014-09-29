@@ -30,10 +30,9 @@ module Cb
       end
 
       context 'with arguments' do
-          let (:request) { Cb::Requests::Recommendations::Resume.new({
-                                                                       resume_hash: 'resumeHash',
-                                                                       external_user_id: 'externalUserId'
-                                                                      })}
+          let (:request) do
+            Cb::Requests::Recommendations::Resume.new({ resume_hash: 'resumeHash', external_user_id: 'externalUserId' })
+          end
 
         it 'should be correctly configured' do
           request.endpoint_uri.should == Cb.configuration.uri_recommendation_for_resume.sub(':resume_hash', 'resumeHash')
