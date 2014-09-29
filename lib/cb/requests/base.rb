@@ -10,7 +10,7 @@ module Cb
       end
 
       def base_uri
-        Cb.config.base_uri
+        Cb.configuration.base_uri
       end
 
       def endpoint_uri
