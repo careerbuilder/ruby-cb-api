@@ -23,7 +23,7 @@ module Cb
 
         def query
         {
-          :ExternalID => args[:external_id]
+          :externalID => args[:external_user_id]
         }
         end
 
