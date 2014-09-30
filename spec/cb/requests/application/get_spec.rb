@@ -8,7 +8,7 @@ module Cb
         before(:each) { @request = Cb::Requests::Application::Get.new({}) }
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_application.sub(':did', nil.to_s)
+          @request.endpoint_uri.should == Cb.configuration.uri_application.sub(':did', '')
           @request.http_method.should == :get
         end
 

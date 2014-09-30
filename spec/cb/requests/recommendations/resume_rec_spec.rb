@@ -8,7 +8,7 @@ module Cb
         let(:request) { Cb::Requests::Recommendations::Resume.new({}) }
 
         it 'should be correctly configured' do
-          request.endpoint_uri.should == Cb.configuration.uri_recommendation_for_resume.sub(':resume_hash', nil.to_s)
+          request.endpoint_uri.should == Cb.configuration.uri_recommendation_for_resume.sub(':resume_hash', '')
           request.http_method.should == :get
         end
 

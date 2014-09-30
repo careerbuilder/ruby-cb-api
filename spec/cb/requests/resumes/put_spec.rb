@@ -9,7 +9,7 @@ module Cb
         before(:each) { @request = Cb::Requests::Resumes::Put.new({}) }
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_resume_put.sub(':resume_hash', nil.to_s)
+          @request.endpoint_uri.should == Cb.configuration.uri_resume_put.sub(':resume_hash', '')
           @request.http_method.should == :put
         end
 
