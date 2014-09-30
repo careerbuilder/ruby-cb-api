@@ -2,9 +2,7 @@ require 'spec_helper'
 
 module Cb
   describe Cb::Requests::Recommendations::Resume do
-
-    context 'initialize without arguments' do
-
+    describe '#new' do
       context 'without arguments' do
         let(:request) { Cb::Requests::Recommendations::Resume.new({}) }
 
@@ -14,13 +12,13 @@ module Cb
 
         it { expect(request.query).to eq({ externalID: nil }) }
 
+        it { expect(request.body).to eq nil }
+
         it { expect(request.headers).to eq ({
                                               'DeveloperKey' => Cb.configuration.dev_key,
                                               'HostSite' => Cb.configuration.host_site,
                                               'Content-Type' => 'application/json'
                                             }) }
-
-        it { expect(request.body).to eq nil }
       end
 
       context 'with arguments' do
@@ -34,13 +32,13 @@ module Cb
 
         it { expect(request.query).to eq ({ externalID: 'externalUserId' }) }
 
+        it { expect(request.body).to eq nil }
+
         it { expect(request.headers).to eq ({
                                               'DeveloperKey' => Cb.configuration.dev_key,
                                               'HostSite' => Cb.configuration.host_site,
                                               'Content-Type' => 'application/json'
                                             }) }
-
-        it { expect(request.body).to eq nil }
       end
     end
   end

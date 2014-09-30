@@ -4,9 +4,7 @@ describe Cb::Responses::Recommendations do
   let(:response) { JSON.parse(File.read('spec/support/response_stubs/recommendations_for_resume.json')) }
   let(:api_job_result_collection) { Cb::Responses::Recommendations.new(response) }
 
-  context 'when the Api response comes back as expected' do
-    it { expect(api_job_result_collection.models.first).to be_an_instance_of Cb::Models::RecommendedJob }
-  end
+  it { expect(api_job_result_collection.models.first).to be_an_instance_of Cb::Models::RecommendedJob }
 
   describe '#root_node' do
     it { expect(api_job_result_collection.root_node).to eq('data')}
