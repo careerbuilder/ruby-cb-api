@@ -51,7 +51,7 @@ module Cb
           }
         end
 
-        it 'should have a basic body' do
+        it 'should have a nil body' do
           request.body.should == nil
         end
       end
