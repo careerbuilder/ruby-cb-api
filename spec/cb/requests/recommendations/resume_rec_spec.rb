@@ -3,6 +3,13 @@ require 'spec_helper'
 module Cb
   describe Cb::Requests::Recommendations::Resume do
     describe '#new' do
+      let(:headers) {
+        {
+          'DeveloperKey' => Cb.configuration.dev_key,
+          'HostSite' => Cb.configuration.host_site,
+          'Content-Type' => 'application/json'
+        }
+      }
       context 'without arguments' do
         let(:request) { Cb::Requests::Recommendations::Resume.new({}) }
 
@@ -14,11 +21,7 @@ module Cb
 
         it { expect(request.body).to eq nil }
 
-        it { expect(request.headers).to eq ({
-                                              'DeveloperKey' => Cb.configuration.dev_key,
-                                              'HostSite' => Cb.configuration.host_site,
-                                              'Content-Type' => 'application/json'
-                                            }) }
+        it { expect(request.headers).to eq (headers) }
       end
 
       context 'with arguments' do
@@ -34,11 +37,7 @@ module Cb
 
         it { expect(request.body).to eq nil }
 
-        it { expect(request.headers).to eq ({
-                                              'DeveloperKey' => Cb.configuration.dev_key,
-                                              'HostSite' => Cb.configuration.host_site,
-                                              'Content-Type' => 'application/json'
-                                            }) }
+        it { expect(request.headers).to eq (headers) }
       end
     end
   end
