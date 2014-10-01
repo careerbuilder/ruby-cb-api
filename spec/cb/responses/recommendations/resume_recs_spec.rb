@@ -20,4 +20,14 @@ describe Cb::Responses::Recommendations do
       end
     end
   end
+
+  context 'when the Api response contains the nonstandard error message node "Message"' do
+    let(:response_hash) do
+      { 'Message' => 'Everything is terrible and the world hates you' }
+    end
+
+    it 'throws an ApiResponseError with the correct message' do
+      expect { Cb::Responses::Recommendations.new(response_hash) }.to raise_error(Cb::ApiResponseError, response_hash['Message'])
+    end
+  end
 end
