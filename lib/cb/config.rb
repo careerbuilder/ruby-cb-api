@@ -52,7 +52,7 @@ module Cb
       @uri_recommendation_for_job         ||= '/v1/Recommendations/ForJob'
       @uri_recommendation_for_user        ||= '/v1/Recommendations/ForUser'
       @uri_recommendation_for_company     ||= '/Employer/JobRecommendation'
-      @uri_recommendation_for_resume      ||= '/consumer/jobsearch/recommendations/:resume_hash'
+      @uri_recommendation_for_resume      ||= '/jobsearch/recommendations/:resume_hash'
       @uri_application                    ||= '/cbapi/application/:did'
       @uri_application_create             ||= '/cbapi/application/'
       @uri_application_submit             ||= '/v1/Application/submit'

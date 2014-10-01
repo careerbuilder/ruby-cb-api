@@ -2,20 +2,15 @@ require_relative '../base'
 
 module Cb
   module Requests
-    module Resumes
-      class Get < Base
+    module Recommendations
+      class Resume < Base
+
         def endpoint_uri
-          Cb.configuration.uri_resume_get.gsub(':resume_hash', args[:resume_hash].to_s)
+          Cb.configuration.uri_recommendation_for_resume.sub(':resume_hash', @args[:resume_hash].to_s)
         end
 
         def http_method
           :get
-        end
-
-        def query
-          {
-            externalUserID: args[:external_user_id]
-          }
         end
 
         def headers
@@ -25,6 +20,13 @@ module Cb
             'Content-Type' => 'application/json'
           }
         end
+
+        def query
+          {
+            :externalID => args[:external_user_id]
+          }
+        end
+
       end
     end
   end

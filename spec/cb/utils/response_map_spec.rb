@@ -1,3 +1,4 @@
+require 'spec_helper'
 
 module Cb
   describe Cb::Utils::ResponseMap do
@@ -83,6 +84,20 @@ module Cb
         response_namespace = Cb::Responses::WorkStatus
 
         expect(response_map.response_for(request_namespace::List)).to eq response_namespace::List
+      end
+
+      it 'should map resume get to the correct response object' do
+        request_namespace = Cb::Requests::Resumes
+        response_namespace = Cb::Responses
+
+        expect(response_map .response_for(request_namespace::Get)).to eq response_namespace::Resume
+      end
+
+      it 'should map resume recommendations to the correct response object' do
+        request_namespace = Cb::Requests::Recommendations
+        response_namespace = Cb::Responses
+
+        expect(response_map .response_for(request_namespace::Resume)).to eq response_namespace::Recommendations
       end
     end
   end

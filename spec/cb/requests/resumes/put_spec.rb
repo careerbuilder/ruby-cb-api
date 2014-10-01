@@ -6,19 +6,19 @@ module Cb
 
     context 'initialize without arguments' do
       context 'without arguments' do
-        before(:each) { @request = Cb::Requests::Resumes::Put.new({}) }
+        let (:request) { Cb::Requests::Resumes::Put.new({}) }
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_resume_put.sub(':resume_hash', nil.to_s)
-          @request.http_method.should == :put
+          request.endpoint_uri.should == Cb.configuration.uri_resume_put.sub(':resume_hash', '')
+          request.http_method.should == :put
         end
 
         it 'should have a basic query string' do
-          @request.query.should == nil
+          request.query.should == nil
         end
 
         it 'should have basic headers' do
-          @request.headers.should ==
+          request.headers.should ==
             {
               'DeveloperKey' => Cb.configuration.dev_key,
               'HostSite' => Cb.configuration.host_site,
@@ -27,7 +27,7 @@ module Cb
         end
 
         it 'should have a body' do
-          @request.body.should_not == nil
+          request.body.should_not == nil
         end
       end
 

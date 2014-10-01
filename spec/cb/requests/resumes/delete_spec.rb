@@ -8,7 +8,7 @@ module Cb
         let(:request) { Cb::Requests::Resumes::Delete.new({}) }
 
         it 'will be correctly configured' do
-          request.endpoint_uri.should == Cb.configuration.uri_resume_delete.sub(':resume_hash', nil.to_s)
+          request.endpoint_uri.should == Cb.configuration.uri_resume_delete.sub(':resume_hash', '')
           request.http_method.should == :delete
         end
 
