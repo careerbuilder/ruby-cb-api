@@ -35,7 +35,6 @@ module Cb
       def raise_on_timing_parse_error
         true
       end
-
       def required_response_field(field_name, parent_hash)
         raise ArgumentError.new("field_name can't be nil!")  if field_name.nil?
         raise ArgumentError.new("parent_hash can't be nil!") if parent_hash.nil?
@@ -51,7 +50,7 @@ module Cb
       end
 
       def extract_metadata
-        Metadata.new(hash_containing_metadata, raise_on_timing_parse_error)
+        Metadata.new(hash_containing_metadata, raise_on_timing_parse_error) unless hash_containing_metadata.nil?
       end
 
       def validated_models
