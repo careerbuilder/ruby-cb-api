@@ -4,7 +4,7 @@ module Cb
 
       class Retrieve < ApiResponse
 
-        attr_accessor :status
+        attr_reader :status
 
         def initialize(args)
           super(args)
