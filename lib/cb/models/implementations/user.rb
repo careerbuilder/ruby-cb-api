@@ -2,7 +2,7 @@ module Cb
   module Models
     class User
       attr_accessor :external_id, :user_status, :password, :email, :address_1, :address_2, :city, :state,
-                    :province, :postal_code, :zip, :country_code, :first_name,
+                    :province, :location_code, :country_code, :first_name,
                     :last_name, :phone, :fax, :last_login, :created, :allow_partner_emails,
                     :allow_newsletter_emails, :allow_email_from_headhunter, :domain, :registration_path,
                     :user_type, :gender, :birth_date, :cobrand_code, :resume_stats, :custom_values, :work_status
@@ -19,8 +19,7 @@ module Cb
         @city                         = args['City'] || ''
         @state                        = args['State'] || ''
         @province                     = args['Province'] || ''
-        @postal_code                  = args['PostalCode'] || ''
-        @zip                          = args['Zip'] || ''
+        @location_code                = args['PostalCode'] || args['Zip'] || ''
         @country_code                 = args['CountryCode'] || ''
         @first_name                   = args['FirstName'] || ''
         @last_name                    = args['LastName'] || ''
