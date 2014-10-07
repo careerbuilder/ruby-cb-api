@@ -9,7 +9,6 @@ module Cb
         def initialize(args)
           super(args)
           @status = extract_status
-          @models = extract_models
         end
 
         protected
