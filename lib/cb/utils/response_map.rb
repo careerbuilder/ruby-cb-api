@@ -20,11 +20,6 @@ module Cb
 
         def response_hash
           {
-            Cb::Requests::Resumes::Get => Cb::Responses::Resume,
-            Cb::Requests::Resumes::Put => Cb::Responses::Resume,
-            Cb::Requests::Resumes::Delete => Cb::Responses::Resume,
-            Cb::Requests::Resumes::List => Cb::Responses::ResumeList,
-
             Cb::Requests::AnonymousSavedSearch::Create => Cb::Responses::AnonymousSavedSearch::Create,
             Cb::Requests::AnonymousSavedSearch::Delete => Cb::Responses::AnonymousSavedSearch::Delete,
 
@@ -43,6 +38,13 @@ module Cb
 
             Cb::Requests::EmailSubscription::Retrieve => Cb::Responses::EmailSubscription::Response,
             Cb::Requests::EmailSubscription::Modify => Cb::Responses::EmailSubscription::Response,
+
+            Cb::Requests::Recommendations::Resume => Cb::Responses::Recommendations,
+
+            Cb::Requests::Resumes::Get => Cb::Responses::Resume,
+            Cb::Requests::Resumes::Put => Cb::Responses::Resume,
+            Cb::Requests::Resumes::Delete => Cb::Responses::Resume,
+            Cb::Requests::Resumes::List => Cb::Responses::ResumeList,
 
             Cb::Requests::User::ChangePassword => Cb::Responses::User::ChangePassword,
             Cb::Requests::User::CheckExisting => Cb::Responses::User::CheckExisting,

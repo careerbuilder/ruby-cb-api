@@ -112,6 +112,23 @@ module Cb
       end
 
       context '#new' do
+        context 'when hash_containing_metadata returns nil' do
+          class ResponseWithoutMetadataParsing < Responses::ApiResponse
+            def hash_containing_metadata
+              nil
+            end
+
+            # these methods have to be overriden or else we get NotImplemented errors
+            def validate_api_hash; end
+            def extract_models; end
+          end
+          
+          it 'metadata parsing does not occur' do
+            Responses::Metadata.should_not_receive(:new)
+            ResponseWithoutMetadataParsing.new(valid_input_hash)
+          end
+        end
+
         context 'but is missing method implementations' do
           context '--> hash_containing_metadata <--' do
             it 'raises an error' do
