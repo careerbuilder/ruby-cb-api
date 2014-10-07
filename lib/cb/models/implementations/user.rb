@@ -20,8 +20,6 @@ module Cb
         @state                        = args['State'] || ''
         @province                     = args['Province'] || ''
         @location_code                = args['PostalCode'] || args['Zip'] || ''
-        @postal_code                  = args['PostalCode'] || ''
-        @zip                          = args['Zip'] || ''
         @country_code                 = args['CountryCode'] || ''
         @first_name                   = args['FirstName'] || ''
         @last_name                    = args['LastName'] || ''
