@@ -3,8 +3,8 @@ require 'spec_helper'
 module Cb
   describe Cb::Models::User do
     describe '#new' do
-      context 'when args are given' do
-        it 'should create a user with given args' do
+      context 'when args are given for a US user' do
+        it 'should create a user model with given args' do
           external_id = 'XUID1234'
           user_status = 'being initialized in test'
           password = ''
@@ -47,6 +47,63 @@ module Cb
           expect(user.city).to eq(city)
           expect(user.state).to eq(state)
           expect(user.zip).to eq(zip)
+          expect(user.location_code).to eq(zip)
+          expect(user.country_code).to eq(country_code)
+          expect(user.first_name).to eq(first_name)
+          expect(user.last_name).to eq(last_name)
+          expect(user.phone).to eq(phone)
+          expect(user.created).to eq(created)
+          expect(user.gender).to eq(gender)
+          expect(user.birth_date).to eq(birth_date)
+          expect(user.work_status).to eq(work_status)
+        end
+      end
+
+      context 'when args are given for non US user' do
+        it 'should create a user model with given args' do
+          external_id = 'XUID1234'
+          user_status = 'being initialized in test'
+          password = ''
+          email = 'test@test.com'
+          address_1 = '1234 Afroditis Street'
+          city = 'Kallithea'
+          state = 'Attica'
+          postal_code = '17672'
+          country_code = 'GR'
+          first_name = 'Hera'
+          last_name = 'Demopoulos'
+          phone = '706-123-4567'
+          created = Time.now
+          gender = 'male'
+          birth_date = Date.today-40
+          work_status = 'US Citizen'
+
+
+          user = Cb::Models::User.new(
+              'ResponseExternalID' => external_id,
+              'UserStatus' => user_status,
+              'Email' => email,
+              'Address1' => address_1,
+              'City' => city,
+              'State' => state,
+              'PostalCode' => postal_code,
+              'CountryCode' => country_code,
+              'FirstName' => first_name,
+              'LastName' => last_name,
+              'Phone' => phone,
+              'CreatedDT' => created,
+              'Gender' => gender,
+              'BirthDate' => birth_date,
+              'WorkStatus' => work_status)
+
+          expect(user.external_id).to eq(external_id)
+          expect(user.user_status).to eq(user_status)
+          expect(user.email).to eq(email)
+          expect(user.address_1).to eq(address_1)
+          expect(user.city).to eq(city)
+          expect(user.state).to eq(state)
+          expect(user.postal_code).to eq(postal_code)
+          expect(user.location_code).to eq(postal_code)
           expect(user.country_code).to eq(country_code)
           expect(user.first_name).to eq(first_name)
           expect(user.last_name).to eq(last_name)
@@ -59,7 +116,7 @@ module Cb
       end
       
       context 'when no args provided' do
-        it 'should create an empty user' do
+        it 'should create an empty user model' do
           user = Cb::Models::User.new
 
           expect(user.external_id).to eq('')
