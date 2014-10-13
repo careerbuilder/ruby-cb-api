@@ -7,9 +7,11 @@ module Cb
     class << self
       def validate(response)
         body = response.response.body rescue nil
-        return Hash.new if !body
+        return Hash.new if body.nil?
 
-        if response.code != 200
+        if response.code == 503
+          raise Cb::SiteDown
+        elsif response.code != 200
           return Hash.new if body.include?('<!DOCTYPE html')
         end
         
