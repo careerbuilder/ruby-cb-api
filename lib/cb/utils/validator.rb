@@ -9,12 +9,7 @@ module Cb
         body = response.response.body rescue nil
         return Hash.new if body.nil?
 
-        if response.code == 503
-          raise Cb::SiteDown
-        elsif response.code != 200
-          return Hash.new if body.include?('<!DOCTYPE html')
-        end
-        
+        return response_code_errors unless response.code == 200
         try_parse_json(body) || try_parse_xml(body) || {}
       end
 
@@ -25,6 +20,17 @@ module Cb
           JSON.parse(body)
         rescue JSON::ParserError
           nil
+        end
+      end
+
+      def response_code_errors
+        case response.code
+          when 521
+            raise Cb::ResponseContainsNoData
+          when 503
+            raise Cb::ServiceUnavailable
+          else
+            return Hash.new if body.include?('<!DOCTYPE html')
         end
       end
 
