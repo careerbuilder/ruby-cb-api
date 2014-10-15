@@ -12,6 +12,10 @@ module Cb
         nil
       end
 
+      def has_service_unavailable_indicator(error_message)
+        return error_message.include?('This service is down for maintenance') || error_message.include?('Please try again later')
+      end
+
       def extract_models
         response[root_node]['results'].map { |cur_job| Models::RecommendedJob.new(cur_job) }
       end

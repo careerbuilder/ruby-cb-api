@@ -32,6 +32,10 @@ module Cb
         raise NotImplementedError.new(__method__)
       end
 
+      def has_service_unavailable_indicator(error_message)
+        raise NotImplementedError.new(__method__)
+      end
+
       def raise_on_timing_parse_error
         true
       end
@@ -49,8 +53,16 @@ module Cb
         @response = response_hash
       end
 
+      def response_is_service_unavailable(error_message)
+        raise ServiceUnavailableError.new(error_message) if has_service_unavailable_indicator(error_message)
+      end
+
       def extract_metadata
         Metadata.new(hash_containing_metadata, raise_on_timing_parse_error) unless hash_containing_metadata.nil?
+      rescue ApiResponseError => error
+        unless response_is_service_unavailable(error.message)
+          raise error
+      end
       end
 
       def validated_models
