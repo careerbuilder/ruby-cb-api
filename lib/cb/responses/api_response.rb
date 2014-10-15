@@ -33,7 +33,7 @@ module Cb
       end
 
       def has_service_unavailable_indicator(error_message)
-        raise NotImplementedError.new(__method__)
+        nil #raise NotImplementedError.new(__method__)
       end
 
       def raise_on_timing_parse_error
