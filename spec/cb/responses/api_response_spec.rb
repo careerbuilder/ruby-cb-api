@@ -162,51 +162,6 @@ module Cb
         end
 
       end
-
-      context 'when site down' do
-
-        let(:site_down_error) { ['This service is down for maintenance. Please try again later.'] }
-        let(:model_hashes) { [{ 'huzzah' => 'thangs'}] }
-        let(:valid_input_hash) { { 'ResponseStuff' => { 'stuff' => model_hashes} } }
-        let(:expected_errored_input_hash) { { 'ResponseStuff' => { 'errors' => { 'error' => site_down_error}, :stuff => model_hashes } } }
-        let(:unexpected_errored_input_hash) { { 'ResponseStuff' => { 'errors' => { 'error' => ['oh noes!', 'bah!']}, :stuff => model_hashes } } }
-      
-        class ResponseWithSiteDownCheck < Responses::ApiResponse
-          def hash_containing_metadata
-            response['ResponseStuff']
-          end
-
-          def validate_api_hash
-            required_response_field('stuff', response['ResponseStuff'])
-          end
-
-          def extract_models
-            response['ResponseStuff']['stuff'].map { |doodad| doodad }
-          end
-
-          def has_service_unavailable_indicator(error_message)
-            return error_message.include?('This service is down for maintenance') || error_message.include?('Please try again later')
-          end
-        end
-
-        context '#new' do
-          #context '503 response code' do
-          #  it 'raises a ServiceUnavailable exception' do
-          #    expect{ResponseWithSiteDownCheck.new(XXXXXX)}.to raise_error(ServiceUnavailable)
-          #  end
-          #end
-          context 'with intended API error message' do
-            it 'raises a ServiceUnavailable exception' do
-              expect{ResponseWithSiteDownCheck.new(expected_errored_input_hash)}.to raise_error(ServiceUnavailableError, site_down_error.to_s)
-            end
-          end
-          context 'generic API error message' do
-            it 'raises an ApiResponseError exception' do
-              expect{ResponseWithSiteDownCheck.new(unexpected_errored_input_hash)}.to raise_error(ApiResponseError)
-            end
-          end
-        end
-      end
     end
   end
 end
