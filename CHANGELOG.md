@@ -1,7 +1,6 @@
 Version History
 ====
-    * All PRs / Version bumps are required to update this file
-    * Don't accept a PR without an update to this file
+    * All Version bumps are required to update this file as well!!
 ----
 * 14.0.1 Introduced a changelog (finally)
 * 14.0.0 Rename location_code / zip to postal_code on the Cb::Models::User model to be more i18n friendly
