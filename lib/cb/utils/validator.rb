@@ -19,7 +19,7 @@ module Cb
 
       def process_response_body(response)
         body = response.response.body rescue nil
-        return Hash.new if body.nil?
+        return Hash.new if !body
 
         if response.code != 200
           return Hash.new if body.include?('<!DOCTYPE html')
