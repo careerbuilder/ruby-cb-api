@@ -48,6 +48,11 @@ module Cb
       validation.empty?.should be_true
     end
 
+    it 'should raise a ServiceUnavailableError when status code is 503' do
+      response.stub(:code).and_return 503
+      expect{ ResponseValidator.validate(response) }.to raise_error(Cb::ServiceUnavailableError)
+    end
+
     context 'when there are JSON parsing errors' do
       context 'and the content payload is not XML' do
         it 'returns an empty hash' do
