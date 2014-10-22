@@ -2,6 +2,8 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 14.1.1 Added case for Job model "pay" when setting model properties
+         so job search result pay field would be added to response as well
 * 14.1.0 Adding custom error for Authentication Outages
 * 14.0.1 Introduced a changelog (finally)
 * 14.0.0 Rename location_code / zip to postal_code on the Cb::Models::User model to be more i18n friendly

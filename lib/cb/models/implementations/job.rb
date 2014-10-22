@@ -103,7 +103,7 @@ module Cb
         @display_job_id               = args['DisplayJobID'] || ''
 
         # Compensation
-        @pay                          = args['PayHighLowFormatted'] || ''
+        @pay                          = args['PayHighLowFormatted'] || args['Pay'] || ''
         @pay_per                      = args['PayPer'] || ''
         @commission                   = args.has_key?("PayCommission") && !args["PayCommission"].nil? ? args['PayCommission']['Money']['FormattedAmount'] : ''
         @bonus                        = args.has_key?("PayBonus") && !args["PayBonus"].nil? ? args['PayBonus']['Money']['FormattedAmount'] : ''
