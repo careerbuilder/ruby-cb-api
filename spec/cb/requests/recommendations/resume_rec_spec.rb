@@ -27,7 +27,7 @@ module Cb
 
         it { expect(request.endpoint_uri).to eq Cb.configuration.uri_recommendation_for_resume.sub(':resume_hash', 'resumeHash') }
         it { expect(request.http_method).to eq :get }
-        it { expect(request.query).to eq({ externalID: 'externalUserId', :countLimit=>25 }) }
+        it { expect(request.query).to eq({ externalID: 'externalUserId', countLimit: 25 }) }
         it { expect(request.body).to eq nil }
         it { expect(request.headers).to eq (headers) }
       end
@@ -37,7 +37,7 @@ module Cb
           Cb::Requests::Recommendations::Resume.new({ resume_hash: 'resumeHash', external_user_id: 'externalUserId', countLimit: 50 })
         end
 
-        it { expect(request.query).to eq ({ externalID: 'externalUserId',:countLimit=>50 }) }
+        it { expect(request.query).to eq ({ externalID: 'externalUserId', countLimit: 50 }) }
       end
     end
   end
