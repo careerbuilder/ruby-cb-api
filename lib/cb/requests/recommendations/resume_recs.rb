@@ -23,7 +23,8 @@ module Cb
 
         def query
           {
-            :externalID => args[:external_user_id]
+            :externalID => args[:external_user_id],
+            :countLimit => args[:countLimit] || 25
           }
         end
 
