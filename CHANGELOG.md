@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 14.1.2 Added count limit to resume recommendations call
 * 14.1.1 Added case for Job model "pay" when setting model properties
          so job search result pay field would be added to response as well
 * 14.1.0 Adding custom error for Authentication Outages
