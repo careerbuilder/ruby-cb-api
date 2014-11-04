@@ -17,7 +17,6 @@ module Cb
 
         it { expect(request.endpoint_uri).to eq Cb.configuration.uri_resume_language_codes }
         it { expect(request.http_method).to eq :get }
-        it { expect(request.query).to eq({ countryCode: default_country_code }) }
         it { expect(request.headers).to eq headers }
         it { expect(request.body).to eq nil }
       end
@@ -28,7 +27,6 @@ module Cb
 
         it { expect(request.endpoint_uri).to eq Cb.configuration.uri_resume_language_codes }
         it { expect(request.http_method).to eq :get }
-        it { expect(request.query).to eq ({ countryCode: country_code }) }
         it { expect(request.headers).to eq headers }
         it { expect(request.body).to eq nil }
       end
