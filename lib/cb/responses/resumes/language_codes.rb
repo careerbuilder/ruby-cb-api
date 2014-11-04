@@ -28,7 +28,6 @@ module Cb
         def model_hash
           response[root_node][collection_node]['LanguageCode']
         end
-
       end
     end
   end
