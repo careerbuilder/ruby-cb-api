@@ -1,0 +1,29 @@
+{
+    "ResponseLanguageCodes": {
+        "TimeResponseSent": "11/4/2014 1:52:17 PM",
+        "LanguageCodes": {
+            "LanguageCode": [
+                {
+                    "Code": "LAEN",
+                    "Name": "English"
+                },
+                {
+                    "Code": "LAZH",
+                    "Name": "Chinese-Mandarin"
+                },
+                {
+                    "Code": "LACS",
+                    "Name": "Czech"
+                },
+                {
+                    "Code": "LADA",
+                    "Name": "Danish"
+                },
+                {
+                    "Code": "LANL",
+                    "Name": "Dutch"
+                }
+            ]
+        }
+    }
+}
