@@ -86,11 +86,12 @@ module Cb
         expect(response_map.response_for(request_namespace::List)).to eq response_namespace::List
       end
 
-      it 'should map resume get to the correct response object' do
+      it 'should map resume to the correct response object' do
         request_namespace = Cb::Requests::Resumes
         response_namespace = Cb::Responses
 
         expect(response_map .response_for(request_namespace::Get)).to eq response_namespace::Resume
+        expect(response_map .response_for(request_namespace::LanguageCodes)). to eq response_namespace::LanguageCodes
       end
 
       it 'should map resume recommendations to the correct response object' do
