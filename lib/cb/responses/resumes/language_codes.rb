@@ -11,7 +11,7 @@ module Cb
       end
 
       def extract_models
-        model_hash.map { |language_code| Models::Resumes::LanguageCode.new(language_code) }
+        model_hash.map { |language_code| Models::LanguageCode.new(language_code) }
       end
 
       private
