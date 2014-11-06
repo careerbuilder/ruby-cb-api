@@ -86,7 +86,7 @@ module Cb
         expect(response_map.response_for(request_namespace::List)).to eq response_namespace::List
       end
 
-      it 'should map resume to the correct response object' do
+      it 'maps resume to the correct response object' do
         request_namespace = Cb::Requests::Resumes
         response_namespace = Cb::Responses
 
