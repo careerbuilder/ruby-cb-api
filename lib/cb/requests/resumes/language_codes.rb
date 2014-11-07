@@ -12,12 +12,6 @@ module Cb
           :get
         end
 
-        def query
-          {
-              countryCode: args[:countryCode] ||= 'US'
-          }
-        end
-
         def headers
           {
               'DeveloperKey' => Cb.configuration.dev_key,

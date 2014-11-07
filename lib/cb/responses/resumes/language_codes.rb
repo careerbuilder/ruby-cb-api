@@ -3,7 +3,9 @@ module Cb
     class LanguageCodes < ApiResponse
       protected
       def validate_api_hash
+        required_response_field(root_node, response)
         required_response_field(collection_node, response[root_node])
+        required_response_field('LanguageCode', response[root_node][collection_node])
       end
 
       def hash_containing_metadata
