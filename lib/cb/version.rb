@@ -1,3 +1,3 @@
 module Cb
-  VERSION = '14.1.2'
+  VERSION = '14.2.0'
 end
