@@ -1,18 +1,18 @@
 module Cb
   module Models
     module JobReport
-      class Competition < ApiResponseModel
-        attr_accessor :applications_submitted, :applicantions_viewed, :percent_exceeds_education_level,
+      class CompetitionInfo < ApiResponseModel
+        attr_accessor :applications_submitted, :applications_viewed, :percent_exceeds_education_level,
                       :percent_meets_education_level, :percent_cover_letter_attached, :percent_employed,
                       :experience_ranges, :applicant_locations, :top_five_degrees, :top_five_majors
 
         def set_model_properties
-          @applications_submitted             = api_response['ApplicationsSubmitted']   || String.new
-          @applicantions_viewed               = api_response['ApplicationsViewed']      || String.new
-          @percent_exceeds_education_level    = api_response['ExceedsEducation']        || String.new
-          @percent_meets_education_level      = api_response['MeetsEducation']          || String.new
-          @percent_cover_letter_attached      = api_response['AttachedCoverLetter']     || String.new
-          @percent_employed                   = api_response['Employed']                || String.new
+          @applications_submitted             = api_response['ApplicationsSubmitted']   || 0.0
+          @applications_viewed                = api_response['ApplicationsViewed']      || 0.0
+          @percent_exceeds_education_level    = api_response['ExceedsEducation']        || 0.0
+          @percent_meets_education_level      = api_response['MeetsEducation']          || 0.0
+          @percent_cover_letter_attached      = api_response['AttachedCoverLetter']     || 0.0
+          @percent_employed                   = api_response['PercentEmployed']         || 0.0
           @experience_ranges                  = extract_experience_ranges               || []
           @applicant_locations                = extract_applicant_locations             || []
           @top_five_degrees                   = extract_top_degrees                     || []
@@ -42,7 +42,7 @@ module Cb
         def extract_top_degrees
           unless api_response['TopDegrees'].nil?
             api_response['TopDegrees'].collect do |degree|
-              JobReport::Degrees.new(degree)
+              JobReport::Degree.new(degree)
             end
           end
         end
@@ -50,7 +50,7 @@ module Cb
         def extract_top_majors
           unless api_response['TopMajors'].nil?
             api_response['TopMajors'].collect do |major|
-              JobReport::Majors.new(major)
+              JobReport::Major.new(major)
             end
           end
         end

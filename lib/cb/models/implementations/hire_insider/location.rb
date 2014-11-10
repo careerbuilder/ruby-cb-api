@@ -1,17 +1,14 @@
 module Cb
   module Models
     module JobReport
-      class Location < ApiResponseModel
+      class Location
         attr_accessor :number_of_applicants, :state
 
-        def set_model_properties
-          @number_of_applicants			= api_response['NumberOfApplicants']
-          @state                    = api_response['State']
+        def initialize(args = {})
+          @number_of_applicants			= args['NumberOfApplicants']  || String.new
+          @state                    = args['State']               || String.new
         end
 
-        def required_fields
-          ['Location']
-        end
       end
     end
   end

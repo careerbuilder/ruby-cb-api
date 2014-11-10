@@ -20,15 +20,15 @@ module Cb
       private
 
       def extract_applicant_info
-        JobReport::ApplicantInfo.new(api_response['ApplicantInformation'])
+        JobReport::ApplicantInfo.new(api_response['JobReport'])
       end
 
       def extract_job_info
-        JobReport::JobInfo.new(api_response['JobInformation'])
+        JobReport::JobInfo.new(api_response['JobReport'])
       end
 
       def extract_competition_info
-        JobReport::CompetitionInformation.new(api_response['CompetitionInformation'])
+        JobReport::CompetitionInfo.new(api_response['JobReport'])
       end
 
     end

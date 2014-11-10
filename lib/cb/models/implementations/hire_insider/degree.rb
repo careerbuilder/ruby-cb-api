@@ -1,17 +1,13 @@
 module Cb
   module Models
     module JobReport
-      class Degree < ApiResponseModel
+      class Degree
         attr_accessor :degree_name, :number_of_applicants, :percentage_of_applicants
 
-        def set_model_properties
-          @degree_name              = api_response['DegreeName']
-          @number_of_applicants			= api_response['NumberOfApplicants']
-          @state                    = api_response['PercentOfApplicants']
-        end
-
-        def required_fields
-          ['Degree']
+        def initialize(args = {})
+          @degree_name                = args['DegreeName']            || String.new
+          @number_of_applicants			  = args['NumberOfApplicants']    || 0.0
+          @percentage_of_applicants   = args['PercentOfApplicants']   || 0.0
         end
 
       end

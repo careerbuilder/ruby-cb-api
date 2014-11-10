@@ -1,19 +1,15 @@
 module Cb
   module Models
     module JobReport
-      class Experience < ApiResponseModel
+      class Experience
         attr_accessor :number, :range
 
-        def set_model_properties
-          @number		= api_response["Number"]   || String.new
-          @range		= api_response["Range"]    || String.new
+        def initialize(args = {})
+          @range		= args["Range"]    || String.new
+          @number		= args["Number"]   || 0.0
         end
 
-        def required_fields
-          ['Experience']
-        end
       end
-
     end
   end
 end

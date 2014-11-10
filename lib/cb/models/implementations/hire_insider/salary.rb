@@ -24,7 +24,7 @@ module Cb
 
         def initialize(args={})
           @range	  = args["Range"]    || String.new
-          @number	  = args["Number"]   || String.new
+          @number	  = args["Number"]   || 0.0
         end
       end
 
@@ -32,8 +32,8 @@ module Cb
         attr_accessor :degree_name, :number
 
         def initialize(args={})
-          @range					= args["DegreeName"]        || String.new
-          @number					= args["Number"]            || String.new
+          @range					= args["DegreeName"]     || String.new
+          @number					= args["Number"]         || 0.0
         end
       end
 

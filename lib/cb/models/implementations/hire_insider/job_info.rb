@@ -7,9 +7,9 @@ module Cb
 
         def set_model_properties
           @company                = JobReport::Company.new(api_response['Company'])   || String.new
-          @days_til_expiration    = api_response['DaysTilExpire']                     || String.new
-          @degree_required        = api_response['DegreeRequired']                    || String.new
-          @experience_required    = api_response['ExperienceYearsRequired']           || String.new
+          @days_til_expiration    = api_response['DaysTilExpire']                     || 0.0
+          @degree_required        = api_response['DegreeRequired']                    || false
+          @experience_required    = api_response['ExperienceYearsRequired']           || 0.0
           @job_title              = api_response['JobTitle']                          || String.new
           @salary_information     = extract_salary_information                        || []
         end
