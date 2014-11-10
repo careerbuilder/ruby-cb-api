@@ -1,6 +1,6 @@
 module Cb
   module Models
-    module JobReport
+    module HireInsider
       class Location
         attr_accessor :number_of_applicants, :state
 

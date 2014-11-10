@@ -1,6 +1,6 @@
 module Cb
   module Models
-    module JobReport
+    module HireInsider
       class Major
         attr_accessor :major_name, :number_of_applicants, :percentage_of_applicants
 

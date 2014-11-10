@@ -1,6 +1,6 @@
 module Cb
   module Models
-    module JobReport
+    module HireInsider
       class CompetitionInfo < ApiResponseModel
         attr_accessor :applications_submitted, :applications_viewed, :percent_exceeds_education_level,
                       :percent_meets_education_level, :percent_cover_letter_attached, :percent_employed,

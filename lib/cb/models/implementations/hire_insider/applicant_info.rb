@@ -1,6 +1,6 @@
 module Cb
   module Models
-    module JobReport
+    module HireInsider
       class ApplicantInfo < ApiResponseModel
         attr_accessor :date_application_viewed, :date_applied, :user_attached_cover_letter, :user_current_salary,
                       :user_education_level

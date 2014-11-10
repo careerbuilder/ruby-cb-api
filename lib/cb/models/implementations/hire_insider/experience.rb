@@ -1,6 +1,6 @@
 module Cb
   module Models
-    module JobReport
+    module HireInsider
       class Experience
         attr_accessor :number, :range
 

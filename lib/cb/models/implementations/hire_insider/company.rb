@@ -1,6 +1,6 @@
 module Cb
   module Models
-    module JobReport
+    module HireInsider
       class Company
         attr_accessor :company_name, :city, :state
 

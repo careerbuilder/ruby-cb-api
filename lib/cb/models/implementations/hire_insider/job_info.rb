@@ -1,6 +1,6 @@
 module Cb
   module Models
-    module JobReport
+    module HireInsider
       class JobInfo < ApiResponseModel
         attr_accessor :company, :days_til_expiration, :degree_required, :experience_required,
                       :job_title, :salary_information

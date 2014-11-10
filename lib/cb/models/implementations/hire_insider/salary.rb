@@ -1,6 +1,6 @@
 module Cb
   module Models
-    module JobReport
+    module HireInsider
       class Salary < ApiResponseModel
         attr_accessor :applicant_salaries, :degree_salary
 

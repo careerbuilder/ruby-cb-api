@@ -1,6 +1,6 @@
 module Cb
   module Models
-    module JobReport
+    module HireInsider
       class Degree
         attr_accessor :degree_name, :number_of_applicants, :percentage_of_applicants
 
