@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Cb
   describe Cb::Requests::HireInsider::Get do
-
     context 'initialize without arguments' do
       context 'without arguments' do
         before(:each) { @request = Cb::Requests::HireInsider::Get.new({}) }
