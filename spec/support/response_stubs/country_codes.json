@@ -1,0 +1,30 @@
+{
+    "ResponseCountryCodes": {
+        "TimeResponseSent": "11/11/2014 12:30:28 PM",
+        "SupportedCountryCodes": {
+            "CountryCode": [
+                "US",
+                "UK",
+                "IN",
+                "CA",
+                "DE",
+                "NL",
+                "SE",
+                "ES",
+                "IT",
+                "FR",
+                "CH",
+                "GR",
+                "NO",
+                "RO",
+                "IE",
+                "BE",
+                "CN",
+                "PL",
+                "DK",
+                "MY",
+                "CY"
+            ]
+        }
+    }
+}
