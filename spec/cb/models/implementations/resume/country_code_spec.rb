@@ -24,7 +24,7 @@ module Cb
         end
 
         context 'wrong argument' do
-          let(:args) { {'blah' => 'blah'} }
+          let(:args) { { 'blah' => 'blah' } }
 
           it { expect(error).to eql(error_code) }
         end
