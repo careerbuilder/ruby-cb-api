@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 14.3.1 Fixed missing response mapping
 * 14.3.0 Added country codes api call
 * 14.2.0 Added resume language codes api call
 * 14.1.2 Added count limit to resume recommendations call
