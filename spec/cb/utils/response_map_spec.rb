@@ -94,7 +94,7 @@ module Cb
         expect(response_map .response_for(request_namespace::LanguageCodes)). to eq response_namespace::LanguageCodes
       end
 
-      it 'maps to correct data list object' do
+      it 'maps to correct data list response object' do
         request_namespace = Cb::Requests::DataLists
         response_namespace = Cb::Responses
 
