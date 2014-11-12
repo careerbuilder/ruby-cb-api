@@ -1,7 +1,9 @@
 module Cb
   module Responses
     class CountryCodes < ApiResponse
+
       protected
+
       def validate_api_hash
         required_response_field(root_node, response)
         required_response_field(collection_node, response[root_node])
@@ -13,7 +15,7 @@ module Cb
       end
 
       def extract_models
-        model_hash.map! { |country_code| Models::CountryCode.new({'CountryCode' => country_code}) }
+        model_hash.map! { |country_code| Models::CountryCode.new('CountryCode' => country_code) }
       end
 
       private
