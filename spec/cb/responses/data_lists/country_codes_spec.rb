@@ -3,10 +3,11 @@ require 'spec_helper'
 module Cb
   module Responses
     describe CountryCodes do
-      let(:response_stub) { JSON.parse(File.read('spec/support/response_stubs/country_codes.json')) }
+      let(:response_stub) { MultiXml.parse(File.read('spec/support/response_stubs/country_codes.xml')) }
       let(:response) { Cb::Responses::CountryCodes.new(response_stub) }
 
       it { expect(response.models.first).to be_an_instance_of(Cb::Models::CountryCode) }
+      it { expect(response.models.first.code).to eql('US')}
 
       context 'missing node SupportedCountryCodes' do
         before do
