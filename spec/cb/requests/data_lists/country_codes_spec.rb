@@ -5,17 +5,17 @@ module Cb
     describe DataLists::CountryCodes do
       subject { DataLists::CountryCodes.new({}) }
 
-      let(:headers) {
+      let(:headers) do
         {
-            'DeveloperKey' => Cb.configuration.dev_key,
-            'Content-Type' => 'application/xml'
+          'DeveloperKey' => Cb.configuration.dev_key,
+          'Content-Type' => 'application/xml'
         }
-      }
+      end
 
       it { expect(subject.endpoint_uri).to eql Cb.configuration.uri_country_codes }
-      it { expect(subject.headers).to eql headers}
+      it { expect(subject.headers).to eql headers }
       it { expect(subject.http_method).to eql :get }
-      it { expect(subject.body).to eql nil}
+      it { expect(subject.body).to eql nil }
 
     end
   end
