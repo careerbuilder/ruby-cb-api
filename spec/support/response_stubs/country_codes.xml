@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <ResponseCountryCodes>
+    <Errors />
+    <TimeResponseSent>11/12/2014 6:33:11 AM</TimeResponseSent>
+    <SupportedCountryCodes>
+        <CountryCode>US</CountryCode>
+        <CountryCode>UK</CountryCode>
+        <CountryCode>IN</CountryCode>
+        <CountryCode>CA</CountryCode>
+        <CountryCode>DE</CountryCode>
+        <CountryCode>NL</CountryCode>
+        <CountryCode>SE</CountryCode>
+        <CountryCode>ES</CountryCode>
+        <CountryCode>IT</CountryCode>
+        <CountryCode>FR</CountryCode>
+        <CountryCode>CH</CountryCode>
+        <CountryCode>GR</CountryCode>
+        <CountryCode>NO</CountryCode>
+        <CountryCode>RO</CountryCode>
+        <CountryCode>IE</CountryCode>
+        <CountryCode>BE</CountryCode>
+        <CountryCode>CN</CountryCode>
+        <CountryCode>PL</CountryCode>
+        <CountryCode>DK</CountryCode>
+        <CountryCode>MY</CountryCode>
+        <CountryCode>CY</CountryCode>
+    </SupportedCountryCodes>
+</ResponseCountryCodes>
