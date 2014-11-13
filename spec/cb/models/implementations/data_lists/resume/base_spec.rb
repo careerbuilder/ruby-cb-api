@@ -3,13 +3,13 @@ require 'spec_helper'
 module Cb
   module Models
     describe DataLists::DataListBase do
+      subject { DataLists::DataListBase.new(args) }
       let(:key) { 'key' }
       let(:value) { 'value' }
-      let(:data_list) { DataLists::DataListBase.new(args) }
 
       let(:error) do
         begin
-          data_list
+          subject
         rescue ExpectedResponseFieldMissing => e
           e.message
         end
@@ -18,8 +18,8 @@ module Cb
       context 'valid arguments' do
         let(:args) { { key => key, value => value } }
 
-        it { expect(data_list.key).to eql(key) }
-        it { expect(data_list.value).to eql(value) }
+        it { expect(subject.key).to eql(key) }
+        it { expect(subject.value).to eql(value) }
       end
 
       context 'invalid key' do
