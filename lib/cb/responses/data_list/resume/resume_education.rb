@@ -1,3 +1,5 @@
+require_relative 'resume_data_list'
+
 module Cb
   module Responses
     class ResumeEducation < ResumeDataListResponse
