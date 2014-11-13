@@ -1,6 +1,6 @@
 module Cb
   module Responses
-    class DataListResponse < ApiResponse
+    class ResumeDataListResponse < ApiResponse
 
       protected
 
@@ -12,10 +12,6 @@ module Cb
 
       def hash_containing_metadata
         response['Errors']
-      end
-
-      def extract_models
-        model_hash.map! { |list_item| Models::DataLists::ResumeEducation.new(list_item) }
       end
 
       private

@@ -48,6 +48,7 @@ module Cb
             Cb::Requests::Resumes::LanguageCodes => Cb::Responses::LanguageCodes,
 
             Cb::Requests::DataLists::CountryCodes => Cb::Responses::CountryCodes,
+            Cb::Requests::DataLists::ResumeEducation => Cb::Responses::ResumeEducation,
 
             Cb::Requests::User::ChangePassword => Cb::Responses::User::ChangePassword,
             Cb::Requests::User::CheckExisting => Cb::Responses::User::CheckExisting,
