@@ -5,7 +5,6 @@ source 'http://rubygems.org'
 
 group :test do
   gem 'dotenv', '~> 0.10.0'
-  gem 'pry-byebug'
 end
 
 gemspec
