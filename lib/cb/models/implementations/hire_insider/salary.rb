@@ -2,7 +2,7 @@ module Cb
   module Models
     module HireInsider
       class Salary < ApiResponseModel
-        attr_accessor :applicant_salaries, :degree_salary
+        attr_accessor :applicant_salaries, :degree_salaries
 
         def set_model_properties
           @applicant_salaries = api_response['ApplicantSalaries'].collect do |salary|
