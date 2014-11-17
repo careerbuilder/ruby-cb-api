@@ -14,7 +14,7 @@ module Cb
       end
 
       def required_fields
-        ['JobReport']
+        %w(ApplicantInformation JobInformation Competition)
       end
 
       private
@@ -28,7 +28,7 @@ module Cb
       end
 
       def extract_competition_info
-        HireInsider::CompetitionInfo.new(api_response['CompetitionInformation'])
+        HireInsider::CompetitionInfo.new(api_response['Competition'])
       end
 
     end

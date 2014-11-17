@@ -6,17 +6,18 @@ module Cb
 
         def set_model_properties
           @applicant_salaries = api_response['ApplicantSalaries'].collect do |salary|
-            JobReport::ApplicantSalary.new(salary)
+            HireInsider::ApplicantSalary.new(salary)
           end
 
-          @degree_salary = api_response['DegreeSalaries'].collect do |salary|
-            JobReport::DegreeSalary.new(salary)
+          @degree_salaries = api_response['DegreeSalaries'].collect do |salary|
+            HireInsider::DegreeSalary.new(salary)
           end
         end
 
         def required_fields
           %w(ApplicantSalaries DegreeSalaries)
         end
+
       end
 
       class ApplicantSalary

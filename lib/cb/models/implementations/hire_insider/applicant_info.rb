@@ -6,15 +6,16 @@ module Cb
                       :user_education_level
 
         def set_model_properties
-          @date_application_viewed        = api_response['DateApplicationViewed']  || String.new
-          @date_applied                   = api_response['DateApplied']            || String.new
-          @user_attached_cover_letter     = api_response['CoverLetterAttached']    || false
-          @user_current_salary            = api_response['UserCurrentSalary']      || 0.0
+          @date_application_viewed        = api_response['DateApplicationViewed']
+          @date_applied                   = api_response['DateApplied']
+          @user_attached_cover_letter     = api_response['CoverLetterAttached']
+          @user_current_salary            = api_response['UserCurrentSalary']
         end
 
         def required_fields
-          ['ApplicantInformation']
+          %w(DateApplicationViewed DateApplied CoverLetterAttached UserCurrentSalary)
         end
+
       end
     end
   end
