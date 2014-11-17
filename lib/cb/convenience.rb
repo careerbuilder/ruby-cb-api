@@ -77,7 +77,10 @@ module Cb
       def spot
         Cb::Clients::Spot
       end
-      
+
+      def language_codes
+        Cb::Clients::LanguageCodes
+      end
     end
   end
 end
