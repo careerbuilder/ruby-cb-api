@@ -20,7 +20,7 @@ module Cb
       it { expect(subject.http_method).to eql :get }
       it { expect(subject.body).to eql nil }
 
-      context do
+      context 'when country code is set' do
         let(:args) { { 'country_code' => 'GR' } }
 
         it { expect(subject.headers['CountryCode']).to eql 'GR' }
