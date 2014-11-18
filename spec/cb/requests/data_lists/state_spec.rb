@@ -17,6 +17,7 @@ module Cb
         it { expect(request.http_method).to eq :get }
         it { expect(request.query).to eq(query) }
         it { expect(request.body).to eq nil }
+        it { expect(request.base_uri).to eq 'https://www.careerbuilder.com'}
       end
 
       context 'with arguments' do
