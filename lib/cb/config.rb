@@ -88,7 +88,7 @@ module Cb
       @uri_resume_list                    ||= '/v3/resume/list'
       @uri_resume_language_codes          ||= '/v1/languagecodes'
       @uri_country_codes                  ||= '/v1/countrycodes'
-      @uri_education_code                 ||= '/consumer/data_list/ResumeEducation'
+      @uri_education_code                 ||= '/consumer/datalist/ResumeEducation'
     end
 
     def set_attr_accessors
