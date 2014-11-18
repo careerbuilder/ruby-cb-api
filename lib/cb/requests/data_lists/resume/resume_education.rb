@@ -13,7 +13,8 @@ module Cb
         def headers
           {
             'DeveloperKey' => Cb.configuration.dev_key,
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
+            'CountryCode' => args['country_code'] ||= 'US',
           }
         end
       end

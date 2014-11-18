@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Cb
   module Responses
-    describe ResumeDataListResponse do
+    describe ResumeDataList do
 
       let(:response_stub) { file }
       let(:file) { JSON.parse(File.read('spec/support/response_stubs/resume_education.json')) }
@@ -14,7 +14,7 @@ module Cb
           response_stub.delete(total_results)
         end
         it do
-          expect { Cb::Responses::ResumeDataListResponse.new(response_stub) }
+          expect { Cb::Responses::ResumeDataList.new(response_stub) }
           .to raise_error(Cb::ExpectedResponseFieldMissing) do |ex|
             expect(ex.message).to include total_results
           end
@@ -28,7 +28,7 @@ module Cb
           response_stub.delete(returned_results)
         end
         it do
-          expect { Cb::Responses::ResumeDataListResponse.new(response_stub) }
+          expect { Cb::Responses::ResumeDataList.new(response_stub) }
           .to raise_error(Cb::ExpectedResponseFieldMissing) do |ex|
             expect(ex.message).to include returned_results
           end
@@ -37,7 +37,7 @@ module Cb
 
       context 'does not implement extract_models' do
         it do
-          expect { Cb::Responses::ResumeDataListResponse.new(response_stub) }
+          expect { Cb::Responses::ResumeDataList.new(response_stub) }
           .to raise_error(NotImplementedError) do |ex|
             expect(ex.message).to include 'extract_models'
           end

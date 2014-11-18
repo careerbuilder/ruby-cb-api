@@ -1,6 +1,6 @@
 module Cb
   module Responses
-    class ResumeDataListResponse < ApiResponse
+    class ResumeDataList < ApiResponse
 
       protected
 
