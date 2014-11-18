@@ -1,7 +1,7 @@
 module Cb
   module Models
     module DataLists
-      class ResumeEducation < DataListBase; end
+      class EducationCode < DataListBase; end
     end
   end
 end

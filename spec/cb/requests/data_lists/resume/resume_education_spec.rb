@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module Cb
   module Requests
-    describe DataLists::ResumeEducation do
-      subject { DataLists::ResumeEducation.new(args) }
+    describe DataLists::EducationCodes do
+      subject { DataLists::EducationCodes.new(args) }
 
       let(:args) { {} }
 

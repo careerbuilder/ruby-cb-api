@@ -99,7 +99,7 @@ module Cb
         response_namespace = Cb::Responses
 
         expect(response_map.response_for(request_namespace::CountryCodes)).to eq response_namespace::CountryCodes
-        expect(response_map.response_for(request_namespace::ResumeEducation)).to eq response_namespace::ResumeEducation
+        expect(response_map.response_for(request_namespace::EducationCodes)).to eq response_namespace::EducationCodes
       end
 
       it 'should map resume recommendations to the correct response object' do

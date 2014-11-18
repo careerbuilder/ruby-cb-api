@@ -1,7 +1,7 @@
 module Cb
   module Requests
     module DataLists
-      class ResumeEducation < Base
+      class EducationCodes < Base
         def endpoint_uri
           Cb.configuration.uri_resume_education
         end
