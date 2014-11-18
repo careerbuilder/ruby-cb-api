@@ -1,7 +1,7 @@
 module Cb
   module Responses
     class State < ApiResponse
-      def Validate_api_hash
+      def validate_api_hash
         required_response_field(root_node, response)
       end
 
@@ -14,7 +14,7 @@ module Cb
       end
 
       def root_node
-        response
+        'Results'
       end
 
     end

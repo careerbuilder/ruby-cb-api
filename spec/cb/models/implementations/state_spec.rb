@@ -9,8 +9,8 @@ module Cb
       context 'a state_hash is valid' do
         let(:state_hash) do
           {
-              StateId: 'AL',
-              StateName: 'Alabama'
+              'StateId' => 'AL',
+              'StateName' => 'Alabama'
           }
         end
         it { expect(state.key).to eq('AL') }

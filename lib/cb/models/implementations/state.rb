@@ -4,13 +4,13 @@ module Cb
       attr_accessor :key, :value
 
       def set_model_properties
-        @key = api_response[:StateId]
-        @value = api_response[:StateName]
+        @key = api_response['StateId']
+        @value = api_response['StateName']
 
       end
 
       def required_fields
-        [:StateId, :StateName]
+        ['StateId', 'StateName']
       end
     end
   end
