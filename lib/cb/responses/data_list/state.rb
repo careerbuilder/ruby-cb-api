@@ -14,7 +14,7 @@ module Cb
       end
 
       def root_node
-        "Results"
+        response
       end
 
     end
