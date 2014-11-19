@@ -13,6 +13,7 @@ module Cb
           }
         end
         it { expect(state.key).to eq('AL') }
+        it { expect(state.value).to eq ('Alabama') }
       end
     end
   end
