@@ -55,7 +55,8 @@ module Cb
             Cb::Requests::User::Retrieve => Cb::Responses::User::Retrieve,
             Cb::Requests::User::TemporaryPassword => Cb::Responses::User::TemporaryPassword,
 
-            Cb::Requests::WorkStatus::List => Cb::Responses::WorkStatus::List
+            Cb::Requests::WorkStatus::List => Cb::Responses::WorkStatus::List,
+            Cb::Requests::State::Get => Cb::Responses::State
           }.merge response_hash_extension
         end
 
