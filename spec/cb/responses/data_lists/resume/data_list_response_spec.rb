@@ -21,7 +21,7 @@ module Cb
         end
       end
 
-      context 'missing node TotalResults' do
+      context 'missing node ReturnedResults' do
         let(:returned_results) { 'ReturnedResults' }
 
         before do
@@ -40,6 +40,24 @@ module Cb
           expect { Cb::Responses::ResumeDataList.new(response_stub) }
           .to raise_error(NotImplementedError) do |ex|
             expect(ex.message).to include 'extract_models'
+          end
+        end
+      end
+
+      context 'does not implement validate_api_hash' do
+        it do
+          expect { Cb::Responses::ResumeDataList.new(response_stub) }
+          .to raise_error(NotImplementedError) do |ex|
+            expect(ex.message).to include 'validate_api_hash'
+          end
+        end
+      end
+
+      context 'does not implement hash_containing_metadata' do
+        it do
+          expect { Cb::Responses::ResumeDataList.new(response_stub) }
+          .to raise_error(NotImplementedError) do |ex|
+            expect(ex.message).to include 'hash_containing_metadata'
           end
         end
       end
