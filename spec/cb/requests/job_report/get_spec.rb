@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Requests::HireInsider::Get do
+  describe Cb::Requests::JobReport::Get do
     context 'initialize without arguments' do
       context 'without arguments' do
-        before(:each) { @request = Cb::Requests::HireInsider::Get.new({}) }
+        before(:each) { @request = Cb::Requests::JobReport::Get.new({}) }
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_hire_insider.sub(':application_did', '')
+          @request.endpoint_uri.should == Cb.configuration.uri_job_report.sub(':job_did', '')
           @request.http_method.should == :get
         end
 
@@ -30,12 +30,11 @@ module Cb
 
       context 'with arguments' do
         before :each do
-          @request = Cb::Requests::HireInsider::Get.new({application_did: 'mao'})
-
+          @request = Cb::Requests::JobReport::Get.new({job_did: 'job_did', user_oauth_token: 'user_oauth_token' })
         end
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_hire_insider.sub(':application_did', 'mao')
+          @request.endpoint_uri.should == Cb.configuration.uri_job_report.sub(':job_did', 'mao')
           @request.http_method.should == :get
         end
 

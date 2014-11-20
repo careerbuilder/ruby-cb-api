@@ -20,15 +20,15 @@ module Cb
       private
 
       def extract_applicant_info
-        HireInsider::ApplicantInfo.new(api_response['ApplicantInformation'])
+        Models::ApplicantInfo.new(api_response['ApplicantInformation'])
       end
 
       def extract_job_info
-        HireInsider::JobInfo.new(api_response['JobInformation'])
+        Models::JobInfo.new(api_response['JobInformation'])
       end
 
       def extract_competition_info
-        HireInsider::CompetitionInfo.new(api_response['Competition'])
+        Models::CompetitionInfo.new(api_response['Competition'])
       end
 
     end

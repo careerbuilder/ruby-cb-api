@@ -108,9 +108,9 @@ module Cb
         expect(response_map.response_for(request_namespace::Resume)).to eq response_namespace::Recommendations
       end
 
-      it 'should test hire insider methods' do
-        request_namespace = Cb::Requests::HireInsider
-        response_namespace = Cb::Responses::HireInsider
+      it 'should test job report methods' do
+        request_namespace = Cb::Requests::JobReport
+        response_namespace = Cb::Responses::JobReport
 
         expect(response_map.response_for(request_namespace::Get)).to eq response_namespace::Get
       end

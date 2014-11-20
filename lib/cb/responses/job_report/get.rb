@@ -1,6 +1,6 @@
 module Cb
   module Responses
-    module HireInsider
+    module JobReport
       class Get < ApiResponse
         def validate_api_hash
           required_response_field(root_node, response)
@@ -15,7 +15,7 @@ module Cb
         end
 
         def root_node
-          'JobReport'
+          'Results'
         end
 
       end

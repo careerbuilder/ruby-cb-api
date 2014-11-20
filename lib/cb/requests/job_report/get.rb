@@ -2,11 +2,11 @@ require_relative '../base'
 
 module Cb
   module Requests
-    module HireInsider
+    module JobReport
       class Get < Base
 
         def endpoint_uri
-          Cb.configuration.uri_hire_insider.sub ':application_did', @args[:application_did].to_s
+          Cb.configuration.uri_job_report.sub ':job_did', @args[:job_did].to_s
         end
 
         def http_method
@@ -18,6 +18,12 @@ module Cb
               'DeveloperKey' => Cb.configuration.dev_key,
               'HostSite' => Cb.configuration.host_site,
               'Content-Type' => 'application/json'
+          }
+        end
+
+        def query
+          {
+              'userOauthToken' => args[:user_oauth_token]
           }
         end
 

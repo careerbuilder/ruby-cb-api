@@ -57,7 +57,7 @@ module Cb
 
             Cb::Requests::WorkStatus::List => Cb::Responses::WorkStatus::List,
 
-            Cb::Requests::HireInsider::Get => Cb::Responses::HireInsider::Get
+            Cb::Requests::JobReport::Get => Cb::Responses::JobReport::Get
 
           }.merge response_hash_extension
         end
