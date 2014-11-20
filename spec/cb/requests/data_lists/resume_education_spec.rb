@@ -15,14 +15,14 @@ module Cb
       before do
         allow(token).to receive(:get).and_return(response)
         allow(response).to receive(:parsed).and_return(parsed_response)
-        allow(Cb::Responses::EducationCodes).to receive(:new).and_return(response_model)
+        allow(Cb::Responses::ResumeDataList).to receive(:new).and_return(response_model)
       end
 
       after do
         subject.get
       end
 
-      it { expect(Cb::Responses::EducationCodes).to receive(:new).with(parsed_response) }
+      it { expect(Cb::Responses::ResumeDataList).to receive(:new).with(parsed_response) }
 
       context 'when no countrycode is set' do
         it { expect(token).to receive(:get).with(uri) }

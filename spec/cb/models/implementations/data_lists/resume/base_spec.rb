@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module Cb
   module Models
-    describe DataLists::DataListBase do
-      subject { DataLists::DataListBase.new(args) }
+    describe ResumeDataList do
+      subject { ResumeDataList.new(args) }
       let(:key) { 'key' }
       let(:value) { 'value' }
 

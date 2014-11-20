@@ -3,7 +3,7 @@ require 'spec_helper'
 module Cb
   module Responses
     describe ResumeDataList do
-
+      let(:subject) { ResumeDataList.new(response_stub) }
       let(:response_stub) { file }
       let(:file) { JSON.parse(File.read('spec/support/response_stubs/resume_education.json')) }
 
@@ -35,32 +35,10 @@ module Cb
         end
       end
 
-      context 'does not implement extract_models' do
-        it do
-          expect { Cb::Responses::ResumeDataList.new(response_stub) }
-          .to raise_error(NotImplementedError) do |ex|
-            expect(ex.message).to include 'extract_models'
-          end
-        end
-      end
+      it { expect(subject.model.first).to be_an_instance_of(Cb::Models::ResumeDataList) }
+      it { expect(subject.model.first.key).to eql('ce3101') }
+      it { expect(subject.model.first.value).to eql('Vocational High School') }
 
-      context 'does not implement validate_api_hash' do
-        it do
-          expect { Cb::Responses::ResumeDataList.new(response_stub) }
-          .to raise_error(NotImplementedError) do |ex|
-            expect(ex.message).to include 'validate_api_hash'
-          end
-        end
-      end
-
-      context 'does not implement hash_containing_metadata' do
-        it do
-          expect { Cb::Responses::ResumeDataList.new(response_stub) }
-          .to raise_error(NotImplementedError) do |ex|
-            expect(ex.message).to include 'hash_containing_metadata'
-          end
-        end
-      end
     end
   end
 end

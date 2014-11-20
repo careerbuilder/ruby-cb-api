@@ -10,7 +10,7 @@ module Cb
         end
 
         def get
-          Cb::Responses::EducationCodes.new request.parsed
+          Cb::Responses::ResumeDataList.new request.parsed
         end
 
         private

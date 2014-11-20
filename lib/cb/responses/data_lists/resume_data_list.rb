@@ -14,6 +14,10 @@ module Cb
         response['Errors']
       end
 
+      def extract_models
+        model_hash.map! { |list_item| Models::ResumeDataList.new(list_item) }
+      end
+
       private
 
       def collection_node
