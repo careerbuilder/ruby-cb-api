@@ -2,7 +2,7 @@ module Cb
   module Models
     class JobInfo < ApiResponseModel
       attr_accessor :company, :days_til_expiration, :degree_required, :experience_required,
-                    :job_title, :salary_information
+                    :job_title
 
       def set_model_properties
         @company                = Models::Company.new(api_response['Company'])
