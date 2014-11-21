@@ -1,7 +1,7 @@
 {
     "TotalResults": 1,
     "ReturnedResults": 1,
-    "JobReport": [
+    "Results": [
         {
             "ApplicantInformation": {
                 "DateApplicationViewed": "Some DT",

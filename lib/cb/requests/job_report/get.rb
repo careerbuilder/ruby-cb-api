@@ -23,7 +23,7 @@ module Cb
 
         def query
           {
-              'userOauthToken' => args[:user_oauth_token]
+              UserOauthToken: args[:user_oauth_token]
           }
         end
 
