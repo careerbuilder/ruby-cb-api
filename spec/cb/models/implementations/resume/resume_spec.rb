@@ -166,7 +166,7 @@ module Cb
            'userIdentifier' => 'user' }
         end
 
-        it { expect(resume.government_and_military.has_security_clearance).to be_truthy }
+        it { expect(resume.government_and_military.has_security_clearance).to_not be_nil }
         it { expect(resume.government_and_military.military_experience).to_not be_nil }
       end
 
