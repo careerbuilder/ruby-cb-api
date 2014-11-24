@@ -23,39 +23,6 @@
                 "ApplicationsSubmitted": 11,
                 "ApplicationsViewed": 8,
                 "ExceedsEducation": 50.0,
-                "MeetsEducation": 50.0,
-                "PercentWithCoverLetter": 45.0,
-                "PercentEmployed": 100.0,
-                "SalaryInformation": {
-                    "ApplicantSalaries": [
-                        {
-                            "Range": "50K - 60K",
-                            "NumberOfPeople": 3
-                        },
-                        {
-                            "Range": "60K - 70K",
-                            "NumberOfPeople": 3
-                        },
-                        {
-                            "Range": "70K +",
-                            "NumberOfPeople": 5
-                        }
-                    ],
-                    "DegreeSalaries": [
-                        {
-                            "Name": "Doctorate",
-                            "AverageSalary": 85000
-                        },
-                        {
-                            "Name": "Masters",
-                            "AverageSalary": 75000
-                        },
-                        {
-                            "Name": "Bachelors",
-                            "AverageSalary": 65000
-                        }
-                    ]
-                },
                 "ExperienceRanges": [
                     {
                         "Range": "1-3 years",
@@ -84,6 +51,36 @@
                         "NumberOfApplicants": 3
                     }
                 ],
+                "SalaryInformation": {
+                    "ApplicantSalaries": [
+                        {
+                            "Range": "50K - 60K",
+                            "Number": 3
+                        },
+                        {
+                            "Range": "60K - 70K",
+                            "Number": 3
+                        },
+                        {
+                            "Range": "70K +",
+                            "Number": 5
+                        }
+                    ],
+                    "DegreeSalaries": [
+                        {
+                            "DegreeName": "Doctorate",
+                            "Number": 85000
+                        },
+                        {
+                            "DegreeName": "Masters",
+                            "Number": 75000
+                        },
+                        {
+                            "DegreeName": "Bachelors",
+                            "Number": 65000
+                        }
+                    ]
+                },
                 "TopDegrees": [
                     {
                         "Name": "Doctorates",
