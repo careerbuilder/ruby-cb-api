@@ -2,9 +2,8 @@ module Cb
   module Models
     class CompetitionInfo < ApiResponseModel
       attr_accessor :applications_submitted, :applications_viewed, :percent_exceeds_education_level,
-                    :percent_meets_education_level, :percent_cover_letter_attached, :percent_employed,
-                    :experience_ranges, :applicant_locations, :salary_information, :top_five_degrees,
-                    :top_five_majors
+                    :percent_cover_letter_attached, :percent_employed, :experience_ranges, :applicant_locations,
+                    :salary_information, :top_five_degrees, :top_five_majors
 
       def set_model_properties
         @applications_submitted             = api_response['ApplicationsSubmitted']
