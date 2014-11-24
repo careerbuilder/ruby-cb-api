@@ -23,20 +23,18 @@
                 "ApplicationsSubmitted": 11,
                 "ApplicationsViewed": 8,
                 "ExceedsEducation": 50.0,
-                "PercentWithCoverLetter": 45.0,
-                "PercentEmployed": 100.0,
                 "ExperienceRanges": [
                     {
                         "Range": "1-3 years",
-                        "Number": 3
+                        "NumberOfPeople": 3
                     },
                     {
                         "Range": "5-10 years",
-                        "Number": 4
+                        "NumberOfPeople": 4
                     },
                     {
                         "Range": "10+ years",
-                        "Number": 4
+                        "NumberOfPeople": 4
                     }
                 ],
                 "ApplicantLocations": [
@@ -85,51 +83,50 @@
                 },
                 "TopDegrees": [
                     {
-                        "DegreeName": "Doctorates",
+                        "Name": "Doctorates",
                         "NumberOfApplicants": 2,
                         "PercentageOfApplicants": 18.0
                     },
                     {
-                        "DegreeName": "Masters",
+                        "Name": "Masters",
                         "NumberOfApplicants": 4,
                         "PercentageOfApplicants": 36.0
                     },
                     {
-                        "DegreeName": "Bachelors",
+                        "Name": "Bachelors",
                         "NumberOfApplicants": 5,
                         "PercentageOfApplicants": 45.0
                     }
                 ],
                 "TopMajors": [
                     {
-                        "MajorName": "Computer Science",
+                        "Name": "Computer Science",
                         "NumberOfApplicants": 5,
                         "PercentageOfApplicants": 45.0
 
                     },
                     {
-                        "MajorName": "Mathematics",
+                        "Name": "Mathematics",
                         "NumberOfApplicants": 2,
                         "PercentageOfApplicants": 18.0
                     },
                     {
-                        "MajorName": "Physics",
+                        "Name": "Physics",
                         "NumberOfApplicants": 2,
                         "PercentageOfApplicants": 18.0
                     },
                     {
-                        "MajorName": "Biomolecular Engineering",
+                        "Name": "Biomolecular Engineering",
                         "NumberOfApplicants": 1,
                         "PercentageOfApplicants": 9.0
                     },
                     {
-                        "MajorName": "Geophysics",
+                        "Name": "Geophysics",
                         "NumberOfApplicants": 1,
                         "PercentageOfApplicants": 9.0
                     }
                 ]
             }
         }
-
     ]
 }
