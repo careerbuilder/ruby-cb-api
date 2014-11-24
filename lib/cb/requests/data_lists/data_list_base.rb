@@ -1,7 +1,7 @@
 module Cb
   module Requests
     module DataLists
-      class EducationCodes
+      class DataListBase
         attr_reader :token, :args
 
         def initialize(token, args)
@@ -11,6 +11,10 @@ module Cb
 
         def get
           Cb::Responses::ResumeDataList.new request.parsed
+        end
+
+        def api_uri
+          raise NotImplementedError.new __method__
         end
 
         private
@@ -24,7 +28,7 @@ module Cb
         end
 
         def base_uri
-          Cb.configuration.base_uri + Cb.configuration.uri_education_codes
+          Cb.configuration.base_uri + api_uri
         end
 
         def query_string
