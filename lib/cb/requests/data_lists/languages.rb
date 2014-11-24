@@ -5,7 +5,7 @@ module Cb
     module DataLists
       class Languages < DataListBase
         def api_uri
-          Cb.configuration.languages
+          Cb.configuration.uri_languages
         end
       end
     end
