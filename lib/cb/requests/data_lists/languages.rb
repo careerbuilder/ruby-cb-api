@@ -2,7 +2,7 @@ module Cb
   module Requests
     module DataLists
       class Languages < DataListBase
-        def base_uri
+        def api_uri
           Cb.configuration.languages
         end
       end
