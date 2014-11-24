@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Cb::Models::JobReport do
   let(:response_stub) do
     full_response = JSON.parse(File.read('spec/support/response_stubs/job_report.json'))
-    full_response['JobReport'].first
+    full_response['Results'].first
   end
 
   context 'when the response json comes back correctly' do
