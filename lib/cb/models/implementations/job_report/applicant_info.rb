@@ -1,8 +1,7 @@
 module Cb
   module Models
     class ApplicantInfo < ApiResponseModel
-      attr_accessor :date_application_viewed, :date_applied, :user_attached_cover_letter, :user_current_salary,
-                    :user_education_level
+      attr_accessor :date_application_viewed, :date_applied, :user_attached_cover_letter
 
       def set_model_properties
         @date_application_viewed        = api_response['DateApplicationViewed']
