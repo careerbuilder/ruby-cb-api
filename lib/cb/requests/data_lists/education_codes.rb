@@ -1,3 +1,5 @@
+require_relative 'data_list_base'
+
 module Cb
   module Requests
     module DataLists
