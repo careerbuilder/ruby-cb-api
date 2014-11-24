@@ -4,8 +4,8 @@ module Cb
       attr_accessor :number, :range
 
       def initialize(args = {})
-        @range		= args['Range']          || String.new
-        @number		= args['NumberOfPeople'] || 0.0
+        @range    = args['Range']          || String.new
+        @number   = args['NumberOfPeople'] || 0.0
       end
 
     end

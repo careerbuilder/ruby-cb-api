@@ -23,8 +23,8 @@ module Cb
       attr_accessor :range, :number
 
       def initialize(args={})
-        @range	  = args['Range']           || String.new
-        @number	  = args['NumberOfPeople']  || 0.0
+        @range  = args['Range']           || String.new
+        @number = args['NumberOfPeople']  || 0.0
       end
     end
 
@@ -32,8 +32,8 @@ module Cb
       attr_accessor :degree_name, :number
 
       def initialize(args={})
-        @range					= args['Name']            || String.new
-        @number					= args['NumberOfPeople']  || 0.0
+        @range    = args['Name']            || String.new
+        @number   = args['NumberOfPeople']  || 0.0
       end
     end
 
