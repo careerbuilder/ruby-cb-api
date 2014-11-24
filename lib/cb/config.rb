@@ -89,6 +89,8 @@ module Cb
       @uri_resume_language_codes          ||= '/v1/languagecodes'
       @uri_country_codes                  ||= '/v1/countrycodes'
       @uri_job_report                     ||= '/cbapi/jobreport/:job_did'
+      @uri_education_codes                ||= '/consumer/datalist/ResumeEducation'
+      @uri_state_list                     ||= '/ajax/citysuggest.aspx'
     end
 
     def set_attr_accessors

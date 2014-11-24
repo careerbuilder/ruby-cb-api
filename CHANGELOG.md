@@ -2,7 +2,13 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+<<<<<<< HEAD
 * 14.4.0 Adding HireInsider models and request objects
+=======
+
+* 14.5.0 Added education code api call for resume view edit
+* 14.4.0 adding State list to the gem
+>>>>>>> 6f95d0e9dbf7ad7d87c33d77b2aaa48c1d23f904
 * 14.3.1 Fixed missing response mapping
 * 14.3.0 Added country codes api call
 * 14.2.0 Added resume language codes api call

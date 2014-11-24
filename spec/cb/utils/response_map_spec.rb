@@ -98,7 +98,7 @@ module Cb
         request_namespace = Cb::Requests::DataLists
         response_namespace = Cb::Responses
 
-        expect(response_map.response_for(request_namespace::CountryCodes)). to eq response_namespace::CountryCodes
+        expect(response_map.response_for(request_namespace::CountryCodes)).to eq response_namespace::CountryCodes
       end
 
       it 'should map resume recommendations to the correct response object' do
