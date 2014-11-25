@@ -24,7 +24,11 @@ module Cb
             allow(response).to receive(:parsed).and_return(parsed_response)
             allow(Cb::Responses::ResumeDataList).to receive(:new).and_return(resume_data_list)
           end
-          it { expect(made_base.get).to eq(resume_data_list) }
+          it { expect(made_base.get).to be(resume_data_list) }
+          it do
+            expect(Cb::Responses::ResumeDataList).to receive(:new).with(parsed_response)
+            made_base.get
+          end
         end
 
         describe 'api_uri' do
