@@ -3,9 +3,9 @@ require_relative 'data_list_base'
 module Cb
   module Requests
     module DataLists
-      class EducationCodes < DataListBase
+      class Languages < DataListBase
         def api_uri
-          Cb.configuration.uri_resume_education
+          Cb.configuration.uri_languages
         end
       end
     end
