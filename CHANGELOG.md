@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 15.0.0 Reformatted the incoming arguments for Language Codes and Education Codes api to be more conventional
 * 14.6.0 Adding language data-list as well as a refactor which will make the future
          data-list apis that are coming much easier.
 * 14.5.0 Added education code api call for resume view edit
