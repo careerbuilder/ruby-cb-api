@@ -22,19 +22,13 @@ module Cb
         subject.get
       end
 
-      it { expect(Cb::Responses::ResumeDataList).to receive(:new).with(parsed_response) }
+      let(:args) { { 'countrycode' => 'GR' } }
+      let(:uri) { 'https://api.careerbuilder.com/consumer/datalist/languages?countrycode=GR' }
 
-      context 'when no countrycode is set' do
-        it { expect(token).to receive(:get).with(uri) }
-      end
+      it { expect(token).to receive(:get).with(uri) }
+      it { expect(subject.get).to_not raise_error(NotImplementedError) }
+      it { expect(subject.api_uri).to eq '/consumer/datalist/languages'}
 
-      context 'when countrycode is set' do
-        let(:args) { { 'countrycode' => 'GR' } }
-        let(:uri) { 'https://api.careerbuilder.com/consumer/datalist/languages?countrycode=GR' }
-
-        it { expect(token).to receive(:get).with(uri) }
-        it { expect(subject.get).to_not raise_error(NotImplementedError) }
-      end
     end
   end
 end
