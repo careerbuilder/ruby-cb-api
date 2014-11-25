@@ -33,6 +33,7 @@ module Cb
         let(:uri) { 'https://api.careerbuilder.com/consumer/datalist/languages?countrycode=GR' }
 
         it { expect(token).to receive(:get).with(uri) }
+        it { expect(subject.get).to_not raise_error(NotImplementedError) }
       end
     end
   end
