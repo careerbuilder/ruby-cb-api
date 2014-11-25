@@ -3,7 +3,7 @@ require 'spec_helper'
 module Cb
   module Requests
     module DataLists
-      describe Cb::Requests::DataLists::DataListBase do
+      describe DataListBase do
         let(:base) { Cb::Requests::DataLists::DataListBase }
         let(:token) { double('3Scale_token') }
         let(:args) { {country_code: 'us' } }
