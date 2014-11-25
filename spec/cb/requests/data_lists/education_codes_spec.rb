@@ -29,7 +29,7 @@ module Cb
       end
 
       context 'when countrycode is set' do
-        let(:args) { { 'countrycode' => 'GR' } }
+        let(:args) { { 'country_code' => 'GR' } }
         let(:uri) { 'https://api.careerbuilder.com/consumer/datalist/ResumeEducation?countrycode=GR' }
 
         it { expect(token).to receive(:get).with(uri) }

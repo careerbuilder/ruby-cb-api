@@ -32,7 +32,7 @@ module Cb
         end
 
         def query_string
-          args['countrycode'] ? "?countrycode=#{args['countrycode']}" : '?countrycode=US'
+          args['country_code'] ? "?countrycode=#{args['country_code']}" : '?countrycode=US'
         end
       end
     end

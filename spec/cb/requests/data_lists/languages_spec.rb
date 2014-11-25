@@ -22,7 +22,7 @@ module Cb
         subject.get
       end
 
-      let(:args) { { 'countrycode' => 'GR' } }
+      let(:args) { { 'country_code' => 'GR' } }
       let(:uri) { 'https://api.careerbuilder.com/consumer/datalist/languages?countrycode=GR' }
 
       it { expect(token).to receive(:get).with(uri) }

@@ -6,7 +6,7 @@ module Cb
       describe DataListBase do
         let(:base) { Cb::Requests::DataLists::DataListBase }
         let(:token) { double('3Scale_token') }
-        let(:args) { {'countrycode' => 'GR' } }
+        let(:args) { {'country_code' => 'GR' } }
         let(:made_base) { base.new(token, args) }
         let(:uri) { 'https://api.careerbuilder.com/url_piece?countrycode=GR' }
 
