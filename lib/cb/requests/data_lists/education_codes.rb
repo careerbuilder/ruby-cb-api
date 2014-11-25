@@ -5,7 +5,7 @@ module Cb
     module DataLists
       class EducationCodes < DataListBase
         def api_uri
-          Cb.configuration.uri_education_codes
+          Cb.configuration.uri_resume_education
         end
       end
     end
