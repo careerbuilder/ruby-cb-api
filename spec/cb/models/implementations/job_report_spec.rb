@@ -28,7 +28,6 @@ describe Cb::Models::JobReport do
 
       expect(model.competition_information.applications_submitted).to eq 11
       expect(model.competition_information.applications_viewed).to eq 8
-      expect(model.competition_information.percent_exceeds_education_level).to eq 50.0
       expect(model.competition_information.percent_cover_letter_attached).to eq 45.0
       expect(model.competition_information.percent_employed).to eq 100.0
 

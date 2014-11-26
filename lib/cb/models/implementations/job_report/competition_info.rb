@@ -10,28 +10,31 @@ module Cb
         @applications_viewed                = api_response['ApplicationsViewed']
         @percent_cover_letter_attached      = api_response['PercentWithCoverLetter']
         @percent_employed                   = api_response['PercentEmployed']
-        @percent_exceeds_education_level    = api_response['ExceedsEducation']
-        @applicant_locations                = extract_applicant_locations
+        @salary_information                 = extract_salary_information
         @experience_ranges                  = extract_experience_ranges
+        @applicant_locations                = extract_applicant_locations
         @top_five_degrees                   = extract_top_degrees
         @top_five_majors                    = extract_top_majors
-        @salary_information                 = extract_salary_information
       end
 
       def required_fields
-        %w(ApplicationsSubmitted ApplicationsViewed PercentWithCoverLetter PercentEmployed ExceedsEducation
+        %w(ApplicationsSubmitted ApplicationsViewed PercentWithCoverLetter PercentEmployed
             ApplicantLocations ExperienceRanges TopDegrees TopMajors SalaryInformation)
       end
 
-      def extract_applicant_locations
-        api_response['ApplicantLocations'].collect do |info|
-          Models::Location.new(info)
-        end
+      def extract_salary_information
+        Models::Salary.new(api_response['SalaryInformation'])
       end
 
       def extract_experience_ranges
         api_response['ExperienceRanges'].collect do |info|
           Models::Experience.new(info)
+        end
+      end
+
+      def extract_applicant_locations
+        api_response['ApplicantLocations'].collect do |info|
+          Models::Location.new(info)
         end
       end
 
@@ -45,10 +48,6 @@ module Cb
         api_response['TopMajors'].collect do |major|
           Models::Major.new(major)
         end
-      end
-
-      def extract_salary_information
-        Models::Salary.new(api_response['SalaryInformation'])
       end
     end
   end
