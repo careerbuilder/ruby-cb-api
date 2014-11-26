@@ -107,6 +107,13 @@ module Cb
 
         expect(response_map.response_for(request_namespace::Resume)).to eq response_namespace::Recommendations
       end
+
+      it 'should test job report methods' do
+        request_namespace = Cb::Requests::JobReport
+        response_namespace = Cb::Responses::JobReport
+
+        expect(response_map.response_for(request_namespace::Get)).to eq response_namespace::Get
+      end
     end
   end
 end
