@@ -22,13 +22,16 @@ module Cb
         subject.get
       end
 
-      let(:args) { { 'countrycode' => 'GR' } }
-      let(:uri) { 'https://api.careerbuilder.com/consumer/datalist/desiredjobtype?countrycode=GR' }
-
       it { expect(token).to receive(:get).with(uri) }
       it { expect(subject.get).to_not raise_error(NotImplementedError) }
-      it { expect(subject.api_uri).to eq '/consumer/datalist/desiredjobtype'}
 
+      context 'when countrycode is set' do
+        let(:args) { { 'countrycode' => 'GR' } }
+        let(:uri) { 'https://api.careerbuilder.com/consumer/datalist/desiredjobtype?countrycode=GR' }
+
+        it { expect(token).to receive(:get).with(uri) }
+        it { expect(subject.api_uri).to eq '/consumer/datalist/desiredjobtype'}
+      end
     end
   end
 end
