@@ -91,6 +91,7 @@ module Cb
       @uri_country_codes                  ||= '/v1/countrycodes'
       @uri_resume_education               ||= '/consumer/datalist/ResumeEducation'
       @uri_languages                      ||= '/consumer/datalist/languages'
+      @uri_desired_job_type               ||= '/consumer/datalist/desiredjobtype'
       @uri_state_list                     ||= '/ajax/citysuggest.aspx'
     end
 
