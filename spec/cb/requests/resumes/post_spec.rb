@@ -4,7 +4,8 @@ require 'support/mocks/resume'
 module Cb
   describe Cb::Requests::Resumes::Post do
 
-    let (:headers) do
+    let(:request) { Cb::Requests::Resumes::Post.new(args) }
+    let(:headers) do
       {
         'DeveloperKey' => Cb.configuration.dev_key,
         'HostSite' => Cb.configuration.host_site,
@@ -13,8 +14,8 @@ module Cb
     end
 
     context 'initialize without arguments' do
-      let (:request) { Cb::Requests::Resumes::Post.new({}) }
-      let (:body) do
+      let(:args) {{}}
+      let(:body) do
         {
           desiredJobTitle: nil,
           privacySetting: nil,
@@ -31,8 +32,7 @@ module Cb
     end
 
     context 'initialize with arguments' do
-      let (:request) { Cb::Requests::Resumes::Post.new(args) }
-      let (:args) do
+      let(:args) do
         {
           resume_hash: 'hash',
           desired_job_title: 'desiredJobTitle',
@@ -42,7 +42,7 @@ module Cb
         }
       end
 
-      let (:body) do
+      let(:body) do
         {
           desiredJobTitle: 'desiredJobTitle',
           privacySetting: 'privacySetting',
