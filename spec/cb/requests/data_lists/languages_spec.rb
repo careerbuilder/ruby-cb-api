@@ -30,7 +30,6 @@ module Cb
         let(:uri) { 'https://api.careerbuilder.com/consumer/datalist/languages?countrycode=GR' }
 
         it { expect(token).to receive(:get).with(uri) }
-        it { expect(subject.api_uri).to eq '/consumer/datalist/languages'}
       end
     end
   end
