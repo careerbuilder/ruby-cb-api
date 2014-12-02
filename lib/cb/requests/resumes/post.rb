@@ -5,7 +5,7 @@ module Cb
     module Resumes
       class Post < Base
         def endpoint_uri
-          Cb.configuration.uri_resume_post.gsub(':resume_hash', args[:resume_hash].to_s)
+          Cb.configuration.uri_resume_post
         end
 
         def http_method
