@@ -85,6 +85,7 @@ module Cb
       @uri_resume_get                     ||= '/cbapi/resumes/:resume_hash'
       @uri_resume_put                     ||= '/cbapi/resumes/:resume_hash'
       @uri_resume_delete                  ||= '/cbapi/resumes/:resume_hash'
+      @uri_resume_post                    ||= '/cbapi/resumes/:resume_hash'
       @uri_resume_list                    ||= '/v3/resume/list'
       @uri_resume_language_codes          ||= '/v1/languagecodes'
       @uri_country_codes                  ||= '/v1/countrycodes'
