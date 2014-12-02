@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'support/mocks/resume'
 
 module Cb
   describe Cb::Requests::Resumes::Post do
