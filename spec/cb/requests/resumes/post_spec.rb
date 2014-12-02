@@ -23,7 +23,7 @@ module Cb
         }
       end
 
-      it { expect(request.endpoint_uri).to eql Cb.configuration.uri_resume_post.sub(':resume_hash', '') }
+      it { expect(request.endpoint_uri).to eql Cb.configuration.uri_resume_post }
       it { expect(request.http_method).to eql :post }
       it { expect(request.query).to eql nil  }
       it { expect(request.headers).to eql headers }
@@ -33,7 +33,6 @@ module Cb
     context 'initialize with arguments' do
       let(:args) do
         {
-          resume_hash: 'hash',
           desired_job_title: 'desiredJobTitle',
           privacy_setting: 'privacySetting',
           user_identifier: 'userIdentifier',
@@ -50,7 +49,7 @@ module Cb
         }
       end
 
-      it { expect(request.endpoint_uri).to eql Cb.configuration.uri_resume_post.sub(':resume_hash', 'hash') }
+      it { expect(request.endpoint_uri).to eql Cb.configuration.uri_resume_post }
       it { expect(request.body).to eql body }
     end
   end
