@@ -23,11 +23,11 @@ module Cb
         }
       end
 
-      it { expect(request.endpoint_uri).to eql Cb.configuration.uri_resume_post }
-      it { expect(request.http_method).to eql :post }
-      it { expect(request.query).to eql nil  }
-      it { expect(request.headers).to eql headers }
-      it { expect(request.body).to eql body }
+      it { expect(request.endpoint_uri).to eq Cb.configuration.uri_resume_post }
+      it { expect(request.http_method).to eq :post }
+      it { expect(request.query).to eq nil  }
+      it { expect(request.headers).to eq headers }
+      it { expect(request.body).to eq body }
     end
 
     context 'initialize with arguments' do
@@ -49,8 +49,8 @@ module Cb
         }
       end
 
-      it { expect(request.endpoint_uri).to eql Cb.configuration.uri_resume_post }
-      it { expect(request.body).to eql body }
+      it { expect(request.endpoint_uri).to eq Cb.configuration.uri_resume_post }
+      it { expect(request.body).to eq body }
     end
   end
 end
