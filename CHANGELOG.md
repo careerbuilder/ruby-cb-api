@@ -3,7 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
-* 14.8.0 Added resume post 
+* 14.8.0 Added resume post
 * 14.7.0 Added desired job type data list
 * 14.6.0 Added language data-list as well as a refactor which will make the future
          data-list apis that are coming much easier.
