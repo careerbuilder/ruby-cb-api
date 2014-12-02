@@ -4,55 +4,55 @@ require 'support/mocks/resume'
 module Cb
   describe Cb::Requests::Resumes::Post do
 
+    let (:headers) do
+      {
+        'DeveloperKey' => Cb.configuration.dev_key,
+        'HostSite' => Cb.configuration.host_site,
+        'Content-Type' => 'application/json'
+      }
+    end
+
     context 'initialize without arguments' do
-      context 'without arguments' do
-        let (:request) { Cb::Requests::Resumes::Post.new({}) }
-
-        it 'should be correctly configured' do
-          request.endpoint_uri.should == Cb.configuration.uri_resume_post.sub(':resume_hash', '')
-          request.http_method.should == :post
-        end
-
-        it 'should have a basic query string' do
-          request.query.should == nil
-        end
-
-        it 'should have basic headers' do
-          request.headers.should ==
-            {
-              'DeveloperKey' => Cb.configuration.dev_key,
-              'HostSite' => Cb.configuration.host_site,
-              'Content-Type' => 'application/json'
-            }
-        end
-
-        it 'should have a body' do
-          request.body.should_not == nil
-        end
+      let (:request) { Cb::Requests::Resumes::Post.new({}) }
+      let (:body) do
+        {
+          desiredJobTitle: nil,
+          privacySetting: nil,
+          userIdentifier: nil,
+          binaryData: nil
+        }
       end
 
-      context 'with arguments' do
-        let(:resume) { Mocks::Resume.snake_case_resume_hash }
-        let(:request) { Cb::Requests::Resumes::Post.new(resume) }
+      it { expect(request.endpoint_uri).to eql Cb.configuration.uri_resume_post.sub(':resume_hash', '') }
+      it { expect(request.http_method).to eql :post }
+      it { expect(request.query).to eql nil  }
+      it { expect(request.headers).to eql headers }
+      it { expect(request.body).to eql body }
+    end
 
-        it 'should be correctly configured' do
-          request.endpoint_uri.should eql Cb.configuration.uri_resume_post.sub(':resume_hash', 'resumeHash')
-          request.http_method.should eql :put
-        end
-
-        it 'should have basic headers' do
-          @request.headers.should ==
-            {
-              'DeveloperKey' => Cb.configuration.dev_key,
-              'HostSite' => Cb.configuration.host_site,
-              'Content-Type' => 'application/json'
-            }
-        end
-
-        it 'should have a basic body' do
-          @request.body.should == Mocks::Resume.camel_case_resume_hash.to_json
-        end
+    context 'initialize with arguments' do
+      let (:request) { Cb::Requests::Resumes::Post.new(args) }
+      let (:args) do
+        {
+          resume_hash: 'hash',
+          desired_job_title: 'desiredJobTitle',
+          privacy_setting: 'privacySetting',
+          user_identifier: 'userIdentifier',
+          binary_data: 'binaryData'
+        }
       end
+
+      let (:body) do
+        {
+          desiredJobTitle: 'desiredJobTitle',
+          privacySetting: 'privacySetting',
+          userIdentifier: 'userIdentifier',
+          binaryData: 'binaryData'
+        }
+      end
+
+      it { expect(request.endpoint_uri).to eql Cb.configuration.uri_resume_post.sub(':resume_hash', 'hash') }
+      it { expect(request.body).to eql body }
     end
   end
 end
