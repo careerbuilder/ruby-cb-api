@@ -5,7 +5,7 @@ module Cb
     module DataLists
       class Countries < DataListBase
         def api_uri
-          Cb.configuration.uri_country_codes
+          Cb.configuration.uri_countries
         end
       end
     end
