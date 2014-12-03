@@ -22,6 +22,7 @@ module Cb
         subject.get
       end
 
+      it { expect(subject.api_uri).to eq '/consumer/datalist/languages'}
       it { expect(token).to receive(:get).with(uri) }
       it { expect(subject.get).to_not raise_error(NotImplementedError) }
 
