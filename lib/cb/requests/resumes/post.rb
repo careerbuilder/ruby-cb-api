@@ -17,7 +17,8 @@ module Cb
             desiredJobTitle: args[:desired_job_title],
             privacySetting: args[:privacy_setting],
             userIdentifier: args[:user_identifier],
-            binaryData: args[:binary_data]
+            binaryData: args[:binary_data],
+            fileName: args[:file_name]
           }
         end
 

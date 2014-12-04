@@ -19,7 +19,8 @@ module Cb
           desiredJobTitle: nil,
           privacySetting: nil,
           userIdentifier: nil,
-          binaryData: nil
+          binaryData: nil,
+          fileName: nil
         }
       end
 
@@ -36,7 +37,8 @@ module Cb
           desired_job_title: 'desiredJobTitle',
           privacy_setting: 'privacySetting',
           user_identifier: 'userIdentifier',
-          binary_data: 'binaryData'
+          binary_data: 'binaryData',
+          file_name: 'fileName'
         }
       end
 
@@ -45,7 +47,8 @@ module Cb
           desiredJobTitle: 'desiredJobTitle',
           privacySetting: 'privacySetting',
           userIdentifier: 'userIdentifier',
-          binaryData: 'binaryData'
+          binaryData: 'binaryData',
+          fileName: 'fileName'
         }
       end
 
