@@ -2,7 +2,8 @@ require 'bundler'
 Bundler::GemHelper.install_tasks
 
 require 'rspec/core/rake_task'
-load 'lib/tasks/doc.rake'
+# Load all custom tasks
+Dir.glob(File.join('lib', 'tasks', '*.rake')).each { |r| load r }
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_opts = '--color -fd'
