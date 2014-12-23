@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
+* 15.0.1 Add `cb:test` rake task for rspec independence on the build server
 * 15.0.0 Removing old country_codes call and replacing it with new countries call
 * 14.7.0 Adding desired job type data list
 * 14.6.0 Adding language data-list as well as a refactor which will make the future
