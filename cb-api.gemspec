@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = 'Ruby wrapper for Careerbuilder Public API.'
   s.license     = 'MIT'
 
-  s.files        = Dir['{lib}/**/*.rb', 'LICENSE', '*.md', '{lib}/**/*.rake']
+  s.files        = Dir['{lib}/**/*', 'LICENSE', '*.md']
   s.require_path = 'lib'
 
   s.add_dependency 'httparty', '~> 0.11'
