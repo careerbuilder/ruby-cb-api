@@ -1,4 +1,5 @@
 namespace :doc do
+  desc 'Generate RDoc documentation'
   task :generate do
     #Remove directory if exists (Sooooo much faster rdoc time.)
     system('rm -rf doc/') if File.exists?('doc/index.html')
