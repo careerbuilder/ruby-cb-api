@@ -4,6 +4,7 @@ Version History
 ----
 
 * 15.1.0 Added resume post
+* 15.0.3 Add desc to doc.rake so it shows in `rake -T`
 * 15.0.2 Include the rake tasks in the gem
 * 15.0.1 Add `cb:test` rake task for rspec independence on the build server
 * 15.0.0 Removing old country_codes call and replacing it with new countries call
