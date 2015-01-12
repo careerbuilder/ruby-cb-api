@@ -1,6 +1,6 @@
 module Cb
-  module Models
-    class ResumeDocument < ApiResponseModel
+  module Responses
+    class ResumeDocument < ApiResponse
       attr_accessor :resume_id, :desired_job_title, :privacy_setting, :resume_file_data, :resume_file_name, :host_site
 
       def set_model_properties
