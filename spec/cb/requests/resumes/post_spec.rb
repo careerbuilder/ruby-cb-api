@@ -6,9 +6,9 @@ module Cb
     let(:request) { Cb::Requests::Resumes::Post.new(args) }
     let(:headers) do
       {
-        'DeveloperKey' => Cb.configuration.dev_key,
         'HostSite' => Cb.configuration.host_site,
-        'Content-Type' => 'application/json'
+        'Content-Type' => 'application/json',
+        'Authorization' => 'Bearer '
       }
     end
 
@@ -18,9 +18,9 @@ module Cb
         {
           desiredJobTitle: nil,
           privacySetting: nil,
-          userIdentifier: nil,
           binaryData: nil,
-          fileName: nil
+          fileName: nil,
+          hostSite: nil,
         }
       end
 
@@ -36,9 +36,9 @@ module Cb
         {
           desired_job_title: 'desiredJobTitle',
           privacy_setting: 'privacySetting',
-          user_identifier: 'userIdentifier',
           binary_data: 'binaryData',
-          file_name: 'fileName'
+          file_name: 'fileName',
+          host_site: 'US'
         }
       end
 
@@ -46,9 +46,9 @@ module Cb
         {
           desiredJobTitle: 'desiredJobTitle',
           privacySetting: 'privacySetting',
-          userIdentifier: 'userIdentifier',
           binaryData: 'binaryData',
-          fileName: 'fileName'
+          fileName: 'fileName',
+          hostSite: 'US'
         }
       end
 

@@ -16,18 +16,22 @@ module Cb
           {
             desiredJobTitle: args[:desired_job_title],
             privacySetting: args[:privacy_setting],
-            userIdentifier: args[:user_identifier],
             binaryData: args[:binary_data],
-            fileName: args[:file_name]
+            fileName: args[:file_name],
+            hostSite: args[:host_site]
           }
         end
 
         def headers
           {
-            'DeveloperKey' => Cb.configuration.dev_key,
             'HostSite' => Cb.configuration.host_site,
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
+            'Authorization' => three_scale_bearer_token
           }
+        end
+        
+        def three_scale_bearer_token
+          "Bearer #{args[:three_scale_token]}"
         end
       end
     end
