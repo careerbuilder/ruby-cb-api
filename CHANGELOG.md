@@ -3,6 +3,8 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
+* 15.1.0 Added resume post
+* 15.0.3 Add desc to doc.rake so it shows in `rake -T`
 * 15.0.2 Include the rake tasks in the gem
 * 15.0.1 Add `cb:test` rake task for rspec independence on the build server
 * 15.0.0 Removing old country_codes call and replacing it with new countries call
@@ -10,7 +12,7 @@ Version History
 * 14.6.0 Adding language data-list as well as a refactor which will make the future
          data-list apis that are coming much easier.
 * 14.5.0 Added education code api call for resume view edit
-* 14.4.0 adding State list to the gem
+* 14.4.0 Added State list to the gem
 * 14.3.1 Fixed missing response mapping
 * 14.3.0 Added country codes api call
 * 14.2.0 Added resume language codes api call
