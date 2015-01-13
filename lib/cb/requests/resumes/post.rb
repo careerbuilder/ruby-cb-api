@@ -16,8 +16,8 @@ module Cb
           {
             desiredJobTitle: args[:desired_job_title],
             privacySetting: args[:privacy_setting],
-            resumeFileData: args[:resumeFileData],
-            resumeFileName: args[:resumeFileName],
+            resumeFileData: args[:resume_file_data],
+            resumeFileName: args[:resume_file_name],
             hostSite: args[:host_site]
           }
         end
