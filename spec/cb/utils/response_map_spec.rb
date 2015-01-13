@@ -91,7 +91,7 @@ module Cb
         response_namespace = Cb::Responses
 
         expect(response_map.response_for(request_namespace::Get)).to eq response_namespace::Resume
-        expect(response_map.response_for(request_namespace::Post)).to eq response_namespace::Resume
+        expect(response_map.response_for(request_namespace::Post)).to eq response_namespace::ResumeDocument
         expect(response_map.response_for(request_namespace::LanguageCodes)). to eq response_namespace::LanguageCodes
       end
 
