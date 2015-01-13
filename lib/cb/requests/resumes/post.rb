@@ -24,9 +24,9 @@ module Cb
 
         def headers
           {
-            'HostSite' => Cb.configuration.host_site,
             'Content-Type' => 'application/json',
-            'Authorization' => three_scale_bearer_token
+            'Authorization' => three_scale_bearer_token,
+            'front_end_https' => 'on'
           }
         end
         
