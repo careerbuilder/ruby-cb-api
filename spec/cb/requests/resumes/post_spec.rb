@@ -18,8 +18,8 @@ module Cb
         {
           desiredJobTitle: nil,
           privacySetting: nil,
-          binaryData: nil,
-          fileName: nil,
+          resumeFileData: nil,
+          resumeFileName: nil,
           hostSite: nil,
         }
       end
@@ -36,9 +36,18 @@ module Cb
         {
           desired_job_title: 'desiredJobTitle',
           privacy_setting: 'privacySetting',
-          binary_data: 'binaryData',
-          file_name: 'fileName',
-          host_site: 'US'
+          resumeFileData: 'binaryData',
+          resumeFileName: 'fileName',
+          host_site: 'US',
+          three_scale_token: 'token'
+        }
+      end
+
+      let(:headers) do
+        {
+            'HostSite' => Cb.configuration.host_site,
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer token'
         }
       end
 
@@ -46,8 +55,8 @@ module Cb
         {
           desiredJobTitle: 'desiredJobTitle',
           privacySetting: 'privacySetting',
-          binaryData: 'binaryData',
-          fileName: 'fileName',
+          resumeFileData: 'binaryData',
+          resumeFileName: 'fileName',
           hostSite: 'US'
         }
       end
