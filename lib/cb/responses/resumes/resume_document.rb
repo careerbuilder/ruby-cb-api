@@ -8,7 +8,7 @@ module Cb
       end
 
       def extract_models
-        [root_node].map { |resume| Models::ResumeDocument.new(resume) }
+        response[root_node].map { |resume| Models::ResumeDocument.new(resume) }
       end
 
       def hash_containing_metadata

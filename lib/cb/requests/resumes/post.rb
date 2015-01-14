@@ -19,14 +19,14 @@ module Cb
             resumeFileData: args[:resume_file_data],
             resumeFileName: args[:resume_file_name],
             hostSite: args[:host_site]
-          }
+          }.to_json
         end
 
         def headers
           {
+            'HostSite' => Cb.configuration.host_site,
             'Content-Type' => 'application/json',
-            'Authorization' => three_scale_bearer_token,
-            'front_end_https' => 'on'
+            'Authorization' => three_scale_bearer_token
           }
         end
         

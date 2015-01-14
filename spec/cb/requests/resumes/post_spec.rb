@@ -21,7 +21,7 @@ module Cb
           resumeFileData: nil,
           resumeFileName: nil,
           hostSite: nil,
-        }
+        }.to_json
       end
 
       it { expect(request.endpoint_uri).to eq Cb.configuration.uri_resume_post }
@@ -36,8 +36,8 @@ module Cb
         {
           desired_job_title: 'desiredJobTitle',
           privacy_setting: 'privacySetting',
-          resumeFileData: 'binaryData',
-          resumeFileName: 'fileName',
+          resume_file_data: 'binaryData',
+          resume_file_name: 'fileName',
           host_site: 'US',
           three_scale_token: 'token'
         }
@@ -58,7 +58,7 @@ module Cb
           resumeFileData: 'binaryData',
           resumeFileName: 'fileName',
           hostSite: 'US'
-        }
+        }.to_json
       end
 
       it { expect(request.endpoint_uri).to eq Cb.configuration.uri_resume_post }
