@@ -6,6 +6,7 @@ module Cb
     let(:request) { Cb::Requests::Resumes::Post.new(args) }
     let(:headers) do
       {
+        'HostSite' => Cb.configuration.host_site,
         'Content-Type' => 'application/json',
         'Authorization' => 'Bearer '
       }
@@ -44,6 +45,7 @@ module Cb
 
       let(:headers) do
         {
+            'HostSite' => Cb.configuration.host_site,
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer token'
         }
