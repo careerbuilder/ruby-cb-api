@@ -44,6 +44,7 @@ module Cb
             Cb::Requests::Resumes::Get => Cb::Responses::Resume,
             Cb::Requests::Resumes::Put => Cb::Responses::Resume,
             Cb::Requests::Resumes::Delete => Cb::Responses::Resume,
+            Cb::Requests::Resumes::Post => Cb::Responses::ResumeDocument,
             Cb::Requests::Resumes::List => Cb::Responses::ResumeList,
             Cb::Requests::Resumes::LanguageCodes => Cb::Responses::LanguageCodes,
 

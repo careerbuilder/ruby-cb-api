@@ -18,15 +18,15 @@ module Cb
         request_namespace = Cb::Requests::EmailSubscription
         response_namespace = Cb::Responses::EmailSubscription
 
-        expect(response_map.response_for(request_namespace::Retrieve)).to eq response_namespace::Response
-        expect(response_map.response_for(request_namespace::Modify)).to eq response_namespace::Response
+        expect(response_map.response_for(request_namespace::Retrieve)).to eq(response_namespace::Response)
+        expect(response_map.response_for(request_namespace::Modify)).to eq(response_namespace::Response)
       end
 
       it 'should test education methods' do
         request_namespace = Cb::Requests::Education
         response_namespace = Cb::Responses::Education
 
-        expect(response_map.response_for(request_namespace::Get)).to eq response_namespace::Get
+        expect(response_map.response_for(request_namespace::Get)).to eq(response_namespace::Get)
       end
       
       it 'should test company methods' do
@@ -83,22 +83,23 @@ module Cb
         request_namespace = Cb::Requests::WorkStatus
         response_namespace = Cb::Responses::WorkStatus
 
-        expect(response_map.response_for(request_namespace::List)).to eq response_namespace::List
+        expect(response_map.response_for(request_namespace::List)).to eq(response_namespace::List)
       end
 
       it 'maps resume to the correct response object' do
         request_namespace = Cb::Requests::Resumes
         response_namespace = Cb::Responses
 
-        expect(response_map.response_for(request_namespace::Get)).to eq response_namespace::Resume
-        expect(response_map.response_for(request_namespace::LanguageCodes)). to eq response_namespace::LanguageCodes
+        expect(response_map.response_for(request_namespace::Get)).to eq(response_namespace::Resume)
+        expect(response_map.response_for(request_namespace::Post)).to eq(response_namespace::ResumeDocument)
+        expect(response_map.response_for(request_namespace::LanguageCodes)). to eq(response_namespace::LanguageCodes)
       end
 
       it 'should map resume recommendations to the correct response object' do
         request_namespace = Cb::Requests::Recommendations
         response_namespace = Cb::Responses
 
-        expect(response_map.response_for(request_namespace::Resume)).to eq response_namespace::Recommendations
+        expect(response_map.response_for(request_namespace::Resume)).to eq(response_namespace::Recommendations)
       end
     end
   end
