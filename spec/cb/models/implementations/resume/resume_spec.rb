@@ -43,11 +43,11 @@ module Cb
 
       context 'When APIResponse has salary information' do
         let(:resume_hash) do
-          { 'salaryInformation' => { 'jobTitle' => 'jerbs', 'PerHourOrPerYear' => 'PerHour',
+          { 'salaryInformation' => { 'workExperienceId' => 'test1', 'PerHourOrPerYear' => 'PerHour',
             'mostRecentPayAmount' => 100.00 },'userIdentifier' => 'user' }
         end
 
-        it { expect(resume.salary_information.job_title).to_not be_nil }
+        it { expect(resume.salary_information.work_experience_id).to_not be_nil }
         it { expect(resume.salary_information.most_recent_pay_amount).to_not be_nil }
       end
 
@@ -55,7 +55,7 @@ module Cb
 
         context 'and it is specifically the PerHourOrPerYear missing' do
           let(:resume_hash) do
-            { 'salaryInformation' => { 'jobTitle' => 'jerbs',
+            { 'salaryInformation' => { 'workExperienceId' => 'test1',
               'mostRecentPayAmount' => 100.00 },'userIdentifier' => 'user' }
           end
 
@@ -64,7 +64,7 @@ module Cb
 
         context 'and it is specifically the mostRecentPayAmount missing' do
           let(:resume_hash) do
-            { 'salaryInformation' => { 'jobTitle' => 'jerbs', 'PerHourOrPerYear' => 'PerHour' },
+            { 'salaryInformation' => { 'workExperienceId' => 'test1', 'PerHourOrPerYear' => 'PerHour' },
               'userIdentifier' => 'user' }
           end
 

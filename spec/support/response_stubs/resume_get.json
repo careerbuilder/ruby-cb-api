@@ -14,7 +14,8 @@
                     "employmentType": "ETNS",
                     "startDate": "2009-09-01T00:00:00",
                     "endDate": "2014-08-25T00:00:00",
-                    "currentlyEmployedHere": true
+                    "currentlyEmployedHere": true,
+                    "id": "test1"
                 },
                 {
                     "jobTitle": "Hair Stylist",
@@ -22,7 +23,8 @@
                     "employmentType": "ETNS",
                     "startDate": "2008-06-01T00:00:00",
                     "endDate": "2009-09-01T00:00:00",
-                    "currentlyEmployedHere": false
+                    "currentlyEmployedHere": false,
+                    "id": "test2"
                 },
                 {
                     "jobTitle": "Assistant/Receptionist",
@@ -30,7 +32,8 @@
                     "employmentType": "ETNS",
                     "startDate": "2006-09-01T00:00:00",
                     "endDate": "2008-06-01T00:00:00",
-                    "currentlyEmployedHere": false
+                    "currentlyEmployedHere": false,
+                    "id": "test3"
                 },
                 {
                     "jobTitle": "Lead role",
@@ -38,7 +41,8 @@
                     "employmentType": "ETNS",
                     "startDate": "2007-03-01T00:00:00",
                     "endDate": "2007-05-31T00:00:00",
-                    "currentlyEmployedHere": false
+                    "currentlyEmployedHere": false,
+                    "id": "test4"
                 },
                 {
                     "jobTitle": "",
@@ -46,7 +50,8 @@
                     "employmentType": "ETNS",
                     "startDate": "2006-03-01T00:00:00",
                     "endDate": "2006-05-31T00:00:00",
-                    "currentlyEmployedHere": false
+                    "currentlyEmployedHere": false,
+                    "id": "test5"
                 }
             ],
             "salaryInformation": {
@@ -55,7 +60,7 @@
                 "CurrencyCode": "",
                 "annualBonus": 0,
                 "annualCommission": 0,
-                "jobTitle": ""
+                "workExperienceId": "test1"
             },
             "educations": [
                 {
