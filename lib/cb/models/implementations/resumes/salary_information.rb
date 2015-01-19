@@ -21,7 +21,7 @@ module Cb
         private
 
         def get_api_response(api_key)
-          api_response['api_key']
+          api_response[api_key]
         end
 
       end
