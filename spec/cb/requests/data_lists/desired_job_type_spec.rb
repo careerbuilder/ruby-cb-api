@@ -23,7 +23,7 @@ module Cb
       end
 
       it { expect(token).to receive(:get).with(uri) }
-      it { expect(subject.get).to_not raise_error(NotImplementedError) }
+      it { expect(subject.get).to_not raise_error }
 
       context 'when countrycode is set' do
         let(:args) { { 'countrycode' => 'GR' } }

@@ -13,9 +13,9 @@ module Cb
         query_hash = { query: { CompanyDID: target_did, hostsite: Cb.configuration.host_site }}
 
         cb_api_client = double(Cb::Utils::Api)
-        cb_api_client.should_receive(:cb_get).with(Cb.configuration.uri_company_find, query_hash).and_return(Hash.new)
-        cb_api_client.stub(:append_api_responses)
-        Cb::Utils::Api.stub(:new).and_return(cb_api_client)
+        expect(cb_api_client).to receive(:cb_get).with(Cb.configuration.uri_company_find, query_hash).and_return(Hash.new)
+        allow(cb_api_client).to receive(:append_api_responses)
+        allow(Cb::Utils::Api).to receive(:new).and_return(cb_api_client)
 
         Cb::Clients::Company.find_by_did(target_did)
       end
@@ -56,7 +56,7 @@ module Cb
       context 'when a string is the input arg' do
         context 'and the input string is empty' do
           it 'does not end up performing the company lookup' do
-            Cb::Clients::Company.should_not_receive(:find_by_did)
+            expect(Cb::Clients::Company).not_to receive(:find_by_did)
             Cb::Clients::Company.find_for(String.new)
           end
         end
@@ -64,7 +64,7 @@ module Cb
         context 'and the input string is not empty' do
           it 'calls #find_by_did with the supplied DID' do
             target_did = 'fake-did'
-            Cb::Clients::Company.should_receive(:find_by_did).with(target_did)
+            expect(Cb::Clients::Company).to receive(:find_by_did).with(target_did)
             Cb::Clients::Company.find_for(target_did)
           end
         end
@@ -73,7 +73,7 @@ module Cb
       context 'when a Cb::CbJob is the input arg' do
         it "calls #find_by_did with the job model's company_did" do
           job_model = Cb::Models::Job.new('CompanyDID' => 'fake-did')
-          Cb::Clients::Company.should_receive(:find_by_did).with(job_model.company_did)
+          expect(Cb::Clients::Company).to receive(:find_by_did).with(job_model.company_did)
           Cb::Clients::Company.find_for(job_model)
         end
       end

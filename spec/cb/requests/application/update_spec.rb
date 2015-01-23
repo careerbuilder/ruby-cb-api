@@ -8,24 +8,24 @@ module Cb
         before(:each) { @request = Cb::Requests::Application::Update.new({}) }
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_application.sub(':did', '')
-          @request.http_method.should == :put
+          expect(@request.endpoint_uri).to eq(Cb.configuration.uri_application.sub(':did', ''))
+          expect(@request.http_method).to eq(:put)
         end
 
         it 'should have a basic query string' do
-          @request.query.should == nil
+          expect(@request.query).to eq(nil)
         end
 
         it 'should have basic headers' do
-          @request.headers.should == {
+          expect(@request.headers).to eq({
             'DeveloperKey' => Cb.configuration.dev_key,
             'HostSite' => Cb.configuration.host_site,
             'Content-Type' => 'application/json'
-          }
+          })
         end
 
         it 'should have a basic body' do
-          @request.body.should ==
+          expect(@request.body).to eq(
             {
               ApplicationDID: nil,
               JobDID: nil,
@@ -42,6 +42,7 @@ module Cb
               Responses: [],
               Test: 'false'
             }.to_json
+          )
         end
       end
 
@@ -87,24 +88,24 @@ module Cb
         end
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_application.sub(':did', 'app did')
-          @request.http_method.should == :put
+          expect(@request.endpoint_uri).to eq(Cb.configuration.uri_application.sub(':did', 'app did'))
+          expect(@request.http_method).to eq(:put)
         end
 
         it 'should have a basic query string' do
-          @request.query.should == nil
+          expect(@request.query).to eq(nil)
         end
 
         it 'should have basic headers' do
-          @request.headers.should == {
+          expect(@request.headers).to eq({
             'DeveloperKey' => Cb.configuration.dev_key,
             'HostSite' => Cb.configuration.host_site,
             'Content-Type' => 'application/json'
-          }
+          })
         end
 
         it 'should have a basic body' do
-          @request.body.should ==
+          expect(@request.body).to eq(
             {
               ApplicationDID: 'app did',
               JobDID: 'job did',
@@ -144,6 +145,7 @@ module Cb
               ],
               Test: 'true'
             }.to_json
+          )
         end
       end
     end

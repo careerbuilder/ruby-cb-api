@@ -7,7 +7,7 @@ module Cb
     context '.new' do
       it 'should create a new saved job search api object' do
         saved_search_request = Cb::Clients::SavedSearch.new
-        saved_search_request.should be_a_kind_of(Cb::Clients::SavedSearch)
+        expect(saved_search_request).to be_a_kind_of(Cb::Clients::SavedSearch)
       end
     end
 
@@ -25,7 +25,7 @@ module Cb
                                          'ExternalUserID' => @external_user_id, 'SearchName' => search_name,
                                          'HostSite' => @host_site})
 
-        Cb.saved_search.new.create(model).class.should eq Responses::SavedSearch::Singular
+        expect(Cb.saved_search.new.create(model).class).to eq Responses::SavedSearch::Singular
       end
     end
 
@@ -48,7 +48,7 @@ module Cb
                                            'HostSite' => 'GR', 'userOAuthToken' => oauth})
 
           response = Cb.saved_search.new.update(model)
-          response.model.class.should eq Models::SavedSearch
+          expect(response.model.class).to eq Models::SavedSearch
         end
       end
 
@@ -71,7 +71,7 @@ module Cb
 
 
           response = Cb.saved_search.new.update(model)
-          response.model.class.should eq Models::SavedSearch
+          expect(response.model.class).to eq Models::SavedSearch
         end
       end
     end
@@ -84,7 +84,7 @@ module Cb
         it 'should return an array of saved searches' do
           user_saved_search = Cb.saved_search.new.list(@user_oauth_token, 'WR')
           expect(user_saved_search.models).to be_an_instance_of Array
-          user_saved_search.models.count.should == 2
+          expect(user_saved_search.models.count).to eq(2)
           expect(user_saved_search.models.first).to be_an_instance_of Cb::Models::SavedSearch
         end
       end
@@ -96,7 +96,7 @@ module Cb
         it 'should return an array of saved searches' do
           user_saved_search = Cb.saved_search.new.list(@user_oauth_token, 'WR')
           expect(user_saved_search.models).to be_an_instance_of Array
-          user_saved_search.models.count.should == 0
+          expect(user_saved_search.models.count).to eq(0)
         end
       end
     end
@@ -126,7 +126,7 @@ module Cb
 
       it 'should return a saved search model' do
         response = Cb::Clients::SavedSearch.new.retrieve(@user_oauth_token, 'xid')
-        response.model.should be_an_instance_of(Models::SavedSearch)
+        expect(response.model).to be_an_instance_of(Models::SavedSearch)
       end
     end
 

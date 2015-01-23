@@ -8,24 +8,24 @@ module Cb
         before(:each) { @request = Cb::Requests::Application::Form.new({}) }
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_application_form.sub(':did', '')
-          @request.http_method.should == :get
+          expect(@request.endpoint_uri).to eq(Cb.configuration.uri_application_form.sub(':did', ''))
+          expect(@request.http_method).to eq(:get)
         end
 
         it 'should have a basic query string' do
-          @request.query.should == nil
+          expect(@request.query).to eq(nil)
         end
 
         it 'should have basic headers' do
-          @request.headers.should == {
+          expect(@request.headers).to eq({
             'DeveloperKey' => Cb.configuration.dev_key,
             'HostSite' => Cb.configuration.host_site,
             'Content-Type' => 'application/json'
-          }
+          })
         end
 
         it 'should have a basic body' do
-          @request.body.should == nil
+          expect(@request.body).to eq(nil)
         end
       end
 
@@ -37,24 +37,24 @@ module Cb
         end
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_application_form.sub(':did', 'app did')
-          @request.http_method.should == :get
+          expect(@request.endpoint_uri).to eq(Cb.configuration.uri_application_form.sub(':did', 'app did'))
+          expect(@request.http_method).to eq(:get)
         end
 
         it 'should have a basic query string' do
-          @request.query.should == nil
+          expect(@request.query).to eq(nil)
         end
 
         it 'should have basic headers' do
-          @request.headers.should == {
+          expect(@request.headers).to eq({
             'DeveloperKey' => Cb.configuration.dev_key,
             'HostSite' => Cb.configuration.host_site,
             'Content-Type' => 'application/json'
-          }
+          })
         end
 
         it 'should have a basic body' do
-          @request.body.should == nil
+          expect(@request.body).to eq(nil)
         end
       end
     end

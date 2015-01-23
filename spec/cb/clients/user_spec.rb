@@ -46,49 +46,49 @@ module Cb
 
         context 'by interacting with the API client directly' do
           it 'returns a CheckExisting response' do
-            response.should be_a Responses::User::CheckExisting
+            expect(response).to be_a Responses::User::CheckExisting
           end
         end
 
         context 'When external id comes back' do
           it 'external_id should not be nil' do
-            response.model.external_id.should == 'abc123'
+            expect(response.model.external_id).to eq('abc123')
           end
         end
 
         context 'When ResponseTempPassword comes back' do
           it 'temp_password should be true' do
-            response.model.temp_password.should == true
+            expect(response.model.temp_password).to eq(true)
           end
         end
 
         context 'When oauth token comes back' do
           it 'oauth_token should not be nil' do
-            response.model.oauth_token.should == '456xyz'
+            expect(response.model.oauth_token).to eq('456xyz')
           end
         end
 
         context 'When partner id comes back' do
           it 'partner_id should not be nil' do
-            response.model.partner_id.should == 'zyx654'
+            expect(response.model.partner_id).to eq('zyx654')
           end
         end
 
         context 'When user check status comes back' do
           it 'status should not be nil' do
-            response.model.status.should == 'EmailExistsPasswordsDoNotMatch'
+            expect(response.model.status).to eq('EmailExistsPasswordsDoNotMatch')
           end
         end
 
         context 'When email comes back' do
           it 'email should not be nil' do
-            response.model.email.should == 'kyle@cb.gov'
+            expect(response.model.email).to eq('kyle@cb.gov')
           end
         end
 
         it 'builds xml correctly' do
-          Cb::Utils::Api.any_instance.should_receive(:cb_post).with do |uri, options|
-            options[:body].should eq <<-eos
+          expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with { |instance, uri, options|
+            expect(options[:body]).to eq <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
               <Email>k@cb.com</Email>
@@ -96,7 +96,7 @@ module Cb
               <Test>false</Test>
             </Request>
             eos
-          end.and_return(JSON.parse(body.to_json))
+          }.and_return(JSON.parse(body.to_json))
 
           Cb.user.check_existing 'k@cb.com', 'moom'
         end
@@ -109,7 +109,7 @@ module Cb
 
         context 'When ResponseTempPassword comes back false' do
           it 'temp_password should be false' do
-            response.model.temp_password.should == false
+            expect(response.model.temp_password).to eq(false)
           end
         end
 
@@ -119,7 +119,7 @@ module Cb
           end
 
           it 'temp_password should be false' do
-            response.model.temp_password.should == false
+            expect(response.model.temp_password).to eq(false)
           end
         end
       end
@@ -139,7 +139,7 @@ module Cb
         expect(user.cb_response.errors.nil?).to be true
         expect(user.cb_response.status).to be == 'Success (Test)'
         expect(user.nil?).to be false
-        user.api_error.should == false
+        expect(user.api_error).to eq(false)
       end
     end
 
@@ -162,15 +162,15 @@ module Cb
 
     describe '#retrieve' do
       it 'builds xml correctly' do
-        Cb::Utils::Api.any_instance.should_receive(:cb_post).with do |uri, options|
-          options[:body].should eq <<-eos
+        expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with { |instance, uri, options|
+          expect(options[:body]).to eq <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
               <ExternalID>ext_id</ExternalID>
               <Test>true</Test>
             </Request>
           eos
-        end.and_return({})
+        }.and_return({})
 
         Cb.user.retrieve 'ext_id', true
       end
@@ -178,8 +178,8 @@ module Cb
 
     describe '#delete' do
       it 'builds xml correctly' do
-        Cb::Utils::Api.any_instance.should_receive(:cb_post).with do |uri, options|
-          options[:body].should eq <<-eos
+        expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with { |instance, uri, options|
+          expect(options[:body]).to eq <<-eos
 <?xml version="1.0"?>
 <Request>
   <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
@@ -188,7 +188,7 @@ module Cb
   <Test>true</Test>
 </Request>
           eos
-        end.and_return({})
+        }.and_return({})
 
         Cb.user.delete(Cb::Criteria::User::Delete.new(external_id: 'ext_id', password: 'pw', test: true))
       end

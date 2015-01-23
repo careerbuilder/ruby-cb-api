@@ -8,9 +8,9 @@ module Cb
         end
 
         it 'initializes with no args to empty string defaults' do
-          new_model.code.    should eq String.new
-          new_model.name.    should eq String.new
-          new_model.language.should eq String.new
+          expect(new_model.code).    to eq String.new
+          expect(new_model.name).    to eq String.new
+          expect(new_model.language).to eq String.new
         end
       end
 
@@ -24,9 +24,9 @@ module Cb
         end
 
         it 'initializes with the values of those fields' do
-          new_model(populated_input).code.    should eq 'whoa'
-          new_model(populated_input).name.    should eq 'weird'
-          new_model(populated_input).language.should eq 'formatting'
+          expect(new_model(populated_input).code).    to eq 'whoa'
+          expect(new_model(populated_input).name).    to eq 'weird'
+          expect(new_model(populated_input).language).to eq 'formatting'
         end
       end
     end

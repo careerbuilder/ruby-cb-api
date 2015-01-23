@@ -11,7 +11,7 @@ module Cb::Models
 
         it 'then the apply_requirements field should be set' do
           job = Job.new job_hash
-          job.apply_requirements.should == ['noonlineapply']
+          expect(job.apply_requirements).to eq(['noonlineapply'])
         end
 
       end
@@ -40,7 +40,7 @@ module Cb::Models
               it 'should respond true' do
                 job_hash = { response_field_name => 'True' }
                 job = Job.new(job_hash)
-                expect(job.send(predicate_method)).to be_true
+                expect(job.send(predicate_method)).to be_truthy
               end
             end
 
@@ -48,7 +48,7 @@ module Cb::Models
               it 'should response false' do
                 job_hash = { response_field_name => 'False' }
                 job = Job.new(job_hash)
-                expect(job.send(predicate_method)).to be_false
+                expect(job.send(predicate_method)).to be_falsey
               end
             end
           end
@@ -57,7 +57,7 @@ module Cb::Models
             it 'returns false' do
               job_hash = Hash.new
               job = Job.new(job_hash)
-              expect(job.send(predicate_method)).to be_false
+              expect(job.send(predicate_method)).to be_falsey
             end
           end
         end

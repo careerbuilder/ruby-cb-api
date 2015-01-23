@@ -14,7 +14,7 @@ module Cb
 
     context '#new' do
       it 'returns a temp password response object' do
-        Responses::User::ChangePassword.new(json_hash).should
+        expect(Responses::User::ChangePassword.new(json_hash)).to
         be_an_instance_of Responses::User::ChangePassword
       end
 

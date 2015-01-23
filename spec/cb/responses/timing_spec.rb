@@ -38,13 +38,13 @@ module Cb
       context 'when initialized with a valid input hash' do
         it 'contains a DateTime extracted from the string input date' do
           target = valid_input_hash['TimeResponseSent']
-          valid_instance.response_sent.should eq DateTime.parse(target)
+          expect(valid_instance.response_sent).to eq DateTime.parse(target)
         end
       end
 
       context 'when the input hash is lacking the field' do
         it 'contains nil' do
-          Responses::Timing.new({}).response_sent.should eq nil
+          expect(Responses::Timing.new({}).response_sent).to eq nil
         end
       end
     end
@@ -53,13 +53,13 @@ module Cb
       context 'when initialized with a valid input hash' do
         it 'contains a float extracted from the string input float' do
           target = valid_input_hash['TimeElapsed']
-          valid_instance.elapsed.should eq target.to_f
+          expect(valid_instance.elapsed).to eq target.to_f
         end
       end
 
       context 'when the input hash is lacking the field' do
         it 'contains nil' do
-          Responses::Timing.new({}).elapsed.should eq nil
+          expect(Responses::Timing.new({}).elapsed).to eq nil
         end
       end
     end

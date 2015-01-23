@@ -9,17 +9,17 @@ module Cb
       it 'should get recommendations for a job using a hash' do
         recs = Cb.recommendation.for_job({ :JobDID => 'fake-did' })
 
-        recs[0].is_a?(Cb::Models::Job).should == true
-        recs.count.should > 0
-        recs.api_error.should == false
+        expect(recs[0].is_a?(Cb::Models::Job)).to eq(true)
+        expect(recs.count).to be > 0
+        expect(recs.api_error).to eq(false)
       end
 
       it 'should get recommendations for a job using the old way' do
         recs = Cb.recommendation.for_job('fake-did')
 
-        recs[0].is_a?(Cb::Models::Job).should == true
-        recs.count.should > 0
-        recs.api_error.should == false
+        expect(recs[0].is_a?(Cb::Models::Job)).to eq(true)
+        expect(recs.count).to be > 0
+        expect(recs.api_error).to eq(false)
       end
     end
 
@@ -43,18 +43,18 @@ module Cb
         test_user_external_id = 'XRHS30G60RWSQ5P1S8RG'
         recs = Cb.recommendation.for_user({ :ExternalID => test_user_external_id })
 
-        recs.count.should > 0
-        recs[0].is_a?(Cb::Models::Job).should == true
-        recs.api_error.should == false
+        expect(recs.count).to be > 0
+        expect(recs[0].is_a?(Cb::Models::Job)).to eq(true)
+        expect(recs.api_error).to eq(false)
       end
 
       it 'should get recommendations for a user using the old way' do
         test_user_external_id = 'XRHS30G60RWSQ5P1S8RG'
         recs = Cb.recommendation.for_user(test_user_external_id)
 
-        recs.count.should > 0
-        recs[0].is_a?(Cb::Models::Job).should == true
-        recs.api_error.should == false
+        expect(recs.count).to be > 0
+        expect(recs[0].is_a?(Cb::Models::Job)).to eq(true)
+        expect(recs.api_error).to eq(false)
       end
     end
 

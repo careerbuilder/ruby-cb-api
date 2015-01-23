@@ -82,31 +82,31 @@ module Cb
 
         context '#models' do
           it 'returns whatever is returned from the overriden #extract_models method' do
-            DumbValidResponse.new(valid_input_hash).models.should eq model_hashes
+            expect(DumbValidResponse.new(valid_input_hash).models).to eq model_hashes
           end
         end
 
         # #model exists just in case you want to call a method that makes sense to get only a single model (some APIs return only 1 of something)
         context '#model' do
           it 'returns whatever is returned from the overriden #extract_models method' do
-            DumbValidResponse.new(valid_input_hash).model.should eq model_hashes
+            expect(DumbValidResponse.new(valid_input_hash).model).to eq model_hashes
           end
         end
 
         context '#timing' do
           it 'returns a timing object that responds to #elapsed' do
-            DumbValidResponse.new(valid_input_hash).timing.respond_to?(:elapsed).should eq true
+            expect(DumbValidResponse.new(valid_input_hash).timing.respond_to?(:elapsed)).to eq true
           end
 
           it 'returns a timing object that responds to #response_sent' do
-            DumbValidResponse.new(valid_input_hash).timing.respond_to?(:response_sent).should eq true
+            expect(DumbValidResponse.new(valid_input_hash).timing.respond_to?(:response_sent)).to eq true
           end
         end
 
         context '#errors' do
           # #errors delegates to a different object with its own suite of tests
           it 'returns an errors object' do
-            DumbValidResponse.new(valid_input_hash).respond_to?(:errors).should eq true
+            expect(DumbValidResponse.new(valid_input_hash).respond_to?(:errors)).to eq true
           end
         end
       end
@@ -124,7 +124,7 @@ module Cb
           end
           
           it 'metadata parsing does not occur' do
-            Responses::Metadata.should_not_receive(:new)
+            expect(Responses::Metadata).not_to receive(:new)
             ResponseWithoutMetadataParsing.new(valid_input_hash)
           end
         end

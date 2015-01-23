@@ -44,29 +44,29 @@ module Cb
 
     context '#new' do
       it 'returns a response object with a filled in model' do
-        Responses::Category::Search.new(json_hash).class.should eq Responses::Category::Search
+        expect(Responses::Category::Search.new(json_hash).class).to eq Responses::Category::Search
       end
 
       it 'instantiates new model objects' do
         models = Responses::Category::Search.new(json_hash).models
 
-        models.length.should == 4
+        expect(models.length).to eq(4)
 
-        models[0].code.should == 'JN001'
-        models[0].name.should == 'Accounting'
-        models[0].language.should == 'en-US'
+        expect(models[0].code).to eq('JN001')
+        expect(models[0].name).to eq('Accounting')
+        expect(models[0].language).to eq('en-US')
 
-        models[1].code.should == 'JN002'
-        models[1].name.should == 'Admin - Clerical'
-        models[1].language.should == 'en-US'
+        expect(models[1].code).to eq('JN002')
+        expect(models[1].name).to eq('Admin - Clerical')
+        expect(models[1].language).to eq('en-US')
 
-        models[2].code.should == 'JN054'
-        models[2].name.should == 'Automotive'
-        models[2].language.should == 'en-US'
+        expect(models[2].code).to eq('JN054')
+        expect(models[2].name).to eq('Automotive')
+        expect(models[2].language).to eq('en-US')
 
-        models[3].code.should == 'JN038'
-        models[3].name.should == 'Banking'
-        models[3].language.should == 'en-US'
+        expect(models[3].code).to eq('JN038')
+        expect(models[3].name).to eq('Banking')
+        expect(models[3].language).to eq('en-US')
       end
 
     end
