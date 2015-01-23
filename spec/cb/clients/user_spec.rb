@@ -87,16 +87,16 @@ module Cb
         end
 
         it 'builds xml correctly' do
-          expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with { |instance, uri, options|
-            expect(options[:body]).to eq <<-eos
+          body = <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
               <Email>k@cb.com</Email>
               <Password>moom</Password>
               <Test>false</Test>
             </Request>
-            eos
-          }.and_return(JSON.parse(body.to_json))
+          eos
+          expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with(anything, body: body)
+                                                      .and_return(JSON.parse(body.to_json))
 
           Cb.user.check_existing 'k@cb.com', 'moom'
         end
@@ -130,8 +130,8 @@ module Cb
     context '.retrieve' do
       before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_user_retrieve)).
-            with(:body => anything).
-            to_return(:body => { ResponseUserInfo: { Errors: nil, Status: 'Success (Test)', UserInfo: Hash.new } }.to_json)
+          with(:body => anything).
+          to_return(:body => { ResponseUserInfo: { Errors: nil, Status: 'Success (Test)', UserInfo: Hash.new } }.to_json)
       end
 
       it 'should retrieve a user' do
@@ -146,12 +146,11 @@ module Cb
     context '.delete' do
       before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_user_delete)).
-            with(:body => anything).
-            to_return(:body => { ResponseUserDelete: { Request: {}, Status: 'Success (Test)' } }.to_json)
+          with(:body => anything).
+          to_return(:body => { ResponseUserDelete: { Request: {}, Status: 'Success (Test)' } }.to_json)
       end
 
       it 'should delete a user', :vcr => { :cassette_name => 'user/delete/success' } do
-
         result = Cb.user.delete(Cb::Criteria::User::Delete.new(external_id: 'xid', password: 'passwort'))
 
         expect(result).to be_an_instance_of Cb::Responses::User::Delete
@@ -162,34 +161,31 @@ module Cb
 
     describe '#retrieve' do
       it 'builds xml correctly' do
-        expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with { |instance, uri, options|
-          expect(options[:body]).to eq <<-eos
-            <Request>
-              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-              <ExternalID>ext_id</ExternalID>
-              <Test>true</Test>
-            </Request>
-          eos
-        }.and_return({})
+        body = <<-eos
+          <Request>
+            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+            <ExternalID>ext_id</ExternalID>
+            <Test>true</Test>
+          </Request>
+        eos
 
+        expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with(anything, body: body)
         Cb.user.retrieve 'ext_id', true
       end
     end
 
     describe '#delete' do
       it 'builds xml correctly' do
-        expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with { |instance, uri, options|
-          expect(options[:body]).to eq <<-eos
-<?xml version="1.0"?>
-<Request>
-  <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-  <Password>pw</Password>
-  <ExternalID>ext_id</ExternalID>
-  <Test>true</Test>
-</Request>
-          eos
-        }.and_return({})
-
+        body = <<-eos
+        <?xml version="1.0"?>
+          <Request>
+            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+            <Password>pw</Password>
+            <ExternalID>ext_id</ExternalID>
+            <Test>true</Test>
+          </Request>
+        eos
+        expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with(anything, body: body)
         Cb.user.delete(Cb::Criteria::User::Delete.new(external_id: 'ext_id', password: 'pw', test: true))
       end
     end
@@ -198,11 +194,11 @@ module Cb
       context 'When an user makes a change password request' do
         let(:user_info_change_password) {
           Cb::Criteria::User::ChangePassword.new({
-                                                external_id: '123TEST',
-                                                old_password: 'MyPassWord123',
-                                                new_password: 'MyNewPassword123',
-                                                test: 'false'
-                                            }) }
+                                                   external_id: '123TEST',
+                                                   old_password: 'MyPassWord123',
+                                                   new_password: 'MyNewPassword123',
+                                                   test: 'false'
+                                                 }) }
         let(:api_return_fail) do { 'ResponseUserChangePW' => { 'Request' => { 'ExternalID' => 'EXT12345', 'Errors' => 'An error occurred' }, 'Status' => 'Fail' } } end
         let(:api_return_success) do { 'ResponseUserChangePW' => { 'Request' => { 'ExternalID' => 'EXT12345', 'Errors' => '' }, 'Status' => 'Success' } } end
 
