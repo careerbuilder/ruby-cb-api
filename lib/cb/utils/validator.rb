@@ -15,6 +15,7 @@ module Cb
       def raise_response_code_errors(response)
         code = response.code rescue nil
         raise Cb::ServiceUnavailableError if code == 503
+        raise Cb::UnauthorizedError if code == 401
       end
 
       def process_response_body(response)
