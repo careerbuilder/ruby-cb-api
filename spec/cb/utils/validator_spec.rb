@@ -53,6 +53,11 @@ module Cb
       expect{ ResponseValidator.validate(response) }.to raise_error(Cb::ServiceUnavailableError)
     end
 
+    it 'should raise an UnauthorizedError when status code is 401' do
+      response.stub(:code).and_return(401)
+      expect{ ResponseValidator.validate(response) }.to raise_error(Cb::UnauthorizedError)
+    end
+
     context 'when there are JSON parsing errors' do
       context 'and the content payload is not XML' do
         it 'returns an empty hash' do
