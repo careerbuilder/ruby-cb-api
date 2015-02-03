@@ -69,13 +69,13 @@ module Mocks
             [
               {
                 school_name: 'Hair dids and magic fluits academy.',
-                major: 'Gettin Hair did',
+                major_or_program: 'Gettin Hair did',
                 degree_code: 'CE3',
                 graduation_date: '2008-05-01T00:00:00'
               },
               {
                 school_name: 'Oak Park River Forest High School',
-                major: 'Not Applicable',
+                major_or_program: 'Not Applicable',
                 degree_code: 'CE31',
                 graduation_date: '2007-05-01T00:00:00'
               }
