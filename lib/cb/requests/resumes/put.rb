@@ -71,7 +71,7 @@ module Cb
             {
               schoolName: education[:school_name],
               majorOrProgram: education[:major_or_program],
-              degreeCode: education[:degree_code],
+              degree: education[:degree],
               graduationDate: education[:graduation_date]
             }
           end
