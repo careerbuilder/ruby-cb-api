@@ -70,7 +70,7 @@ module Cb
           args[:educations].collect do |education|
             {
               schoolName: education[:school_name],
-              majorOrProgram: education[:major],
+              majorOrProgram: education[:major_or_program],
               degreeCode: education[:degree_code],
               graduationDate: education[:graduation_date]
             }
