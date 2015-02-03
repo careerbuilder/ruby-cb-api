@@ -70,13 +70,13 @@ module Mocks
               {
                 school_name: 'Hair dids and magic fluits academy.',
                 major_or_program: 'Gettin Hair did',
-                degree_code: 'CE3',
+                degree: 'CE3',
                 graduation_date: '2008-05-01T00:00:00'
               },
               {
                 school_name: 'Oak Park River Forest High School',
                 major_or_program: 'Not Applicable',
-                degree_code: 'CE31',
+                degree: 'CE31',
                 graduation_date: '2007-05-01T00:00:00'
               }
             ],
@@ -177,13 +177,13 @@ module Mocks
               {
                 'schoolName'=> 'Hair dids and magic fluits academy.',
                 'majorOrProgram'=> 'Gettin Hair did',
-                'degreeCode'=> 'CE3',
+                'degree'=> 'CE3',
                 'graduationDate'=> '2008-05-01T00:00:00'
               },
               {
                 'schoolName'=> 'Oak Park River Forest High School',
                 'majorOrProgram'=> 'Not Applicable',
-                'degreeCode'=> 'CE31',
+                'degree'=> 'CE31',
                 'graduationDate'=> '2007-05-01T00:00:00'
               }
             ],
