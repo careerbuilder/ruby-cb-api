@@ -13,8 +13,7 @@ module Cb
 
     context '#new' do
       it 'returns a temp password response object' do
-        expect(Responses::User::Retrieve.new(json_hash)).to
-        be_an_instance_of Responses::User::Retrieve
+        expect(Responses::User::Retrieve.new(json_hash)).to be_an_instance_of Responses::User::Retrieve
       end
 
       context 'when input response hash cannot be validated due to' do
