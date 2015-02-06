@@ -24,7 +24,6 @@ module Cb
 
       it { expect(subject.api_uri).to eq '/consumer/datalist/languages'}
       it { expect(token).to receive(:get).with(uri) }
-      it { expect(subject.get).to_not raise_error }
 
       context 'when country code is set' do
         let(:args) { { 'countrycode' => 'GR' } }
