@@ -3,18 +3,20 @@ require 'spec_helper'
 module Cb
   describe Clients::Application do
     shared_examples 'it passes the correct headers' do
-      let(:options) do
+      before { allow(response_class).to receive(:new).and_return('mock response') }
+
+      let(:expected_headers) do
         {
-          :headers => {
-            'DeveloperKey' => Cb.configuration.dev_key,
-            'HostSite' => Cb.configuration.host_site,
-            'Content-Type' => 'application/json'
-          }
+          'DeveloperKey' => Cb.configuration.dev_key,
+          'HostSite' => Cb.configuration.host_site,
+          'Content-Type' => 'application/json'
         }
       end
 
       it 'passes the correct headers in the options hash' do
-        expect_any_instance_of(Cb::Utils::Api).to receive(http_calling_method).with(anything, options)
+        expect_any_instance_of(Cb::Utils::Api).to receive(http_calling_method) do |_, _, options_hash|
+          expect(options_hash[:headers]).to eq expected_headers
+        end
         subject
       end
     end
@@ -26,6 +28,7 @@ module Cb
 
     let(:client) { Clients::Application }
     let(:response_stub) { YAML.load open('spec/support/response_stubs/application.yml') }
+    let(:response_class) { Responses::Application }
 
     describe '#get' do
       subject { client.get(criteria) }
@@ -38,7 +41,7 @@ module Cb
       let(:http_calling_method) { :cb_get }
 
       it 'returns an application response' do
-        expect(subject).to be_a Responses::Application
+        expect(subject).to be_an response_class
       end
 
       it 'sends #cb_get to api_client a uri with the application_did' do
@@ -62,7 +65,7 @@ module Cb
       let(:http_calling_method) { :cb_post }
 
       it 'returns an application response' do
-        expect(client.create(criteria)).to be_a Responses::Application
+        expect(client.create(criteria)).to be_a response_class
       end
 
       it 'sends #cb_post to api_client a uri with no did' do
@@ -88,7 +91,7 @@ module Cb
       end
 
       it 'returns an application response' do
-        expect(subject).to be_a Responses::Application
+        expect(subject).to be_a response_class
       end
 
       it 'sends #cb_put to api_client a uri with the application_did' do
@@ -106,6 +109,7 @@ module Cb
       let(:did) { 'hotdog sandwich' }
       let(:http_calling_method) { :cb_get }
       let(:response_stub) { JSON.parse File.read('spec/support/response_stubs/application_form.json') }
+      let(:response_class) { Cb::Responses::ApplicationForm }
       before { allow_any_instance_of(Cb::Utils::Api).to receive(http_calling_method).and_return(response_stub) }
 
       it 'GETs the correct url with supplied job did substituted in' do
@@ -116,7 +120,7 @@ module Cb
 
       it 'returns an instance of the application form response class' do
         response = client.form(did)
-        expect(response).to be_an_instance_of Cb::Responses::ApplicationForm
+        expect(response).to be_an_instance_of response_class
       end
 
       it_behaves_like 'it passes the correct headers'
