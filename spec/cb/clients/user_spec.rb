@@ -87,7 +87,7 @@ module Cb
         end
 
         it 'builds xml correctly' do
-          body = <<-eos
+          request_body = <<-eos
             <Request>
               <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
               <Email>k@cb.com</Email>
@@ -95,9 +95,7 @@ module Cb
               <Test>false</Test>
             </Request>
           eos
-          expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with(anything, body: body)
-                                                      .and_return(JSON.parse(body.to_json))
-
+          expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with(anything, body: request_body).and_call_original
           Cb.user.check_existing 'k@cb.com', 'moom'
         end
       end
