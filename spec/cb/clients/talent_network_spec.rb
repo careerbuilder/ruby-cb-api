@@ -12,7 +12,7 @@ module Cb
         valid_did = "JHL5ZF68B66TBD63Z62"
         job_info = Cb.talent_network.tn_job_information(valid_did)
         expect(job_info.class).to be == Cb::Models::TalentNetwork::JobInfo
-        job_info.api_error.should == false
+        expect(job_info.api_error).to eq(false)
       end
     end
 
@@ -25,8 +25,8 @@ module Cb
       it 'should retrieve the form questions given a valid tn DID' do 
         tn_did = 'CB000000000000000001'
         join_form = Cb.talent_network.join_form_questions(tn_did)
-        join_form.join_form_questions.size.should > 0
-        join_form.api_error.should == false
+        expect(join_form.join_form_questions.size).to be > 0
+        expect(join_form.api_error).to eq(false)
       end
     end
 
@@ -39,8 +39,8 @@ module Cb
       it 'should retrieve branding information for a valid tn DID' do
         tn_did = 'CB000000000000000001'
         join_form_branding_info = Cb.talent_network.join_form_branding(tn_did)
-        join_form_branding_info.nil?.should == false
-        join_form_branding_info.api_error.should == false
+        expect(join_form_branding_info.nil?).to eq(false)
+        expect(join_form_branding_info.api_error).to eq(false)
       end
     end
 
@@ -52,11 +52,11 @@ module Cb
 
       it 'should retrieve the geo dropdown list info for join form questions' do 
         join_form_geo = Cb.talent_network.join_form_geography
-        join_form_geo.nil?.should == false
+        expect(join_form_geo.nil?).to eq(false)
       
         join_form_geo.countries.geo_hash.length > 0
         join_form_geo.states.geo_hash.length > 0
-        join_form_geo.api_error.should == false
+        expect(join_form_geo.api_error).to eq(false)
       end
     end
 
@@ -78,9 +78,9 @@ module Cb
                                   "ddlCountries","us"]
 
         member = Cb.talent_network.member_create(args1)
-        member.cb_response.errors.first.should_not == "EmailInUse"
-        member.nil?.should_not == true
-        member.api_error.should == false
+        expect(member.cb_response.errors.first).not_to eq("EmailInUse")
+        expect(member.nil?).not_to eq(true)
+        expect(member.api_error).to eq(false)
       end
 
     end

@@ -10,7 +10,7 @@ module Cb::Models
 
       it 'should return no join questions on create' do 
         tn_obj = TalentNetwork.new
-        tn_obj.join_form_questions.size.should == 0
+        expect(tn_obj.join_form_questions.size).to eq(0)
       end
 
       it 'should return at least one join question' do 
@@ -27,7 +27,7 @@ module Cb::Models
         ]
 
         tn_obj = TalentNetwork.new(args)
-        tn_obj.join_form_questions.size.should > 0
+        expect(tn_obj.join_form_questions.size).to be > 0
       end
     end
   end
@@ -58,12 +58,12 @@ module Cb::Models
 
       it 'should return empty tn questions when no args supplied' do 
         q_obj = TalentNetwork::Questions.new
-        q_obj.text.should == ''
-        q_obj.form_value.should == ''
-        q_obj.option_display_type.should == ''
-        q_obj.order.should == ''
-        q_obj.required.should == ''
-        q_obj.options.size.should == 0
+        expect(q_obj.text).to eq('')
+        expect(q_obj.form_value).to eq('')
+        expect(q_obj.option_display_type).to eq('')
+        expect(q_obj.order).to eq('')
+        expect(q_obj.required).to eq('')
+        expect(q_obj.options.size).to eq(0)
       end
 
       it 'should return tn questions supplied into args' do 
@@ -74,12 +74,12 @@ module Cb::Models
 
         q_obj = TalentNetwork::Questions.new(args)
         
-        q_obj.text.should == args['Text']
-        q_obj.form_value.should == args['FormValue']
-        q_obj.option_display_type.should == args['OptionDisplayType']
-        q_obj.order.should == ''
-        q_obj.required.should == ''
-        q_obj.options.size.should == 0
+        expect(q_obj.text).to eq(args['Text'])
+        expect(q_obj.form_value).to eq(args['FormValue'])
+        expect(q_obj.option_display_type).to eq(args['OptionDisplayType'])
+        expect(q_obj.order).to eq('')
+        expect(q_obj.required).to eq('')
+        expect(q_obj.options.size).to eq(0)
       end
 
       it 'should return at least one tn option' do
@@ -93,7 +93,7 @@ module Cb::Models
         ]
 
         q_obj = TalentNetwork::Questions.new(args)
-        q_obj.options.size.should > 0
+        expect(q_obj.options.size).to be > 0
       end
     end
   end
@@ -107,9 +107,9 @@ module Cb::Models
 
       it 'should return empty tn options when no args supplied' do
         opt_obj = TalentNetwork::Options.new
-        opt_obj.value.should == ''
-        opt_obj.order.should == ''
-        opt_obj.display_text.should == ''
+        expect(opt_obj.value).to eq('')
+        expect(opt_obj.order).to eq('')
+        expect(opt_obj.display_text).to eq('')
       end
 
       it 'should return tn options when args supplied' do 
@@ -118,9 +118,9 @@ module Cb::Models
         args['Order'] = 'Ascending'
 
         opt_obj = TalentNetwork::Options.new(args)
-        opt_obj.value.should == args['Value']
-        opt_obj.order.should == args['Order']
-        opt_obj.display_text.should == ''
+        expect(opt_obj.value).to eq(args['Value'])
+        expect(opt_obj.order).to eq(args['Order'])
+        expect(opt_obj.display_text).to eq('')
       end
     end
   end
@@ -134,9 +134,9 @@ module Cb::Models
 
       it 'should return empty job info when no args supplied' do 
         jinfo_obj = TalentNetwork::JobInfo.new
-        jinfo_obj.join_form_url.should == ''
-        jinfo_obj.tn_did.should == ''
-        jinfo_obj.join_form_intercept_enabled.should == ''
+        expect(jinfo_obj.join_form_url).to eq('')
+        expect(jinfo_obj.tn_did).to eq('')
+        expect(jinfo_obj.join_form_intercept_enabled).to eq('')
       end
 
       it 'should return job information when args supplied' do 
@@ -144,9 +144,9 @@ module Cb::Models
         args['sTNDID'] = 'SomeJobDID'
 
         jinfo_obj = TalentNetwork::JobInfo.new(args)
-        jinfo_obj.join_form_url.should == ''
-        jinfo_obj.tn_did.should == args['sTNDID']
-        jinfo_obj.join_form_intercept_enabled.should == ''
+        expect(jinfo_obj.join_form_url).to eq('')
+        expect(jinfo_obj.tn_did).to eq(args['sTNDID'])
+        expect(jinfo_obj.join_form_intercept_enabled).to eq('')
       end
     end
   end
@@ -160,8 +160,8 @@ module Cb::Models
 
       it 'should return empty countries and states when no args supplied' do
         jfgeo_obj = TalentNetwork::JoinFormGeo.new
-        jfgeo_obj.countries.size.should == 0
-        jfgeo_obj.states.size.should == 0
+        expect(jfgeo_obj.countries.size).to eq(0)
+        expect(jfgeo_obj.states.size).to eq(0)
       end
 
       it 'should return countries and states as a hash when args supplied' do 
@@ -176,8 +176,8 @@ module Cb::Models
         }
 
         jfgeo_obj = TalentNetwork::JoinFormGeo.new(args)
-        jfgeo_obj.countries.geo_hash.length.should > 0
-        jfgeo_obj.states.geo_hash.length.should > 0
+        expect(jfgeo_obj.countries.geo_hash.length).to be > 0
+        expect(jfgeo_obj.states.geo_hash.length).to be > 0
       end
     end
   end
@@ -191,7 +191,7 @@ module Cb::Models
 
       it 'should return empty geo hash when no args supplied' do 
         jfgl_obj = TalentNetwork::JoinFormGeoLocation.new
-        jfgl_obj.geo_hash.length.should == 0
+        expect(jfgl_obj.geo_hash.length).to eq(0)
       end
 
       it 'should return a filled hash when args are supplied' do 
@@ -199,7 +199,7 @@ module Cb::Models
         args['Value'] = ['aa', 'bb', 'cc']
         args['Display'] = ['aaa', 'bbb', 'ccc']
         jfgl_obj = TalentNetwork::JoinFormGeoLocation.new(args)
-        jfgl_obj.geo_hash.length.should > 0
+        expect(jfgl_obj.geo_hash.length).to be > 0
       end
     end
   end
@@ -213,13 +213,13 @@ module Cb::Models
 
       it 'should return no branding information when args are not supplied' do 
         jfb_obj = TalentNetwork::JoinFormBranding.new
-        jfb_obj.stylesheet_url.should == ''
-        jfb_obj.join_logo_image_url.should == ''
-        jfb_obj.join_custom_msg_html.should == ''
-        jfb_obj.button_color.should == ''
-        jfb_obj.mobile_logo_image_url.should == ''
-        jfb_obj.nav_color.should == ''
-        jfb_obj.site_path.should == ''
+        expect(jfb_obj.stylesheet_url).to eq('')
+        expect(jfb_obj.join_logo_image_url).to eq('')
+        expect(jfb_obj.join_custom_msg_html).to eq('')
+        expect(jfb_obj.button_color).to eq('')
+        expect(jfb_obj.mobile_logo_image_url).to eq('')
+        expect(jfb_obj.nav_color).to eq('')
+        expect(jfb_obj.site_path).to eq('')
       end
 
       it 'should return branding info when args supplied' do 
@@ -228,13 +228,13 @@ module Cb::Models
         args['JoinLogoImageURL'] = 'https://secure.com/my.png'
 
         jfb_obj = TalentNetwork::JoinFormBranding.new(args)
-        jfb_obj.stylesheet_url.should == args['StylesheetURL']
-        jfb_obj.join_logo_image_url.should == args['JoinLogoImageURL']
-        jfb_obj.join_custom_msg_html.should == ''
-        jfb_obj.button_color.should == ''
-        jfb_obj.mobile_logo_image_url.should == ''
-        jfb_obj.nav_color.should == ''
-        jfb_obj.site_path.should == ''
+        expect(jfb_obj.stylesheet_url).to eq(args['StylesheetURL'])
+        expect(jfb_obj.join_logo_image_url).to eq(args['JoinLogoImageURL'])
+        expect(jfb_obj.join_custom_msg_html).to eq('')
+        expect(jfb_obj.button_color).to eq('')
+        expect(jfb_obj.mobile_logo_image_url).to eq('')
+        expect(jfb_obj.nav_color).to eq('')
+        expect(jfb_obj.site_path).to eq('')
       end
     end
   end

@@ -10,8 +10,8 @@ module Cb
     end
 
     before(:each) do
-      Responses::Metadata.stub(:new)
-      Models::Industry.stub(:new)
+      allow(Responses::Metadata).to receive(:new)
+      allow(Models::Industry).to receive(:new)
     end
 
     context '#new' do
@@ -20,7 +20,7 @@ module Cb
       end
 
       it 'instantiates new model objects' do
-        Models::Industry.should_receive(:new)
+        expect(Models::Industry).to receive(:new)
         Responses::Industry::Search.new(response)
       end
 

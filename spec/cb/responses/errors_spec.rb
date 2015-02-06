@@ -44,9 +44,9 @@ module Cb
     context '#parsed' do
       it 'returns an enumerable of strings' do
         errors = Responses::Errors.new(@errors_hash, false)
-        errors.parsed.respond_to?(:[])   .should eq true
-        errors.parsed.respond_to?(:count).should eq true
-        errors.parsed.respond_to?(:map)  .should eq true
+        expect(errors.parsed.respond_to?(:[]))   .to eq true
+        expect(errors.parsed.respond_to?(:count)).to eq true
+        expect(errors.parsed.respond_to?(:map))  .to eq true
       end
     end
 

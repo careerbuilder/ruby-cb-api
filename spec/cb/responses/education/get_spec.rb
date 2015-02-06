@@ -27,27 +27,27 @@ module Cb
 
     context '#new' do
       it 'returns a response object with a filled in model' do
-        Responses::Education::Get.new(json_hash).class.should eq Responses::Education::Get
+        expect(Responses::Education::Get.new(json_hash).class).to eq Responses::Education::Get
       end
 
       it 'instantiates new model objects' do
         models = Responses::Education::Get.new(json_hash).models
 
-        models[0].class.should == Cb::Models::Education
+        expect(models[0].class).to eq(Cb::Models::Education)
 
-        models.length.should == 3
+        expect(models.length).to eq(3)
 
-        models[0].code.should == 'DRNS'
-        models[0].text.should == 'Not Specified'
-        models[0].language.should == 'en-US'
+        expect(models[0].code).to eq('DRNS')
+        expect(models[0].text).to eq('Not Specified')
+        expect(models[0].language).to eq('en-US')
 
-        models[1].code.should == 'DR3210'
-        models[1].text.should == 'None'
-        models[1].language.should == 'en-US'
+        expect(models[1].code).to eq('DR3210')
+        expect(models[1].text).to eq('None')
+        expect(models[1].language).to eq('en-US')
 
-        models[2].code.should == 'DR3211'
-        models[2].text.should == 'High School'
-        models[2].language.should == 'en-US'
+        expect(models[2].code).to eq('DR3211')
+        expect(models[2].text).to eq('High School')
+        expect(models[2].language).to eq('en-US')
       end
 
     end

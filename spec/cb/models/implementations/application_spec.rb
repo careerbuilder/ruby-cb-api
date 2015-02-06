@@ -28,21 +28,21 @@ module Cb::Models
       context 'When IsSubmitted is nil' do
         let(:is_submitted) { nil }
         it 'sets is_submitted as false' do
-          expect(application.is_submitted).to be_false
+          expect(application.is_submitted).to be_falsey
         end
       end
 
       context 'When IsSubmitted is "true"' do
         let(:is_submitted) { "true" }
         it 'sets is_submitted as true' do
-          expect(application.is_submitted).to be_true
+          expect(application.is_submitted).to be_truthy
         end
       end
 
       context 'When IsSubmitted is "false"' do
         let(:is_submitted) { "false" }
         it 'sets is_submitted as true' do
-          expect(application.is_submitted).to be_false
+          expect(application.is_submitted).to be_falsey
         end
       end
     end

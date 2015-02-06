@@ -31,7 +31,7 @@ module Cb
               ValidDummyModel.new(@api_response)
               raise 'test should not have made it this far!'
             rescue ExpectedResponseFieldMissing => ex
-              ex.message.include?('potatoes hotdogs baconbaconbacon').should eq true
+              expect(ex.message.include?('potatoes hotdogs baconbaconbacon')).to eq true
             end
           end
         end
@@ -45,7 +45,7 @@ module Cb
             expected_to_raise_error.call
             raise 'this test should not have made it this far!' # fail if proc code does not raise error
           rescue NotImplementedError => ex
-            ex.message.include?(method_name).should eq true
+            expect(ex.message.include?(method_name)).to eq true
           end
         end
 

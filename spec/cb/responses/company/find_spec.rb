@@ -67,7 +67,7 @@ module Cb
 
     context '#new' do
       it 'returns a response object with a filled in model' do
-        Responses::Company::Find.new(json_hash).class.should eq Responses::Company::Find
+        expect(Responses::Company::Find.new(json_hash).class).to eq Responses::Company::Find
       end
 
       it 'instantiates new model objects' do

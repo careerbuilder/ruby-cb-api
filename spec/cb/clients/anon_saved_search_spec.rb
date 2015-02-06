@@ -29,9 +29,9 @@ module Cb
         context 'should successfully create a new anonymous saved search via:' do
           def assert_no_error_on_model(&api_calling_code)
             saved_search_response = api_calling_code.call
-            saved_search_response.class.should eq Responses::AnonymousSavedSearch::Create
+            expect(saved_search_response.class).to eq Responses::AnonymousSavedSearch::Create
             model_class = saved_search_response.model.class
-            model_class.should eq Models::SavedSearch
+            expect(model_class).to eq Models::SavedSearch
           end
 
           before :each do
@@ -69,7 +69,7 @@ module Cb
 
         it 'should successfully delete an anonymous saved search' do
           response = Cb.anon_saved_search.new.delete @args
-          response.model.status.should eq 'Success'
+          expect(response.model.status).to eq 'Success'
         end
       end
     end # delete

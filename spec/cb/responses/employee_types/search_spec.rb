@@ -10,17 +10,17 @@ module Cb
     end
 
     before(:each) do
-      Responses::Metadata.stub(:new)
-      Models::EmployeeType.stub(:new)
+      allow(Responses::Metadata).to receive(:new)
+      allow(Models::EmployeeType).to receive(:new)
     end
 
     context '#new' do
       it 'returns an employee types response object' do
-        Responses::EmployeeTypes::Search.new(json_hash).class.should eq Responses::EmployeeTypes::Search
+        expect(Responses::EmployeeTypes::Search.new(json_hash).class).to eq Responses::EmployeeTypes::Search
       end
 
       it 'instantiates new model objects' do
-        Models::EmployeeType.should_receive(:new)
+        expect(Models::EmployeeType).to receive(:new)
         Responses::EmployeeTypes::Search.new(json_hash)
       end
 
@@ -59,7 +59,7 @@ module Cb
       it 'each hash in the array under EmployeeType node makes a model' do
         hash_count = json_hash['ResponseEmployeeTypes']['EmployeeTypes']['EmployeeType'].count
         model_count = Responses::EmployeeTypes::Search.new(json_hash).models.count
-        model_count.should eq hash_count
+        expect(model_count).to eq hash_count
       end
     end
   end
