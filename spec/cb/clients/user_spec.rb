@@ -160,16 +160,17 @@ module Cb
     end
 
     describe '#retrieve' do
+      let(:api_response) do { 'ResponseUserInfo' => { 'UserInfo' => 'yeehaw' } } end
       it 'builds xml correctly' do
         body = <<-eos
-          <Request>
-            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-            <ExternalID>ext_id</ExternalID>
-            <Test>true</Test>
-          </Request>
+            <Request>
+              <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+              <ExternalID>ext_id</ExternalID>
+              <Test>true</Test>
+            </Request>
         eos
 
-        expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with(anything, body: body)
+        expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with(anything, body: body).and_return(api_response)
         Cb.user.retrieve 'ext_id', true
       end
     end
