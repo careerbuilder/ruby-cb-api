@@ -16,8 +16,6 @@ require 'pry'
 WebMock.disable_net_connect!
 
 RSpec.configure do |c|
-  c.treat_symbols_as_metadata_keys_with_true_values = true
-
   c.mock_with :rspec do |mocks|
     # In RSpec 3, `any_instance` implementation blocks will be yielded the receiving
     # instance as the first block argument to allow the implementation block to use

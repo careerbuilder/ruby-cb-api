@@ -54,7 +54,7 @@ module Cb
     end
 
     it 'should raise an UnauthorizedError when status code is 401' do
-      response.stub(:code).and_return(401)
+      allow(response).to receive(:code).and_return(401)
       expect{ ResponseValidator.validate(response) }.to raise_error(Cb::UnauthorizedError)
     end
 
