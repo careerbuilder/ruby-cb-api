@@ -175,17 +175,20 @@ module Cb
     end
 
     describe '#delete' do
+      before { allow(Cb::Responses::User::Delete).to receive(:new).and_return('fake response') }
+      let(:api_response) do { 'ResponseUserDelete' => 'yeehaw' } end
+
       it 'builds xml correctly' do
         body = <<-eos
-        <?xml version="1.0"?>
-          <Request>
-            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-            <Password>pw</Password>
-            <ExternalID>ext_id</ExternalID>
-            <Test>true</Test>
-          </Request>
-        eos
-        expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with(anything, body: body)
+<?xml version="1.0"?>
+<Request>
+  <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+  <Password>pw</Password>
+  <ExternalID>ext_id</ExternalID>
+  <Test>true</Test>
+</Request>
+eos
+        expect_any_instance_of(Cb::Utils::Api).to receive(:cb_post).with(anything, body: body).and_return(api_response)
         Cb.user.delete(Cb::Criteria::User::Delete.new(external_id: 'ext_id', password: 'pw', test: true))
       end
     end
