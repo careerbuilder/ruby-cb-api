@@ -2,7 +2,10 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
-
+* 16.2.2 change degree code to be degree which fixes compatibilty problems
+* 16.2.1 fix major or program in resume put. it was looking for the wrong value
+* 16.2.0 Added support for work experience ID in resume put
+* 16.1.0 Added support for handling a 401 unauthorized response. We should now raise specific UnauthorizedErrors.
 * 16.0.0 Modifying the Resume model to reflect the changes made in the API (Removal of job title from salary and
         addition of id to work experience and work Experience Id to salary
 * 15.1.0 Added resume post
