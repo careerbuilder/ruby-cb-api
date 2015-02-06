@@ -6,7 +6,6 @@ module Cb
     describe '#temporary_password' do
       before do
         stub_request(:get, uri_stem(Cb.configuration.uri_user_temp_password)).
-          with(:query => anything).
           to_return(:body => { Errors: [], TemporaryPassword: 'hotdogs!' }.to_json)
       end
 
