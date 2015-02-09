@@ -85,12 +85,12 @@ Job Search params
 
 When performing a job search you can provide a `Hash` of search parameters. For example
 
-    search_params = { location: 'Atlanta', keyword: 'Database Admin' }
+    search_params = { location: 'Atlanta', keywords: 'Database Admin' }
     Cb.job.search(search_params)
 
 The search params hash can include the following keys:
 
-* keyword
+* keywords
 * location
 * postedwithin
 * excludeapplyrequirments
