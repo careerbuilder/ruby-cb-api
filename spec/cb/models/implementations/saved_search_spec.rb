@@ -20,47 +20,47 @@ module Cb
                                                         'HostSite'=>host_site,
                                                         'SearchParameters'=>mock_search_parameters_response)
           
-          user_saved_search.should be_a_kind_of(Cb::Models::SavedSearch)
-          user_saved_search.is_daily_email.should == is_daily_email
-          user_saved_search.host_site.should == host_site
-          user_saved_search.search_name.should == search_name
-          user_saved_search.external_user_id.should == external_user_id
-          user_saved_search.did.should == did
-          user_saved_search.search_parameters.should be_a Cb::Models::SavedSearch::SearchParameters
+          expect(user_saved_search).to be_a_kind_of(Cb::Models::SavedSearch)
+          expect(user_saved_search.is_daily_email).to eq(is_daily_email)
+          expect(user_saved_search.host_site).to eq(host_site)
+          expect(user_saved_search.search_name).to eq(search_name)
+          expect(user_saved_search.external_user_id).to eq(external_user_id)
+          expect(user_saved_search.did).to eq(did)
+          expect(user_saved_search.search_parameters).to be_a Cb::Models::SavedSearch::SearchParameters
         end
 
         it 'should create a search parameter ' do
           saved_search_parameters = Cb::Models::SavedSearch::SearchParameters.new(mock_search_parameters_response)
 
-          saved_search_parameters.boolean_operator.should       == "BooleanOperator"
-          saved_search_parameters.category.should               == "Category"
-          saved_search_parameters.city.should                   == "City"
-          saved_search_parameters.company.should                == "Company"
-          saved_search_parameters.country.should                == "Country"
-          saved_search_parameters.education_code.should         == "EducationCode"
-          saved_search_parameters.emp_type.should               == "EmpType"
-          saved_search_parameters.exclude_company_names.should  == "ExcludeCompanyNames"
-          saved_search_parameters.exclude_job_titles.should     == "ExcludeJobTitles"
-          saved_search_parameters.exclude_keywords.should       == "ExcludeKeywords"
-          saved_search_parameters.exclude_national.should       == "ExcludeNational"
-          saved_search_parameters.industry_codes.should         == "IndustryCodes"
-          saved_search_parameters.jc_advertiser_flags.should    == "JCAdvertiserFlags"
-          saved_search_parameters.jc_job_nature.should          == "JCJobNature"
-          saved_search_parameters.jc_location.should            == "JCLocation"
-          saved_search_parameters.jc_position_level.should      == "JCPositionLevel"
-          saved_search_parameters.job_category.should           == ""
-          saved_search_parameters.job_title.should              == "JobTitle"
-          saved_search_parameters.keywords.should               == "Keywords"
-          saved_search_parameters.location.should               == "Location"
-          saved_search_parameters.order_by.should               == "OrderBy"
-          saved_search_parameters.order_direction.should        == "OrderDirection"
-          saved_search_parameters.pay_high.should               == "PayHigh"
-          saved_search_parameters.pay_info_only.should          == "PayInfoOnly"
-          saved_search_parameters.pay_low.should                == "PayLow"
-          saved_search_parameters.posted_within.should          == "PostedWithin"
-          saved_search_parameters.radius.should                 == "Radius"
-          saved_search_parameters.specific_education.should     == "SpecificEducation"
-          saved_search_parameters.state.should                  == "State"
+          expect(saved_search_parameters.boolean_operator).to       eq("BooleanOperator")
+          expect(saved_search_parameters.category).to               eq("Category")
+          expect(saved_search_parameters.city).to                   eq("City")
+          expect(saved_search_parameters.company).to                eq("Company")
+          expect(saved_search_parameters.country).to                eq("Country")
+          expect(saved_search_parameters.education_code).to         eq("EducationCode")
+          expect(saved_search_parameters.emp_type).to               eq("EmpType")
+          expect(saved_search_parameters.exclude_company_names).to  eq("ExcludeCompanyNames")
+          expect(saved_search_parameters.exclude_job_titles).to     eq("ExcludeJobTitles")
+          expect(saved_search_parameters.exclude_keywords).to       eq("ExcludeKeywords")
+          expect(saved_search_parameters.exclude_national).to       eq("ExcludeNational")
+          expect(saved_search_parameters.industry_codes).to         eq("IndustryCodes")
+          expect(saved_search_parameters.jc_advertiser_flags).to    eq("JCAdvertiserFlags")
+          expect(saved_search_parameters.jc_job_nature).to          eq("JCJobNature")
+          expect(saved_search_parameters.jc_location).to            eq("JCLocation")
+          expect(saved_search_parameters.jc_position_level).to      eq("JCPositionLevel")
+          expect(saved_search_parameters.job_category).to           eq("")
+          expect(saved_search_parameters.job_title).to              eq("JobTitle")
+          expect(saved_search_parameters.keywords).to               eq("Keywords")
+          expect(saved_search_parameters.location).to               eq("Location")
+          expect(saved_search_parameters.order_by).to               eq("OrderBy")
+          expect(saved_search_parameters.order_direction).to        eq("OrderDirection")
+          expect(saved_search_parameters.pay_high).to               eq("PayHigh")
+          expect(saved_search_parameters.pay_info_only).to          eq("PayInfoOnly")
+          expect(saved_search_parameters.pay_low).to                eq("PayLow")
+          expect(saved_search_parameters.posted_within).to          eq("PostedWithin")
+          expect(saved_search_parameters.radius).to                 eq("Radius")
+          expect(saved_search_parameters.specific_education).to     eq("SpecificEducation")
+          expect(saved_search_parameters.state).to                  eq("State")
         end
 
       end

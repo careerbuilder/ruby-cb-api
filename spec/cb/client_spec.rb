@@ -10,12 +10,12 @@ module Cb
     context 'initialize' do
       it 'should not use a callback block' do
         client = Cb::Client.new()
-        client.callback_block.should == nil
+        expect(client.callback_block).to eq(nil)
       end
 
       it 'should pass a correct callback' do
         client = Cb::Client.new {}
-        client.callback_block.class.should == Proc
+        expect(client.callback_block.class).to eq(Proc)
       end
     end
 
@@ -28,7 +28,7 @@ module Cb
         callback_test = nil
         client = Cb::Client.new { |callback| callback_test = callback}
         client.callback_block.call(@callback_value)
-        callback_test.should == @callback_value
+        expect(callback_test).to eq(@callback_value)
       end
     end
 
@@ -42,16 +42,16 @@ module Cb
 
       context 'post' do
         before :each do
-          mock_api.stub(:execute_http_request).and_return(Hash.new)
-          mock_api.stub(:append_api_responses)
-          Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
+          allow(mock_api).to receive(:execute_http_request).and_return(Hash.new)
+          allow(mock_api).to receive(:append_api_responses)
+          allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
+          allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:post)
         end
 
         it 'should call the api using post' do
-          mock_api.should_receive(:execute_http_request).
+          expect(mock_api).to receive(:execute_http_request).
               with(:post, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
@@ -61,16 +61,16 @@ module Cb
 
       context 'get' do
         before :each do
-          mock_api.stub(:execute_http_request).and_return(Hash.new)
-          mock_api.stub(:append_api_responses)
-          Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
+          allow(mock_api).to receive(:execute_http_request).and_return(Hash.new)
+          allow(mock_api).to receive(:append_api_responses)
+          allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
+          allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:get)
         end
 
         it 'should call the api using get' do
-          mock_api.should_receive(:execute_http_request).
+          expect(mock_api).to receive(:execute_http_request).
               with(:get, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
@@ -80,16 +80,16 @@ module Cb
 
       context 'put' do
         before :each do
-          mock_api.stub(:execute_http_request).and_return(Hash.new)
-          mock_api.stub(:append_api_responses)
-          Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
+          allow(mock_api).to receive(:execute_http_request).and_return(Hash.new)
+          allow(mock_api).to receive(:append_api_responses)
+          allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
+          allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:put)
         end
 
         it 'should call the api using put' do
-          mock_api.should_receive(:execute_http_request).
+          expect(mock_api).to receive(:execute_http_request).
               with(:put, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_return(Hash.new)
 
@@ -108,16 +108,16 @@ module Cb
 
       context 'post' do
         before :each do
-          mock_api.stub(:execute_http_request).and_return(Hash.new)
-          mock_api.stub(:append_api_responses)
-          Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
+          allow(mock_api).to receive(:execute_http_request).and_return(Hash.new)
+          allow(mock_api).to receive(:append_api_responses)
+          allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
+          allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:post)
         end
 
         it 'should call the api using post' do
-          mock_api.should_receive(:execute_http_request).
+          expect(mock_api).to receive(:execute_http_request).
               with(:post, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_yield("test").
               and_return(Hash.new)
@@ -128,16 +128,16 @@ module Cb
 
       context 'get' do
         before :each do
-          mock_api.stub(:execute_http_request).and_return(Hash.new)
-          mock_api.stub(:append_api_responses)
-          Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
+          allow(mock_api).to receive(:execute_http_request).and_return(Hash.new)
+          allow(mock_api).to receive(:append_api_responses)
+          allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
+          allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:get)
         end
 
         it 'should call the api using get' do
-          mock_api.should_receive(:execute_http_request).
+          expect(mock_api).to receive(:execute_http_request).
               with(:get, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_yield("test").
               and_return(Hash.new)
@@ -148,16 +148,16 @@ module Cb
 
       context 'put' do
         before :each do
-          mock_api.stub(:execute_http_request).and_return(Hash.new)
-          mock_api.stub(:append_api_responses)
-          Cb::Utils::Api.stub(:new).and_return(mock_api)
-          Cb::Utils::ResponseMap.stub(:response_for).and_return(Mocks::Response)
+          allow(mock_api).to receive(:execute_http_request).and_return(Hash.new)
+          allow(mock_api).to receive(:append_api_responses)
+          allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
+          allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
 
           @request = Mocks::Request.new(:put)
         end
 
         it 'should call the api using put' do
-          mock_api.should_receive(:execute_http_request).
+          expect(mock_api).to receive(:execute_http_request).
               with(:put, base_uri, 'parts unknown', {:query=>nil, :headers=>nil, :body=>nil}).
               and_yield("test").
               and_return(Hash.new)

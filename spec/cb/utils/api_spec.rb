@@ -14,11 +14,11 @@ module Cb
 
         context 'when we have observers' do
           before{
-            Cb.configuration.stub(:observers).and_return(Array(Mocks::Observer))
+            allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
            }
           it 'returns an instance of Api with the observers attached' do
-            Mocks::Observer.should_receive(:new)
-            Cb::Utils::Api.any_instance.should_receive(:add_observer)
+            expect(Mocks::Observer).to receive(:new)
+            expect_any_instance_of(Cb::Utils::Api).to receive(:add_observer)
             expect(Cb::Utils::Api.instance).to be_a_kind_of(Cb::Utils::Api)
           end
         end
@@ -28,24 +28,24 @@ module Cb
         context 'when we have observers' do
           let(:response) { { success: 'yeah' } }
           before{
-            Cb.configuration.stub(:observers).and_return(Array(Mocks::Observer))
-            Api.stub(:get).with(path, options).and_return(response)
+            allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
+            allow(Api).to receive(:get).with(path, options).and_return(response)
           }
           it 'will notify the observers' do
-            api.should_receive(:notify_observers).twice.and_call_original
-            Mocks::Observer.any_instance.should_receive(:update).at_most(2).times
+            expect(api).to receive(:notify_observers).twice.and_call_original
+            expect_any_instance_of(Mocks::Observer).to receive(:update).at_most(2).times
             api.cb_get(path)
           end
         end
         it 'sends #post to HttParty' do
-          Api.should_receive(:get).with(path, options)
+          expect(Api).to receive(:get).with(path, options)
           api.cb_get(path)
         end
 
         context 'When Cb base_uri is configured' do
           before {
             Cb.configuration.base_uri = 'http://www.applecat.com'
-            Api.stub(:get).with(path, options)
+            allow(Api).to receive(:get).with(path, options)
           }
 
           it 'sets base_uri on Api' do
@@ -57,11 +57,11 @@ module Cb
         context 'When a response is returned' do
           let(:response) { { success: 'yeah' } }
           before {
-            Api.stub(:get).with(path, options).and_return(response)
+            allow(Api).to receive(:get).with(path, options).and_return(response)
           }
 
           it 'sends #validate to ResponseValidator with the response' do
-            ResponseValidator.should_receive(:validate).with(response).and_return(response)
+            expect(ResponseValidator).to receive(:validate).with(response).and_return(response)
             api.cb_get(path)
           end
         end
@@ -72,24 +72,24 @@ module Cb
         context 'when we have observers' do
           let(:response) { { success: 'yeah' } }
           before{
-            Cb.configuration.stub(:observers).and_return(Array(Mocks::Observer))
-            Api.stub(:post).with(path, options).and_return(response)
+            allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
+            allow(Api).to receive(:post).with(path, options).and_return(response)
           }
           it 'will notify the observers' do
-            api.should_receive(:notify_observers).twice.and_call_original
-            Mocks::Observer.any_instance.should_receive(:update).at_most(2).times
+            expect(api).to receive(:notify_observers).twice.and_call_original
+            expect_any_instance_of(Mocks::Observer).to receive(:update).at_most(2).times
             api.cb_post(path)
           end
         end
         it 'sends #post to HttParty' do
-          Api.should_receive(:post).with(path, options)
+          expect(Api).to receive(:post).with(path, options)
           api.cb_post(path)
         end
 
         context 'When Cb base_uri is configured' do
           before {
             Cb.configuration.base_uri = 'http://www.bananadog.org'
-            Api.stub(:post).with(path, options)
+            allow(Api).to receive(:post).with(path, options)
           }
 
           it 'sets base_uri on Api' do
@@ -101,11 +101,11 @@ module Cb
         context 'When a response is returned' do
           let(:response) { { success: 'yeah' } }
           before {
-            Api.stub(:post).with(path, options).and_return(response)
+            allow(Api).to receive(:post).with(path, options).and_return(response)
           }
 
           it 'sends #validate to ResponseValidator with the response' do
-            ResponseValidator.should_receive(:validate).with(response).and_return(response)
+            expect(ResponseValidator).to receive(:validate).with(response).and_return(response)
             api.cb_post(path)
           end
         end
@@ -116,24 +116,24 @@ module Cb
         context 'when we have observers' do
           let(:response) { { success: 'yeah' } }
           before{
-            Cb.configuration.stub(:observers).and_return(Array(Mocks::Observer))
-            Api.stub(:put).with(path, options).and_return(response)
+            allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
+            allow(Api).to receive(:put).with(path, options).and_return(response)
           }
           it 'will notify the observers' do
-            api.should_receive(:notify_observers).twice.and_call_original
-            Mocks::Observer.any_instance.should_receive(:update).at_most(2).times
+            expect(api).to receive(:notify_observers).twice.and_call_original
+            expect_any_instance_of(Mocks::Observer).to receive(:update).at_most(2).times
             api.cb_put(path)
           end
         end
         it 'sends #put to HttParty' do
-          Api.should_receive(:put).with(path, options)
+          expect(Api).to receive(:put).with(path, options)
           api.cb_put(path)
         end
 
         context 'When Cb base_uri is configured' do
           before {
             Cb.configuration.base_uri = 'http://www.kylerox.org'
-            Api.stub(:put).with(path, options)
+            allow(Api).to receive(:put).with(path, options)
           }
 
           it 'sets base_uri on Api' do
@@ -146,11 +146,11 @@ module Cb
         context 'When a response is returned' do
           let(:response) { { success: 'yeah' } }
           before {
-            Api.stub(:put).with(path, options).and_return(response)
+            allow(Api).to receive(:put).with(path, options).and_return(response)
           }
 
           it 'sends #validate to ResponseValidator with the response' do
-            ResponseValidator.should_receive(:validate).with(response).and_return(response)
+            expect(ResponseValidator).to receive(:validate).with(response).and_return(response)
             api.cb_put(path)
           end
         end
@@ -161,24 +161,24 @@ module Cb
         context 'when we have observers' do
           let(:response) { { success: 'yeah' } }
           before{
-            Cb.configuration.stub(:observers).and_return(Array(Mocks::Observer))
-            Api.stub(:delete).with(path, options).and_return(response)
+            allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
+            allow(Api).to receive(:delete).with(path, options).and_return(response)
           }
           it 'will notify the observers' do
-            api.should_receive(:notify_observers).twice.and_call_original
-            Mocks::Observer.any_instance.should_receive(:update).at_most(2).times
+            expect(api).to receive(:notify_observers).twice.and_call_original
+            expect_any_instance_of(Mocks::Observer).to receive(:update).at_most(2).times
             api.cb_delete(path)
           end
         end
         it 'sends #delete to HttParty' do
-          Api.should_receive(:delete).with(path, options)
+          expect(Api).to receive(:delete).with(path, options)
           api.cb_delete(path)
         end
 
         context 'When Cb base_uri is configured' do
           before {
             Cb.configuration.base_uri = 'http://www.kylerox.org'
-            Api.stub(:delete).with(path, options)
+            allow(Api).to receive(:delete).with(path, options)
           }
 
           it 'sets base_uri on Api' do
@@ -191,11 +191,11 @@ module Cb
         context 'When a response is returned' do
           let(:response) { { success: 'yeah' } }
           before {
-            Api.stub(:delete).with(path, options).and_return(response)
+            allow(Api).to receive(:delete).with(path, options).and_return(response)
           }
 
           it 'sends #validate to ResponseValidator with the response' do
-            ResponseValidator.should_receive(:validate).with(response).and_return(response)
+            expect(ResponseValidator).to receive(:validate).with(response).and_return(response)
             api.cb_delete(path)
           end
         end
@@ -207,24 +207,24 @@ module Cb
           context 'when we have observers' do
             let(:response) { { success: 'yeah' } }
             before{
-              Cb.configuration.stub(:observers).and_return(Array(Mocks::Observer))
-              Api.stub(:delete).with(path, options).and_return(response)
+              allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
+              allow(Api).to receive(:delete).with(path, options).and_return(response)
             }
             it 'will notify the observers' do
-              api.should_receive(:notify_observers).twice.and_call_original
-              Mocks::Observer.any_instance.should_receive(:update).at_most(2).times
+              expect(api).to receive(:notify_observers).twice.and_call_original
+              expect_any_instance_of(Mocks::Observer).to receive(:update).at_most(2).times
               api.execute_http_request(:delete, nil, path)
             end
           end
           it 'sends #delete to HttParty' do
-            Api.should_receive(:delete).with(path, options)
+            expect(Api).to receive(:delete).with(path, options)
             api.execute_http_request(:delete, nil, path)
           end
 
           context 'When Cb base_uri is configured' do
             before {
               Cb.configuration.base_uri = 'http://www.kylerox.org'
-              Api.stub(:delete).with(path, options)
+              allow(Api).to receive(:delete).with(path, options)
             }
 
             it 'sets base_uri on Api' do
@@ -237,11 +237,11 @@ module Cb
           context 'When a response is returned' do
             let(:response) { { success: 'yeah' } }
             before {
-              Api.stub(:delete).with(path, options).and_return(response)
+              allow(Api).to receive(:delete).with(path, options).and_return(response)
             }
 
             it 'sends #validate to ResponseValidator with the response' do
-              ResponseValidator.should_receive(:validate).with(response).and_return(response)
+              expect(ResponseValidator).to receive(:validate).with(response).and_return(response)
               api.execute_http_request(:delete, nil, path)
             end
           end
@@ -253,7 +253,7 @@ module Cb
         let(:default_uri) { 'http://www.kylerox.org' }
         before {
           Cb.configuration.base_uri = default_uri
-          Api.stub(:delete).with(path, options)
+          allow(Api).to receive(:delete).with(path, options)
         }
 
         context 'passes a base uri' do

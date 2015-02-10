@@ -13,7 +13,7 @@ module Cb
 
         it 'returns an empty array' do
           response = Cb.job.search(Hash.new)
-          response.model.jobs.count.should == 0
+          expect(response.model.jobs.count).to eq(0)
         end
       end
 
@@ -36,7 +36,7 @@ module Cb
 
         it 'returns an empty array' do
           response = Cb.job.search(Hash.new)
-          response.model.jobs.count.should == 0
+          expect(response.model.jobs.count).to eq(0)
         end
       end
 
@@ -52,7 +52,7 @@ module Cb
 
         it 'returns an array of job models' do
           response = Cb.job.search(Hash.new)
-          response.model.jobs[0].is_a?(Cb::Models::Job).should == true
+          expect(response.model.jobs[0].is_a?(Cb::Models::Job)).to eq(true)
         end
       end
 
@@ -69,7 +69,7 @@ module Cb
 
         it 'returns an array of job models' do
           search = Cb.job.search(Hash.new)
-          search.model.jobs[0].should be_a Cb::Models::Job
+          expect(search.model.jobs[0]).to be_a Cb::Models::Job
         end
       end
 
@@ -134,14 +134,14 @@ module Cb
       context 'when a string job did is input' do
         let(:criteria) { double(Cb::Criteria::Job::Details) }
 
-        before(:each) { Cb::Criteria::Job::Details.stub(:new).and_return(criteria) }
+        before(:each) { allow(Cb::Criteria::Job::Details).to receive(:new).and_return(criteria) }
 
         it 'constructs a criteria object, sets the input did, and calls #find_by_criteria' do
           did = 'fake-did'
 
-          Cb::Clients::Job.should_receive(:find_by_criteria).with(criteria)
-          criteria.should_receive(:did=).with(did)
-          criteria.should_receive(:show_custom_values=).with(true)
+          expect(Cb::Clients::Job).to receive(:find_by_criteria).with(criteria)
+          expect(criteria).to receive(:did=).with(did)
+          expect(criteria).to receive(:show_custom_values=).with(true)
 
           Cb::Clients::Job.find_by_did(did)
         end

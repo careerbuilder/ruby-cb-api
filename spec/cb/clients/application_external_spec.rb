@@ -27,8 +27,8 @@ module Cb
         it 'the same application object is returned that is supplied for input' do
           stub_api_call_to_return(Hash.new)
           app = submit_app(external_app)
-          app.should eq external_app
-          app.object_id.should eq external_app.object_id
+          expect(app).to eq external_app
+          expect(app.object_id).to eq external_app.object_id
         end
 
         context 'if the ApplyUrl field comes back in the response' do
@@ -36,7 +36,7 @@ module Cb
 
           it 'the ApplyUrl is set on the returned app' do
             app = submit_app(external_app)
-            app.apply_url.should eq 'https://bacondreamz.net'
+            expect(app.apply_url).to eq 'https://bacondreamz.net'
           end
         end
 
@@ -45,25 +45,25 @@ module Cb
 
           it 'the ApplyUrl on the returned app is blank' do
             app = submit_app(external_app)
-            app.apply_url.empty?.should eq true
+            expect(app.apply_url.empty?).to eq true
           end
         end
 
         context 'when posting to the API' do
           before(:each) do
             @mock_api = double(Cb::Utils::Api)
-            @mock_api.stub(:cb_post)
-            @mock_api.stub(:append_api_responses)
-            Cb::Utils::Api.stub(:new).and_return @mock_api
+            allow(@mock_api).to receive(:cb_post)
+            allow(@mock_api).to receive(:append_api_responses)
+            allow(Cb::Utils::Api).to receive(:new).and_return @mock_api
           end
 
           it 'converts the application to xml' do
-            @mock_api.should_receive(:cb_post).with(kind_of(String), body: external_app.to_xml).and_return(Hash.new)
+            expect(@mock_api).to receive(:cb_post).with(kind_of(String), body: external_app.to_xml).and_return(Hash.new)
             submit_app(external_app)
           end
 
           it 'posts to the application external API endpoint' do
-            @mock_api.should_receive(:cb_post).with(Cb.configuration.uri_application_external, kind_of(Hash)).and_return(Hash.new)
+            expect(@mock_api).to receive(:cb_post).with(Cb.configuration.uri_application_external, kind_of(Hash)).and_return(Hash.new)
             submit_app(external_app)
           end
         end

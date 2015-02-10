@@ -8,20 +8,20 @@ module Cb
         let(:request) { Cb::Requests::Resumes::List.new({}) }
 
         it 'will be correctly configured' do
-          request.endpoint_uri.should == Cb.configuration.uri_resume_list
-          request.http_method.should == :get
+          expect(request.endpoint_uri).to eq(Cb.configuration.uri_resume_list)
+          expect(request.http_method).to eq(:get)
         end
 
         it 'will have a basic query string' do
-          request.query.should eq({ HostSite: Cb.configuration.host_site, OAuthToken: nil })
+          expect(request.query).to eq({ HostSite: Cb.configuration.host_site, OAuthToken: nil })
         end
 
         it 'will have basic headers' do
-          request.headers.should == nil
+          expect(request.headers).to eq(nil)
         end
 
         it 'will have a basic body' do
-          request.body.should == nil
+          expect(request.body).to eq(nil)
         end
       end
 
@@ -29,20 +29,20 @@ module Cb
         let(:request) { Cb::Requests::Resumes::List.new({ oauth_token: 'token' }) }
 
         it 'will be correctly configured' do
-          request.endpoint_uri.should == Cb.configuration.uri_resume_list
-          request.http_method.should == :get
+          expect(request.endpoint_uri).to eq(Cb.configuration.uri_resume_list)
+          expect(request.http_method).to eq(:get)
         end
 
         it 'will have a basic query string' do
-          request.query.should eq ({ HostSite: Cb.configuration.host_site, OAuthToken: 'token' })
+          expect(request.query).to eq ({ HostSite: Cb.configuration.host_site, OAuthToken: 'token' })
         end
 
         it 'will have basic headers' do
-          request.headers.should == nil
+          expect(request.headers).to eq(nil)
         end
 
         it 'will have a basic body' do
-          request.body.should == nil
+          expect(request.body).to eq(nil)
         end
       end
     end

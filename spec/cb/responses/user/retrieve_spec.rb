@@ -13,8 +13,7 @@ module Cb
 
     context '#new' do
       it 'returns a temp password response object' do
-        Responses::User::Retrieve.new(json_hash).should
-        be_an_instance_of Responses::User::Retrieve
+        expect(Responses::User::Retrieve.new(json_hash)).to be_an_instance_of Responses::User::Retrieve
       end
 
       context 'when input response hash cannot be validated due to' do
@@ -32,7 +31,7 @@ module Cb
     context '#models' do
       it 'returns the TemporaryPassword node from the response' do
         response = Responses::User::Retrieve.new(json_hash)
-        response.model.should be_an_instance_of Cb::Models::User
+        expect(response.model).to be_an_instance_of Cb::Models::User
       end
     end
   end

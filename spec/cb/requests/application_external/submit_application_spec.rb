@@ -8,20 +8,20 @@ module Cb
         before(:each) { @request = Cb::Requests::ApplicationExternal::SubmitApplication.new({}) }
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_application_external
-          @request.http_method.should == :post
+          expect(@request.endpoint_uri).to eq(Cb.configuration.uri_application_external)
+          expect(@request.http_method).to eq(:post)
         end
 
         it 'should have a basic query string' do
-          @request.query.should == nil
+          expect(@request.query).to eq(nil)
         end
 
         it 'should have basic headers' do
-          @request.headers.should == nil
+          expect(@request.headers).to eq(nil)
         end
 
         it 'should have a basic body' do
-          @request.body.should == <<-eos
+          expect(@request.body).to eq <<-eos
           <Request>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
             <EmailAddress></EmailAddress>
@@ -50,20 +50,20 @@ module Cb
         end
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_application_external
-          @request.http_method.should == :post
+          expect(@request.endpoint_uri).to eq(Cb.configuration.uri_application_external)
+          expect(@request.http_method).to eq(:post)
         end
 
         it 'should have a correct query string' do
-          @request.query.should == nil
+          expect(@request.query).to eq(nil)
         end
 
         it 'should have correct headers' do
-          @request.headers.should == nil
+          expect(@request.headers).to eq(nil)
         end
 
         it 'should have a correct body' do
-          @request.body.should == <<-eos
+          expect(@request.body).to eq <<-eos
           <Request>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
             <EmailAddress>email address</EmailAddress>

@@ -8,20 +8,20 @@ module Cb
         before(:each) { @request = Cb::Requests::AnonymousSavedSearch::Delete.new({}) }
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_anon_saved_search_delete
-          @request.http_method.should == :post
+          expect(@request.endpoint_uri).to eq(Cb.configuration.uri_anon_saved_search_delete)
+          expect(@request.http_method).to eq(:post)
         end
 
         it 'should have a basic query string' do
-          @request.query.should == nil
+          expect(@request.query).to eq(nil)
         end
 
         it 'should have basic headers' do
-          @request.headers.should == nil
+          expect(@request.headers).to eq(nil)
         end
 
         it 'should have a basic body' do
-          @request.body.should == <<-eos
+          expect(@request.body).to eq <<-eos
           <Request>
             <ExternalID></ExternalID>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
@@ -40,20 +40,20 @@ module Cb
         end
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_anon_saved_search_delete
-          @request.http_method.should == :post
+          expect(@request.endpoint_uri).to eq(Cb.configuration.uri_anon_saved_search_delete)
+          expect(@request.http_method).to eq(:post)
         end
 
         it 'should have a basic query string' do
-          @request.query.should == nil
+          expect(@request.query).to eq(nil)
         end
 
         it 'should have basic headers' do
-          @request.headers.should == nil
+          expect(@request.headers).to eq(nil)
         end
 
         it 'should have a basic body' do
-          @request.body.should == <<-eos
+          expect(@request.body).to eq <<-eos
           <Request>
             <ExternalID>external id</ExternalID>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>

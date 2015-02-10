@@ -6,11 +6,11 @@ module Cb
 
       context 'when passed valid input' do
         it 'sets #errors' do
-          Responses::Metadata.new(valid_input).errors.nil?.should eq false
+          expect(Responses::Metadata.new(valid_input).errors.nil?).to eq false
         end
 
         it 'sets #timing' do
-          Responses::Metadata.new(valid_input).timing.nil?.should eq false
+          expect(Responses::Metadata.new(valid_input).timing.nil?).to eq false
         end
       end
     end

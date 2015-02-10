@@ -14,8 +14,7 @@ module Cb
 
     context '#new' do
       it 'returns a temp password response object' do
-        Responses::User::Delete.new(json_hash).should
-        be_an_instance_of Responses::User::Delete
+        expect(Responses::User::Delete.new(json_hash)).to be_an_instance_of Responses::User::Delete
       end
 
       context 'when input response hash cannot be validated due to' do
