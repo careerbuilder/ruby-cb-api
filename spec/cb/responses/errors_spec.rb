@@ -4,6 +4,8 @@ module Cb
 
     context '#new' do
 
+      let(:parsed_error_response) { 'much awesome,so api,wow' }
+
       def self.run_specs
         context 'and the optional boolean arg is omitted' do
           it 'raises an api error since an error was found' do
@@ -25,6 +27,10 @@ module Cb
               Responses::Errors.new(@errors_hash, true)
             end.to raise_error ApiResponseError
           end
+        end
+
+        it 'assigns correct value to @parse' do
+          expect(Responses::Errors.new(@errors_hash, false).parsed).eql? parsed_error_response
         end
       end
 
