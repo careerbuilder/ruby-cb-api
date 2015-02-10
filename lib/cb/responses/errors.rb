@@ -16,7 +16,7 @@ module Cb
       def parsed_errors
         return Array.new unless response.respond_to?(:map)
         errors = response.map { |key, value| parsed_error(key, value) }.flatten
-        raise ApiResponseError.new(errors.to_s) if errors.any? && should_raise
+        raise ApiResponseError.new(errors.join(',')) if errors.any? && should_raise
         errors
       end
 
