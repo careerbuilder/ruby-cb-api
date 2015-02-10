@@ -2,6 +2,8 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+
+* 17.0.0 changed api error response to use join instead of to_s
 * 16.2.2 change degree code to be degree which fixes compatibilty problems
 * 16.2.1 fix major or program in resume put. it was looking for the wrong value
 * 16.2.0 Added support for work experience ID in resume put
