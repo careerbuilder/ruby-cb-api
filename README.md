@@ -32,58 +32,153 @@ https://github.com/cbdr/ruby-cb-api/blob/master/lib/cb/config.rb
 
 Job Search
 ================
-There's a couple ways to go about conducting a job search.
 
-Option 1:
+Use the `Cb` convenience methods to access the job client (`Cb::Clients::Job`)
 
-    search = Cb.job_search_criteria.location('Atlanta, GA').radius(10).search()
+    job_client = Cb.job
 
-Option 2:
+Using the job client you can search through the listings
 
-    crit = Cb.job_search_criteria
-    crit.location = 'Atlanta, GA'
-    crit.radius = 10
-    search = crit.search()
+    job_client.search({ location: 'Atlanta' })
 
-Either way, you will get back an array of CbJob.
+Or you can search for one job via it's details
 
-    search.each do |job|
-      puts job.title
-      puts job.company_name
-      puts job.instance_variables
+    job_client.find_by_criteria({ })
+
+Or you can search for one job via it's `did`
+
+    job_client.find_by_did('J3H4CK6XNXYQ07RHSYL')
+
+When using the job client to do a search you will receive back a search response instance (`Response::Job::Search`)
+
+    search_response = job_client.search({ location: 'Atlanta' })
+
+Which can be used to retrieve an search result model instance (`Cb::Models::JobResults`)
+
+    search_result_model = search_response.model
+
+Which encapsulates details of the search result
+
+    search_result.total_count
+    search_result.last_item_index
+    search_result.city
+    search_result.state
+    search_result.postal_code
+    search_result.search_location 
+
+As well as returning back the jobs from the search result (`Cb::Models::Job` instances)
+
+    jobs = search_result.jobs
+
+Each returned job object contains details of one job listing
+
+    jobs.each do |job|
+      puts "#{job.did}: #{job.company_name} - #{job.title}"
     end
 
-You will also get meta data regarding the search itself (helpful for pagination).
+The search response can also return you any errors which occured during the job search (`Cb::Responses::Errors`). The parsed errors will contain an `Array` of error messages. If it is not empty an error occurred during the request.
 
-    puts search.cb_response.total_pages
-    puts search.cb_response.total_count
-    puts search.cb_response.errors # Hopefully this is nil! If it's not nil, it will be an array of error messages.
+    search_response.errors.parsed
 
-Coming Soon
-================
-The way that requests are handled is being completely redone. You will now only need to instantiate a single client class and pass it a request object.
+Job Search params
+=================
 
-You may now pass a block that will be executed before and after each API call. This will provide the same information that the Observer methods do.
+When performing a job search you can provide a `Hash` of search parameters. For example
 
-    client = Cb::Client.new { |request_metadata| storage_device.add(request_metadata) }
+    search_params = { location: 'Atlanta', keywords: 'Database Admin' }
+    Cb.job.search(search_params)
 
-Or just call it without the block if you don't care about an individual call's observer info
+The search params hash can include the following keys:
 
-    client = Cb::Client.new
+* keywords
+* location
+* postedwithin
+* excludeapplyrequirments
+* orderdirection
+* orderby
+* pagenumber
+* hostsite
+* siteentity
+* countrycode
 
-Pass it a request object, and you will receive the appropriate response object back
+Job details
+===========
 
-    request = Cb::Requests::Endpoint::CallName.new( { key1: 'value1', key2: 'value2' } )
-    response = client.execute request
+`Cb::Models::Job` has many accessor methods which are used to get the details of the job
 
-Currently, this workflow only works on the following endpoints:
+If you have preformed a job search, such as
 
-* Anonymous Saved Search
-* Application
-* Application External
-* Category
-* Education
-* Company
-* User
+    Cb.job.search({ location: 'Atlanta' }).results.model.jobs.each do |job|
+      puts "Job Details: #{job.company_name} - #{job.title}"
+    end
 
-Look here for future updates on this refactor!
+The following data is available from a job
+
+* `did`
+* `title`
+* `job_skin`
+* `job_skin_did`
+* `job_branding`
+* `pay`
+* `pay_per`
+* `commission`
+* `bonus`
+* `pay_other`
+* `categories`
+* `category_codes`
+* `degree_required`
+* `experience_required`
+* `travel_required`
+* `industry_codes`
+* `manages_others_code`
+* `contact_email_url`
+* `contact_fax`
+* `contact_name`
+* `contact_phone`
+* `company_name`
+* `company_did`
+* `company_details_url`
+* `company_image_url`
+* `company`
+* `description_teaser`
+* `external_apply_url`
+* `job_tracking_url`
+* `location`
+* `distance`
+* `latitude`
+* `longitude`
+* `location_formatted`
+* `description`
+* `requirements`
+* `employment_type`
+* `details_url`
+* `service_url`
+* `similar_jobs_url`
+* `apply_url`
+* `begin_date`
+* `end_date`
+* `posted_date`
+* `relevancy`
+* `state`
+* `city`
+* `zip`
+* `can_be_quick_applied`
+* `apply_requirements`
+* `divison`
+* `industry`
+* `location_street_1`
+* `relocation_options`
+* `location_street_2`
+* `display_job_id`
+* `manages_others_string`
+* `degree_required_code`
+* `travel_required_code`
+* `employment_type_code`
+* `external_application?`
+* `relocation_covered?`
+* `manages_others?`
+* `screener_apply?`
+* `shared_job?`
+* `can_be_quick_applied?`
+* `has_questionnaire?`
+* `find_company`
