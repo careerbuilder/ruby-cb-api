@@ -60,7 +60,7 @@ module Cb
             currencyCode: salary[:currency_code],
             jobTitle: salary[:job_title],
             annualBonus: salary[:annual_bonus],
-            annualCommission: salary[:annual_commission],
+            annualCommission: salary[:annual_commission]
           }
         end
 
@@ -86,7 +86,6 @@ module Cb
             sizeOfTeamManaged: skills[:size_of_team_managed]
           }
         end
-
 
         def extract_relocations
           return [] unless args[:relocations]
@@ -115,4 +114,3 @@ module Cb
     end
   end
 end
-

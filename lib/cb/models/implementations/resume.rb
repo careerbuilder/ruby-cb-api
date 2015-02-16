@@ -15,7 +15,6 @@ module Cb
         @skills_and_qualifications = extract_skills_and_qualifications
         @relocations = extract_relocations
         @government_and_military = extract_government_and_military
-
       end
 
       def required_fields
@@ -23,6 +22,7 @@ module Cb
       end
 
       private
+
       def extract_work_experience
         unless api_response['workExperience'].nil?
           api_response['workExperience'].collect do |experience|

@@ -1,6 +1,5 @@
 module Cb
   class Config
-
     def initialize
       Cb::Utils::Country.inject_convenience_methods
       set_defaults
@@ -23,6 +22,7 @@ module Cb
     end
 
     protected
+
     #################################################################
 
     def set_defaults
@@ -33,12 +33,13 @@ module Cb
       @use_json             = true
       @host_site            = Cb.country.US
       @test_resources       = false
-      @observers            = Array.new
+      @observers            = []
       set_default_api_uris
       set_attr_accessors
     end
 
     private
+
     #################################################################
 
     def set_default_api_uris
@@ -98,6 +99,5 @@ module Cb
     def set_attr_accessors
       instance_variables.each { |instance_variable| self.class.send :attr_accessor, instance_variable[1..-1].to_sym }
     end
-
   end
 end

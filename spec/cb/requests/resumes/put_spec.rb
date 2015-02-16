@@ -3,7 +3,6 @@ require 'support/mocks/resume'
 
 module Cb
   describe Cb::Requests::Resumes::Put do
-
     context 'initialize without arguments' do
       context 'without arguments' do
         let (:request) { Cb::Requests::Resumes::Put.new({}) }
@@ -14,7 +13,7 @@ module Cb
         end
 
         it 'should have a basic query string' do
-          request.query.should == nil
+          request.query.should.nil?
         end
 
         it 'should have basic headers' do
@@ -22,12 +21,12 @@ module Cb
             {
               'HostSite' => Cb.configuration.host_site,
               'Content-Type' => 'application/json',
-              "Authorization"=>"Bearer "
+              'Authorization' => 'Bearer '
             }
         end
 
         it 'should have a body' do
-          request.body.should_not == nil
+          request.body.should_not.nil?
         end
       end
 
@@ -47,7 +46,7 @@ module Cb
             {
               'HostSite' => Cb.configuration.host_site,
               'Content-Type' => 'application/json',
-              "Authorization"=>"Bearer "
+              'Authorization' => 'Bearer '
             }
         end
 
