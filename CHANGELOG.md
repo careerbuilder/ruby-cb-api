@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
+* 17.0.0 Changed the Resume GET and PUT to accept a 3Scale token and not a Dev Key
 * 16.3.0 changed api error response to use join instead of to_s
 * 16.2.2 change degree code to be degree which fixes compatibilty problems
 * 16.2.1 fix major or program in resume put. it was looking for the wrong value
