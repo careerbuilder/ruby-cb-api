@@ -10,13 +10,13 @@ module Cb
 
     context '#new' do
       it 'returns a response object with a filled in model' do
-        Responses::ApplicationExternal::SubmitApplication.new(json_hash).class.should eq Responses::ApplicationExternal::SubmitApplication
+        expect(Responses::ApplicationExternal::SubmitApplication.new(json_hash).class).to eq Responses::ApplicationExternal::SubmitApplication
       end
 
       it 'instantiates new model objects' do
         response = Responses::ApplicationExternal::SubmitApplication.new(json_hash)
 
-        response.model.apply_url.should == "website.com"
+        expect(response.model.apply_url).to eq("website.com")
       end
 
     end

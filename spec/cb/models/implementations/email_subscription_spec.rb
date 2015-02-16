@@ -18,10 +18,10 @@ module Cb::Models
 
 
 
-        subscription.career_resources.should == career_resources
-        subscription.product_sponsor_info.should == product_sponsor_info
-        subscription.applicant_survey_invites.should == applicant_survey_invites
-        subscription.job_recs.should == job_recs
+        expect(subscription.career_resources).to eq(career_resources)
+        expect(subscription.product_sponsor_info).to eq(product_sponsor_info)
+        expect(subscription.applicant_survey_invites).to eq(applicant_survey_invites)
+        expect(subscription.job_recs).to eq(job_recs)
 
       end
     end

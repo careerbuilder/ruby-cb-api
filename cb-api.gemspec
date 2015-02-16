@@ -22,12 +22,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'nokogiri', '~> 1.0'
 
   s.add_development_dependency 'rake', '>= 0.8.7'
-  s.add_development_dependency 'webmock', '~> 1.9.0'
+  s.add_development_dependency 'webmock', '~> 1.9'
   s.add_development_dependency 'simplecov', '>= 0.7.1'
-  s.add_development_dependency 'rspec', '~> 2.14'
+  s.add_development_dependency 'rspec', '~> 3.0'
   s.add_development_dependency 'rdoc', '~> 3.12.2'
-  s.add_development_dependency 'rspec-pride', '~> 2.2.0'
+  s.add_development_dependency 'rspec-pride', '~> 3.0'
   s.add_development_dependency 'pry', '0.9.12.1'
   s.add_development_dependency 'rb-readline', '~> 0.5.0'
-
 end

@@ -9,13 +9,13 @@ module Cb
 
     context '#new' do
       it 'returns a response object with a filled in model' do
-        Responses::AnonymousSavedSearch::Delete.new(json_hash).class.should eq Responses::AnonymousSavedSearch::Delete
+        expect(Responses::AnonymousSavedSearch::Delete.new(json_hash).class).to eq Responses::AnonymousSavedSearch::Delete
       end
 
       it 'instantiates new model objects' do
         response = Responses::AnonymousSavedSearch::Delete.new(json_hash)
 
-        response.response["Status"].should == 'yay'
+        expect(response.response["Status"]).to eq('yay')
       end
 
     end

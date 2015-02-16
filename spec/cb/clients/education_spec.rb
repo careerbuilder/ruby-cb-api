@@ -13,13 +13,13 @@ module Cb
         let(:mock_api) { double(Cb::Utils::Api) }
 
         before :each do
-          mock_api.stub(:append_api_responses)
-          mock_api.stub(:cb_get).and_return(Hash.new)
-          Cb::Utils::Api.stub(:new).and_return(mock_api)
+          allow(mock_api).to receive(:append_api_responses)
+          allow(mock_api).to receive(:cb_get).and_return(Hash.new)
+          allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
         end
 
         it 'calls #append_api_responses on the Cb API utility client' do
-          mock_api.should_receive(:append_api_responses)
+          expect(mock_api).to receive(:append_api_responses)
           Cb::Clients::Education.get_for('US')
         end
 
@@ -28,7 +28,7 @@ module Cb
           api_uri      = Cb.configuration.uri_education_code
           query_hash   = { :query => { :countrycode => country_code}}
 
-          mock_api.should_receive(:cb_get).with(api_uri, query_hash)
+          expect(mock_api).to receive(:cb_get).with(api_uri, query_hash)
           Cb::Clients::Education.get_for(country_code)
         end
       end

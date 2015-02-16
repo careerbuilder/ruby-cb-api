@@ -13,9 +13,9 @@ module Cb
 
         it 'an array with the single item should be returned' do
           animals = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Animals')
-          animals.class.should == Array
-          animals.count.should == 1
-          animals[0].should == 'Moose'
+          expect(animals.class).to eq(Array)
+          expect(animals.count).to eq(1)
+          expect(animals[0]).to eq('Moose')
         end
       end
 
@@ -28,10 +28,10 @@ module Cb
 
         it 'an array with multiple items should be returned' do
           animals = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Animals')
-          animals.class.should == Array
-          animals.count.should == 2
-          animals[0].should == 'Moose'
-          animals[1].should == 'Kitty'
+          expect(animals.class).to eq(Array)
+          expect(animals.count).to eq(2)
+          expect(animals[0]).to eq('Moose')
+          expect(animals[1]).to eq('Kitty')
         end 
       end
 
@@ -46,10 +46,10 @@ module Cb
 
         it 'is still able to parse' do
           matches = ResponseArrayExtractor.extract(response_hash, 'Matches', 'Match')
-          matches.class.should == Array
-          matches.count.should == 2
-          matches[0].should == 'FUN!'
-          matches[1].should == 'Excite!'
+          expect(matches.class).to eq(Array)
+          expect(matches.count).to eq(2)
+          expect(matches[0]).to eq('FUN!')
+          expect(matches[1]).to eq('Excite!')
         end
       end
 
@@ -59,9 +59,9 @@ module Cb
         }}
         it 'an array of a single item should be returned' do
           test = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Hello')
-          test.class.should == Array
-          test.count.should == 1
-          test[0].should == 'world'
+          expect(test.class).to eq(Array)
+          expect(test.count).to eq(1)
+          expect(test[0]).to eq('world')
         end
       end
 
@@ -71,12 +71,12 @@ module Cb
         }}
         it 'an array of items should be returned' do
           test = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Hello')
-          test.class.should == Array
-          test.count.should == 4
-          test[0].should == 'world'
-          test[1].should == 'this'
-          test[2].should == 'is'
-          test[3].should == 'awesome'
+          expect(test.class).to eq(Array)
+          expect(test.count).to eq(4)
+          expect(test[0]).to eq('world')
+          expect(test[1]).to eq('this')
+          expect(test[2]).to eq('is')
+          expect(test[3]).to eq('awesome')
         end
       end
 
@@ -86,9 +86,9 @@ module Cb
         }
         it 'an array of items should be returned' do
           test = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Hello')
-          test.class.should == Array
-          test.count.should == 0
-          test.should == []
+          expect(test.class).to eq(Array)
+          expect(test.count).to eq(0)
+          expect(test).to eq([])
         end
       end
 

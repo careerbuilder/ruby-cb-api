@@ -20,8 +20,7 @@ module Cb
 
     context '#new' do
       it 'returns a temp password response object' do
-        Responses::User::CheckExisting.new(json_hash).should
-        be_an_instance_of Responses::User::CheckExisting
+        expect(Responses::User::CheckExisting.new(json_hash)).to be_an_instance_of Responses::User::CheckExisting
       end
 
       context 'when input response hash cannot be validated due to' do

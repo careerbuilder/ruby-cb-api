@@ -16,7 +16,9 @@ require 'pry'
 WebMock.disable_net_connect!
 
 RSpec.configure do |c|
-  c.treat_symbols_as_metadata_keys_with_true_values = true
+  c.mock_with :rspec do |mocks|
+    mocks.yield_receiver_to_any_instance_implementation_blocks = true
+  end
 end
 
 require 'support/convenience'

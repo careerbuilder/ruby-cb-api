@@ -8,8 +8,8 @@ module Cb
       api_client          = Clients::Spot.send(:api_client)
       the_same_api_client = Clients::Spot.send(:api_client)
 
-      api_client.should eq the_same_api_client
-      api_client.object_id.should eq the_same_api_client.object_id
+      expect(api_client).to eq the_same_api_client
+      expect(api_client.object_id).to eq the_same_api_client.object_id
     end
 
     describe '#retrieve' do
@@ -64,9 +64,9 @@ module Cb
       context 'when the API response is missing nodes' do
         def restub_mocked_api
           api = Cb::Utils::Api.new
-          api.class.stub(:criteria_to_hash)
-          api.stub(:cb_get).and_return(@fake_mangled_response)
-          Clients::Spot.stub(:api_client).and_return(api)
+          allow(api.class).to receive(:criteria_to_hash)
+          allow(api).to receive(:cb_get).and_return(@fake_mangled_response)
+          allow(Clients::Spot).to receive(:api_client).and_return(api)
         end
 
         def expect_fields_missing_exception

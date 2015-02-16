@@ -22,7 +22,7 @@ module Cb
     context '.new' do
       it 'should create a new category api project' do
         category_api = Cb::Clients::Category.new
-        category_api.is_a?(Cb::Clients::Category).should == true
+        expect(category_api.is_a?(Cb::Clients::Category)).to eq(true)
       end
     end
 

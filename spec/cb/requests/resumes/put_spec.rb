@@ -8,25 +8,26 @@ module Cb
         let (:request) { Cb::Requests::Resumes::Put.new({}) }
 
         it 'should be correctly configured' do
-          request.endpoint_uri.should == Cb.configuration.uri_resume_put.sub(':resume_hash', '')
-          request.http_method.should == :put
+          expect(request.endpoint_uri).to eq(Cb.configuration.uri_resume_put.sub(':resume_hash', ''))
+          expect(request.http_method).to eq(:put)
         end
 
         it 'should have a basic query string' do
-          request.query.should.nil?
+          expect(request.query).to.nil?
         end
 
         it 'should have basic headers' do
-          request.headers.should ==
+          expect(request.headers).to eq(
             {
               'HostSite' => Cb.configuration.host_site,
               'Content-Type' => 'application/json',
               'Authorization' => 'Bearer '
             }
+          )
         end
 
         it 'should have a body' do
-          request.body.should_not.nil?
+          expect(request.body).not_to.nil?
         end
       end
 
@@ -37,21 +38,22 @@ module Cb
         end
 
         it 'should be correctly configured' do
-          @request.endpoint_uri.should == Cb.configuration.uri_resume_put.sub(':resume_hash', 'resumeHash')
-          @request.http_method.should == :put
+          expect(@request.endpoint_uri).to eq(Cb.configuration.uri_resume_put.sub(':resume_hash', 'resumeHash'))
+          expect(@request.http_method).to eq(:put)
         end
 
         it 'should have basic headers' do
-          @request.headers.should ==
+          expect(@request.headers).to eq(
             {
               'HostSite' => Cb.configuration.host_site,
               'Content-Type' => 'application/json',
               'Authorization' => 'Bearer '
             }
+          )
         end
 
         it 'should have a basic body' do
-          @request.body.should == Mocks::Resume.camel_case_resume_hash.to_json
+          expect(@request.body).to eq(Mocks::Resume.camel_case_resume_hash.to_json)
         end
       end
     end

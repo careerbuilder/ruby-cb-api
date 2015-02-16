@@ -8,24 +8,24 @@ module Cb
         let(:request) { Cb::Requests::Resumes::Delete.new({}) }
 
         it 'will be correctly configured' do
-          request.endpoint_uri.should == Cb.configuration.uri_resume_delete.sub(':resume_hash', '')
-          request.http_method.should == :delete
+          expect(request.endpoint_uri).to eq(Cb.configuration.uri_resume_delete.sub(':resume_hash', ''))
+          expect(request.http_method).to eq(:delete)
         end
 
         it 'will have a basic query string' do
-          request.query.should eq({ externalUserID: nil })
+          expect(request.query).to eq({ externalUserID: nil })
         end
 
         it 'will have basic headers' do
-          request.headers.should == {
+          expect(request.headers).to eq({
               'DeveloperKey' => Cb.configuration.dev_key,
               'HostSite' => Cb.configuration.host_site,
               'Content-Type' => 'application/json'
-          }
+          })
         end
 
         it 'will have a basic body' do
-          request.body.should == nil
+          expect(request.body).to eq(nil)
         end
       end
 
@@ -34,24 +34,24 @@ module Cb
 
 
         it 'will be correctly configured' do
-          request.endpoint_uri.should == Cb.configuration.uri_resume_delete.sub(':resume_hash', 'resumeHash')
-          request.http_method.should == :delete
+          expect(request.endpoint_uri).to eq(Cb.configuration.uri_resume_delete.sub(':resume_hash', 'resumeHash'))
+          expect(request.http_method).to eq(:delete)
         end
 
         it 'will have a basic query string' do
-          request.query.should eq ({ externalUserID: 'externalUserId' })
+          expect(request.query).to eq ({ externalUserID: 'externalUserId' })
         end
 
         it 'will have basic headers' do
-          request.headers.should == {
+          expect(request.headers).to eq({
               'DeveloperKey' => Cb.configuration.dev_key,
               'HostSite' => Cb.configuration.host_site,
               'Content-Type' => 'application/json'
-          }
+          })
         end
 
         it 'will have a basic body' do
-          request.body.should == nil
+          expect(request.body).to eq(nil)
         end
       end
     end

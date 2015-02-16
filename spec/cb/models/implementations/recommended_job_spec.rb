@@ -10,7 +10,7 @@ module Cb::Models
 
         it 'then the apply_requirements field should be set' do
           job = Job.new job_hash
-          job.apply_requirements.should == ['noonlineapply']
+          expect(job.apply_requirements).to eq(['noonlineapply'])
         end
       end
     end

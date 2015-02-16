@@ -6,18 +6,18 @@ module Cb
       it 'should return a hash' do
       	config = Cb.configuration
 
-      	config.is_a?(Cb::Config).should == true
-      	config.to_hash.is_a?(Hash).should == true
+      	expect(config.is_a?(Cb::Config)).to eq(true)
+      	expect(config.to_hash.is_a?(Hash)).to eq(true)
       end
     end
     context 'defaults' do
       it 'should have a base_uri' do
         config = Cb.configuration
-        config.base_uri.should_not be_nil
+        expect(config.base_uri).not_to be_nil
       end
       it 'should have a base_uri with https' do
         config = Cb.configuration
-        config.base_uri[0..4].should == 'https'
+        expect(config.base_uri[0..4]).to eq('https')
       end
     end
     context 'uri' do
@@ -27,10 +27,10 @@ module Cb
         default_uri = config.base_uri
 
         config.set_base_uri(uri)
-        config.base_uri.should == uri
+        expect(config.base_uri).to eq(uri)
 
         config.set_base_uri(default_uri)
-        config.base_uri.should == default_uri
+        expect(config.base_uri).to eq(default_uri)
       end
     end
   end

@@ -1,2 +1,2 @@
 --require 'rspec/pride'
---format RSpec::Pride
+--format PrideFormatter

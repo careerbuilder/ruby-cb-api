@@ -15,14 +15,14 @@ describe Cb::Models::Application::Form do
       model = Cb::Models::Application::Form.new(response_stub)
       expect(model.job_did).to eq 'JHT2*********'
       expect(model.job_title).to eq 'Licensed Practical Nurse - LPN (Nonprofit Social Services - Nursing)'
-      expect(model.is_shared_apply).to be_false
+      expect(model.is_shared_apply).to be_falsey
       expect(model.question_list).to be_an_instance_of Array
       expect(model.question_list.first).to be_an_instance_of Cb::Models::Application::Question
       expect(model.requirements).to eq 'Our ideal Licensed Practical Nurse has excellent listening**********'
       expect(model.degree_required).to eq '2 Year Degree'
       expect(model.travel_required).to eq 'Negligible'
       expect(model.experience_required).to eq 'Yay'
-      expect(model.external_application).to be_false
+      expect(model.external_application).to be_falsey
       expect(model.total_questions).to eq 11
       expect(model.total_required_questions).to eq 10
     end
@@ -33,7 +33,7 @@ describe Cb::Models::Application::Form do
       response_stub['QuestionList'] = ''
       model = Cb::Models::Application::Form.new(response_stub)
       expect(model.question_list).to be_an_instance_of Array
-      expect(model.question_list.empty?).to be_true
+      expect(model.question_list.empty?).to be_truthy
     end
   end
 
@@ -64,7 +64,7 @@ describe Cb::Models::Application::Form do
         question_stub['Answers'] = ''
         model = Cb::Models::Application::Question.new(question_stub)
         expect(model.answers).to be_an_instance_of Array
-        expect(model.answers.empty?).to be_true
+        expect(model.answers.empty?).to be_truthy
       end
     end
   end

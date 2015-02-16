@@ -20,7 +20,7 @@ module Cb
 
     context '#new' do
       it 'returns a response object with a filled in model' do
-        Responses::EmailSubscription::Response.new(json_hash).class.should eq Responses::EmailSubscription::Response
+        expect(Responses::EmailSubscription::Response.new(json_hash).class).to eq Responses::EmailSubscription::Response
       end
 
       it 'instantiates new model objects' do

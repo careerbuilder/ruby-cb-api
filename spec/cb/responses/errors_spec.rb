@@ -4,6 +4,8 @@ module Cb
 
     context '#new' do
 
+      let(:parsed_error_response) { 'much awesome,so api,wow' }
+
       def self.run_specs
         context 'and the optional boolean arg is omitted' do
           it 'raises an api error since an error was found' do
@@ -26,6 +28,10 @@ module Cb
             end.to raise_error ApiResponseError
           end
         end
+
+        it 'assigns correct value to @parse' do
+          expect(Responses::Errors.new(@errors_hash, false).parsed).eql? parsed_error_response
+        end
       end
 
       context 'when passed a hash with "errors" node as a hash' do
@@ -44,9 +50,9 @@ module Cb
     context '#parsed' do
       it 'returns an enumerable of strings' do
         errors = Responses::Errors.new(@errors_hash, false)
-        errors.parsed.respond_to?(:[])   .should eq true
-        errors.parsed.respond_to?(:count).should eq true
-        errors.parsed.respond_to?(:map)  .should eq true
+        expect(errors.parsed.respond_to?(:[]))   .to eq true
+        expect(errors.parsed.respond_to?(:count)).to eq true
+        expect(errors.parsed.respond_to?(:map))  .to eq true
       end
     end
 

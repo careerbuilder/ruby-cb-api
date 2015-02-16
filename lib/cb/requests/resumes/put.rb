@@ -46,7 +46,8 @@ module Cb
               employmentType: experience[:employment_type],
               startDate: experience[:start_date],
               endDate: experience[:end_date],
-              currentlyEmployedHere: experience[:currently_employed_here]
+              currentlyEmployedHere: experience[:currently_employed_here],
+              id: experience[:id]
             }
           end
         end
@@ -58,7 +59,7 @@ module Cb
             mostRecentPayAmount: salary[:most_recent_pay_amount],
             perHourOrPerYear: salary[:per_hour_or_per_year],
             currencyCode: salary[:currency_code],
-            jobTitle: salary[:job_title],
+            workExperienceId: salary[:work_experience_id],
             annualBonus: salary[:annual_bonus],
             annualCommission: salary[:annual_commission]
           }
@@ -69,8 +70,8 @@ module Cb
           args[:educations].collect do |education|
             {
               schoolName: education[:school_name],
-              majorOrProgram: education[:major],
-              degreeCode: education[:degree_code],
+              majorOrProgram: education[:major_or_program],
+              degree: education[:degree],
               graduationDate: education[:graduation_date]
             }
           end
