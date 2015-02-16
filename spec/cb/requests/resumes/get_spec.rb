@@ -4,9 +4,9 @@ module Cb
   describe Cb::Requests::Resumes::Get do
     let(:headers) {
       {
-        'DeveloperKey' => Cb.configuration.dev_key,
         'HostSite' => Cb.configuration.host_site,
-        'Content-Type' => 'application/json'
+        'Content-Type' => 'application/json',
+        "Authorization"=>"Bearer "
       }
     }
     describe '#new' do
