@@ -13,7 +13,7 @@ module Cb
         end
 
         it 'should have a basic query string' do
-          expect(request.query).to.nil?
+          expect(request.query).to eq(nil)
         end
 
         it 'should have basic headers' do
@@ -27,7 +27,7 @@ module Cb
         end
 
         it 'should have a body' do
-          expect(request.body).not_to.nil?
+          expect(request.body).not_to eq(nil)
         end
       end
 
