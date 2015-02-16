@@ -34,7 +34,7 @@ module Cb
 
 
         it 'will be correctly configured' do
-          request.endpoint_uri.should == Cb.configuration.uri_resume_get.sub(':resume_hash', 'resumeHash')
+          request.endpoint_uri.should == Cb.configuration.uri_resume_delete.sub(':resume_hash', 'resumeHash')
           request.http_method.should == :delete
         end
 
