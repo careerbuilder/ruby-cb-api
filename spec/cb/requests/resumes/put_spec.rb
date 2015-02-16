@@ -3,7 +3,6 @@ require 'support/mocks/resume'
 
 module Cb
   describe Cb::Requests::Resumes::Put do
-
     context 'initialize without arguments' do
       context 'without arguments' do
         let (:request) { Cb::Requests::Resumes::Put.new({}) }
@@ -20,9 +19,9 @@ module Cb
         it 'should have basic headers' do
           expect(request.headers).to eq(
             {
-              'DeveloperKey' => Cb.configuration.dev_key,
               'HostSite' => Cb.configuration.host_site,
-              'Content-Type' => 'application/json'
+              'Content-Type' => 'application/json',
+              'Authorization' => 'Bearer '
             }
           )
         end
@@ -46,9 +45,9 @@ module Cb
         it 'should have basic headers' do
           expect(@request.headers).to eq(
             {
-              'DeveloperKey' => Cb.configuration.dev_key,
               'HostSite' => Cb.configuration.host_site,
-              'Content-Type' => 'application/json'
+              'Content-Type' => 'application/json',
+              'Authorization' => 'Bearer '
             }
           )
         end

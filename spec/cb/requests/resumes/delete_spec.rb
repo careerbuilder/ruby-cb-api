@@ -34,7 +34,7 @@ module Cb
 
 
         it 'will be correctly configured' do
-          expect(request.endpoint_uri).to eq(Cb.configuration.uri_resume_get.sub(':resume_hash', 'resumeHash'))
+          expect(request.endpoint_uri).to eq(Cb.configuration.uri_resume_delete.sub(':resume_hash', 'resumeHash'))
           expect(request.http_method).to eq(:delete)
         end
 

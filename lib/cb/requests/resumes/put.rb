@@ -14,9 +14,9 @@ module Cb
 
         def headers
           {
-            'DeveloperKey' => Cb.configuration.dev_key,
             'HostSite' => Cb.configuration.host_site,
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
+            'Authorization' => three_scale_bearer_token
           }
         end
 
@@ -61,7 +61,7 @@ module Cb
             currencyCode: salary[:currency_code],
             workExperienceId: salary[:work_experience_id],
             annualBonus: salary[:annual_bonus],
-            annualCommission: salary[:annual_commission],
+            annualCommission: salary[:annual_commission]
           }
         end
 
@@ -88,7 +88,6 @@ module Cb
           }
         end
 
-
         def extract_relocations
           return [] unless args[:relocations]
           args[:relocations].collect do |relocate|
@@ -108,8 +107,11 @@ module Cb
             militaryExperience: government[:military_experience]
           }
         end
+
+        def three_scale_bearer_token
+          "Bearer #{args[:three_scale_token]}"
+        end
       end
     end
   end
 end
-
