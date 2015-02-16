@@ -19,7 +19,7 @@ module Cb
       end
 
       def required_fields
-        ['userIdentifier']
+        []
       end
 
       private

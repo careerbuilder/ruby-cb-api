@@ -14,9 +14,9 @@ module Cb
 
         def headers
           {
-            'DeveloperKey' => Cb.configuration.dev_key,
             'HostSite' => Cb.configuration.host_site,
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
+            'Authorization' => three_scale_bearer_token
           }
         end
 
@@ -106,6 +106,10 @@ module Cb
             hasSecurityClearance: government[:has_security_clearance],
             militaryExperience: government[:military_experience]
           }
+        end
+
+        def three_scale_bearer_token
+          "Bearer #{args[:three_scale_token]}"
         end
       end
     end
