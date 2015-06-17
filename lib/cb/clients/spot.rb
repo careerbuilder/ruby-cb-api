@@ -12,11 +12,6 @@ module Cb
 
         private
 
-        def retrieve_api_response(criteria)
-          params = api_client.class.criteria_to_hash criteria
-          api_client.cb_get(Cb.configuration.uri_spot_retrieve, :query => params)
-        end
-
         def api_client
           @api ||= Cb::Utils::Api.instance
         end

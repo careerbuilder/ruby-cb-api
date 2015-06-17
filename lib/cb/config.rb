@@ -80,7 +80,6 @@ module Cb
       @uri_subscription_retrieve          ||= '/v2/user/subscription/retrieve'
       @uri_subscription_modify            ||= '/v2/user/subscription'
       @uri_saved_job_search_create        ||= '/v2/savedsearch/create'
-      @uri_spot_retrieve                  ||= '/v2/spot/load'
       @uri_work_status_list               ||= '/v1/resume/workstatuslist'
       @uri_resume_get                     ||= '/cbapi/resumes/:resume_hash'
       @uri_resume_put                     ||= '/cbapi/resumes/:resume_hash'
