@@ -73,10 +73,6 @@ module Cb
       def anon_saved_search
         Cb::Clients::AnonSavedSearch
       end
-  
-      def spot
-        Cb::Clients::Spot
-      end
 
       def language_codes
         Cb::Clients::LanguageCodes

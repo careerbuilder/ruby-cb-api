@@ -103,19 +103,11 @@ module Cb
       end
     end
 
-
     context '#anon_saved_search' do
       it 'returns the anonymous saved search api client class' do
         expect_method_to_return_class(:anon_saved_search, Cb::Clients::AnonSavedSearch)
       end
     end
-
-    context '#spot' do
-      it 'returns the spot api client class' do
-        expect_method_to_return_class(:spot, Cb::Clients::Spot)
-      end
-    end
-
   end
 
 end
