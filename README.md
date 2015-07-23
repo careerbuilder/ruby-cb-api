@@ -158,6 +158,7 @@ The following data is available from a job
 * `begin_date`
 * `end_date`
 * `posted_date`
+* `posted_time`
 * `relevancy`
 * `state`
 * `city`

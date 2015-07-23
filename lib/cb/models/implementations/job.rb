@@ -10,7 +10,7 @@ module Cb
                     :location, :distance, :latitude, :longitude, :location_formatted, :location_metro_city,
                     :description, :requirements, :employment_type,
                     :details_url, :service_url, :similar_jobs_url, :apply_url,
-                    :begin_date, :end_date, :posted_date,
+                    :begin_date, :end_date, :posted_date, :posted_time,
                     :relevancy, :state, :city, :zip,
                     :can_be_quick_applied, :apply_requirements,
                     :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id,
@@ -112,6 +112,7 @@ module Cb
         # Job Search related
         @description_teaser           = args['DescriptionTeaser'] || ''
         @posted_date                  = args['PostedDate'] || ''
+        @posted_time                  = args['PostedTime'] || ''
         @distance                     = args['Distance'] || ''
         @details_url                  = args['JobDetailsURL'] || ''
         @service_url                  = args['JobServiceURL'] || ''
