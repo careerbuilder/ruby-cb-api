@@ -7,7 +7,7 @@ module Cb
     let(:headers) do
       {
         'HostSite' => Cb.configuration.host_site,
-        'Content-Type' => 'application/json',
+        'Content-Type' => 'application/json;version=1.0',
         'Authorization' => 'Bearer '
       }
     end

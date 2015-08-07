@@ -5,7 +5,7 @@ module Cb
     let(:headers) {
       {
           'DeveloperKey' => Cb.configuration.dev_key,
-          'Content-Type' => 'application/json'
+          'Content-Type' => 'application/json;version=1.0'
       }
     }
 

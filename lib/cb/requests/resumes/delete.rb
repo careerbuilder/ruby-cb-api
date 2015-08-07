@@ -22,7 +22,7 @@ module Cb
           {
             'DeveloperKey' => Cb.configuration.dev_key,
             'HostSite' => args[:host_site] || Cb.configuration.host_site,
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json;version=1.0'
           }
         end
       end

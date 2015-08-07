@@ -4,10 +4,11 @@ Version History
 ----
 
 * 18.0.0 Adding job search version 3 as additional call
+* 17.0.2 making sure we explicitly ask for version 1 of the consumer APIs
 * 17.0.1 adding posted_time and company_did to job results
 * 17.0.0 removed spot cms dependency
 * 16.3.0 changed api error response to use join instead of to_s
-* 16.2.2 change degree code to be degree which fixes compatibilty problems
+* 16.2.2 change degree code to be degree which fixes compatibility problems
 * 16.2.1 fix major or program in resume put. it was looking for the wrong value
 * 16.2.0 Added support for work experience ID in resume put
 * 16.1.0 Added support for handling a 401 unauthorized response. We should now raise specific UnauthorizedErrors.

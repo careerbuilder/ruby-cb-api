@@ -6,7 +6,7 @@ module Cb
       {
         'DeveloperKey' => Cb.configuration.dev_key,
         'HostSite' => Cb.configuration.host_site,
-        'Content-Type' => 'application/json'
+        'Content-Type' => 'application/json;version=1.0'
       }
     }
     describe '#new' do
