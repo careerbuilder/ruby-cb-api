@@ -1,4 +1,4 @@
-First things first. You're going to need to get a developer key from Careerbuilder. To do this, you can reach out to the Partner Team at http://developer.careerbuilder.com/partner_messages/new and request a Developer key.
+First things first. You're going to need to get a developer key from Careerbuilder. Developer keys are available to Partners. You can fill out the form at http://developer.careerbuilder.com/partner_messages/new to become a partner.
 
 Now that you have a key, lets get to the good stuff.
 
