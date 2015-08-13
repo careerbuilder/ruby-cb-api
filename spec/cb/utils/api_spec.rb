@@ -6,6 +6,12 @@ module Cb
       let(:api) { Api.instance }
       let(:path) { '/moom' }
       let(:options) { {} }
+      let(:observer) { Mocks::Observer.new }
+
+      before do
+        allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
+        allow(Mocks::Observer).to receive(:new).and_return(observer)
+      end
 
       describe '#factory' do
         it 'returns a new instance of the api class' do
@@ -13,10 +19,6 @@ module Cb
         end
 
         context 'when we have observers' do
-          before do
-            allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
-          end
-
           it 'returns an instance of Api with the observers attached' do
             expect(Mocks::Observer).to receive(:new)
             expect_any_instance_of(Cb::Utils::Api).to receive(:add_observer)
@@ -28,17 +30,15 @@ module Cb
       describe '#cb_get' do
         context 'when we have observers' do
           let(:response) { { success: 'yeah' } }
-          let(:observer) { Mocks::Observer.new }
 
           before do
-            allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
             allow(Api).to receive(:get).with(path, options).and_return(response)
-            allow(Mocks::Observer).to receive(:new).and_return(observer)
           end
 
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(2).times
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), 0).at_most(1).times
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(1).times
             api.cb_get(path)
           end
         end
@@ -72,23 +72,20 @@ module Cb
             api.cb_get(path)
           end
         end
-
       end
 
       describe '#cb_post' do
         context 'when we have observers' do
           let(:response) { { success: 'yeah' } }
-          let(:observer) { Mocks::Observer.new }
 
           before do
-            allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
             allow(Api).to receive(:post).with(path, options).and_return(response)
-            allow(Mocks::Observer).to receive(:new).and_return(observer)
           end
 
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(2).times
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), 0).at_most(1).times
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(1).times
             api.cb_post(path)
           end
         end
@@ -127,17 +124,15 @@ module Cb
       describe '#cb_put' do
         context 'when we have observers' do
           let(:response) { { success: 'yeah' } }
-          let(:observer) { Mocks::Observer.new }
 
           before do
-            allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
             allow(Api).to receive(:put).with(path, options).and_return(response)
-            allow(Mocks::Observer).to receive(:new).and_return(observer)
           end
 
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(2).times
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), 0).at_most(1).times
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(1).times
             api.cb_put(path)
           end
         end
@@ -177,17 +172,15 @@ module Cb
       describe '#cb_delete' do
         context 'when we have observers' do
           let(:response) { { success: 'yeah' } }
-          let(:observer) { Mocks::Observer.new }
 
           before do
-            allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
             allow(Api).to receive(:delete).with(path, options).and_return(response)
-            allow(Mocks::Observer).to receive(:new).and_return(observer)
           end
 
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(2).times
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), 0).at_most(1).times
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(1).times
             api.cb_delete(path)
           end
         end
@@ -230,13 +223,12 @@ module Cb
             let(:response) { { success: 'yeah' } }
 
             before do
-              allow(Cb.configuration).to receive(:observers).and_return(Array(Mocks::Observer))
               allow(Api).to receive(:delete).with(path, options).and_return(response)
             end
 
             it 'will notify the observers' do
               expect(api).to receive(:notify_observers).twice.and_call_original
-              expect_any_instance_of(Mocks::Observer).to receive(:update).at_most(2).times
+              expect(observer).to receive(:update).at_most(2).times
               api.execute_http_request(:delete, nil, path)
             end
           end

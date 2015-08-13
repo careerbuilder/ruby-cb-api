@@ -46,9 +46,10 @@ module Cb
 
       def execute_http_request(http_method, uri, path, options={}, &block)
         self.class.base_uri(uri || Cb.configuration.base_uri)
-        cb_event(:"cb_#{http_method.to_s}_before", path, options, nil, &block)
+        start_time = Time.now.to_f
+        cb_event(:"cb_#{http_method.to_s}_before", path, options, nil, start_time - start_time, &block)
         response = self.class.method(http_method).call(path, options)
-        cb_event(:"cb_#{http_method.to_s}_after", path, options, response, &block)
+        cb_event(:"cb_#{http_method.to_s}_after", path, options, response, Time.now.to_f - start_time, &block)
         validate_response(response)
       end
 
@@ -110,12 +111,11 @@ module Cb
         Cb::Models::ApiCall.new(api_call_type, path, options, response)
       end
 
-      def cb_event(api_call_type, path, options, response, &block)
-        start_time = Time.now.to_f
+      def cb_event(api_call_type, path, options, response, time_elapsed, &block)
         call_model = api_call_model(api_call_type, path, options, response)
         block.call(call_model) if block_given?
         changed(true)
-        notify_observers(call_model, Time.now.to_f - start_time)
+        notify_observers(call_model, time_elapsed)
       end
 
       def ensure_non_nil_metavalues(obj)
