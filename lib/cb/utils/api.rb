@@ -111,10 +111,11 @@ module Cb
       end
 
       def cb_event(api_call_type, path, options, response, &block)
+        start_time = Time.now.to_f
         call_model = api_call_model(api_call_type, path, options, response)
         block.call(call_model) if block_given?
         changed(true)
-        notify_observers(call_model)
+        notify_observers(call_model, Time.now.to_f - start_time)
       end
 
       def ensure_non_nil_metavalues(obj)
