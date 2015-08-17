@@ -48,9 +48,16 @@ module Cb
       expect(validation.empty?).to be_truthy
     end
 
-    it 'should raise a ServiceUnavailableError when status code is 503' do
-      allow(response).to receive(:code).and_return 503
-      expect{ ResponseValidator.validate(response) }.to raise_error(Cb::ServiceUnavailableError)
+    context 'raises a ServiceUnavailableError' do
+      it 'when status code is 503' do
+        allow(response).to receive(:code).and_return 503
+        expect { ResponseValidator.validate(response) }.to raise_error(Cb::ServiceUnavailableError)
+      end
+
+      it 'when simulation flag is turned on via ENV' do
+        allow(ENV).to receive(:[]).and_return 'true'
+        expect { ResponseValidator.validate(response) }.to raise_error(Cb::ServiceUnavailableError)
+      end
     end
 
     it 'should raise an UnauthorizedError when status code is 401' do
