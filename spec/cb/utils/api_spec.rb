@@ -38,8 +38,10 @@ module Cb
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_get_before", '/moom', {},
+                                                              { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
                                                               nil, 0.0).at_most(1).times.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_get_after", '/moom', {},
+                                                              { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
                                                               { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
             expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
             api.cb_get(path)
@@ -88,8 +90,10 @@ module Cb
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_post_before", '/moom', {},
+                                                              { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
                                                               nil, 0.0).at_most(1).times.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_post_after", '/moom', {},
+                                                              { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
                                                               { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
             expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
             api.cb_post(path)
@@ -138,8 +142,10 @@ module Cb
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_put_before", '/moom', {},
+                                                              { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
                                                               nil, 0.0).at_most(1).times.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_put_after", '/moom', {},
+                                                              { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
                                                               { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
             expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
             api.cb_put(path)
@@ -189,8 +195,10 @@ module Cb
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_delete_before", '/moom', {},
+                                                              { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
                                                               nil, 0.0).at_most(1).times.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_delete_after", '/moom', {},
+                                                              { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
                                                               { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
             expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
             api.cb_delete(path)
