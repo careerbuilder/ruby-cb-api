@@ -46,9 +46,10 @@ module Cb
 
       def execute_http_request(http_method, uri, path, options={}, &block)
         self.class.base_uri(uri || Cb.configuration.base_uri)
-        cb_event(:"cb_#{http_method.to_s}_before", path, options, nil, &block)
+        start_time = Time.now.to_f
+        cb_event(:"cb_#{ http_method }_before", path, options, nil, 0.0, &block)
         response = self.class.method(http_method).call(path, options)
-        cb_event(:"cb_#{http_method.to_s}_after", path, options, response, &block)
+        cb_event(:"cb_#{ http_method }_after", path, options, response, Time.now.to_f - start_time, &block)
         validate_response(response)
       end
 
@@ -106,12 +107,12 @@ module Cb
         validated_response
       end
 
-      def api_call_model(api_call_type, path, options, response)
-        Cb::Models::ApiCall.new(api_call_type, path, options, response)
+      def api_call_model(api_call_type, path, options, response, time_elapsed)
+        Cb::Models::ApiCall.new(api_call_type, path, options, response, time_elapsed)
       end
 
-      def cb_event(api_call_type, path, options, response, &block)
-        call_model = api_call_model(api_call_type, path, options, response)
+      def cb_event(api_call_type, path, options, response, time_elapsed, &block)
+        call_model = api_call_model(api_call_type, path, options, response, time_elapsed)
         block.call(call_model) if block_given?
         changed(true)
         notify_observers(call_model)
