@@ -37,8 +37,11 @@ module Cb
 
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), 0).at_most(1).times
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(1).times
+            expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_get_before", '/moom', {},
+                                                              nil, 0.0).at_most(1).times.and_call_original
+            expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_get_after", '/moom', {},
+                                                              { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
             api.cb_get(path)
           end
         end
@@ -84,8 +87,11 @@ module Cb
 
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), 0).at_most(1).times
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(1).times
+            expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_post_before", '/moom', {},
+                                                              nil, 0.0).at_most(1).times.and_call_original
+            expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_post_after", '/moom', {},
+                                                              { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
             api.cb_post(path)
           end
         end
@@ -131,8 +137,11 @@ module Cb
 
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), 0).at_most(1).times
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(1).times
+            expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_put_before", '/moom', {},
+                                                              nil, 0.0).at_most(1).times.and_call_original
+            expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_put_after", '/moom', {},
+                                                              { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
             api.cb_put(path)
           end
         end
@@ -179,8 +188,11 @@ module Cb
 
           it 'will notify the observers' do
             expect(api).to receive(:notify_observers).twice.and_call_original
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), 0).at_most(1).times
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall), instance_of(Float)).at_most(1).times
+            expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_delete_before", '/moom', {},
+                                                              nil, 0.0).at_most(1).times.and_call_original
+            expect(Cb::Models::ApiCall).to receive(:new).with(:"cb_delete_after", '/moom', {},
+                                                              { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
             api.cb_delete(path)
           end
         end
