@@ -1,4 +1,4 @@
-First things first. You're going to need to get a developer key from Careerbuilder. You can obtain a key at http://api.careerbuilder.com/RequestDevKey.aspx.
+First things first. You're going to need to get a developer key from Careerbuilder. Developer keys are available to Partners. You can fill out the form at http://developer.careerbuilder.com/partner_messages/new to become a Partner.
 
 Now that you have a key, lets get to the good stuff.
 
@@ -25,7 +25,7 @@ Set your dev key, and any other configuration settings in a place that will run 
       config.dev_key  	= 'your-dev-key-goes-here'
       config.time_out 	= 5
     end
-    
+
 Available Endpoints
 ================
 https://github.com/cbdr/ruby-cb-api/blob/master/lib/cb/config.rb
@@ -64,7 +64,7 @@ Which encapsulates details of the search result
     search_result.city
     search_result.state
     search_result.postal_code
-    search_result.search_location 
+    search_result.search_location
 
 As well as returning back the jobs from the search result (`Cb::Models::Job` instances)
 
