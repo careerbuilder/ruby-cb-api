@@ -20,7 +20,7 @@ module Cb
         private
 
         def root_node
-          'APIResult'
+          'ResponseJobSearch'
         end
       end
     end
