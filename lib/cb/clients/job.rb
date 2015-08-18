@@ -9,11 +9,6 @@ module Cb
           response = api_client.cb_get(Cb.configuration.uri_job_search, query: args)
           Cb::Responses::Job::Search.new(response)
         end
-        
-        def search_v3(args)
-          response = api_client.cb_get(Cb.configuration.uri_job_search_v3, query: args)
-          Cb::Responses::Job::SearchV3.new(response)
-        end
 
         def find_by_criteria(criteria)
           query = api_client.class.criteria_to_hash(criteria)
