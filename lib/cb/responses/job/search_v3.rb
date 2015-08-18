@@ -10,17 +10,17 @@ module Cb
         end
 
         def hash_containing_metadata
-          'ResponseJobSearch'
+          'search_metadata'
         end
 
         def extract_models
-          Models::JobResultsV3.new(response[root_node])
+          Models::JobResultsV3.new(response)
         end
 
         private
 
         def root_node
-          'ResponseJobSearch'
+          'data'
         end
       end
     end
