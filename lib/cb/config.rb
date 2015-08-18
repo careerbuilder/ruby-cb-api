@@ -47,7 +47,7 @@ module Cb
       @uri_employee_types                 ||= '/v1/employeetypes'
       @uri_company_find                   ||= '/Employer/CompanyDetails'
       @uri_job_search                     ||= '/v1/JobSearch'
-      @uri_job_search_v3                  ||= '/jobsearch/jobs'
+      @uri_job_search_v3                  ||= '/consumer/jobs/search/'
       @uri_job_find                       ||= '/v3/Job'
       @uri_education_code                 ||= '/v1/EducationCodes'
       @uri_recommendation_for_job         ||= '/v1/Recommendations/ForJob'
