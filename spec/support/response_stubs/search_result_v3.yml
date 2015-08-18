@@ -1,4 +1,4 @@
-APIResult:
+ResponseJobSearch:
   total_pages: 12
   total_count: 285
   first_item_index: 0
