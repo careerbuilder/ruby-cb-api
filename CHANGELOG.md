@@ -3,7 +3,10 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
-* 17.1.0 Adding job search version 3 as additional call
+* 17.4.0 Adding job search version 3 as additional call
+* 17.3.0 Set `ENV['SIMULATE_AUTH_OUTAGE']` to true to throw a `Cb::ServiceUnavailableError` for all API calls.
+* 17.2.0 Give back more information about the API caller for timings
+* 17.1.0 Start sending timings to all observers for API calls
 * 17.0.2 making sure we explicitly ask for version 1 of the consumer APIs
 * 17.0.1 adding posted_time and company_did to job results
 * 17.0.0 removed spot cms dependency

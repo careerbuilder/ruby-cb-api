@@ -15,7 +15,7 @@ module  Cb
           {
             'Authorization' => args[:three_scale_token] == nil ? '' : "Bearer #{args[:three_scale_token]}",
             'HostSite' => args[:host_site] || Cb.configuration.host_site,
-            'Accept' => 'version=v3'
+            'Accept' => 'applicatin/json;version=v3'
           }
         end
       end
