@@ -10,7 +10,7 @@ module Cb
         end
 
         def hash_containing_metadata
-          nil
+          'ResponseJobSearch'
         end
 
         def extract_models
