@@ -1,78 +1,77 @@
-ResponseJobSearch:
-  total_pages: 12
-  total_count: 285
-  first_item_index: 0
-  last_item_index: 284
-  facets:
-    -
-      facet:
-        -
-          type: 'City'
-          items:
-            -
-              item:
-                -
-                  request_value: 'Atlanta'
-                  display_value: 'Atlanta'
-                  count: 1
-  data:
-    number_groups: ''
-    grouping_parameter: ''
-    GroupedJobResult:
-      number_jobs_in_group: 5
-      grouping_value:
-        results:
+total_pages: 12
+total_count: 285
+first_item_index: 0
+last_item_index: 284
+facets:
+  -
+    facet:
+      -
+        type: 'City'
+        items:
           -
-            jobResult:
-              company_name: 'Jerbs Inc.'
-              company_id: ''
-              id: 'CW12377908'
-              onet15_code: ''
-              onet15_friendly_title: ''
-              description_teaser: ''
-              distance: ''
-              employment_type: ''
-              education_required: ''
-              experience_required: ''
-              job_details_url: ''
-              location: ''
-              display_city: ''
-              city: ''
-              admin_area_1: ''
-              latitude: ''
-              longitude: ''
-              date_posted: ''
-              pay: ''
-              job_title: ''
-              apply_requirements:
-                -
-                  apply_requirement: ''
-              skills: ''
-              job_level: ''
-    search_metadata:
-      results_altered_by_users_search_preferences: true
-      search_locations:
+            item:
+              -
+                request_value: 'Atlanta'
+                display_value: 'Atlanta'
+                count: 1
+data:
+  number_groups: ''
+  grouping_parameter: ''
+  GroupedJobResult:
+    number_jobs_in_group: 5
+    grouping_value:
+      results:
         -
-          search_location:
+          jobResult:
+            company_name: 'Jerbs Inc.'
+            company_id: ''
+            id: 'CW12377908'
+            onet15_code: ''
+            onet15_friendly_title: ''
+            description_teaser: ''
+            distance: ''
+            employment_type: ''
+            education_required: ''
+            experience_required: ''
+            job_details_url: ''
+            location: ''
+            display_city: ''
             city: ''
             admin_area_1: ''
-            country_code: ''
-            postal_code: ''
-            radius: 25
-            valid: true
-    forensics:
-      request:
-        cobrand: ''
-        ipath: ''
-        count_limit: ''
-        page_number: ''
-        per_page: ''
-        host_site: ''
-        language: ''
-        user_id: ''
-        request_evidence_id: ''
-        reveal: ''
-      server_url: ''
-      ad_hoc_parameters : ''
-      solr_query: ''
-      solr_filters: ''
+            latitude: ''
+            longitude: ''
+            date_posted: ''
+            pay: ''
+            job_title: ''
+            apply_requirements:
+              -
+                apply_requirement: ''
+            skills: ''
+            job_level: ''
+  search_metadata:
+    results_altered_by_users_search_preferences: true
+    search_locations:
+      -
+        search_location:
+          city: ''
+          admin_area_1: ''
+          country_code: ''
+          postal_code: ''
+          radius: 25
+          valid: true
+  forensics:
+    request:
+      cobrand: ''
+      ipath: ''
+      count_limit: ''
+      page_number: ''
+      per_page: ''
+      host_site: ''
+      language: ''
+      user_id: ''
+      request_evidence_id: ''
+      reveal: ''
+    server_url: ''
+    ad_hoc_parameters : ''
+    solr_query: ''
+    solr_filters: ''
