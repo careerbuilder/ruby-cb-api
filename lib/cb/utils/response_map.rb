@@ -39,6 +39,8 @@ module Cb
             Cb::Requests::EmailSubscription::Retrieve => Cb::Responses::EmailSubscription::Response,
             Cb::Requests::EmailSubscription::Modify => Cb::Responses::EmailSubscription::Response,
 
+            Cb::Requests::JobSearch::Get => Cb::Responses::Job::SearchV3,
+
             Cb::Requests::Recommendations::Resume => Cb::Responses::Recommendations,
 
             Cb::Requests::Resumes::Get => Cb::Responses::Resume,
