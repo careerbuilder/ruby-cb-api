@@ -1,0 +1,12 @@
+#Rubocop config to keep in line with our changes to the style guide
+Encoding:
+  Enabled: false
+
+LineLength:
+  Max: 200
+
+CommentAnnotation:
+  Enabled: false
+
+Documentation:
+  Enabled: false
