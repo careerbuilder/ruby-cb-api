@@ -22,6 +22,7 @@ module  Cb
         def query
           args.except(:three_scale_token)
         end
+        
       end
     end
   end
