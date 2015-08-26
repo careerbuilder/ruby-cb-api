@@ -1,8 +1,17 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb
   describe Cb::Requests::EmailSubscription::Modify do
-
     describe '#new' do
       context 'without arguments' do
         before(:each) { @request = Cb::Requests::EmailSubscription::Modify.new({}) }
@@ -23,7 +32,7 @@ module Cb
         it 'should have a basic body' do
           expect(@request.body).to eq <<eos
 <Request>
-<DeveloperKey>#{Cb.configuration.dev_key.to_s}</DeveloperKey>
+<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
 <ExternalID></ExternalID>
 <Hostsite></Hostsite>
 <CareerResources></CareerResources>
@@ -41,18 +50,16 @@ eos
 
       context 'with arguments' do
         before :each do
-          @request = Cb::Requests::EmailSubscription::Modify.new({
-            external_id: 'external id',
-            host_site: 'host site',
-            career_resources: 'career resources',
-            product_sponsor_info: 'product sponsor info',
-            applicant_survey_invites: 'applicant survey invites',
-            job_recs: 'job recs',
-            djr: 'djr',
-            resume_viewed: 'resume viewed',
-            application_viewed: 'application viewed',
-            unsubscribe_all: 'unsubscribe all'
-          })
+          @request = Cb::Requests::EmailSubscription::Modify.new(external_id: 'external id',
+                                                                 host_site: 'host site',
+                                                                 career_resources: 'career resources',
+                                                                 product_sponsor_info: 'product sponsor info',
+                                                                 applicant_survey_invites: 'applicant survey invites',
+                                                                 job_recs: 'job recs',
+                                                                 djr: 'djr',
+                                                                 resume_viewed: 'resume viewed',
+                                                                 application_viewed: 'application viewed',
+                                                                 unsubscribe_all: 'unsubscribe all')
         end
 
         it 'should be correctly configured' do
@@ -71,7 +78,7 @@ eos
         it 'should have a basic body' do
           expect(@request.body).to eq <<eos
 <Request>
-<DeveloperKey>#{Cb.configuration.dev_key.to_s}</DeveloperKey>
+<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
 <ExternalID>external id</ExternalID>
 <Hostsite>host site</Hostsite>
 <CareerResources>career resources</CareerResources>
@@ -89,18 +96,16 @@ eos
 
       context 'ensure unsubscribe all works' do
         before :each do
-          @request = Cb::Requests::EmailSubscription::Modify.new({
-            external_id: 'external id',
-            host_site: 'host site',
-            career_resources: 'career resources',
-            product_sponsor_info: 'product sponsor info',
-            applicant_survey_invites: 'applicant survey invites',
-            job_recs: 'job recs',
-            djr: 'djr',
-            resume_viewed: 'resume viewed',
-            application_viewed: 'application viewed',
-            unsubscribe_all: 'true'
-          })
+          @request = Cb::Requests::EmailSubscription::Modify.new(external_id: 'external id',
+                                                                 host_site: 'host site',
+                                                                 career_resources: 'career resources',
+                                                                 product_sponsor_info: 'product sponsor info',
+                                                                 applicant_survey_invites: 'applicant survey invites',
+                                                                 job_recs: 'job recs',
+                                                                 djr: 'djr',
+                                                                 resume_viewed: 'resume viewed',
+                                                                 application_viewed: 'application viewed',
+                                                                 unsubscribe_all: 'true')
         end
 
         it 'should be correctly configured' do
@@ -119,7 +124,7 @@ eos
         it 'should have a basic body' do
           expect(@request.body).to eq <<eos
 <Request>
-<DeveloperKey>#{Cb.configuration.dev_key.to_s}</DeveloperKey>
+<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
 <ExternalID>external id</ExternalID>
 <Hostsite>host site</Hostsite>
 <CareerResources>false</CareerResources>

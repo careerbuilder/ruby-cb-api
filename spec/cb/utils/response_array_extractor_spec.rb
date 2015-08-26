@@ -1,15 +1,26 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb
   module Utils
     describe ResponseArrayExtractor do
-
       context 'When a response hash contains a collection that only has one item' do
-        let(:response_hash) {{
-          'Animals' => {
-            'Animal' => 'Moose'
+        let(:response_hash) do
+          {
+            'Animals' => {
+              'Animal' => 'Moose'
+            }
           }
-        }}
+        end
 
         it 'an array with the single item should be returned' do
           animals = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Animals')
@@ -20,11 +31,13 @@ module Cb
       end
 
       context 'When a response hash contains a collection that hash multiple items' do
-        let(:response_hash) {{ 
-          'Animals' => { 
-            'Animal' => ['Moose', 'Kitty'] 
-          } 
-        }}
+        let(:response_hash) do
+          {
+            'Animals' => {
+              'Animal' => %w(Moose Kitty)
+            }
+          }
+        end
 
         it 'an array with multiple items should be returned' do
           animals = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Animals')
@@ -32,7 +45,7 @@ module Cb
           expect(animals.count).to eq(2)
           expect(animals[0]).to eq('Moose')
           expect(animals[1]).to eq('Kitty')
-        end 
+        end
       end
 
       context 'When an optional singular key is provided' do
@@ -54,9 +67,11 @@ module Cb
       end
 
       context 'When a response hash contains a single item' do
-        let(:response_hash) {{
+        let(:response_hash) do
+          {
             'Hello' => 'world'
-        }}
+          }
+        end
         it 'an array of a single item should be returned' do
           test = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Hello')
           expect(test.class).to eq(Array)
@@ -66,9 +81,11 @@ module Cb
       end
 
       context 'When a response hash contains a list of items' do
-        let(:response_hash) {{
+        let(:response_hash) do
+          {
             'Hello' => 'world,this,is,awesome'
-        }}
+          }
+        end
         it 'an array of items should be returned' do
           test = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Hello')
           expect(test.class).to eq(Array)
@@ -81,9 +98,9 @@ module Cb
       end
 
       context 'When a response hash contains a single item and not a hash' do
-        let(:response_hash) {
+        let(:response_hash) do
           'hello'
-        }
+        end
         it 'an array of items should be returned' do
           test = Cb::Utils::ResponseArrayExtractor.extract(response_hash, 'Hello')
           expect(test.class).to eq(Array)
@@ -91,7 +108,6 @@ module Cb
           expect(test).to eq([])
         end
       end
-
     end
   end
 end

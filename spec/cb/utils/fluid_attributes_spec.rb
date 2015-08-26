@@ -1,3 +1,13 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 require 'support/mocks/fluid_attributes_extended'
 
@@ -13,7 +23,7 @@ module Cb
 
       it 'returns the attr being set' do
         expect(
-            fluid_obj.some_attr = 'some value'
+          fluid_obj.some_attr = 'some value'
         ).to eq 'some value'
       end
     end
@@ -35,6 +45,5 @@ module Cb
         expect(fluid_obj.another_attr).to eq 'val2'
       end
     end
-
   end
 end

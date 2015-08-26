@@ -1,3 +1,13 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'cb/responses/user/retrieve'
 
 module Cb
@@ -6,7 +16,7 @@ module Cb
       {
         'Errors' => '',
         'ResponseUserInfo' => {
-            'Request' => "HEY"
+          'Request' => 'HEY'
         }
       }
     end
@@ -18,11 +28,11 @@ module Cb
 
       context 'when input response hash cannot be validated due to' do
         context 'missing password node' do
-          let(:json_hash) do { 'yey' => 'wow' } end
+          let(:json_hash) { { 'yey' => 'wow' } }
 
           it 'raises an error' do
-            expect { Responses::User::Retrieve.new(json_hash) }.
-              to raise_error ExpectedResponseFieldMissing
+            expect { Responses::User::Retrieve.new(json_hash) }
+              .to raise_error ExpectedResponseFieldMissing
           end
         end
       end

@@ -1,3 +1,13 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb
@@ -19,9 +29,8 @@ module Cb
           phone = '706-123-4567'
           created = Time.now
           gender = 'male'
-          birth_date = Date.today-40
+          birth_date = Date.today - 40
           work_status = 'US Citizen'
-
 
           user = Cb::Models::User.new(
             'ResponseExternalID' => external_id,
@@ -74,26 +83,25 @@ module Cb
           phone = '706-123-4567'
           created = Time.now
           gender = 'male'
-          birth_date = Date.today-40
+          birth_date = Date.today - 40
           work_status = 'US Citizen'
 
-
           user = Cb::Models::User.new(
-              'ResponseExternalID' => external_id,
-              'UserStatus' => user_status,
-              'Email' => email,
-              'Address1' => address_1,
-              'City' => city,
-              'State' => state,
-              'PostalCode' => postal_code,
-              'CountryCode' => country_code,
-              'FirstName' => first_name,
-              'LastName' => last_name,
-              'Phone' => phone,
-              'CreatedDT' => created,
-              'Gender' => gender,
-              'BirthDate' => birth_date,
-              'WorkStatus' => work_status)
+            'ResponseExternalID' => external_id,
+            'UserStatus' => user_status,
+            'Email' => email,
+            'Address1' => address_1,
+            'City' => city,
+            'State' => state,
+            'PostalCode' => postal_code,
+            'CountryCode' => country_code,
+            'FirstName' => first_name,
+            'LastName' => last_name,
+            'Phone' => phone,
+            'CreatedDT' => created,
+            'Gender' => gender,
+            'BirthDate' => birth_date,
+            'WorkStatus' => work_status)
 
           expect(user.external_id).to eq(external_id)
           expect(user.user_status).to eq(user_status)
@@ -112,7 +120,7 @@ module Cb
           expect(user.work_status).to eq(work_status)
         end
       end
-      
+
       context 'when no args provided' do
         it 'should create an empty user model' do
           user = Cb::Models::User.new
@@ -152,14 +160,14 @@ module Cb
 
     context '.custom_value' do
       it 'should successfully find custom value' do
-        user = Cb::Models::User.new('CustomValues' => {'CustomValue' => {'Key' => 'CustomKey', 'Value' => 'CustomVal'}})
+        user = Cb::Models::User.new('CustomValues' => { 'CustomValue' => { 'Key' => 'CustomKey', 'Value' => 'CustomVal' } })
 
         expect(user.custom_value('CustomKey')).to be == 'CustomVal'
         expect(user.custom_value('CustomKeyDoesNotExist').nil?).to be true
       end
 
       it 'should successfully find custom value in user with multiple custom values' do
-        user = Cb::Models::User.new('CustomValues' => {'CustomValue' => [{'Key' => 'CustomKey', 'Value' => 'CustomVal'}, {'Key' => 'CustomKey2', 'Value' => 'CustomVal2'}]})
+        user = Cb::Models::User.new('CustomValues' => { 'CustomValue' => [{ 'Key' => 'CustomKey', 'Value' => 'CustomVal' }, { 'Key' => 'CustomKey2', 'Value' => 'CustomVal2' }] })
 
         expect(user.custom_value('CustomKey')).to be == 'CustomVal'
         expect(user.custom_value('CustomKey2')).to be == 'CustomVal2'

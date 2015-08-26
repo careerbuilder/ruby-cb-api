@@ -1,23 +1,33 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb
   describe Responses::Education::Get do
     let(:json_hash) do
       {
-        "ResponseEducationCodes" => {
-          "Errors" => nil,
-          "CountryCode" => "US",
-          "TimeResponseSent" => "6/2/2014 10:32:44 AM",
-          "EducationCodes" => {
-            "Education" => [
+        'ResponseEducationCodes' => {
+          'Errors' => nil,
+          'CountryCode' => 'US',
+          'TimeResponseSent' => '6/2/2014 10:32:44 AM',
+          'EducationCodes' => {
+            'Education' => [
               {
-                "Code" => "DRNS","Name" => {"@language" => "en-US","#text" => "Not Specified"}
+                'Code' => 'DRNS', 'Name' => { '@language' => 'en-US', '#text' => 'Not Specified' }
               },
               {
-                "Code" => "DR3210","Name" => {"@language" => "en-US","#text" => "None"}
+                'Code' => 'DR3210', 'Name' => { '@language' => 'en-US', '#text' => 'None' }
               },
               {
-                "Code" => "DR3211","Name" => {"@language" => "en-US","#text" => "High School"}
+                'Code' => 'DR3211', 'Name' => { '@language' => 'en-US', '#text' => 'High School' }
               }
             ]
           }
@@ -49,7 +59,6 @@ module Cb
         expect(models[2].text).to eq('High School')
         expect(models[2].language).to eq('en-US')
       end
-
     end
   end
 end
