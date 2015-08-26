@@ -5,6 +5,8 @@ Now that you have a key, lets get to the good stuff.
 You can find an example rails site that uses the gem here:
 https://github.com/cbdr/ruby-cb-api-demo
 
+If you are interested in helping out / contributing to this project please read [CONTRIBUTING guide](https://github.com/cbdr/ruby-cb-api/blob/master/CONTRIBUTING.md)
+
 Installation
 ================
 

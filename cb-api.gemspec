@@ -1,4 +1,4 @@
-$:.push File.expand_path('../lib', __FILE__)
+$LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 require 'cb/version'
 
@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://api.careerbuilder.com'
   s.summary     = 'Ruby wrapper around Careerbuilder Public API.'
   s.description = 'Ruby wrapper for Careerbuilder Public API.'
-  s.license     = 'MIT'
+  s.license     = 'Apache-2.0'
 
   s.files        = Dir['{lib}/**/*', 'LICENSE', '*.md']
   s.require_path = 'lib'
