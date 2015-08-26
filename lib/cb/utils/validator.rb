@@ -1,9 +1,18 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'json'
 require 'nori'
 
 module Cb
   module ResponseValidator
-    
     class << self
       def validate(response)
         raise_response_code_errors(response)
@@ -14,8 +23,8 @@ module Cb
 
       def raise_response_code_errors(response)
         code = response.code rescue nil
-        raise Cb::ServiceUnavailableError if (code == 503 || simulate_auth_outage?)
-        raise Cb::UnauthorizedError if code == 401
+        fail Cb::ServiceUnavailableError if code == 503 || simulate_auth_outage?
+        fail Cb::UnauthorizedError if code == 401
       end
 
       def simulate_auth_outage?
@@ -24,31 +33,24 @@ module Cb
 
       def process_response_body(response)
         body = response.response.body rescue nil
-        return Hash.new if !body
+        return {} unless body
 
-        if response.code != 200
-          return Hash.new if body.include?('<!DOCTYPE html')
-        end
-        
+        return {} if body.include?('<!DOCTYPE html') if response.code != 200
+
         try_parse_json(body) || try_parse_xml(body) || {}
       end
 
       def try_parse_json(body)
-        begin
-          JSON.parse(body)
-        rescue JSON::ParserError
-          nil
-        end
+        JSON.parse(body)
+      rescue JSON::ParserError
+        nil
       end
 
       def try_parse_xml(body)
-        begin
-          MultiXml.parse(body, KeepRoot: true)
-        rescue MultiXml::ParseError
-          nil
-        end
+        MultiXml.parse(body, KeepRoot: true)
+      rescue MultiXml::ParseError
+        nil
       end
     end
-    
   end
 end

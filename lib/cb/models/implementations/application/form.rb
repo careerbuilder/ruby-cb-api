@@ -1,7 +1,16 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 module Cb
   module Models
     class Application < ApiResponseModel
-
       class Form < ApiResponseModel
         attr_reader :job_did, :job_title, :is_shared_apply, :question_list, :requirements,
                     :degree_required, :travel_required, :experience_required, :external_application,
@@ -31,7 +40,7 @@ module Cb
         end
 
         def extracted_questions
-          questions = iterable_questions? ? response_questions : Array.new
+          questions = iterable_questions? ? response_questions : []
           questions.map { |question_hash| Question.new(question_hash) }
         end
 
@@ -66,7 +75,7 @@ module Cb
         end
 
         def extracted_answers
-          answers = iterable_answers? ? response_answers : Array.new
+          answers = iterable_answers? ? response_answers : []
           answers.map { |answer_hash| Answer.new(answer_hash) }
         end
 
@@ -79,7 +88,7 @@ module Cb
         end
 
         def extracted_int_or_nil(key)
-          api_response.has_key?(key) ? api_response[key].to_i : nil
+          api_response.key?(key) ? api_response[key].to_i : nil
         end
       end
 
@@ -98,7 +107,6 @@ module Cb
           @question_id = api_response['QuestionID']
         end
       end
-
     end
   end
 end

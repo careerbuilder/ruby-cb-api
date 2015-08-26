@@ -1,7 +1,16 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 module Cb
   module Convenience
     module ClassMethods
-
       def api_client
         Cb::Utils::Api
       end
@@ -13,7 +22,7 @@ module Cb
       def job_details_criteria
         Cb::Criteria::Job::Details.new
       end
-  
+
       def category
         Cb::Clients::Category
       end
@@ -25,7 +34,7 @@ module Cb
       def company
         Cb::Clients::Company
       end
-  
+
       def education_code
         Cb::Clients::Education
       end
@@ -33,43 +42,43 @@ module Cb
       def employee_types
         Cb::Clients::EmployeeTypes
       end
-  
+
       def recommendation
         Cb::Clients::Recommendation
       end
-  
+
       def application
         Cb::Clients::Application
       end
-  
+
       def application_external
         Cb::Clients::ApplicationExternal
       end
-  
+
       def country
         Cb::Utils::Country
       end
-  
+
       def user
         Cb::Clients::User
       end
-  
+
       def job_branding
         Cb::Clients::JobBranding
       end
-  
+
       def email_subscription
         Cb::Clients::EmailSubscription
       end
-  
+
       def saved_search
         Cb::Clients::SavedSearch
       end
-  
+
       def talent_network
         Cb::Clients::TalentNetwork
       end
-  
+
       def anon_saved_search
         Cb::Clients::AnonSavedSearch
       end
