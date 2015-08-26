@@ -18,6 +18,10 @@ module  Cb
             'Accept' => 'applicatin/json;version=3.0'
           }
         end
+        
+        def query
+          args.except(:three_scale_token)
+        end
       end
     end
   end
