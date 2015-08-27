@@ -19,8 +19,8 @@ module Cb
         @code          = args['Code'] || ''
         @language			 = args['Name']['@language'] unless args['Name'].nil?
         @text          = args['Name']['#text'] unless args['Name'].nil?
-        @language ||= ''
-        @text ||= ''
+        @language      ||= ''
+        @text          ||= ''
       end
     end
   end
