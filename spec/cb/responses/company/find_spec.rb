@@ -48,11 +48,14 @@ module Cb
             'Testimonials' => { 'Testimonials' => nil },
             'MyContent' => { 'MyContentTabs' => nil },
             'MyPhotos' => nil,
-            'InfoTabs' =>              { 'InfoTabs' =>                 { 'InfoTab' =>                    [{ 'Name' => 'Products',
-                                                                                                            'Content' => ''
-                    },
-                                                                                                          { 'Name' => 'Contact Us',
-                                                                                                            'Content' => '' }] } },
+            'InfoTabs'=>
+                {'InfoTabs'=>
+                     {'InfoTab'=>
+                          [{'Name'=>'Products',
+                            'Content'=> ''
+                           },
+                           {'Name'=>'Contact Us',
+                            'Content'=> ''}]}},
             'CompanyLinksCollection' => { 'companylinks' => nil },
             'CollegeLabel' => 'College',
             'CollegeBody' => nil,

@@ -24,8 +24,8 @@ describe Cb::Responses::ApplicationForm do
     it 'raises an exception' do
       response_stub.delete('Results')
 
-      expect { Cb::Responses::ApplicationForm.new(response_stub) }
-        .to raise_error(Cb::ExpectedResponseFieldMissing) do |ex|
+      expect{Cb::Responses::ApplicationForm.new(response_stub)}.
+          to raise_error(Cb::ExpectedResponseFieldMissing) do |ex|
         expect(ex.message).to include 'Results'
       end
     end

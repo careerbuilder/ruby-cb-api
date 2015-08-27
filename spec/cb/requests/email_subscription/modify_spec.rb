@@ -32,7 +32,7 @@ module Cb
         it 'should have a basic body' do
           expect(@request.body).to eq <<eos
 <Request>
-<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+<DeveloperKey>#{ Cb.configuration.dev_key }</DeveloperKey>
 <ExternalID></ExternalID>
 <Hostsite></Hostsite>
 <CareerResources></CareerResources>
