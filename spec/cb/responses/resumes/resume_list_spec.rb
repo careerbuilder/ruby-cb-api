@@ -21,8 +21,8 @@ describe Cb::Responses::ResumeList do
   context 'when the Api response is missing the results field' do
     it 'raises an exception' do
       response.delete('Resumes')
-      expect { Cb::Responses::ResumeList.new(response) }
-        .to raise_error(Cb::ExpectedResponseFieldMissing) do |ex|
+      expect { Cb::Responses::ResumeList.new(response) }.
+        to raise_error(Cb::ExpectedResponseFieldMissing) do |ex|
         expect(ex.message).to include 'Resumes'
       end
     end

@@ -14,8 +14,8 @@ module Cb
       { 'ResponseEmployeeTypes' => {
         'EmployeeTypes' => {
           'EmployeeType' => [{ 'whoa' => 'nelly' }]
+          }
         }
-      }
       }
     end
 

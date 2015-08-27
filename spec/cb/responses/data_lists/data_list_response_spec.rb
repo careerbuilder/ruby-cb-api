@@ -39,7 +39,7 @@ module Cb
         end
         it do
           expect { Cb::Responses::ResumeDataList.new(response_stub) }
-            .to raise_error(Cb::ExpectedResponseFieldMissing) do |ex|
+              .to raise_error(Cb::ExpectedResponseFieldMissing) do |ex|
             expect(ex.message).to include returned_results
           end
         end

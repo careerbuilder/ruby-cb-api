@@ -35,8 +35,8 @@ module Cb
           response_stub['ResponseLanguageCodes']['LanguageCodes'].delete('LanguageCode')
         end
         it do
-          expect { Cb::Responses::LanguageCodes.new(response_stub) }
-            .to raise_error(Cb::ExpectedResponseFieldMissing) do |ex|
+          expect {Cb::Responses::LanguageCodes.new(response_stub)}.
+              to raise_error(Cb::ExpectedResponseFieldMissing) do |ex|
             expect(ex.message).to include 'LanguageCode'
           end
         end
