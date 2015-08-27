@@ -9,10 +9,10 @@ If you are interested in helping out / contributing to this project please read 
 
 Installation
 ================
+As of 18.0 we are dropping support for ruby 1.87 and ruby 1.93.  It may continue to work in 1.9.3 but we are not going to offically support it going forward.
 
 Install required gems:
 
-    gem install iconv
     gem install cb-api
 
 Require the library in your Ruby script:

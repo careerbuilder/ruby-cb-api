@@ -45,8 +45,8 @@ module Cb
 
       def self.tn_job_information(job_did, join_form_intercept = 'true')
         my_api = Cb::Utils::Api.instance
-        json_hash = my_api.cb_get("#{Cb.configuration.uri_tn_job_info}/#{job_did}/json", query: {
-                                    RequestJoinFormIntercept: join_form_intercept })
+        json_hash = my_api.cb_get("#{Cb.configuration.uri_tn_job_info}/#{job_did}/json",
+                                  query: {RequestJoinFormIntercept: join_form_intercept } )
 
         if json_hash.key? 'Response'
           tn_job_info = Models::TalentNetwork::JobInfo.new(json_hash['Response'])
