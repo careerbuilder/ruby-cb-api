@@ -1,3 +1,13 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 module Cb
   module Models
     class Job < ApiResponseModel
@@ -6,7 +16,7 @@ module Cb
                     :industry_codes, :manages_others_code,
                     :contact_email_url, :contact_fax, :contact_name, :contact_phone,
                     :company_name, :company_did, :company_details_url, :company_image_url, :company,
-                    :description_teaser, :external_apply_url, :job_tracking_url, 
+                    :description_teaser, :external_apply_url, :job_tracking_url,
                     :location, :distance, :latitude, :longitude, :location_formatted, :location_metro_city,
                     :description, :requirements, :employment_type,
                     :details_url, :service_url, :similar_jobs_url, :apply_url,
@@ -17,14 +27,13 @@ module Cb
                     :manages_others_string,
                     :degree_required_code, :travel_required_code, :employment_type_code, :experience_required_code
 
-      attr_writer   :external_application, :is_screener_apply,
-                    :is_shared_job,
-                    :relocation_covered, :manages_others
+      attr_writer :external_application, :is_screener_apply,
+                  :is_shared_job,
+                  :relocation_covered, :manages_others
 
       def initialize(args = {})
         super(args)
       end
-
 
       def find_company
         @company ||= Cb::CompanyApi.find_for self
@@ -96,7 +105,7 @@ module Cb
         @location_metro_city          = args['LocationMetroCity'] || ''
 
         # Job Skin Related
-        @job_skin                     = args.has_key?("JobSkin") && !args["JobSkin"].nil? ? args['JobSkin']['#cdata-section'] : ''
+        @job_skin                     = args.key?('JobSkin') && !args['JobSkin'].nil? ? args['JobSkin']['#cdata-section'] : ''
         @job_skin_did                 = args['JobSkinDID'] || ''
         @job_branding                 = @job_skin_did.empty? ? '' : Cb.job_branding.find_by_id(job_skin_did)
         @job_tracking_url             = args['JobTrackingURL'] || ''
@@ -105,9 +114,9 @@ module Cb
         # Compensation
         @pay                          = args['PayHighLowFormatted'] || args['Pay'] || ''
         @pay_per                      = args['PayPer'] || ''
-        @commission                   = args.has_key?("PayCommission") && !args["PayCommission"].nil? ? args['PayCommission']['Money']['FormattedAmount'] : ''
-        @bonus                        = args.has_key?("PayBonus") && !args["PayBonus"].nil? ? args['PayBonus']['Money']['FormattedAmount'] : ''
-        @pay_other                    = args.has_key?("PayOther") && !args["PayOther"].nil? ? args['PayOther'] : ''
+        @commission                   = args.key?('PayCommission') && !args['PayCommission'].nil? ? args['PayCommission']['Money']['FormattedAmount'] : ''
+        @bonus                        = args.key?('PayBonus') && !args['PayBonus'].nil? ? args['PayBonus']['Money']['FormattedAmount'] : ''
+        @pay_other                    = args.key?('PayOther') && !args['PayOther'].nil? ? args['PayOther'] : ''
 
         # Job Search related
         @description_teaser           = args['DescriptionTeaser'] || ''
@@ -169,36 +178,31 @@ module Cb
         @city                         = args['LocationCity'] || ''
         @zip                          = args['LocationPostalCode'] || ''
 
-        @company_name            = figure_out_company_info(args['Company'],args['Company'],'CompanyName')
-        @company_details_url     = figure_out_company_info(args['CompanyDetailsURL'],args['Company'],'CompanyDetailsURL')
-
+        @company_name            = figure_out_company_info(args['Company'], args['Company'], 'CompanyName')
+        @company_details_url     = figure_out_company_info(args['CompanyDetailsURL'], args['Company'], 'CompanyDetailsURL')
 
         load_extra_fields(args)
-
-
       end
 
-      def load_extra_fields(args)
-        #for internal use only :)
+      def load_extra_fields(_args)
+        # for internal use only :)
       end
 
       private
 
       def figure_out_company_info(job_search, recommendation, rec_key)
-        #Job Search and Recommendations both use this class as a model. Unfortunately, they both return company_name and
+        # Job Search and Recommendations both use this class as a model. Unfortunately, they both return company_name and
         # company_details_url in different ways. Job search returns it in args[company] and args[company_details_url],
         # but recommendations returns it in args[company][key]. This has been ticketed to the API team, and this logic
         # will be removed when they have fixed the issue.
-        if job_search.class != Hash && job_search != ""
+        if job_search.class != Hash && job_search != ''
           return job_search
         elsif recommendation.class == Hash && !recommendation[rec_key].nil?
           return recommendation[rec_key]
         else
           return ''
         end
-
       end
-
     end
   end
 end

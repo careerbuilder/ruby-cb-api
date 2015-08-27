@@ -1,3 +1,13 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 module Cb
   module Models
     class Company
@@ -83,7 +93,7 @@ module Cb
         @bulletin_board              = args['CompanyBulletinBoard']['bulletinboards'] || ''
         @testimonials                = args['Testimonials']['Testimonials'] || ''
         @addresses = []
-        if args.has_key?('CompanyAddress')
+        if args.key?('CompanyAddress')
           unless args['CompanyAddress'].empty? || args['CompanyAddress']['AddressList'].nil?
             args['CompanyAddress']['AddressList']['Address'].each do |cur_addr|
               @addresses << Company::Address.new(cur_addr)
@@ -119,15 +129,12 @@ module Cb
         attr_accessor :street, :city, :state, :country, :zip
 
         def initialize(args = {})
-          begin
-            @street                    = args['Street'] || ''
-            @city                      = args['City'] || ''
-            @state                     = args['State'] || ''
-            @country                   = args['Country'] || ''
-            @zip                       = args['ZIPCode'] || ''
-          rescue
-            # failed to load address
-          end
+          @street                    = args['Street'] || ''
+          @city                      = args['City'] || ''
+          @state                     = args['State'] || ''
+          @country                   = args['Country'] || ''
+          @zip                       = args['ZIPCode'] || ''
+        rescue
         end
       end
     end
