@@ -60,9 +60,7 @@ module Cb
         end
 
         it '#set_model_properties' do
-          class FailDummyModel; def required_fields
-                                  []
-                                end end
+          class FailDummyModel; def required_fields; Array.new end end
           assert_not_implemented_method_name('set_model_properties') { FailDummyModel.new }
         end
       end
