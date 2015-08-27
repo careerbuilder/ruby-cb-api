@@ -1,3 +1,13 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb
@@ -6,7 +16,7 @@ module Cb
       let(:saved_search) { Models::SavedSearch.new }
       let(:search_parameters) { Models::SavedSearch::SearchParameters.new }
 
-      context '.new' do 
+      context '.new' do
         it 'should create a new saved job search object' do
           external_user_id = 'XRHS3LN6G55WX61GXJG8'
           host_site = 'WR'
@@ -14,12 +24,12 @@ module Cb
           did = 'the id of the thing'
           is_daily_email = false
 
-          user_saved_search = Cb::Models::SavedSearch.new('IsDailyEmail'=>is_daily_email,
-                                                        'ExternalUserID'=>external_user_id, 'SearchName'=>search_name,
-                                                        'DID'=>did,
-                                                        'HostSite'=>host_site,
-                                                        'SearchParameters'=>mock_search_parameters_response)
-          
+          user_saved_search = Cb::Models::SavedSearch.new('IsDailyEmail' => is_daily_email,
+                                                          'ExternalUserID' => external_user_id, 'SearchName' => search_name,
+                                                          'DID' => did,
+                                                          'HostSite' => host_site,
+                                                          'SearchParameters' => mock_search_parameters_response)
+
           expect(user_saved_search).to be_a_kind_of(Cb::Models::SavedSearch)
           expect(user_saved_search.is_daily_email).to eq(is_daily_email)
           expect(user_saved_search.host_site).to eq(host_site)
@@ -32,44 +42,43 @@ module Cb
         it 'should create a search parameter ' do
           saved_search_parameters = Cb::Models::SavedSearch::SearchParameters.new(mock_search_parameters_response)
 
-          expect(saved_search_parameters.boolean_operator).to       eq("BooleanOperator")
-          expect(saved_search_parameters.category).to               eq("Category")
-          expect(saved_search_parameters.city).to                   eq("City")
-          expect(saved_search_parameters.company).to                eq("Company")
-          expect(saved_search_parameters.country).to                eq("Country")
-          expect(saved_search_parameters.education_code).to         eq("EducationCode")
-          expect(saved_search_parameters.emp_type).to               eq("EmpType")
-          expect(saved_search_parameters.exclude_company_names).to  eq("ExcludeCompanyNames")
-          expect(saved_search_parameters.exclude_job_titles).to     eq("ExcludeJobTitles")
-          expect(saved_search_parameters.exclude_keywords).to       eq("ExcludeKeywords")
-          expect(saved_search_parameters.exclude_national).to       eq("ExcludeNational")
-          expect(saved_search_parameters.industry_codes).to         eq("IndustryCodes")
-          expect(saved_search_parameters.jc_advertiser_flags).to    eq("JCAdvertiserFlags")
-          expect(saved_search_parameters.jc_job_nature).to          eq("JCJobNature")
-          expect(saved_search_parameters.jc_location).to            eq("JCLocation")
-          expect(saved_search_parameters.jc_position_level).to      eq("JCPositionLevel")
-          expect(saved_search_parameters.job_category).to           eq("")
-          expect(saved_search_parameters.job_title).to              eq("JobTitle")
-          expect(saved_search_parameters.keywords).to               eq("Keywords")
-          expect(saved_search_parameters.location).to               eq("Location")
-          expect(saved_search_parameters.order_by).to               eq("OrderBy")
-          expect(saved_search_parameters.order_direction).to        eq("OrderDirection")
-          expect(saved_search_parameters.pay_high).to               eq("PayHigh")
-          expect(saved_search_parameters.pay_info_only).to          eq("PayInfoOnly")
-          expect(saved_search_parameters.pay_low).to                eq("PayLow")
-          expect(saved_search_parameters.posted_within).to          eq("PostedWithin")
-          expect(saved_search_parameters.radius).to                 eq("Radius")
-          expect(saved_search_parameters.specific_education).to     eq("SpecificEducation")
-          expect(saved_search_parameters.state).to                  eq("State")
+          expect(saved_search_parameters.boolean_operator).to eq('BooleanOperator')
+          expect(saved_search_parameters.category).to eq('Category')
+          expect(saved_search_parameters.city).to eq('City')
+          expect(saved_search_parameters.company).to eq('Company')
+          expect(saved_search_parameters.country).to eq('Country')
+          expect(saved_search_parameters.education_code).to eq('EducationCode')
+          expect(saved_search_parameters.emp_type).to eq('EmpType')
+          expect(saved_search_parameters.exclude_company_names).to eq('ExcludeCompanyNames')
+          expect(saved_search_parameters.exclude_job_titles).to eq('ExcludeJobTitles')
+          expect(saved_search_parameters.exclude_keywords).to eq('ExcludeKeywords')
+          expect(saved_search_parameters.exclude_national).to eq('ExcludeNational')
+          expect(saved_search_parameters.industry_codes).to eq('IndustryCodes')
+          expect(saved_search_parameters.jc_advertiser_flags).to eq('JCAdvertiserFlags')
+          expect(saved_search_parameters.jc_job_nature).to eq('JCJobNature')
+          expect(saved_search_parameters.jc_location).to eq('JCLocation')
+          expect(saved_search_parameters.jc_position_level).to eq('JCPositionLevel')
+          expect(saved_search_parameters.job_category).to eq('')
+          expect(saved_search_parameters.job_title).to eq('JobTitle')
+          expect(saved_search_parameters.keywords).to eq('Keywords')
+          expect(saved_search_parameters.location).to eq('Location')
+          expect(saved_search_parameters.order_by).to eq('OrderBy')
+          expect(saved_search_parameters.order_direction).to eq('OrderDirection')
+          expect(saved_search_parameters.pay_high).to eq('PayHigh')
+          expect(saved_search_parameters.pay_info_only).to eq('PayInfoOnly')
+          expect(saved_search_parameters.pay_low).to eq('PayLow')
+          expect(saved_search_parameters.posted_within).to eq('PostedWithin')
+          expect(saved_search_parameters.radius).to eq('Radius')
+          expect(saved_search_parameters.specific_education).to eq('SpecificEducation')
+          expect(saved_search_parameters.state).to eq('State')
         end
-
       end
 
       describe '#delete_anon_to_xml' do
-        before {
+        before do
           saved_search.external_id = 'BigMoom'
           Cb.configuration.dev_key = 'who dat'
-        }
+        end
         it 'serialized correctly' do
           xml = saved_search.delete_anon_to_xml
           expect(xml).to eq <<-eos
@@ -83,7 +92,7 @@ module Cb
       end
 
       describe '#create_to_xml' do
-        before {
+        before do
           saved_search.host_site = 'US'
           saved_search.cobrand = 'AOLer'
           saved_search.search_name = 'Yolo'
@@ -92,9 +101,8 @@ module Cb
           saved_search.is_daily_email = true
           saved_search.external_user_id = 'BigMoomGuy'
           Cb.configuration.dev_key = 'who dat'
-        }
+        end
         it 'serialized correctly' do
-
           xml = saved_search.create_to_xml
           expect(xml).to eq <<-eos
           <Request>
@@ -111,7 +119,7 @@ module Cb
       end
 
       describe '#create_anon_to_xml' do
-        before {
+        before do
           saved_search.host_site = 'US'
           saved_search.cobrand = 'AOLer'
           saved_search.browser_id = 'my_bid'
@@ -122,9 +130,8 @@ module Cb
           saved_search.search_parameters = search_parameters
           saved_search.is_daily_email = true
           Cb.configuration.dev_key = 'who dat'
-        }
+        end
         it 'serialized correctly' do
-
           xml = saved_search.create_anon_to_xml
           expect(xml).to eq <<-eos
           <Request>
@@ -144,45 +151,44 @@ module Cb
       end
 
       describe '#update_to_json' do
-        before {
+        before do
           saved_search.host_site = 'US'
           saved_search.cobrand = 'AOLer'
           saved_search.search_name = 'Yolo'
           add_search_params
           saved_search.search_parameters = search_parameters
           saved_search.is_daily_email = true
-          saved_search.email_delivery_day = "FRIDAY, GET DOWN ON IT"
+          saved_search.email_delivery_day = 'FRIDAY, GET DOWN ON IT'
           saved_search.did = 'Mooma did'
           saved_search.user_oauth_token = 'My token, mmhmmm yes'
           Cb.configuration.dev_key = 'who dat'
-        }
+        end
         it 'serialized correctly with daily email true' do
-
           json = saved_search.update_to_json
           expect(json).to eq ({
-              "DID" => "Mooma did",
-              "SearchName" => "Yolo",
-              "HostSite" => "US",
-              "SiteID" => "",
-              "Cobrand" => "AOLer",
-              "IsDailyEmail" => true,
-              "userOAuthToken" => "My token, mmhmmm yes",
-              "SavedSearchParameters" => search_parameters.to_hash
+            'DID' => 'Mooma did',
+            'SearchName' => 'Yolo',
+            'HostSite' => 'US',
+            'SiteID' => '',
+            'Cobrand' => 'AOLer',
+            'IsDailyEmail' => true,
+            'userOAuthToken' => 'My token, mmhmmm yes',
+            'SavedSearchParameters' => search_parameters.to_hash
           }.to_json)
         end
         it 'serialized correctly with daily email false' do
           saved_search.is_daily_email = false
           json = saved_search.update_to_json
           expect(json).to eq ({
-              "DID" => "Mooma did",
-              "SearchName" => "Yolo",
-              "HostSite" => "US",
-              "SiteID" => "",
-              "Cobrand" => "AOLer",
-              "IsDailyEmail" => false,
-              "userOAuthToken" => "My token, mmhmmm yes",
-              "SavedSearchParameters" => search_parameters.to_hash,
-              "EmailDeliveryDay" => "FRIDAY, GET DOWN ON IT"
+            'DID' => 'Mooma did',
+            'SearchName' => 'Yolo',
+            'HostSite' => 'US',
+            'SiteID' => '',
+            'Cobrand' => 'AOLer',
+            'IsDailyEmail' => false,
+            'userOAuthToken' => 'My token, mmhmmm yes',
+            'SavedSearchParameters' => search_parameters.to_hash,
+            'EmailDeliveryDay' => 'FRIDAY, GET DOWN ON IT'
           }.to_json)
         end
       end
@@ -276,7 +282,6 @@ module Cb
         "Country":"country"
         '
       end
-
     end
   end
 end

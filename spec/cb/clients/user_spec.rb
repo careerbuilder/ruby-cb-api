@@ -1,12 +1,21 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb
   describe Cb::Clients::User do
-
     describe '#temporary_password' do
       before do
-        stub_request(:get, uri_stem(Cb.configuration.uri_user_temp_password)).
-          to_return(:body => { Errors: [], TemporaryPassword: 'hotdogs!' }.to_json)
+        stub_request(:get, uri_stem(Cb.configuration.uri_user_temp_password))
+          .to_return(body: { Errors: [], TemporaryPassword: 'hotdogs!' }.to_json)
       end
 
       it 'requires a single param (external id)' do
@@ -120,15 +129,13 @@ module Cb
           end
         end
       end
-
     end
-
 
     context '.retrieve' do
       before :each do
-        stub_request(:post, uri_stem(Cb.configuration.uri_user_retrieve)).
-          with(:body => anything).
-          to_return(:body => { ResponseUserInfo: { Errors: nil, Status: 'Success (Test)', UserInfo: Hash.new } }.to_json)
+        stub_request(:post, uri_stem(Cb.configuration.uri_user_retrieve))
+          .with(body: anything)
+          .to_return(body: { ResponseUserInfo: { Errors: nil, Status: 'Success (Test)', UserInfo: {} } }.to_json)
       end
 
       it 'should retrieve a user' do
@@ -142,12 +149,12 @@ module Cb
 
     context '.delete' do
       before :each do
-        stub_request(:post, uri_stem(Cb.configuration.uri_user_delete)).
-          with(:body => anything).
-          to_return(:body => { ResponseUserDelete: { Request: {}, Status: 'Success (Test)' } }.to_json)
+        stub_request(:post, uri_stem(Cb.configuration.uri_user_delete))
+          .with(body: anything)
+          .to_return(body: { ResponseUserDelete: { Request: {}, Status: 'Success (Test)' } }.to_json)
       end
 
-      it 'should delete a user', :vcr => { :cassette_name => 'user/delete/success' } do
+      it 'should delete a user', vcr: { cassette_name: 'user/delete/success' } do
         result = Cb.user.delete(Cb::Criteria::User::Delete.new(external_id: 'xid', password: 'passwort'))
 
         expect(result).to be_an_instance_of Cb::Responses::User::Delete
@@ -157,7 +164,7 @@ module Cb
     end
 
     describe '#retrieve' do
-      let(:api_response) do { 'ResponseUserInfo' => { 'UserInfo' => 'yeehaw' } } end
+      let(:api_response) { { 'ResponseUserInfo' => { 'UserInfo' => 'yeehaw' } } }
       it 'builds xml correctly' do
         body = <<-eos
             <Request>
@@ -174,7 +181,7 @@ module Cb
 
     describe '#delete' do
       before { allow(Cb::Responses::User::Delete).to receive(:new).and_return('fake response') }
-      let(:api_response) do { 'ResponseUserDelete' => 'yeehaw' } end
+      let(:api_response) { { 'ResponseUserDelete' => 'yeehaw' } }
 
       it 'builds xml correctly' do
         body = <<-eos
@@ -191,17 +198,16 @@ eos
       end
     end
 
-    describe  '#change_pwd' do
+    describe '#change_pwd' do
       context 'When an user makes a change password request' do
-        let(:user_info_change_password) {
-          Cb::Criteria::User::ChangePassword.new({
-                                                   external_id: '123TEST',
-                                                   old_password: 'MyPassWord123',
-                                                   new_password: 'MyNewPassword123',
-                                                   test: 'false'
-                                                 }) }
-        let(:api_return_fail) do { 'ResponseUserChangePW' => { 'Request' => { 'ExternalID' => 'EXT12345', 'Errors' => 'An error occurred' }, 'Status' => 'Fail' } } end
-        let(:api_return_success) do { 'ResponseUserChangePW' => { 'Request' => { 'ExternalID' => 'EXT12345', 'Errors' => '' }, 'Status' => 'Success' } } end
+        let(:user_info_change_password) do
+          Cb::Criteria::User::ChangePassword.new(external_id: '123TEST',
+                                                 old_password: 'MyPassWord123',
+                                                 new_password: 'MyNewPassword123',
+                                                 test: 'false')
+        end
+        let(:api_return_fail) { { 'ResponseUserChangePW' => { 'Request' => { 'ExternalID' => 'EXT12345', 'Errors' => 'An error occurred' }, 'Status' => 'Fail' } } }
+        let(:api_return_success) { { 'ResponseUserChangePW' => { 'Request' => { 'ExternalID' => 'EXT12345', 'Errors' => '' }, 'Status' => 'Success' } } }
 
         it 'should return a proper response when the change password call fails' do
           allow_any_instance_of(Cb::Utils::Api).to receive(:cb_post).and_return(api_return_fail)

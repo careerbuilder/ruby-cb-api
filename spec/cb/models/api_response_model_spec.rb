@@ -1,11 +1,19 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb
   # this class is meant to be inherited, behavior is demonstrated using dummy classes!
   describe Cb::Models::ApiResponseModel do
-
     describe '#new' do
-
       context 'when the inheriting class overrides all required methods' do
         class ValidDummyModel < Cb::Models::ApiResponseModel
           def required_fields
@@ -13,7 +21,7 @@ module Cb
           end
 
           def set_model_properties
-            @stuff = api_response['potatoes'] || String.new
+            @stuff = api_response['potatoes'] || ''
           end
         end
 
@@ -29,7 +37,7 @@ module Cb
             @api_response = { 'no' => 'dice' }
             begin
               ValidDummyModel.new(@api_response)
-              raise 'test should not have made it this far!'
+              fail 'test should not have made it this far!'
             rescue ExpectedResponseFieldMissing => ex
               expect(ex.message.include?('potatoes hotdogs baconbaconbacon')).to eq true
             end
@@ -41,12 +49,10 @@ module Cb
         class FailDummyModel < Cb::Models::ApiResponseModel; end
 
         def assert_not_implemented_method_name(method_name, &expected_to_raise_error)
-          begin
-            expected_to_raise_error.call
-            raise 'this test should not have made it this far!' # fail if proc code does not raise error
-          rescue NotImplementedError => ex
-            expect(ex.message.include?(method_name)).to eq true
-          end
+          expected_to_raise_error.call
+          fail 'this test should not have made it this far!' # fail if proc code does not raise error
+        rescue NotImplementedError => ex
+          expect(ex.message.include?(method_name)).to eq true
         end
 
         it '#required_fields' do
@@ -59,6 +65,5 @@ module Cb
         end
       end
     end # new
-
   end
 end

@@ -1,13 +1,22 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb
   describe Cb::Utils::ResponseMap do
     context '.response_for' do
-
       let(:response_map) { Cb::Utils::ResponseMap }
 
       it 'should throw an error on a bad entry' do
-        expect { response_map.response_for("Hello") }.to raise_error(Cb::Utils::ResponseNotFoundError)
+        expect { response_map.response_for('Hello') }.to raise_error(Cb::Utils::ResponseNotFoundError)
       end
 
       it 'should test that response_hash_extension is not implemented' do
@@ -28,7 +37,7 @@ module Cb
 
         expect(response_map.response_for(request_namespace::Get)).to eq(response_namespace::Get)
       end
-      
+
       it 'should test company methods' do
         request_namespace = Cb::Requests::Company
         response_namespace = Cb::Responses::Company

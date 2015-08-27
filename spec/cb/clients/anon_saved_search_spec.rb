@@ -1,8 +1,17 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb
   describe Cb::Clients::AnonSavedSearch.new do
-
     before :each do
       @args = {
         'EmailAddress' => 'test@test.com',
@@ -20,9 +29,9 @@ module Cb
 
     context '#create' do
       def stub_api_request
-        stub_request(:post, uri_stem(Cb.configuration.uri_anon_saved_search_create)).
-          with(:body => anything).
-          to_return(:body => @response_body.to_json)
+        stub_request(:post, uri_stem(Cb.configuration.uri_anon_saved_search_create))
+          .with(body: anything)
+          .to_return(body: @response_body.to_json)
       end
 
       context 'when everything is working smoothly' do
@@ -53,9 +62,9 @@ module Cb
     context '#delete' do
       context 'when everything is working smoothly' do
         def stub_api_request
-          stub_request(:post, uri_stem(Cb.configuration.uri_anon_saved_search_delete.to_s)).
-            with(:body => anything).
-            to_return(:body => { 'Errors' => '', 'Status' => 'Success' }.to_json)
+          stub_request(:post, uri_stem(Cb.configuration.uri_anon_saved_search_delete.to_s))
+            .with(body: anything)
+            .to_return(body: { 'Errors' => '', 'Status' => 'Success' }.to_json)
         end
 
         before :each do
@@ -73,6 +82,5 @@ module Cb
         end
       end
     end # delete
-
   end
 end
