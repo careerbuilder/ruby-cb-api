@@ -1,8 +1,17 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb::Criteria::Application
   describe Update do
-
     describe '#to_json' do
       context 'when updating real resources' do
         it 'converts the criteria to json' do
@@ -19,45 +28,45 @@ module Cb::Criteria::Application
       end
     end
 
-    let(:criteria) {
+    let(:criteria) do
       Update.new
-      .application_did('ja_123')
-      .job_did('job_123')
-      .is_submitted(true)
-      .external_user_id('external_user_123')
-      .bid('bid_123')
-      .vid('hotdog_tsunami')
-      .sid('sid_123')
-      .site_id('site_123')
-      .ipath_id('ipath_123')
-      .tn_did('tn_123')
-      .resume(resume)
-      .cover_letter(cover_letter)
-      .responses(responses)
-    }
-    let(:resume) {
+        .application_did('ja_123')
+        .job_did('job_123')
+        .is_submitted(true)
+        .external_user_id('external_user_123')
+        .bid('bid_123')
+        .vid('hotdog_tsunami')
+        .sid('sid_123')
+        .site_id('site_123')
+        .ipath_id('ipath_123')
+        .tn_did('tn_123')
+        .resume(resume)
+        .cover_letter(cover_letter)
+        .responses(responses)
+    end
+    let(:resume) do
       Resume.new
-      .external_resume_id('external_resume_123')
-      .resume_file_name('my resume')
-      .resume_data(1010101010101)
-      .resume_extension('pdf')
-      .resume_title('Nurse')
-    }
-    let(:cover_letter) {
+        .external_resume_id('external_resume_123')
+        .resume_file_name('my resume')
+        .resume_data(1_010_101_010_101)
+        .resume_extension('pdf')
+        .resume_title('Nurse')
+    end
+    let(:cover_letter) do
       CoverLetter.new
-      .cover_letter_id('cover_letter_123')
-      .cover_letter_text('yeah hi')
-      .cover_letter_title('best nurse ever')
-    }
-    let(:responses) {
+        .cover_letter_id('cover_letter_123')
+        .cover_letter_text('yeah hi')
+        .cover_letter_title('best nurse ever')
+    end
+    let(:responses) do
       [
         Response.new
-        .question_id('question_123')
-        .response_text('Yes please')
+          .question_id('question_123')
+          .response_text('Yes please')
       ]
-    }
+    end
 
-    let(:expected_json) {
+    let(:expected_json) do
       {
         ApplicationDID: criteria.application_did,
         JobDID: criteria.job_did,
@@ -86,8 +95,8 @@ module Cb::Criteria::Application
           ResponseText: responses[0].response_text
         }]
       }.to_json
-    }
-    let(:expected_json_with_test) {
+    end
+    let(:expected_json_with_test) do
       {
         ApplicationDID: criteria.application_did,
         JobDID: criteria.job_did,
@@ -117,7 +126,6 @@ module Cb::Criteria::Application
         }],
         Test: true
       }.to_json
-    }
-
+    end
   end
 end

@@ -1,9 +1,18 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 module Cb
   describe Responses::Errors do
-    before(:all) do @errors = ['much awesome', 'so api', 'wow'] end
+    before(:all) { @errors = ['much awesome', 'so api', 'wow'] }
 
     context '#new' do
-
       let(:parsed_error_response) { 'much awesome,so api,wow' }
 
       def self.run_specs
@@ -35,17 +44,17 @@ module Cb
       end
 
       context 'when passed a hash with "errors" node as a hash' do
-        before(:all) do @errors_hash = { 'errors' => { 'error' => @errors } } end
+        before(:all) { @errors_hash = { 'errors' => { 'error' => @errors } } }
         run_specs
       end
 
       context 'when passed a hash with "error" node as an array' do
-        before(:all) do @errors_hash =  { 'error' => @errors } end
+        before(:all) { @errors_hash =  { 'error' => @errors } }
         run_specs
       end
     end
 
-    before(:all) do @errors_hash = { 'errors' => { 'error' => @errors } } end
+    before(:all) { @errors_hash = { 'errors' => { 'error' => @errors } } }
 
     context '#parsed' do
       it 'returns an enumerable of strings' do
@@ -65,6 +74,5 @@ module Cb
         errors.pop
       end
     end
-
   end
 end

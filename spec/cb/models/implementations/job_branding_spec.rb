@@ -1,3 +1,13 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb::Models
@@ -11,100 +21,97 @@ module Cb::Models
         errors = { 'Message' => 'There is no job branding for this Id.' }
         company_description = 'Company name ...'
 
-        media = 
-	        { 
-	        	'Header' => 'header?',
-	        	'HeaderType' => 'awesome',
-	        	'TabletBanner' => 'wut?',
-	        	'MobileLogo' => 'mobile, duh.',
-	        	'Footer' => 'the bottom',
-	        	'IsMultiVideo' => 'true'
-	        }
+        media =
+          {
+            'Header' => 'header?',
+            'HeaderType' => 'awesome',
+            'TabletBanner' => 'wut?',
+            'MobileLogo' => 'mobile, duh.',
+            'Footer' => 'the bottom',
+            'IsMultiVideo' => 'true'
+          }
 
-	    sections = 
-	    	{
-	    		'Page' => 
-	    			{
-	    				'Section1' => 'the one',
-	    				'Section2' => 'the two',
-	    				'Section3' => 'the three'
-	    			},
-	    		'JobDetails' => 
-	    			{
-	    				'Description' => 'the desc.',
-	    				'Requirements' => 'reqsss',
-	    				'Snapshot' => 'click click.'
-	    			}
-	    	}
+        sections =
+          {
+            'Page' =>
+              {
+                'Section1' => 'the one',
+                'Section2' => 'the two',
+                'Section3' => 'the three'
+              },
+            'JobDetails' =>
+              {
+                'Description' => 'the desc.',
+                'Requirements' => 'reqsss',
+                'Snapshot' => 'click click.'
+              }
+          }
 
-        styles = 
-        	{
-        		'Page' => 
-        			{
-        				'FontColor' => '#FFF',
-        				'FontSize' => '14px',
-        				'FontStyle' => 'Helvetica'
-        			},
-        		'JobDetails' =>
-        			{
-        				'Container' =>
-        					{
-        						'BorderColor' => '#FFA'
-        					},
-        				'Content' =>
-        					{
-        						'BorderRadius' => '4px'
-        					},
-        				'Headings' =>
-        					{
-        						'BoxShadow' => 'none'
-        					}
-        			},
-        		'CompanyInfo' =>
-        			{
-        				'Buttons' =>
-        					{
-        						'BackgroundColor' => '#CCC'
-        					},
-        				'Container' =>
-        					{
-        						'BackgroundImage' => 'http://image.is.here/23242.jpg'
-        					},
-        				'Content' =>
-        					{
-        						'BackgroundGradient' => 
-        							{
-        								'Color1' => '#F2323A',
-        								'Color2' => '#D245A2',
-        								'Orientation' => 'Horizontal'
-        							}
-        					},
-        				'Headings' =>
-        					{
-        						'BorderSize' => '3px'
-        					}
-        			}
-        	}
+        styles =
+          {
+            'Page' =>
+              {
+                'FontColor' => '#FFF',
+                'FontSize' => '14px',
+                'FontStyle' => 'Helvetica'
+              },
+            'JobDetails' =>
+              {
+                'Container' =>
+                  {
+                    'BorderColor' => '#FFA'
+                  },
+                'Content' =>
+                  {
+                    'BorderRadius' => '4px'
+                  },
+                'Headings' =>
+                  {
+                    'BoxShadow' => 'none'
+                  }
+              },
+            'CompanyInfo' =>
+              {
+                'Buttons' =>
+                  {
+                    'BackgroundColor' => '#CCC'
+                  },
+                'Container' =>
+                  {
+                    'BackgroundImage' => 'http://image.is.here/23242.jpg'
+                  },
+                'Content' =>
+                  {
+                    'BackgroundGradient' =>
+                      {
+                        'Color1' => '#F2323A',
+                        'Color2' => '#D245A2',
+                        'Orientation' => 'Horizontal'
+                      }
+                  },
+                'Headings' =>
+                  {
+                    'BorderSize' => '3px'
+                  }
+              }
+          }
 
-        widgets = { 
-        	'ShowWidgets' => 'true',
-        	'Youtube' => 'http://www.youtube.com'
+        widgets = {
+          'ShowWidgets' => 'true',
+          'Youtube' => 'http://www.youtube.com'
         }
 
-
         job_branding = Cb::Models::JobBranding.new(
-        	{
-	        	'Name' => name,
-	        	'Id' => id,
-	        	'AccountId' => account_id,
-	            'Type' => type,
-	            'Media' => media,
-	            'Styles' => styles,
-	            'Errors' => errors,
-	            'Sections' => sections,
-	            'Widgets' => widgets,
-                'CompanyDescription' => company_description
-	        })
+          'Name' => name,
+          'Id' => id,
+          'AccountId' => account_id,
+          'Type' => type,
+          'Media' => media,
+          'Styles' => styles,
+          'Errors' => errors,
+          'Sections' => sections,
+          'Widgets' => widgets,
+          'CompanyDescription' => company_description)
 
         expect(job_branding.name).to eq(name)
         expect(job_branding.id).to eq(id)
