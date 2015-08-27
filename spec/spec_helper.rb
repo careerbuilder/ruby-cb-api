@@ -9,6 +9,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 require 'simplecov'
+require 'codeclimate-test-reporter'
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter,
+    CodeClimate::TestReporter::Formatter
+]
 SimpleCov.start do
   add_filter '/spec/'
   add_group 'utils', 'lib/cb/utils'
@@ -23,7 +28,7 @@ require 'cb'
 require 'webmock/rspec'
 require 'pry'
 
-WebMock.disable_net_connect!
+WebMock.disable_net_connect!(allow: 'codeclimate.com')
 
 RSpec.configure do |c|
   c.mock_with :rspec do |mocks|

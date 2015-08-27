@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/repos/54242d7ce30ba04b220066b1/badges/32deaad52cf116f360f3/gpa.svg)](https://codeclimate.com/repos/54242d7ce30ba04b220066b1/feed)[![Test Coverage](https://codeclimate.com/repos/54242d7ce30ba04b220066b1/badges/32deaad52cf116f360f3/coverage.svg)](https://codeclimate.com/repos/54242d7ce30ba04b220066b1/coverage)
+
 First things first. You're going to need to get a developer key from Careerbuilder. Developer keys are available to Partners. You can fill out the form at http://developer.careerbuilder.com/partner_messages/new to become a Partner.
 
 Now that you have a key, lets get to the good stuff.
