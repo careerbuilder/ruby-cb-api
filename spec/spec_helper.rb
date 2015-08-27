@@ -28,7 +28,7 @@ require 'cb'
 require 'webmock/rspec'
 require 'pry'
 
-WebMock.disable_net_connect!
+WebMock.disable_net_connect!(allow: 'codeclimate.com')
 
 RSpec.configure do |c|
   c.mock_with :rspec do |mocks|
