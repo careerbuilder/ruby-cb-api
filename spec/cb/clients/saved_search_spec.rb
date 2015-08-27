@@ -119,16 +119,17 @@ module Cb
           .to_return(body: {
             'TotalResults' => 1,
             'ReturnedResults' => 1,
-            'Results' =>             [{ 'DID' => 'OMG DIDs',
-                                        'SearchName' => "Why can't I find a jerb?",
-                                        'HostSite' => 'Merkah',
-                                        'SiteID' => '',
-                                        'Cobrand' => '',
-                                        'IsDailyEmail' => 'maybe',
-                                        'EmailDeliveryDay' => 'YESTERDAY',
-                                        'JobSearchUrl' => 'blerg.com',
-                                        'SavedSearchParameters' => {
-                                          'Any' => 'No' }
+            'Results' =>
+            [{ 'DID' => 'OMG DIDs',
+                'SearchName' => "Why can't I find a jerb?",
+                'HostSite' => 'Merkah',
+                'SiteID' => '',
+                'Cobrand' => '',
+                'IsDailyEmail' => 'maybe',
+                'EmailDeliveryDay' => 'YESTERDAY',
+                'JobSearchUrl' => 'blerg.com',
+                'SavedSearchParameters' => {
+                  'Any' => 'No' }
              }],
             'Errors' => [],
             'Timestamp' => '2014-03-25T15:29:27.8361791-04:00',
