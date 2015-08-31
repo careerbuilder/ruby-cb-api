@@ -1,3 +1,13 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'json'
 
 module Cb
@@ -8,12 +18,12 @@ module Cb
         hash = normalize_args(args)
         hash = set_hash_defaults(hash)
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_job,
-                                    :query => hash)
+                                  query: hash)
 
         jobs = []
 
-        if json_hash.has_key?('ResponseRecommendJob')
-          if json_hash['ResponseRecommendJob'].has_key?('RecommendJobResults') &&
+        if json_hash.key?('ResponseRecommendJob')
+          if json_hash['ResponseRecommendJob'].key?('RecommendJobResults') &&
              !json_hash['ResponseRecommendJob']['RecommendJobResults'].nil?
 
             jobs = create_jobs json_hash, 'Job'
@@ -32,14 +42,14 @@ module Cb
         hash = normalize_args(args)
         hash = set_hash_defaults(hash)
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_user,
-                                    :query => hash)
+                                  query: hash)
 
         jobs = []
 
-        if json_hash.has_key?('ResponseRecommendUser')
+        if json_hash.key?('ResponseRecommendUser')
 
-          if json_hash['ResponseRecommendUser'].has_key?('RecommendJobResults') &&
-            !json_hash['ResponseRecommendUser']['RecommendJobResults'].nil?
+          if json_hash['ResponseRecommendUser'].key?('RecommendJobResults') &&
+             !json_hash['ResponseRecommendUser']['RecommendJobResults'].nil?
 
             jobs = create_jobs json_hash, 'User'
 
@@ -54,11 +64,11 @@ module Cb
 
       def self.for_company(company_did)
         my_api = Cb::Utils::Api.instance
-        json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_company, :query => {:CompanyDID => company_did})
+        json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_company, query: { CompanyDID: company_did })
 
         jobs = []
-        if json_hash.has_key?('Results')
-          if json_hash['Results'].has_key?('JobRecommendation')
+        if json_hash.key?('Results')
+          if json_hash['Results'].key?('JobRecommendation')
             json_hash['Results']['JobRecommendation']['Jobs'].each do |cur_job|
               jobs << Models::Job.new(cur_job)
             end
@@ -76,21 +86,21 @@ module Cb
       def self.normalize_args(args)
         return args[0] if args[0].class == Hash
         {
-          :ExternalID   => args[0],
-          :JobDID       => args[0],
-          :CountLimit   => args[1] || '25',
-          :SiteID       => args[2] || "",
-          :CoBrand      => args[3] || ""
+          ExternalID: args[0],
+          JobDID: args[0],
+          CountLimit: args[1] || '25',
+          SiteID: args[2] || '',
+          CoBrand: args[3] || ''
         }
       end
 
       def self.set_hash_defaults(hash)
         hash[:CountLimit] ||= '25'
-        hash[:HostSite]   ||= Cb.configuration.host_site
+        hash[:HostSite] ||= Cb.configuration.host_site
         hash
       end
 
-      def self.create_jobs json_hash, type
+      def self.create_jobs(json_hash, type)
         jobs = []
 
         [json_hash["ResponseRecommend#{type}"]['RecommendJobResults']['RecommendJobResult']].flatten.each do |api_job|
@@ -99,7 +109,6 @@ module Cb
 
         jobs
       end
-
     end
   end
 end

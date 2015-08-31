@@ -1,8 +1,17 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb
   describe ResponseValidator do
-
     let(:response)          { double(HTTParty::Response) }
     let(:response_property) { double('HTTParty::Response.response') }
 
@@ -12,9 +21,9 @@ module Cb
     end
 
     it 'should return empty hash when body is empty' do
-       allow(response.response).to receive(:body).and_return(String.new)
-       validation = ResponseValidator.validate(response)
-       expect(validation.empty?).to be_truthy
+      allow(response.response).to receive(:body).and_return('')
+      validation = ResponseValidator.validate(response)
+      expect(validation.empty?).to be_truthy
     end
 
     it 'should return empty hash when body is improper json/xml' do
@@ -62,7 +71,7 @@ module Cb
 
     it 'should raise an UnauthorizedError when status code is 401' do
       allow(response).to receive(:code).and_return(401)
-      expect{ ResponseValidator.validate(response) }.to raise_error(Cb::UnauthorizedError)
+      expect { ResponseValidator.validate(response) }.to raise_error(Cb::UnauthorizedError)
     end
 
     context 'when there are JSON parsing errors' do
@@ -80,11 +89,9 @@ module Cb
           allow(response.response).to receive(:body).and_return(xml)
           validation = ResponseValidator.validate(response)
           expect(validation).to be_an_instance_of Hash
-          expect(validation).to eq({"yo"=>{"this"=>{"isxml"=>"yay"}}})
+          expect(validation).to eq('yo' => { 'this' => { 'isxml' => 'yay' } })
         end
-
       end
     end
-
   end
 end

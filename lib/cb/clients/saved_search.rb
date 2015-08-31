@@ -1,6 +1,15 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 module Cb
   module Clients
-
     class SavedSearch
       def create(saved_search)
         body = saved_search.create_to_xml
@@ -18,10 +27,8 @@ module Cb
         uri = replace_uri_field(Cb.configuration.uri_saved_search_delete, ':did', hash[:did])
         json = cb_client.cb_delete(
           uri,
-          {
-            headers: { 'HostSite' => hash[:host_site] },
-            query: { "UserOAuthToken" =>hash[:user_oauth_token] }
-          }
+          headers: { 'HostSite' => hash[:host_site] },
+          query: { 'UserOAuthToken' => hash[:user_oauth_token] }
         )
         Responses::SavedSearch::Delete.new(json)
       end
@@ -41,11 +48,11 @@ module Cb
 
       private
 
-      def update_headers host_site
+      def update_headers(host_site)
         {
-            "developerkey" => Cb.configuration.dev_key,
-            'Content-Type' => "application/json",
-            'HostSite' => ( host_site.blank? ? Cb.configuration.host_site : host_site )
+          'developerkey' => Cb.configuration.dev_key,
+          'Content-Type' => 'application/json',
+          'HostSite' => (host_site.blank? ? Cb.configuration.host_site : host_site)
         }
       end
 
@@ -55,16 +62,16 @@ module Cb
 
       def retrieve_query(oauth_token)
         {
-            :developerkey   => Cb.configuration.dev_key,
-            :useroauthtoken => oauth_token
+          developerkey: Cb.configuration.dev_key,
+          useroauthtoken: oauth_token
         }
       end
 
       def list_query(oauth_token, hostsite)
         {
-            :developerkey   => Cb.configuration.dev_key,
-            :useroauthtoken => oauth_token,
-            :hostsite => hostsite
+          developerkey: Cb.configuration.dev_key,
+          useroauthtoken: oauth_token,
+          hostsite: hostsite
         }
       end
 
@@ -78,6 +85,5 @@ module Cb
         uri_string.gsub(field, replacement)
       end
     end
-
   end
 end

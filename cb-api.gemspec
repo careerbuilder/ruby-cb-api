@@ -1,4 +1,4 @@
-$:.push File.expand_path('../lib', __FILE__)
+$LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 require 'cb/version'
 
@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://api.careerbuilder.com'
   s.summary     = 'Ruby wrapper around Careerbuilder Public API.'
   s.description = 'Ruby wrapper for Careerbuilder Public API.'
-  s.license     = 'MIT'
+  s.license     = 'Apache-2.0'
 
   s.files        = Dir['{lib}/**/*', 'LICENSE', '*.md']
   s.require_path = 'lib'
@@ -29,4 +29,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-pride', '~> 3.0'
   s.add_development_dependency 'pry', '0.9.12.1'
   s.add_development_dependency 'rb-readline', '~> 0.5.0'
+  s.add_development_dependency 'codeclimate-test-reporter'
 end

@@ -3,7 +3,8 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
-* 17.4.1 Adding job search version 3 query parameters
+* 18.0.1 Adding job search version 3 query parameters
+* 18.0.0 Drop support for older ruby (pre 1.93), also adding copyright notices to the files
 * 17.4.0 Adding job search version 3 as additional call
 * 17.3.0 Set `ENV['SIMULATE_AUTH_OUTAGE']` to true to throw a `Cb::ServiceUnavailableError` for all API calls.
 * 17.2.0 Give back more information about the API caller for timings

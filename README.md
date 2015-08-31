@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/repos/54242d7ce30ba04b220066b1/badges/32deaad52cf116f360f3/gpa.svg)](https://codeclimate.com/repos/54242d7ce30ba04b220066b1/feed)[![Test Coverage](https://codeclimate.com/repos/54242d7ce30ba04b220066b1/badges/32deaad52cf116f360f3/coverage.svg)](https://codeclimate.com/repos/54242d7ce30ba04b220066b1/coverage)
+
 First things first. You're going to need to get a developer key from Careerbuilder. Developer keys are available to Partners. You can fill out the form at http://developer.careerbuilder.com/partner_messages/new to become a Partner.
 
 Now that you have a key, lets get to the good stuff.
@@ -5,12 +7,14 @@ Now that you have a key, lets get to the good stuff.
 You can find an example rails site that uses the gem here:
 https://github.com/cbdr/ruby-cb-api-demo
 
+If you are interested in helping out / contributing to this project please read [CONTRIBUTING guide](https://github.com/careerbuilder/ruby-cb-api/blob/master/CONTRIBUTING.md)
+
 Installation
 ================
+As of 18.0 we are dropping support for ruby 1.87 and ruby 1.93.  It may continue to work in 1.9.3 but we are not going to offically support it going forward.
 
 Install required gems:
 
-    gem install iconv
     gem install cb-api
 
 Require the library in your Ruby script:
@@ -28,7 +32,7 @@ Set your dev key, and any other configuration settings in a place that will run 
 
 Available Endpoints
 ================
-https://github.com/cbdr/ruby-cb-api/blob/master/lib/cb/config.rb
+https://github.com/careerbuilder/ruby-cb-api/blob/master/lib/cb/config.rb
 
 Job Search
 ================

@@ -1,9 +1,18 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 require 'support/mocks/resume'
 
 module Cb
   describe Cb::Requests::Resumes::Put do
-
     context 'initialize without arguments' do
       context 'without arguments' do
         let (:request) { Cb::Requests::Resumes::Put.new({}) }
@@ -19,11 +28,9 @@ module Cb
 
         it 'should have basic headers' do
           expect(request.headers).to eq(
-            {
-              'DeveloperKey' => Cb.configuration.dev_key,
-              'HostSite' => Cb.configuration.host_site,
-              'Content-Type' => 'application/json;version=1.0'
-            }
+            'DeveloperKey' => Cb.configuration.dev_key,
+            'HostSite' => Cb.configuration.host_site,
+            'Content-Type' => 'application/json;version=1.0'
           )
         end
 
@@ -45,11 +52,9 @@ module Cb
 
         it 'should have basic headers' do
           expect(@request.headers).to eq(
-            {
-              'DeveloperKey' => Cb.configuration.dev_key,
-              'HostSite' => Cb.configuration.host_site,
-              'Content-Type' => 'application/json;version=1.0'
-            }
+            'DeveloperKey' => Cb.configuration.dev_key,
+            'HostSite' => Cb.configuration.host_site,
+            'Content-Type' => 'application/json;version=1.0'
           )
         end
 

@@ -1,3 +1,13 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'httparty'
 require 'observer'
 
@@ -20,31 +30,31 @@ module Cb
       end
 
       def initialize
-        self.class.default_params :developerkey => Cb.configuration.dev_key,
-                                  :outputjson => Cb.configuration.use_json.to_s
+        self.class.default_params developerkey: Cb.configuration.dev_key,
+                                  outputjson: Cb.configuration.use_json.to_s
 
         self.class.default_timeout Cb.configuration.time_out
-        self.class.headers.merge! ({'developerkey' => Cb.configuration.dev_key})
-        self.class.headers.merge! ({'accept-encoding' => 'deflate, gzip'}) unless Cb.configuration.debug_api
+        self.class.headers.merge! ({ 'developerkey' => Cb.configuration.dev_key })
+        self.class.headers.merge! ({ 'accept-encoding' => 'deflate, gzip' }) unless Cb.configuration.debug_api
       end
 
-      def cb_get(path, options={}, &block)
+      def cb_get(path, options = {}, &block)
         execute_http_request(:get, nil, path, options, &block)
       end
 
-      def cb_post(path, options={}, &block)
+      def cb_post(path, options = {}, &block)
         execute_http_request(:post, nil, path, options, &block)
       end
 
-      def cb_put(path, options={}, &block)
+      def cb_put(path, options = {}, &block)
         execute_http_request(:put, nil, path, options, &block)
       end
 
-      def cb_delete(path, options={}, &block)
+      def cb_delete(path, options = {}, &block)
         execute_http_request(:delete, nil, path, options, &block)
       end
 
-      def execute_http_request(http_method, uri, path, options={}, &block)
+      def execute_http_request(http_method, uri, path, options = {}, &block)
         self.class.base_uri(uri || Cb.configuration.base_uri)
         api_caller = find_api_caller(caller)
         start_time = Time.now.to_f
@@ -84,7 +94,7 @@ module Cb
       end
 
       def self.criteria_to_hash(criteria)
-        params = Hash.new
+        params = {}
         if criteria.respond_to?(:instance_variables)
           criteria.instance_variables.each do |var|
             var_name = var.to_s
@@ -137,7 +147,7 @@ module Cb
 
       def self.camelize(input)
         input.sub!(/^[a-z\d]*/) { $&.capitalize }
-        input.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$2.capitalize}" }.gsub('/', '::')
+        input.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{Regexp.last_match(2).capitalize}" }.gsub('/', '::')
       end
 
       def set_api_error(validated_response)
@@ -145,7 +155,7 @@ module Cb
       end
 
       def format_hash_key(api_hash_key)
-        return String.new unless api_hash_key.respond_to?(:snakecase)
+        return '' unless api_hash_key.respond_to?(:snakecase)
         api_hash_key.snakecase
       end
     end

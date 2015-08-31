@@ -1,10 +1,20 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 module Cb
   describe Responses::Industry::Search do
     let(:response) do
       { 'ResponseIndustryCodes' => {
-          'IndustryCodes' => {
-              'IndustryCode' => [{'like' => 'whoa'}]
-          }
+        'IndustryCodes' => {
+          'IndustryCode' => [{ 'like' => 'whoa' }]
+        }
       }
       }
     end
@@ -30,7 +40,7 @@ module Cb
         end
 
         context 'missing root node' do
-          let(:response) do { 'herp' => 'derp' } end
+          let(:response) { { 'herp' => 'derp' } }
 
           it 'raises an error' do
             expect_response_field_error
@@ -38,7 +48,7 @@ module Cb
         end
 
         context 'missing IndustryCodes node' do
-          let(:response) do { 'ResponseIndustryCodes' => Hash.new } end
+          let(:response) { { 'ResponseIndustryCodes' => {} } }
 
           it 'raises an error' do
             expect_response_field_error
@@ -46,7 +56,7 @@ module Cb
         end
 
         context 'missing IndustryCode node' do
-          let(:response) do { 'ResponseIndustryCodes' => { 'IndustryCodes' => Hash.new } } end
+          let(:response) { { 'ResponseIndustryCodes' => { 'IndustryCodes' => {} } } }
 
           it 'raises an error' do
             expect_response_field_error

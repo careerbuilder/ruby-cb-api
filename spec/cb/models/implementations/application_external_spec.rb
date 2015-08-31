@@ -1,9 +1,17 @@
+# Copyright 2015 CareerBuilder, LLC
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
 module Cb::Models
-
   describe ApplicationExternal do
-
     before :all do
       @job_did = 'J1234567890'
       @email = 'dontspammebro@whoa.net'
@@ -11,12 +19,11 @@ module Cb::Models
       @ipath = 'shivitandshivitgood'
       @is_external_link_apply = true
       @application = ApplicationExternal.new(
-        { job_did: @job_did,
-          email: @email,
-          site_id: @site_id,
-          is_external_link_apply: @is_external_link_apply,
-          ipath: @ipath
-        })
+        job_did: @job_did,
+        email: @email,
+        site_id: @site_id,
+        is_external_link_apply: @is_external_link_apply,
+        ipath: @ipath)
     end
 
     context '#new' do
@@ -46,7 +53,5 @@ module Cb::Models
         expect(returned_xml).to be_an_instance_of String
       end
     end
-
   end
-
 end
