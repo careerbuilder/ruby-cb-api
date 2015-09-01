@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.version     = Cb::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = 'The CareerBuilder.com Niche and Consumer Development teams'
-  s.email       = 'ConsumerDevelopment@careerbuilder.com'
-  s.homepage    = 'http://api.careerbuilder.com'
+  s.email       = 'opensource@careerbuilder.com'
+  s.homepage    = 'http://developer.careerbuilder.com'
   s.summary     = 'Ruby wrapper around Careerbuilder Public API.'
   s.description = 'Ruby wrapper for Careerbuilder Public API.'
   s.license     = 'Apache-2.0'
