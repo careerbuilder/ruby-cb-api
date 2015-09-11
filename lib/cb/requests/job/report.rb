@@ -13,6 +13,7 @@ module  Cb
 
         def body
           {
+              developerkey: Cb.configuration.dev_key,
               jobDID: args[:jobDID],
               userID: args[:userID],
               reportType: args[:reportType],
