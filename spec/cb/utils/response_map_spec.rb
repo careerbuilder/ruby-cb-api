@@ -110,6 +110,13 @@ module Cb
 
         expect(response_map.response_for(request_namespace::Resume)).to eq(response_namespace::Recommendations)
       end
+
+      it 'should test service status methods' do
+        request_namespace = Cb::Requests::Job
+        response_namespace = Cb::Responses::Job
+
+        expect(response_map.response_for(request_namespace::Report)).to eq response_namespace::Report
+      end
     end
   end
 end
