@@ -104,6 +104,7 @@ module Cb
       @uri_languages ||= '/consumer/datalist/languages'
       @uri_desired_job_type ||= '/consumer/datalist/desiredjobtype'
       @uri_state_list ||= '/ajax/citysuggest.aspx'
+      @uri_report_job ||= '/v1/job/report'
     end
 
     def set_attr_accessors

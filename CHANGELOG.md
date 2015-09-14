@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
+* 18.1.0 Adding report a job endpoint
 * 18.0.2 Updating contact info in the gemspec
 * 18.0.1 Adding job search version 3 query parameters
 * 18.0.0 Drop support for older ruby (pre 1.93), also adding copyright notices to the files

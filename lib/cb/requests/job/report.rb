@@ -8,6 +8,32 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
-module Cb
-  VERSION = '18.1.0'
+
+module  Cb
+  module Requests
+    module Job
+      class Report < Base
+
+        def endpoint_uri
+          Cb.configuration.uri_report_job
+        end
+
+        def http_method
+          :post
+        end
+
+        def body
+          {
+              developerkey: Cb.configuration.dev_key,
+              jobDID: args[:jobDID],
+              userID: args[:userID],
+              reportType: args[:reportType],
+              comments: args[:comments],
+              ipAddress: args[:ipAddress]
+          }.to_json
+        end
+
+      end
+    end
+  end
 end

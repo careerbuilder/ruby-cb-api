@@ -8,6 +8,15 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
+
+require 'spec_helper'
+
 module Cb
-  VERSION = '18.1.0'
+  describe Requests::Job::Report do
+    let(:request) { described_class.new({}) }
+    let(:endpoint) { '/v1/job/report' }
+
+    it { expect(request.http_method).to eql(:post) }
+    it { expect(request.endpoint_uri).to eql(endpoint) }
+  end
 end
