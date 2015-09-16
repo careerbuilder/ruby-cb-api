@@ -9,7 +9,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
-require_relative '../../support/mocks/observer'
+require 'support/mocks/request'
+require 'support/mocks/response'
+require 'support/mocks/observer'
 module Cb
   module Utils
     describe Api do
@@ -49,10 +51,10 @@ module Cb
             expect(api).to receive(:notify_observers).twice.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:cb_get_before, '/moom', {},
                                                               { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
-                                                              nil, 0.0).at_most(1).times.and_call_original
+                                                              nil, 0.0).once.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:cb_get_after, '/moom', {},
                                                               { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
-                                                              { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
+                                                              { success: 'yeah' }, instance_of(Float)).once.and_call_original
             expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).twice
             api.cb_get(path)
           end
@@ -66,12 +68,30 @@ module Cb
               expect(api).to receive(:notify_observers).twice.and_call_original
               expect(Cb::Models::ApiCall).to receive(:new).with(:cb_get_before, '/moom', {},
                                                                 { file: __FILE__, method: 'block (6 levels) in <module:Utils>' },
-                                                                nil, 0.0).at_most(1).times.and_call_original
+                                                                nil, 0.0).once.and_call_original
               expect(Cb::Models::ApiCall).to receive(:new).with(:cb_get_after, '/moom', {},
                                                                 { file: __FILE__, method: 'block (6 levels) in <module:Utils>' },
-                                                                nil, instance_of(Float)).at_most(1).times.and_call_original
+                                                                nil, instance_of(Float)).once.and_call_original
               expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).twice
               expect { api.cb_get(path) }.to raise_error(StandardError)
+            end
+          end
+
+          context 'called from cb/client' do
+            before do
+              allow(Api).to receive(:get).and_return({})
+              allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
+            end
+
+            it 'still identifies the spec file as the caller' do
+              expect(Cb::Models::ApiCall).to receive(:new).with(:cb_get_before, instance_of(String), instance_of(Hash),
+                                                                { file: __FILE__, method: 'block (5 levels) in <module:Utils>' },
+                                                                nil, 0.0).once.and_call_original
+              expect(Cb::Models::ApiCall).to receive(:new).with(:cb_get_after, instance_of(String), instance_of(Hash),
+                                                                { file: __FILE__, method: 'block (5 levels) in <module:Utils>' },
+                                                                {}, instance_of(Float)).once.and_call_original
+              expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).twice
+              Cb::Client.new.execute(Mocks::Request.new(:get))
             end
           end
         end
@@ -119,10 +139,10 @@ module Cb
             expect(api).to receive(:notify_observers).twice.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:cb_post_before, '/moom', {},
                                                               { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
-                                                              nil, 0.0).at_most(1).times.and_call_original
+                                                              nil, 0.0).once.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:cb_post_after, '/moom', {},
                                                               { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
-                                                              { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
+                                                              { success: 'yeah' }, instance_of(Float)).once.and_call_original
             expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
             api.cb_post(path)
           end
@@ -171,10 +191,10 @@ module Cb
             expect(api).to receive(:notify_observers).twice.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:cb_put_before, '/moom', {},
                                                               { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
-                                                              nil, 0.0).at_most(1).times.and_call_original
+                                                              nil, 0.0).once.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:cb_put_after, '/moom', {},
                                                               { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
-                                                              { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
+                                                              { success: 'yeah' }, instance_of(Float)).once.and_call_original
             expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
             api.cb_put(path)
           end
@@ -224,10 +244,10 @@ module Cb
             expect(api).to receive(:notify_observers).twice.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:cb_delete_before, '/moom', {},
                                                               { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
-                                                              nil, 0.0).at_most(1).times.and_call_original
+                                                              nil, 0.0).once.and_call_original
             expect(Cb::Models::ApiCall).to receive(:new).with(:cb_delete_after, '/moom', {},
                                                               { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
-                                                              { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
+                                                              { success: 'yeah' }, instance_of(Float)).once.and_call_original
             expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
             api.cb_delete(path)
           end

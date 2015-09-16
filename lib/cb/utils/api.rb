@@ -119,9 +119,13 @@ module Cb
       def find_api_caller(call_list)
         filename_regex = /.*\.rb/
         linenum_regex = /:.*:in `/
-        filename, method_name = call_list.find { |l| l[filename_regex] != __FILE__ }[0..-2].split(linenum_regex)
+        filename, method_name = call_list.find { |l| use_this_api_caller?(l[filename_regex]) }[0..-2].split(linenum_regex)
         simplified_filename = filename.include?('/lib/') ? filename[/\/lib\/.*/] : filename
         { file: simplified_filename, method: method_name }
+      end
+
+      def use_this_api_caller?(calling_file)
+        (calling_file == __FILE__ || calling_file.include?('/lib/cb/client.rb')) ? false : true
       end
 
       def validate_response(response)
