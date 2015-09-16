@@ -57,10 +57,14 @@ module Cb
       def execute_http_request(http_method, uri, path, options = {}, &block)
         self.class.base_uri(uri || Cb.configuration.base_uri)
         api_caller = find_api_caller(caller)
+        response = nil
         start_time = Time.now.to_f
-        cb_event(:"cb_#{ http_method }_before", path, options, api_caller, nil, 0.0, &block)
-        response = self.class.method(http_method).call(path, options)
-        cb_event(:"cb_#{ http_method }_after", path, options, api_caller, response, Time.now.to_f - start_time, &block)
+        cb_event(:"cb_#{ http_method }_before", path, options, api_caller, response, 0.0, &block)
+        begin
+          response = self.class.method(http_method).call(path, options)
+        ensure
+          cb_event(:"cb_#{ http_method }_after", path, options, api_caller, response, Time.now.to_f - start_time, &block)
+        end
         validate_response(response)
       end
 

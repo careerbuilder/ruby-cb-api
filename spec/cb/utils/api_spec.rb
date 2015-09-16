@@ -53,8 +53,26 @@ module Cb
             expect(Cb::Models::ApiCall).to receive(:new).with(:cb_get_after, '/moom', {},
                                                               { file: __FILE__, method: 'block (4 levels) in <module:Utils>' },
                                                               { success: 'yeah' }, instance_of(Float)).at_most(1).times.and_call_original
-            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).at_most(2).times
+            expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).twice
             api.cb_get(path)
+          end
+
+          context 'there is an error in the request/response' do
+            before do
+              allow(Api).to receive(:get).with(path, options).and_raise(StandardError)
+            end
+
+            it 'will still notify the observers' do
+              expect(api).to receive(:notify_observers).twice.and_call_original
+              expect(Cb::Models::ApiCall).to receive(:new).with(:cb_get_before, '/moom', {},
+                                                                { file: __FILE__, method: 'block (6 levels) in <module:Utils>' },
+                                                                nil, 0.0).at_most(1).times.and_call_original
+              expect(Cb::Models::ApiCall).to receive(:new).with(:cb_get_after, '/moom', {},
+                                                                { file: __FILE__, method: 'block (6 levels) in <module:Utils>' },
+                                                                nil, instance_of(Float)).at_most(1).times.and_call_original
+              expect(observer).to receive(:update).with(instance_of(Cb::Models::ApiCall)).twice
+              expect { api.cb_get(path) }.to raise_error(StandardError)
+            end
           end
         end
 
