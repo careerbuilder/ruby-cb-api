@@ -67,6 +67,11 @@ module Cb
         validate_response(response)
       end
 
+      def execute_http_request(http_method, uri, path, options = {})
+        self.class.base_uri(uri || Cb.configuration.base_uri)
+        self.class.method(http_method).call(path, options)
+      end
+
       def append_api_responses(obj, resp)
         meta_class = ensure_non_nil_metavalues(obj)
 
@@ -114,11 +119,6 @@ module Cb
       end
 
       private
-
-      def execute_http_request(http_method, uri, path, options = {})
-        self.class.base_uri(uri || Cb.configuration.base_uri)
-        self.class.method(http_method).call(path, options)
-      end
 
       def find_api_caller(call_list)
         filename_regex = /.*\.rb/
