@@ -125,6 +125,7 @@ module Cb
         linenum_regex = /:.*:in `/
         filename, method_name = call_list.find { |l| use_this_api_caller?(l[filename_regex]) }[0..-2].split(linenum_regex)
         simplified_filename = filename.include?('/lib/') ? filename[/\/lib\/.*/] : filename
+        simplified_filename = simplified_filename.include?('/app/') ? simplified_filename[/\/app\/.*/] : simplified_filename
         { file: simplified_filename, method: method_name }
       end
 

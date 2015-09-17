@@ -363,6 +363,19 @@ module Cb
           end
         end
       end
+
+      describe '#find_api_caller' do
+        let(:call_list) do
+          [
+            "#{ File.absolute_path(File.join(File.dirname(__FILE__), '../../..', 'lib', 'cb', 'utils', 'api.rb')) }:14:in `cb_get'",
+            "#{ File.absolute_path(File.join(File.dirname(__FILE__), '../../..', 'app', 'procedures', 'fake.rb')) }:72:in `my_method'"
+          ]
+        end
+
+        it 'filters the caller to something reasonable when from /*/app/procedures/*' do
+          expect(api.send('find_api_caller', call_list)).to eq({ file: '/app/procedures/fake.rb', method: 'my_method' })
+        end
+      end
     end
   end
 end
