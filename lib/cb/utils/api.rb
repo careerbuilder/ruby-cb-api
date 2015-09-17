@@ -60,7 +60,7 @@ module Cb
         start_time = Time.now.to_f
         cb_event(:"cb_#{ http_method }_before", path, options, api_caller, response, 0.0, &block)
         begin
-          response = execute_http_request(http_method, uri, path, options, &block)
+          response = execute_http_request(http_method, uri, path, options)
         ensure
           cb_event(:"cb_#{ http_method }_after", path, options, api_caller, response, Time.now.to_f - start_time, &block)
         end
@@ -115,7 +115,7 @@ module Cb
 
       private
 
-      def execute_http_request(http_method, uri, path, options = {}, &block)
+      def execute_http_request(http_method, uri, path, options = {})
         self.class.base_uri(uri || Cb.configuration.base_uri)
         self.class.method(http_method).call(path, options)
       end
