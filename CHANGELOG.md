@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
+* 18.2.2 Filter out release directory related information when getting the API caller.
 * 18.2.1 No functional changes, just renamed `execute_http_request` to `timed_http_request`.
 * 18.2.0 Collect API caller info a level above lib/cb/client.rb and get timings on errors as well.
 * 18.1.0 Adding report a job endpoint
