@@ -285,7 +285,7 @@ module Cb
         end
       end
 
-      describe '#execute_http_request' do
+      describe '#timed_http_request' do
         context ':delete' do
           context 'when we have observers' do
             let(:response) { { success: 'yeah' } }
@@ -297,13 +297,13 @@ module Cb
             it 'will notify the observers' do
               expect(api).to receive(:notify_observers).twice.and_call_original
               expect(observer).to receive(:update).at_most(2).times
-              api.execute_http_request(:delete, nil, path)
+              api.timed_http_request(:delete, nil, path)
             end
           end
 
           it 'sends #delete to HttParty' do
             expect(Api).to receive(:delete).with(path, options)
-            api.execute_http_request(:delete, nil, path)
+            api.timed_http_request(:delete, nil, path)
           end
 
           context 'When Cb base_uri is configured' do
@@ -313,7 +313,7 @@ module Cb
             end
 
             it 'sets base_uri on Api' do
-              api.execute_http_request(:delete, nil, path)
+              api.timed_http_request(:delete, nil, path)
 
               expect(Api.base_uri).to eq 'http://www.kylerox.org'
             end
@@ -328,7 +328,7 @@ module Cb
 
             it 'sends #validate to ResponseValidator with the response' do
               expect(ResponseValidator).to receive(:validate).with(response).and_return(response)
-              api.execute_http_request(:delete, nil, path)
+              api.timed_http_request(:delete, nil, path)
             end
           end
         end
@@ -345,7 +345,7 @@ module Cb
 
         context 'passes a base uri' do
           before do
-            api.execute_http_request(:delete, base_uri, path)
+            api.timed_http_request(:delete, base_uri, path)
           end
 
           it 'sets an override' do
@@ -355,7 +355,7 @@ module Cb
 
         context 'passes nil' do
           before do
-            api.execute_http_request(:delete, nil, path)
+            api.timed_http_request(:delete, nil, path)
           end
 
           it 'doesn\'t set an override' do

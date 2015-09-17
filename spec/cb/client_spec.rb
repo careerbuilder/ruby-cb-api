@@ -51,7 +51,7 @@ module Cb
 
       context 'post' do
         before :each do
-          allow(mock_api).to receive(:execute_http_request).and_return({})
+          allow(mock_api).to receive(:timed_http_request).and_return({})
           allow(mock_api).to receive(:append_api_responses)
           allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
           allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
@@ -60,7 +60,7 @@ module Cb
         end
 
         it 'should call the api using post' do
-          expect(mock_api).to receive(:execute_http_request)
+          expect(mock_api).to receive(:timed_http_request)
             .with(:post, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
             .and_return({})
 
@@ -70,7 +70,7 @@ module Cb
 
       context 'get' do
         before :each do
-          allow(mock_api).to receive(:execute_http_request).and_return({})
+          allow(mock_api).to receive(:timed_http_request).and_return({})
           allow(mock_api).to receive(:append_api_responses)
           allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
           allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
@@ -79,7 +79,7 @@ module Cb
         end
 
         it 'should call the api using get' do
-          expect(mock_api).to receive(:execute_http_request)
+          expect(mock_api).to receive(:timed_http_request)
             .with(:get, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
             .and_return({})
 
@@ -89,7 +89,7 @@ module Cb
 
       context 'put' do
         before :each do
-          allow(mock_api).to receive(:execute_http_request).and_return({})
+          allow(mock_api).to receive(:timed_http_request).and_return({})
           allow(mock_api).to receive(:append_api_responses)
           allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
           allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
@@ -98,7 +98,7 @@ module Cb
         end
 
         it 'should call the api using put' do
-          expect(mock_api).to receive(:execute_http_request)
+          expect(mock_api).to receive(:timed_http_request)
             .with(:put, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
             .and_return({})
 
@@ -115,7 +115,7 @@ module Cb
 
       context 'post' do
         before :each do
-          allow(mock_api).to receive(:execute_http_request).and_return({})
+          allow(mock_api).to receive(:timed_http_request).and_return({})
           allow(mock_api).to receive(:append_api_responses)
           allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
           allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
@@ -124,7 +124,7 @@ module Cb
         end
 
         it 'should call the api using post' do
-          expect(mock_api).to receive(:execute_http_request)
+          expect(mock_api).to receive(:timed_http_request)
             .with(:post, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
             .and_yield('test')
             .and_return({})
@@ -135,7 +135,7 @@ module Cb
 
       context 'get' do
         before :each do
-          allow(mock_api).to receive(:execute_http_request).and_return({})
+          allow(mock_api).to receive(:timed_http_request).and_return({})
           allow(mock_api).to receive(:append_api_responses)
           allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
           allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
@@ -144,7 +144,7 @@ module Cb
         end
 
         it 'should call the api using get' do
-          expect(mock_api).to receive(:execute_http_request)
+          expect(mock_api).to receive(:timed_http_request)
             .with(:get, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
             .and_yield('test')
             .and_return({})
@@ -155,7 +155,7 @@ module Cb
 
       context 'put' do
         before :each do
-          allow(mock_api).to receive(:execute_http_request).and_return({})
+          allow(mock_api).to receive(:timed_http_request).and_return({})
           allow(mock_api).to receive(:append_api_responses)
           allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
           allow(Cb::Utils::ResponseMap).to receive(:response_for).and_return(Mocks::Response)
@@ -164,7 +164,7 @@ module Cb
         end
 
         it 'should call the api using put' do
-          expect(mock_api).to receive(:execute_http_request)
+          expect(mock_api).to receive(:timed_http_request)
             .with(:put, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
             .and_yield('test')
             .and_return({})
