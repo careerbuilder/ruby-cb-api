@@ -57,10 +57,14 @@ module Cb
       def execute_http_request(http_method, uri, path, options = {}, &block)
         self.class.base_uri(uri || Cb.configuration.base_uri)
         api_caller = find_api_caller(caller)
+        response = nil
         start_time = Time.now.to_f
-        cb_event(:"cb_#{ http_method }_before", path, options, api_caller, nil, 0.0, &block)
-        response = self.class.method(http_method).call(path, options)
-        cb_event(:"cb_#{ http_method }_after", path, options, api_caller, response, Time.now.to_f - start_time, &block)
+        cb_event(:"cb_#{ http_method }_before", path, options, api_caller, response, 0.0, &block)
+        begin
+          response = self.class.method(http_method).call(path, options)
+        ensure
+          cb_event(:"cb_#{ http_method }_after", path, options, api_caller, response, Time.now.to_f - start_time, &block)
+        end
         validate_response(response)
       end
 
@@ -115,9 +119,13 @@ module Cb
       def find_api_caller(call_list)
         filename_regex = /.*\.rb/
         linenum_regex = /:.*:in `/
-        filename, method_name = call_list.find { |l| l[filename_regex] != __FILE__ }[0..-2].split(linenum_regex)
+        filename, method_name = call_list.find { |l| use_this_api_caller?(l[filename_regex]) }[0..-2].split(linenum_regex)
         simplified_filename = filename.include?('/lib/') ? filename[/\/lib\/.*/] : filename
         { file: simplified_filename, method: method_name }
+      end
+
+      def use_this_api_caller?(calling_file)
+        (calling_file == __FILE__ || calling_file.include?('/lib/cb/client.rb')) ? false : true
       end
 
       def validate_response(response)
