@@ -25,7 +25,7 @@ module Cb
     private
 
     def call_api(request)
-      http_wrapper.execute_http_request(
+      http_wrapper.timed_http_request(
         request.http_method,
         request.base_uri,
         request.endpoint_uri,

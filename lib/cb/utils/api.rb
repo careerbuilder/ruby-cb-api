@@ -39,33 +39,37 @@ module Cb
       end
 
       def cb_get(path, options = {}, &block)
-        execute_http_request(:get, nil, path, options, &block)
+        timed_http_request(:get, nil, path, options, &block)
       end
 
       def cb_post(path, options = {}, &block)
-        execute_http_request(:post, nil, path, options, &block)
+        timed_http_request(:post, nil, path, options, &block)
       end
 
       def cb_put(path, options = {}, &block)
-        execute_http_request(:put, nil, path, options, &block)
+        timed_http_request(:put, nil, path, options, &block)
       end
 
       def cb_delete(path, options = {}, &block)
-        execute_http_request(:delete, nil, path, options, &block)
+        timed_http_request(:delete, nil, path, options, &block)
       end
 
-      def execute_http_request(http_method, uri, path, options = {}, &block)
-        self.class.base_uri(uri || Cb.configuration.base_uri)
+      def timed_http_request(http_method, uri, path, options = {}, &block)
         api_caller = find_api_caller(caller)
         response = nil
         start_time = Time.now.to_f
         cb_event(:"cb_#{ http_method }_before", path, options, api_caller, response, 0.0, &block)
         begin
-          response = self.class.method(http_method).call(path, options)
+          response = execute_http_request(http_method, uri, path, options)
         ensure
           cb_event(:"cb_#{ http_method }_after", path, options, api_caller, response, Time.now.to_f - start_time, &block)
         end
         validate_response(response)
+      end
+
+      def execute_http_request(http_method, uri, path, options = {})
+        self.class.base_uri(uri || Cb.configuration.base_uri)
+        self.class.method(http_method).call(path, options)
       end
 
       def append_api_responses(obj, resp)
