@@ -15,7 +15,7 @@ module Cb
         private
 
         def extract_models
-          [ cover_letters_node ].flatten.map { |api_cover_letter| Models::CoverLetter.new api_cover_letter }
+          [ cover_letters_node || [] ].flatten.map { |api_cover_letter| Models::CoverLetter.new api_cover_letter }
         end
 
         def validate_api_hash

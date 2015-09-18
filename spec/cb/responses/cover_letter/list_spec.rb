@@ -15,33 +15,62 @@ module Cb
     module CoverLetter
       describe List do
         let(:cb_cover_letter_list_response) { described_class.new api_response }
-        let(:api_response) { JSON.parse File.read('spec/support/response_stubs/cover_letter/list.json') }
 
         it { expect(described_class).to be < Cb::Responses::ApiResponse }
 
         describe '#models' do
           subject(:cover_letters) { cb_cover_letter_list_response.models }
 
-          it { cover_letters.each { |cover_letter| expect(cover_letter).to be_a Cb::Models::CoverLetter } }
+          context 'when no cover letters are returned' do
+            let(:api_response) { JSON.parse File.read('spec/support/response_stubs/cover_letter/list/none.json') }
 
-          context 'first cover letter' do
-            let(:first_cover_letter) { cover_letters.first }
-
-            it { expect(first_cover_letter.id).to eq 'CLXXXXXXXXXXXXXXXXXX' }
-            it { expect(first_cover_letter.name).to eq 'New Cover Letter' }
-            it { expect(first_cover_letter.text).to eq 'Wow Im da bess.' }
-            it { expect(first_cover_letter.created).to eq '9/18/2015 1:14:27 PM' }
-            it { expect(first_cover_letter.modified).to eq '9/18/2015 1:14:27 PM' }
+            it { is_expected.to eq [] }
           end
 
-          context 'last cover letter' do
-            let(:last_cover_letter) { cover_letters.last }
+          shared_examples_for :an_array_of_cb_models_cover_letter do
+            it { cover_letters.each { |cover_letter| expect(cover_letter).to be_a Cb::Models::CoverLetter } }
+          end
 
-            it { expect(last_cover_letter.id).to eq 'CLXXXXXXXXXXXXXXXXXX' }
-            it { expect(last_cover_letter.name).to eq 'New Cover Letter 2' }
-            it { expect(last_cover_letter.text).to eq 'Wow Im da bess. 2' }
-            it { expect(last_cover_letter.created).to eq '9/18/2015 1:18:33 PM' }
-            it { expect(last_cover_letter.modified).to eq '9/18/2015 1:18:33 PM' }
+          context 'when one cover letter is returned' do
+            let(:api_response) { JSON.parse File.read('spec/support/response_stubs/cover_letter/list/one.json') }
+
+            it_behaves_like :an_array_of_cb_models_cover_letter
+
+            context 'first cover letter' do
+              let(:first_cover_letter) { cover_letters.first }
+
+              it { expect(first_cover_letter.id).to eq 'CLXXXXXXXXXXXXXXXXXX' }
+              it { expect(first_cover_letter.name).to eq 'One Cover Letter' }
+              it { expect(first_cover_letter.text).to eq 'Wow Im da bess.' }
+              it { expect(first_cover_letter.created).to eq '9/18/2015 1:14:27 PM' }
+              it { expect(first_cover_letter.modified).to eq '9/18/2015 1:14:27 PM' }
+            end
+          end
+
+          context 'when two cover letters are returned' do
+            let(:api_response) { JSON.parse File.read('spec/support/response_stubs/cover_letter/list.json') }
+
+            it_behaves_like :an_array_of_cb_models_cover_letter
+
+            context 'first cover letter' do
+              let(:first_cover_letter) { cover_letters.first }
+
+              it { expect(first_cover_letter.id).to eq 'CLXXXXXXXXXXXXXXXXXX' }
+              it { expect(first_cover_letter.name).to eq 'New Cover Letter' }
+              it { expect(first_cover_letter.text).to eq 'Wow Im da bess.' }
+              it { expect(first_cover_letter.created).to eq '9/18/2015 1:14:27 PM' }
+              it { expect(first_cover_letter.modified).to eq '9/18/2015 1:14:27 PM' }
+            end
+
+            context 'last cover letter' do
+              let(:last_cover_letter) { cover_letters.last }
+
+              it { expect(last_cover_letter.id).to eq 'CLXXXXXXXXXXXXXXXXXX' }
+              it { expect(last_cover_letter.name).to eq 'New Cover Letter 2' }
+              it { expect(last_cover_letter.text).to eq 'Wow Im da bess. 2' }
+              it { expect(last_cover_letter.created).to eq '9/18/2015 1:18:33 PM' }
+              it { expect(last_cover_letter.modified).to eq '9/18/2015 1:18:33 PM' }
+            end
           end
         end
       end
