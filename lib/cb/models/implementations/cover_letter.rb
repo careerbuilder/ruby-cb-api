@@ -9,5 +9,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 module Cb
-  VERSION = '18.3.0'
+  module Models
+    class CoverLetter
+      attr_reader :id, :name, :text, :created, :modified
+
+      def initialize(api_cover_letter)
+        @id = api_cover_letter['CoverLetterDID'] || api_cover_letter['ExternalId']
+        @name = api_cover_letter['CoverLetterName'] || api_cover_letter['Name']
+        @text = api_cover_letter['CoverLetterText'] || api_cover_letter['Text']
+        @created = api_cover_letter['CreatedDate'] || api_cover_letter['CreatedDT']
+        @modified = api_cover_letter['ModifiedDate'] || api_cover_letter['ModifiedDT']
+      end
+    end
+  end
 end

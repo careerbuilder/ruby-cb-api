@@ -105,6 +105,9 @@ module Cb
       @uri_desired_job_type ||= '/consumer/datalist/desiredjobtype'
       @uri_state_list ||= '/ajax/citysuggest.aspx'
       @uri_report_job ||= '/v1/job/report'
+      @uri_cover_letter_list ||= '/v1/coverletter/list'
+      @uri_cover_letter_retrieve ||= '/coverletter/retrieve'
+      @uri_cover_letter_delete ||= '/coverletter/delete'
     end
 
     def set_attr_accessors

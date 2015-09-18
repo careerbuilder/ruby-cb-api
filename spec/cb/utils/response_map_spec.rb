@@ -45,6 +45,15 @@ module Cb
         expect(response_map.response_for(request_namespace::Find)).to eq(response_namespace::Find)
       end
 
+      it 'should test cover letter methods' do
+        request_namespace = Cb::Requests::CoverLetter
+        response_namespace = Cb::Responses::CoverLetter
+
+        expect(response_map.response_for(request_namespace::List)).to eq(response_namespace::List)
+        expect(response_map.response_for(request_namespace::Retrieve)).to eq(response_namespace::Retrieve)
+        expect(response_map.response_for(request_namespace::Delete)).to eq(response_namespace::Delete)
+      end
+
       it 'should test category methods' do
         request_namespace = Cb::Requests::Category
         response_namespace = Cb::Responses::Category
