@@ -23,14 +23,15 @@ module  Cb
         end
 
         def body
-          {
-              developerkey: Cb.configuration.dev_key,
-              jobDID: args[:jobDID],
-              userID: args[:userID],
-              reportType: args[:reportType],
-              comments: args[:comments],
-              ipAddress: args[:ipAddress]
-          }.to_json
+          <<-eos
+          <Request>
+            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+            <JobDID>#{args[:job_id]}</JobDID>
+            <UserID>#{args[:user_id]}</UserID>
+            <ReportType>#{args[:report_type]}</ReportType>
+            <Comments>#{args[:comments]}</Comments>
+          </Request>
+          eos
         end
 
       end
