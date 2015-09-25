@@ -18,5 +18,25 @@ module Cb
 
     it { expect(request.http_method).to eql(:post) }
     it { expect(request.endpoint_uri).to eql(endpoint) }
+
+    it 'should have a basic query string' do
+      expect(request.query).to eq(nil)
+    end
+
+    it 'should have basic headers' do
+      expect(request.headers).to eq(nil)
+    end
+
+    it 'should have a basic body' do
+      expect(request.body).to eq <<-eos
+          <Request>
+            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+            <JobDID></JobDID>
+            <UserID></UserID>
+            <ReportType></ReportType>
+            <Comments></Comments>
+          </Request>
+      eos
+    end
   end
 end

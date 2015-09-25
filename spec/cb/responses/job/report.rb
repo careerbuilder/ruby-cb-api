@@ -17,13 +17,12 @@ module Cb
     let(:json) do
       {
           'Errors' => [],
-          'Success' => 'true'
+          'Success' => true
       }
     end
 
-    it { expect(response.model.first.class).to eq(Cb::Models::ReportJob) }
-    it { expect(response.model.count).to eq(1) }
-    it { expect(response.model.first.success).to eq(true) }
+    it { expect(response.model.class).to eq(Cb::Models::ReportJob) }
+    it { expect(response.model.success).to eq(true) }
     it { expect(response.hash_containing_metadata).to eq(json) }
   end
 
