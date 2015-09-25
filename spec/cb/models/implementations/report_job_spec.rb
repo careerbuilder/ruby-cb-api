@@ -15,7 +15,7 @@ module Cb
   describe Models::ReportJob do
 
     shared_examples_for 'report job' do
-      let(:model) { Cb::Models::ReportJob.new(success: status) }
+      let(:model) { Cb::Models::ReportJob.new({ 'Success' => status }) }
 
       it { expect(model.success).to eql(status) }
     end

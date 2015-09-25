@@ -14,18 +14,20 @@ module Cb
     module Job
       class Report < ApiResponse
 
+        def hash_containing_metadata
+          response
+        end
+
         def validate_api_hash
-          required_response_field(root_node, success)
+          required_response_field(success_node, response)
         end
 
         def extract_models
-          response[root_node].map do |success|
-            Cb::Models::ReportJob.new(success: success)
-          end
+          Cb::Models::ReportJob.new(response)
         end
 
-        def root_node
-          'ResponseReportJob'
+        def success_node
+          'Success'
         end
         
       end
