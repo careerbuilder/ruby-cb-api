@@ -15,7 +15,7 @@ module Cb
       attr_accessor :success
 
       def initialize(args = {})
-        @success = args[:success]
+        @success = args['Success'] || false
       end
     end
   end
