@@ -9,5 +9,31 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 module Cb
-  VERSION = '18.4.0'
+  module Responses
+    module CoverLetter
+      class Delete < ApiResponse
+        def status
+          response[root_node]['Status']
+        end
+
+        private
+
+        def extract_models
+          nil
+        end
+
+        def validate_api_hash
+          required_response_field(root_node, response)
+        end
+
+        def hash_containing_metadata
+          response
+        end
+
+        def root_node
+          'ResponseUserDelete'
+        end
+      end
+    end
+  end
 end

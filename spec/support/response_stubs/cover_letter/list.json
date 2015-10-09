@@ -1,0 +1,25 @@
+{ 
+  "ResponseListCoverLetters": {
+    "Errors": null,
+    "TimeResponseSent": "9/18/2015 1:29:41 PM",
+    "TimeElapsed": "0.0312",
+    "CoverLetters": {
+      "CoverLetter": [
+        {
+          "CoverLetterDID": "CLXXXXXXXXXXXXXXXXXX",
+          "CoverLetterName": "New Cover Letter",
+          "CoverLetterText": "Wow Im da bess.",
+          "CreatedDate": "9/18/2015 1:14:27 PM",
+          "ModifiedDate": "9/18/2015 1:14:27 PM"
+        },
+        {
+          "CoverLetterDID": "CLXXXXXXXXXXXXXXXXXX",
+          "CoverLetterName": "New Cover Letter 2",
+          "CoverLetterText": "Wow Im da bess. 2",
+          "CreatedDate": "9/18/2015 1:18:33 PM",
+          "ModifiedDate": "9/18/2015 1:18:33 PM"
+        }
+      ]
+    }
+  }
+}

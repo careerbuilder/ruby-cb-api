@@ -1,0 +1,15 @@
+{
+  "ResponseUserDelete": {
+    "Request": {
+      "DeveloperKey": "WXXXXXXXXXXXXXXXXXXX",
+      "HostSite": null,
+      "Test": "False",
+      "ExternalUserID": "UXXXXXXXXXXXXXXXXXX",
+      "ExternalID": "CLXXXXXXXXXXXXXXXXXX"
+    },
+    "Errors": null,
+    "TimeResponseSent": "9/18/2015 2:10:15 PM",
+    "TimeElapsed": "0.2028",
+    "Status": "Success"
+  }
+}

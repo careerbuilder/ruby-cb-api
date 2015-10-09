@@ -44,6 +44,10 @@ module Cb
 
             Cb::Requests::Company::Find => Cb::Responses::Company::Find,
 
+            Cb::Requests::CoverLetter::List => Cb::Responses::CoverLetter::List,
+            Cb::Requests::CoverLetter::Retrieve => Cb::Responses::CoverLetter::Retrieve,
+            Cb::Requests::CoverLetter::Delete => Cb::Responses::CoverLetter::Delete,
+
             Cb::Requests::Education::Get => Cb::Responses::Education::Get,
 
             Cb::Requests::EmailSubscription::Retrieve => Cb::Responses::EmailSubscription::Response,
