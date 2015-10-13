@@ -28,7 +28,7 @@ module Cb
         let(:external_user_id) { 'external user id' }
         let(:test) { true }
 
-        it { expect(described_class).to be < Cb::Requests::Base }
+        it { expect(described_class).to be_a_subclass_of Cb::Requests::Base }
 
         describe '#endpoint_uri' do
           subject { cover_letter_delete_request.endpoint_uri }

@@ -32,7 +32,7 @@ module Cb
         let(:text) { 'text' }
         let(:test) { true }
 
-        it { expect(described_class).to be < Cb::Requests::Base }
+        it { expect(described_class).to be_a_subclass_of Cb::Requests::Base }
 
         describe '#endpoint_uri' do
           subject { cover_letter_update_request.endpoint_uri }

@@ -17,7 +17,7 @@ module Cb
         let(:cb_cover_letter_update_response) { described_class.new api_response }
         let(:api_response) { JSON.parse File.read('spec/support/response_stubs/cover_letter/update.json') }
 
-        it { expect(described_class).to be < Cb::Responses::ApiResponse }
+        it { expect(described_class).to be_a_subclass_of Cb::Responses::ApiResponse }
 
         describe '#models' do
           subject { cb_cover_letter_update_response.models }
