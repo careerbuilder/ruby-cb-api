@@ -38,3 +38,5 @@ end
 
 require 'support/convenience'
 include Cb::SpecSupport::Convenience
+
+require 'support/rspec/matchers/be_a_subclass_of'

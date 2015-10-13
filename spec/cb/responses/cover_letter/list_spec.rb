@@ -16,7 +16,7 @@ module Cb
       describe List do
         let(:cb_cover_letter_list_response) { described_class.new api_response }
 
-        it { expect(described_class).to be < Cb::Responses::ApiResponse }
+        it { expect(described_class).to be_a_subclass_of Cb::Responses::ApiResponse }
 
         describe '#models' do
           subject(:cover_letters) { cb_cover_letter_list_response.models }

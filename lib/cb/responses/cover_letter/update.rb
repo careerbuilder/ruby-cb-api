@@ -14,12 +14,12 @@ require_relative '../nil_model'
 module Cb
   module Responses
     module CoverLetter
-      class Delete < ApiResponse
+      class Update < ApiResponse
         include Cb::Responses::CoverLetter::Status
         include Cb::Responses::NilModel
 
         def root_node
-          'ResponseUserDelete'
+          'ResponseUserUpdate'
         end
       end
     end

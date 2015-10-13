@@ -15,7 +15,7 @@ module Cb
         private
 
         def extract_models
-          Models::CoverLetter.new api_cover_letter
+          Models::CoverLetter.new api_cover_letter unless api_cover_letter.nil?
         end
 
         def validate_api_hash
