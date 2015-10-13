@@ -13,11 +13,11 @@ require_relative 'status'
 module Cb
   module Responses
     module CoverLetter
-      class Delete < ApiResponse
+      class Update < ApiResponse
         include Cb::Responses::CoverLetter::Status
 
         def root_node
-          'ResponseUserDelete'
+          'ResponseUserUpdate'
         end
       end
     end

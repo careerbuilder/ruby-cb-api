@@ -8,16 +8,26 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
-require_relative 'status'
-
 module Cb
   module Responses
     module CoverLetter
-      class Delete < ApiResponse
-        include Cb::Responses::CoverLetter::Status
+      module Status
+        def status
+          response[root_node]['Status']
+        end
 
-        def root_node
-          'ResponseUserDelete'
+        private
+
+        def extract_models
+          nil
+        end
+
+        def validate_api_hash
+          required_response_field(root_node, response)
+        end
+
+        def hash_containing_metadata
+          response
         end
       end
     end
