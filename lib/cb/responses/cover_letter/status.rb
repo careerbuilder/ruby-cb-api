@@ -18,10 +18,6 @@ module Cb
 
         private
 
-        def extract_models
-          nil
-        end
-
         def validate_api_hash
           required_response_field(root_node, response)
         end

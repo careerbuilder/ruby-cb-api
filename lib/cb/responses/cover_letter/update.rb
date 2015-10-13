@@ -9,12 +9,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 require_relative 'status'
+require_relative '../nil_model'
 
 module Cb
   module Responses
     module CoverLetter
       class Update < ApiResponse
         include Cb::Responses::CoverLetter::Status
+        include Cb::Responses::NilModel
 
         def root_node
           'ResponseUserUpdate'
