@@ -112,3 +112,24 @@ module Cb
     end
   end
 end
+
+module CB
+  class Config
+    attr_accessor :dev_key, :uri, :observers, :host_site
+
+    DEV_KEY_DEFAULT = 'ruby-cb-api'
+
+    def initialize
+      set_defaults
+    end
+
+    protected
+
+    def set_defaults
+      @dev_key              = DEV_KEY_DEFAULT  # Get a developer key at http://api.careerbuilder.com
+      @uri                  = 'https://api.careerbuilder.com'
+      @host_site            = 'US'
+      @observers            = []
+    end
+  end
+end
