@@ -8,18 +8,27 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
-require_relative 'status'
-require_relative '../nil_model'
+require 'spec_helper'
 
 module Cb
   module Responses
     module CoverLetter
-      class Delete < ApiResponse
-        include Cb::Responses::CoverLetter::Status
-        include Cb::Responses::NilModel
+      describe Update do
+        let(:cb_cover_letter_update_response) { described_class.new api_response }
+        let(:api_response) { JSON.parse File.read('spec/support/response_stubs/cover_letter/update.json') }
 
-        def root_node
-          'ResponseUserDelete'
+        it { expect(described_class).to be_a_subclass_of Cb::Responses::ApiResponse }
+
+        describe '#models' do
+          subject { cb_cover_letter_update_response.models }
+
+          it { is_expected.to be nil }
+        end
+
+        describe '#status' do
+          subject { cb_cover_letter_update_response.status }
+
+          it { is_expected.to eq 'Success' }
         end
       end
     end

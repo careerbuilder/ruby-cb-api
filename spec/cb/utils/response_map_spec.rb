@@ -51,6 +51,7 @@ module Cb
 
         expect(response_map.response_for(request_namespace::List)).to eq(response_namespace::List)
         expect(response_map.response_for(request_namespace::Retrieve)).to eq(response_namespace::Retrieve)
+        expect(response_map.response_for(request_namespace::Update)).to eq(response_namespace::Update)
         expect(response_map.response_for(request_namespace::Delete)).to eq(response_namespace::Delete)
       end
 

@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
+* 18.5.0 Adding support for Cover Letter Update.
 * 18.4.0 Adding support for Cover Letter APIs - Retrieve, List, and Delete.
 * 18.3.0 Correcting report a job to use xml request and correctly map model from response.
 * 18.2.2 Filter out release directory related information when getting the API caller.

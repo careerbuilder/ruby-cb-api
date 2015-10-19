@@ -46,6 +46,7 @@ module Cb
 
             Cb::Requests::CoverLetter::List => Cb::Responses::CoverLetter::List,
             Cb::Requests::CoverLetter::Retrieve => Cb::Responses::CoverLetter::Retrieve,
+            Cb::Requests::CoverLetter::Update => Cb::Responses::CoverLetter::Update,
             Cb::Requests::CoverLetter::Delete => Cb::Responses::CoverLetter::Delete,
 
             Cb::Requests::Education::Get => Cb::Responses::Education::Get,

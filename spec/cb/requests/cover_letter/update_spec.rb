@@ -13,37 +13,41 @@ require 'spec_helper'
 module Cb
   module Requests
     module CoverLetter
-      describe Delete do
-        let(:cover_letter_delete_request) { described_class.new args }
+      describe Update do
+        let(:cover_letter_update_request) { described_class.new args }
 
         let(:args) do
           {
             external_id: external_id,
             external_user_id: external_user_id,
+            cover_letter_title: cover_letter_title,
+            text: text,
             test: test
           }
         end
 
         let(:external_id) { 'external id' }
         let(:external_user_id) { 'external user id' }
+        let(:cover_letter_title) { 'cover letter title' }
+        let(:text) { 'text' }
         let(:test) { true }
 
         it { expect(described_class).to be_a_subclass_of Cb::Requests::Base }
 
         describe '#endpoint_uri' do
-          subject { cover_letter_delete_request.endpoint_uri }
+          subject { cover_letter_update_request.endpoint_uri }
 
-          it { is_expected.to eq '/coverletter/delete' }
+          it { is_expected.to eq '/coverletter/edit' }
         end
 
         describe '#http_method' do
-          subject { cover_letter_delete_request.http_method }
+          subject { cover_letter_update_request.http_method }
 
           it { is_expected.to eq :post }
         end
 
         describe '#body' do
-          subject { cover_letter_delete_request.body }
+          subject { cover_letter_update_request.body }
 
           let(:expected_body) do
             <<-eos
@@ -51,6 +55,8 @@ module Cb
               <DeveloperKey>#{ Cb.configuration.dev_key }</DeveloperKey>
               <ExternalID>#{ external_id }</ExternalID>
               <ExternalUserID>#{ args[:external_user_id] }</ExternalUserID>
+              <CoverLetterTitle>#{ args[:cover_letter_title] }</CoverLetterTitle>
+              <Text>#{ args[:text] }</Text>
               <Test>#{ expected_test }</Test>
             </Request>
             eos
