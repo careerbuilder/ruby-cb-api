@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
+* 18.5.1 Fixed the deserialization of the response from job recs for a company did.
 * 18.5.0 Adding support for Cover Letter Update.
 * 18.4.0 Adding support for Cover Letter APIs - Retrieve, List, and Delete.
 * 18.3.0 Correcting report a job to use xml request and correctly map model from response.
