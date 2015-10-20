@@ -82,5 +82,24 @@ module Cb
         include_context :for_user
       end
     end
+
+    shared_context :for_company do
+      it 'should get recommendations for a job using a company did' do
+        recs = Cb.recommendation.for_company('fake-did')
+
+        expect(recs[0].is_a?(Cb::Models::Job)).to eq(true)
+        expect(recs.count).to be > 0
+        expect(recs.api_error).to eq(false)
+      end
+    end
+
+    context '.for_company' do
+      before :each do
+        stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
+            .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: api_job_result_collection } } } }.to_json)
+      end
+
+      include_context :for_company
+    end
   end
 end
