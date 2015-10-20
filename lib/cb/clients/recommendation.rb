@@ -68,10 +68,10 @@ module Cb
         jobs = []
         if json_hash.key?('Results')
           if json_hash['Results'].key?('JobRecommendation')
-              if json_hash['Results']['JobRecommendation'].key?('Jobs')
-                if json_hash['Results']['JobRecommendation']['Jobs'].key?('CompanyJob')
-                  json_hash['Results']['JobRecommendation']['Jobs']['CompanyJob'].each do |cur_job|
-                jobs << Models::Job.new(cur_job)
+            if json_hash['Results']['JobRecommendation'].key?('Jobs')
+              if json_hash['Results']['JobRecommendation']['Jobs'].key?('CompanyJob')
+                json_hash['Results']['JobRecommendation']['Jobs']['CompanyJob'].each do |cur_job|
+                  jobs << Models::Job.new(cur_job)
                 end
               end
             end
