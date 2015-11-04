@@ -67,10 +67,12 @@ module Cb
         json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_company, query: { CompanyDID: company_did })
         jobs = []
         if json_hash
-          json_hash.fetch('Results', {}).fetch('JobRecommendation', {}).fetch('Jobs', {}).fetch('CompanyJob', []).each do |cur_job|
-            jobs << Models::Job.new(cur_job)
+          api_jobs = json_hash.fetch('Results', {}).fetch('JobRecommendation', {}).fetch('Jobs', {})
+          if api_jobs
+            api_jobs.fetch('CompanyJob', []).each do |cur_job|
+              jobs << Models::Job.new(cur_job)
+            end
           end
-
           my_api.append_api_responses(jobs, json_hash.fetch('Results', {}).fetch('JobRecommendation', {}))
           my_api.append_api_responses(jobs, json_hash.fetch('Results', {}))
           my_api.append_api_responses(jobs, json_hash)

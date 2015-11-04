@@ -15,6 +15,16 @@ module Cb
   describe Cb::Clients::Recommendation do
     let(:api_job_result_collection) { [{}] }
 
+    shared_examples_for :for_company do
+      it 'should get recommendations for a job using a company did' do
+        recs = Cb.recommendation.for_company('fake-did')
+
+        expect(recs[0].is_a?(Cb::Models::Job)).to eq(true)
+        expect(recs.count).to be > 0
+        expect(recs.api_error).to eq(false)
+      end
+    end
+
     shared_context :for_job do
       it 'should get recommendations for a job using a hash' do
         recs = Cb.recommendation.for_job(JobDID: 'fake-did')
@@ -83,23 +93,13 @@ module Cb
       end
     end
 
-    shared_context :for_company do
-      it 'should get recommendations for a job using a company did' do
-        recs = Cb.recommendation.for_company('fake-did')
-
-        expect(recs[0].is_a?(Cb::Models::Job)).to eq(true)
-        expect(recs.count).to be > 0
-        expect(recs.api_error).to eq(false)
-      end
-    end
-
     context '.for_company' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
           .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: api_job_result_collection } } } }.to_json)
       end
 
-      include_context :for_company
+      it_behaves_like :for_company
     end
 
     context '.for_company without results' do
@@ -109,6 +109,19 @@ module Cb
       end
 
       it do
+        recs = Cb.recommendation.for_company('fake-did')
+
+        expect(recs).to eq([])
+      end
+    end
+
+    context '.for_company with nil Jobs' do
+      before do
+        stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
+            .to_return(body: { Results: { JobRecommendation: { Jobs: nil  } } }.to_json)
+      end
+
+      it 'should return []' do
         recs = Cb.recommendation.for_company('fake-did')
 
         expect(recs).to eq([])
