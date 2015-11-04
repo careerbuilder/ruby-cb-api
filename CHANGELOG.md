@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
+* 18.5.3 Catch nil case before even fetching.
 * 18.5.2 Use fetch instead of nested if statements around company recommendations.
 * 18.5.1 Fixed the deserialization of the response from job recs for a company did.
 * 18.5.0 Adding support for Cover Letter Update.
