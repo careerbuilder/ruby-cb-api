@@ -70,10 +70,8 @@ module Cb
           jobs << Models::Job.new(cur_job)
         end
 
-        if json_hash.key?('Results')
-          my_api.append_api_responses(jobs, json_hash.fetch(['Results'], {}).fetch('JobRecommendation', {}))
-          my_api.append_api_responses(jobs, json_hash['Results'])
-        end
+        my_api.append_api_responses(jobs, json_hash.fetch('Results', {}).fetch('JobRecommendation', {}))
+        my_api.append_api_responses(jobs, json_hash.fetch('Results', {}))
         my_api.append_api_responses(jobs, json_hash)
       end
 
