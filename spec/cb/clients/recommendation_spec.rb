@@ -96,10 +96,23 @@ module Cb
     context '.for_company' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
-            .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: api_job_result_collection } } } }.to_json)
+          .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: api_job_result_collection } } } }.to_json)
       end
 
       include_context :for_company
+    end
+
+    context '.for_company without results' do
+      before do
+        stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
+          .to_return(body: '')
+      end
+
+      it do
+        recs = Cb.recommendation.for_company('fake-did')
+
+        expect(recs).to eq([])
+      end
     end
   end
 end
