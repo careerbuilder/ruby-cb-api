@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
+* 18.5.6 Adding an additional field to application form
 * 18.5.5 Turn company recs response into an array if its not.
 * 18.5.4 Catch nil Jobs for company recs.
 * 18.5.3 Catch nil case before even fetching.
