@@ -87,19 +87,43 @@ module Cb
       include_context :for_user
 
       context 'when the api returns one job' do
-        let(:api_job_result_collection) { Hash.new }
+        let(:api_job_result_collection) { [ Hash.new ] }
 
         include_context :for_user
       end
     end
 
     context '.for_company' do
-      before :each do
+      before do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
           .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: api_job_result_collection } } } }.to_json)
       end
 
       it_behaves_like :for_company
+    end
+
+    context '.for_company when CompanyJob is not an array' do
+      before do
+        stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
+            .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: Hash.new } } } }.to_json)
+      end
+
+      it_behaves_like :for_company
+    end
+
+    context '.for_company when CompanyJob is nil' do
+      before do
+        stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
+            .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: nil } } } }.to_json)
+      end
+
+      it 'should get not have any recommendations' do
+        recs = Cb.recommendation.for_company('fake-did')
+
+        expect(recs.count).to be 0
+        expect(recs.api_error).to eq(false)
+      end
+
     end
 
     context '.for_company without results' do
