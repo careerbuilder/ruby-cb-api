@@ -69,7 +69,9 @@ module Cb
         if json_hash
           api_jobs = json_hash.fetch('Results', {}).fetch('JobRecommendation', {}).fetch('Jobs', {})
           if api_jobs
-            api_jobs.fetch('CompanyJob', []).each do |cur_job|
+            company_jobs = api_jobs.fetch('CompanyJob', [])
+            company_jobs = [company_jobs] unless company_jobs.is_a?(Array)
+            company_jobs.each do |cur_job|
               jobs << Models::Job.new(cur_job)
             end
           end
