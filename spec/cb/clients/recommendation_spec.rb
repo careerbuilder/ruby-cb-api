@@ -120,7 +120,7 @@ module Cb
       it 'should get not have any recommendations' do
         recs = Cb.recommendation.for_company('fake-did')
 
-        expect(recs.count).to be 0
+        expect(recs.count).to eq 0
         expect(recs.api_error).to eq(false)
       end
 
