@@ -108,7 +108,8 @@
         "ExperienceRequired":"Yay",
         "ExternalApplication":false,
         "TotalQuestions":11,
-        "TotalRequiredQuestions":10
+        "TotalRequiredQuestions":10,
+        "IsTwoStepApply": true
        }
     ],
     "Errors":[],
