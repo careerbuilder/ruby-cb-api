@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
+* 18.5.5 Turn company recs response into an array if its not.
 * 18.5.4 Catch nil Jobs for company recs.
 * 18.5.3 Catch nil case before even fetching.
 * 18.5.2 Use fetch instead of nested if statements around company recommendations.
