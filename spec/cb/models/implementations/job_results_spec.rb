@@ -11,40 +11,13 @@
 require 'spec_helper'
 
 module Cb::Models
-  describe JobResults do
-    describe '#initialize' do
-      describe 'search_location' do
-        let(:search_location) do
-          { 'City' => 'Athens', 'StateCode' => 'B', 'CountryCode' => 'GR', 'PostalCode' => nil }
-        end
-        let(:results_hash) do
-          {
-            'SearchMetaData' => {
-              'SearchLocations' => {
-                'SearchLocation' => search_location
-              }
-            }
-          }
-        end
+  describe JobResultsV3 do
+    let(:search_response_hash) { YAML.load open('spec/support/response_stubs/search_result_v3.yml') }
+    let(:search_results) { JobResultsV3.new(search_response_hash) }
 
-        it 'sets search_location to the SearchLocation in SearchMetaData' do
-          results = JobResults.new(results_hash, {})
-          expect(results.search_location).to eq search_location
-        end
-
-        context 'When there is more than one SearchLocation' do
-          let(:search_location) do
-            [
-              { 'City' => 'Athens', 'StateCode' => 'B', 'CountryCode' => 'GR', 'PostalCode' => nil },
-              { 'City' => 'Norcross', 'StateCode' => 'GA', 'CountryCode' => 'US', 'PostalCode' => nil }
-            ]
-          end
-
-          it 'sets search_location to the array of them' do
-            results = JobResults.new(results_hash, {})
-            expect(results.search_location).to eq search_location
-          end
-        end
+    describe '#api_result' do
+      it 'returns a Hash' do
+        expect(search_results.api_response).to be_instance_of(Hash)
       end
     end
   end
