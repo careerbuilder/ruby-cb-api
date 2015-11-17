@@ -20,7 +20,7 @@ module  Cb
         end
         
         def endpoint_uri
-          Cb.configuration.uri_job_search_v3
+          Cb.configuration.uri_job_search
         end
 
         def http_method
