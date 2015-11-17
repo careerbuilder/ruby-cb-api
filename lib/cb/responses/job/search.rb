@@ -11,7 +11,7 @@
 module Cb
   module Responses
     module Job
-      class SearchV3 < ApiResponse
+      class Search < ApiResponse
         protected
 
         def validate_api_hash
