@@ -10,7 +10,7 @@
 # See the License for the specific language governing permissions and limitations under the License.
 module Cb
   module Models
-    class JobResultsV3
+    class JobResults
       attr_reader :api_response
 
       def initialize(response_hash = {})

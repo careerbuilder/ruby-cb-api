@@ -23,7 +23,7 @@ module Cb
         end
 
         def extract_models
-          Models::JobResultsV3.new(response)
+          Models::JobResults.new(response)
         end
 
         private
