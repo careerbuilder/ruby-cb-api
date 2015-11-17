@@ -12,7 +12,7 @@ require 'spec_helper'
 
 module Cb::Models
   describe JobResults do
-    let(:search_response_hash) { YAML.load open('spec/support/response_stubs/search_result_v3.yml') }
+    let(:search_response_hash) { YAML.load open('spec/support/response_stubs/search_result.yml') }
     let(:search_results) { JobResults.new(search_response_hash) }
 
     describe '#api_result' do
