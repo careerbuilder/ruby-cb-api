@@ -10,14 +10,14 @@
 # See the License for the specific language governing permissions and limitations under the License.
 require 'spec_helper'
 
-describe Cb::Responses::Job::SearchV3 do
-  shared_examples 'search_v3_response' do |example_response_file|
+describe Cb::Responses::Job::Search do
+  shared_examples 'search_response' do |example_response_file|
     let(:search_response_hash) { YAML.load open(example_response_file) }
     let(:search_results) { described_class.new(search_response_hash) }
 
     describe '#model' do
-      it 'returns a JobResultsV3' do
-        expect(search_results.model).to be_instance_of(Cb::Models::JobResultsV3)
+      it 'returns a JobResults' do
+        expect(search_results.model).to be_instance_of(Cb::Models::JobResults)
       end
     end
 
@@ -28,6 +28,6 @@ describe Cb::Responses::Job::SearchV3 do
     end
   end
 
-  it_behaves_like 'search_v3_response', 'spec/support/response_stubs/search_result_v3.yml'
-  it_behaves_like 'search_v3_response', 'spec/support/response_stubs/company_colapse_search_result_v3.yml'
+  it_behaves_like 'search_response', 'spec/support/response_stubs/search_result.yml'
+  it_behaves_like 'search_response', 'spec/support/response_stubs/company_colapse_search_result.yml'
 end
