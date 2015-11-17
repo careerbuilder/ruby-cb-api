@@ -11,7 +11,7 @@
 module Cb
   module Responses
     module Job
-      class Search < ApiResponse
+      class SearchV3 < ApiResponse
         protected
 
         def validate_api_hash
@@ -19,37 +19,17 @@ module Cb
         end
 
         def hash_containing_metadata
-          response[root_node]
+          'search_metadata'
         end
 
         def extract_models
-          if is_collapsed
-            Models::CollapsedJobResults.new(response[root_node])
-          else
-            Models::JobResults.new(response[root_node], job_hashes)
-          end
+          Models::JobResultsV3.new(response)
         end
 
         private
 
         def root_node
-          'ResponseJobSearch'
-        end
-
-        def job_hashes
-          hashes = response[root_node]['Results']['JobSearchResult'] rescue []
-
-          if hashes.is_a?(Array)
-            hashes
-          elsif hashes.nil?
-            []
-          else
-            [hashes]
-          end
-        end
-
-        def is_collapsed
-          response[root_node].key?('GroupedJobSearchResults')
+          'data'
         end
       end
     end
