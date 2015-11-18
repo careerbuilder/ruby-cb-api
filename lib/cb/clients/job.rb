@@ -14,11 +14,6 @@ module Cb
   module Clients
     class Job
       class << self
-        def search(args)
-          response = api_client.cb_get(Cb.configuration.uri_job_search, query: args)
-          Cb::Responses::Job::Search.new(response)
-        end
-
         def find_by_criteria(criteria)
           query = api_client.class.criteria_to_hash(criteria)
           json_response = api_client.cb_get(Cb.configuration.uri_job_find, query: query)
