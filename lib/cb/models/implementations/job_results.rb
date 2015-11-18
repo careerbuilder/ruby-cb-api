@@ -14,6 +14,9 @@ module Cb
       attr_reader :api_response
 
       def initialize(response_hash = {})
+        unless response_hash.is_a?(Hash)
+          response_hash = {}
+        end
         @api_response = response_hash
       end
     end
