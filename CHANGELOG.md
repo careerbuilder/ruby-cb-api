@@ -3,7 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
-* 18.6.0 Removed job search version(s) prior to version 3.
+* 19.0.0 Removed job search version(s) prior to version 3.
 * 18.5.6 Adding an additional field to application form
 * 18.5.5 Turn company recs response into an array if its not.
 * 18.5.4 Catch nil Jobs for company recs.
