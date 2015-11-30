@@ -30,7 +30,7 @@ module  Cb
         def headers
           {
             'HostSite' => args[:host_site] || Cb.configuration.host_site,
-            'Accept' => 'applicatin/json;version=3.0'
+            'Accept' => 'application/json;version=3.0'
           }.merge(token.headers)
         end
         
