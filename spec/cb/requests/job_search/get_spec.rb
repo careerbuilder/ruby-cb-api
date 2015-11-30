@@ -5,7 +5,11 @@ describe Cb::Requests::JobSearch::Get do
   let(:token) { 'fake oauth token' }
   let(:headers) { {'HostSite' => 'US', 'Accept' => 'application/json;version=3.0', 'fake_header' => 'fake'} }
   let(:job_search) { Cb::Requests::JobSearch::Get.new(argument_hash, token) }
-    
+  
+  before do
+    allow(token).to receive(:headers).and_return( {'fake_header' => 'fake'} )
+  end
+  
   context '#http_method' do
     it { expect(job_search.http_method).to be(:get) }
   end
@@ -19,10 +23,7 @@ describe Cb::Requests::JobSearch::Get do
   end
   
   context '#headers' do
-    it do
-      allow(token).to receive(:headers).and_return( {'fake_header' => 'fake'} )
-      expect(job_search.headers).to eq(headers)
-    end
+    it { expect(job_search.headers).to eq(headers) }
   end
 
 end
