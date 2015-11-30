@@ -20,7 +20,7 @@ module  Cb
         end
         
         def endpoint_uri
-          Cb.configuration.uri_job_search_v3
+          Cb.configuration.uri_job_search
         end
 
         def http_method
@@ -30,7 +30,7 @@ module  Cb
         def headers
           {
             'HostSite' => args[:host_site] || Cb.configuration.host_site,
-            'Accept' => 'applicatin/json;version=3.0'
+            'Accept' => 'application/json;version=3.0'
           }.merge(token.headers)
         end
         

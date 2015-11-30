@@ -10,10 +10,10 @@
 # See the License for the specific language governing permissions and limitations under the License.
 require 'simplecov'
 require 'codeclimate-test-reporter'
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-    SimpleCov::Formatter::HTMLFormatter,
-    CodeClimate::TestReporter::Formatter
-]
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new( [
+  SimpleCov::Formatter::HTMLFormatter,
+  CodeClimate::TestReporter::Formatter
+] )
 SimpleCov.start do
   add_filter '/spec/'
   add_group 'utils', 'lib/cb/utils'
