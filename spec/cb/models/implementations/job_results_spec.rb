@@ -16,8 +16,18 @@ module Cb::Models
     let(:search_results) { JobResults.new(search_response_hash) }
 
     describe '#api_result' do
-      it 'returns a Hash' do
-        expect(search_results.api_response).to be_instance_of(Hash)
+      context 'when search response is not a hash' do
+        let(:search_response_hash) { [] }
+        it { expect(search_results.api_response).to be_instance_of(Hash) }
+      end
+      
+      context 'when search response is a hash' do
+        it { expect(search_results.api_response).to be_instance_of(Hash) }
+      end
+      
+      context 'when no search results are provided' do
+        let(:search_results) { JobResults.new() }
+        it { expect(search_results.api_response).to be_instance_of(Hash) }
       end
     end
   end
