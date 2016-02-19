@@ -34,4 +34,3 @@ module Cb
     end
   end
 end
-
