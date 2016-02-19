@@ -16,9 +16,9 @@ module Cb
       let(:resume_listing) { Models::ResumeListing.new(resume_list_hash) }
       let(:resume_list_hash) do
         {
-          'MigrationID' => 'RC0AEA377A6D924775C',
+          'MigrationID' => 'migrationID',
           'Title' => 'Software Engineer',
-          'ExternalID' => '65e7e16d36f61887e68822d2c68f8cffca46f0113afca10c330c3c27420e1975',
+          'ExternalID' => 'externalID',
           'HostSite' => 'US',
           'ModifiedDT' => '2/16/2016 11:08:11 AM',
           'Visibility' => 'Private'
@@ -26,8 +26,8 @@ module Cb
       end
 
       it { expect(resume_listing.title).to eq('Software Engineer') }
-      it { expect(resume_listing.external_id).to eq('65e7e16d36f61887e68822d2c68f8cffca46f0113afca10c330c3c27420e1975') }
-      it { expect(resume_listing.migration_id).to eq('RC0AEA377A6D924775C') }
+      it { expect(resume_listing.external_id).to eq('externalID') }
+      it { expect(resume_listing.migration_id).to eq('migrationID') }
       it { expect(resume_listing.host_site).to eq('US') }
       it { expect(resume_listing.modified_dt).to eq('2/16/2016 11:08:11 AM') }
       it { expect(resume_listing.visibility).to eq('Private') }
