@@ -16,7 +16,7 @@ module Cb
       def set_model_properties
         @title = api_response['Title']
         @external_id = api_response['ExternalID']
-        @migration_id = api_response['MigrationID']
+        @migration_id = api_response['MigrationID'] unless api_response['MigrationID'].nil?
         @host_site = api_response['HostSite']
         @modified_dt = api_response['ModifiedDT']
         @visibility = api_response['Visibility']

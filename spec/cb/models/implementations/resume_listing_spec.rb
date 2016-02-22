@@ -31,6 +31,20 @@ module Cb
       it { expect(resume_listing.host_site).to eq('US') }
       it { expect(resume_listing.modified_dt).to eq('2/16/2016 11:08:11 AM') }
       it { expect(resume_listing.visibility).to eq('Private') }
+
+      context 'listing does not contain a migration ID' do
+        let(:resume_list_hash) do
+          {
+              'Title' => 'Software Engineer',
+              'ExternalID' => 'externalID',
+              'HostSite' => 'US',
+              'ModifiedDT' => '2/16/2016 11:08:11 AM',
+              'Visibility' => 'Private'
+          }
+        end
+
+        it { expect(resume_listing.migration_id.nil?).to be(true) }
+      end
     end
   end
 end
