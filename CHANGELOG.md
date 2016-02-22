@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
+* 19.1.0 Add Migration ID field to resume listing model.
 * 19.0.0 Removed job search version(s) prior to version 3.  Breaks existing consumers of the API in the following ways. JobResultsV3 renamed to JobResults.  The old JobResults path no longer works.  Users of the JobSearch API will now need to use OAuth and not Developer Keys to use the JobSearch API>
 * 18.5.6 Adding an additional field to application form
 * 18.5.5 Turn company recs response into an array if its not.
