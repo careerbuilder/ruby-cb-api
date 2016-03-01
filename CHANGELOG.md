@@ -3,7 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!!
 ----
 
-* 20.0.0 Refactoring of the clients,
+* 20.0.0 Refactoring of the clients.  Breaking changes to AnonSavedSearch, EmployeeTypes, SavedSearch
 * 19.1.1 No functional differences, some code cleanup
 * 19.1.0 Add Migration ID field to resume listing model.
 * 19.0.0 Removed job search version(s) prior to version 3.  Breaks existing consumers of the API in the following ways. JobResultsV3 renamed to JobResults.  The old JobResults path no longer works.  Users of the JobSearch API will now need to use OAuth and not Developer Keys to use the JobSearch API>
