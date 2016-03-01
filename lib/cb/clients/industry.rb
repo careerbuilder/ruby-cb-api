@@ -13,7 +13,7 @@ require_relative 'base'
 module Cb
   module Clients
     class Industry < Base
-      def search
+      def self.search
         response = cb_client.cb_get(Cb.configuration.uri_job_industry_search,
                                     query: { CountryCode: Cb.configuration.host_site })
         Cb::Responses::Industry::Search.new(response)

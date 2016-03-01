@@ -12,42 +12,25 @@ require 'spec_helper'
 
 module Cb
   describe Clients::EmployeeTypes do
-    before(:each) do
-      allow(cb_api_client).to receive(:cb_get).and_return('bananas' => '4life')
-      allow(Cb.api_client).to receive(:new).and_return(cb_api_client)
-      response = double(Responses::EmployeeTypes::Search)
-      allow(response).to receive(:class).and_return Responses::EmployeeTypes::Search
-      allow(Responses::EmployeeTypes::Search).to receive(:new).and_return(response)
-    end
+    let(:content) { { ResponseEmployeeTypes: { Errors: 'null', CountryCode: 'US', TimeResponseSent: '4/1/2014 5:08:10 PM', EmployeeTypes: { EmployeeType: [{ Code: 'ETFT', Name: { '@language' => 'en', '#text' => 'Full Time' } }, { Code: 'ETPT', Name: { '@language' => 'en', '#text' => 'Part Time' } }] } } } }
 
-    def returns_response_object(method, *args)
-      response = client_under_test.send(method, *args)
-      expect(response.class).to eq Responses::EmployeeTypes::Search
-    end
-
-    context '#search' do
-      it 'calls the employee types endpoint' do
-        endpoint_url = Cb.configuration.uri_employee_types
-        expect(cb_api_client).to receive(:cb_get).with(endpoint_url)
-        client_under_test.search
-      end
-
-      it 'returns a response object' do
-        returns_response_object(:search)
+    context 'search' do
+      it 'returns an array of industry codes' do
+        stub_request(:get, 'https://api.careerbuilder.com/v1/employeetypes?developerkey=mydevkey&outputjson=true').
+            with(:headers => {'Accept-Encoding'=>'deflate, gzip', 'Developerkey'=>'mydevkey'}).
+            to_return(status: 200, body: content.to_json)
+        response = Cb.employee_types.search
+        expect(response.models.first).to be_an_instance_of(Cb::Models::EmployeeType)
       end
     end
 
-    context '#search_by_hostsite' do
-      it 'calls the employee types endpoint with hostsite query string' do
-        endpoint_url = Cb.configuration.uri_employee_types
-        hostsite = 'de'
-        query = { query: { CountryCode: hostsite } }
-        expect(cb_api_client).to receive(:cb_get).with(endpoint_url, query)
-        client_under_test.search_by_hostsite(hostsite)
-      end
-
-      it 'returns a response object' do
-        returns_response_object(:search_by_hostsite, 'us')
+    context 'search_by_hostsite' do
+      it 'returns an array of industry codes' do
+        stub_request(:get, 'https://api.careerbuilder.com/v1/employeetypes?CountryCode=FR&developerkey=mydevkey&outputjson=true').
+            with(:headers => {'Accept-Encoding'=>'deflate, gzip', 'Developerkey'=>'mydevkey'}).
+            to_return(status: 200, body: content.to_json)
+        response = Cb.employee_types.search_by_hostsite('FR')
+        expect(response.models.first).to be_an_instance_of(Cb::Models::EmployeeType)
       end
     end
   end
