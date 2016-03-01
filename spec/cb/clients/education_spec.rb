@@ -23,7 +23,7 @@ module Cb
         before :each do
           allow(mock_api).to receive(:append_api_responses)
           allow(mock_api).to receive(:cb_get).and_return({})
-          allow(Cb::Utils::Api).to receive(:new).and_return(mock_api)
+          allow(Cb::Clients::Education).to receive(:cb_client).and_return(mock_api)
         end
 
         it 'calls #append_api_responses on the Cb API utility client' do

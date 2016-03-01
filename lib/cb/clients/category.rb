@@ -9,13 +9,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 require 'json'
-
+require_relative 'base'
 module Cb
   module Clients
-    class Category
+    class Category < Base
       def self.search
-        my_api = Cb::Utils::Api.instance
-        json_hash = my_api.cb_get(Cb.configuration.uri_job_category_search)
+        json_hash = cb_client.cb_get(Cb.configuration.uri_job_category_search)
         categoryList = []
 
         if json_hash.key?('ResponseCategories')
@@ -25,15 +24,14 @@ module Cb
             end
           end
 
-          my_api.append_api_responses(categoryList, json_hash['ResponseCategories'])
+          cb_client.append_api_responses(categoryList, json_hash['ResponseCategories'])
         end
 
-        my_api.append_api_responses(categoryList, json_hash)
+        cb_client.append_api_responses(categoryList, json_hash)
       end
 
       def self.search_by_host_site(host_site)
-        my_api = Cb::Utils::Api.instance
-        json_hash = my_api.cb_get(Cb.configuration.uri_job_category_search, query: { CountryCode: host_site })
+        json_hash = cb_client.cb_get(Cb.configuration.uri_job_category_search, query: { CountryCode: host_site })
         categoryList = []
 
         if json_hash.key?('ResponseCategories')
@@ -47,10 +45,10 @@ module Cb
             end
           end
 
-          my_api.append_api_responses(categoryList, json_hash['ResponseCategories'])
+          cb_client.append_api_responses(categoryList, json_hash['ResponseCategories'])
         end
 
-        my_api.append_api_responses(categoryList, json_hash)
+        cb_client.append_api_responses(categoryList, json_hash)
       end
     end
   end

@@ -8,30 +8,27 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
+require_relative 'base'
 module Cb
   module Clients
-    class EmployeeTypes
-      def search
+    class EmployeeTypes < Base
+      def self.search
         json = cb_client.cb_get(endpoint)
         new_response_object(json)
       end
 
-      def search_by_hostsite(host_site)
+      def self.search_by_hostsite(host_site)
         json = cb_client.cb_get(endpoint, query: { CountryCode: host_site })
         new_response_object(json)
       end
 
       private
 
-      def cb_client
-        @client ||= Cb::Utils::Api.instance
-      end
-
-      def endpoint
+      def self.endpoint
         Cb.configuration.uri_employee_types
       end
 
-      def new_response_object(json_response)
+      def self.new_response_object(json_response)
         Responses::EmployeeTypes::Search.new(json_response)
       end
     end

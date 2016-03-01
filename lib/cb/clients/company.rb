@@ -9,22 +9,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 require 'json'
-
+require_relative 'base'
 module Cb
   module Clients
-    class Company
+    class Company < Base
       def self.find_by_did(did)
-        my_api = Cb::Utils::Api.instance
-        json_hash = my_api.cb_get(Cb.configuration.uri_company_find, query: { CompanyDID: did, hostsite: Cb.configuration.host_site })
+        json_hash = cb_client.cb_get(Cb.configuration.uri_company_find,
+                                     query: { CompanyDID: did, hostsite: Cb.configuration.host_site })
 
         if json_hash.key?('Results')
           if json_hash['Results'].key?('CompanyProfileDetail')
             company = Models::Company.new(json_hash['Results']['CompanyProfileDetail'])
           end
-          my_api.append_api_responses(company, json_hash['Results'])
+          cb_client.append_api_responses(company, json_hash['Results'])
         end
 
-        my_api.append_api_responses(company, json_hash)
+        cb_client.append_api_responses(company, json_hash)
       end
 
       def self.find_for(obj)

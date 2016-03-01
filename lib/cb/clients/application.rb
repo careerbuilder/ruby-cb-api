@@ -8,9 +8,10 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
+require_relative 'base'
 module Cb
   module Clients
-    class Application
+    class Application < Base
       class << self
         def get(criteria)
           response cb_call(:get, criteria, Cb.configuration.host_site)
@@ -26,7 +27,7 @@ module Cb
 
         def form(job_id)
           url = Cb.configuration.uri_application_form.sub(':did', job_id)
-          response_hash = api_client.cb_get(url, headers: headers(Cb.configuration.host_site))
+          response_hash = cb_client.cb_get(url, headers: headers(Cb.configuration.host_site))
           Responses::ApplicationForm.new response_hash
         end
 
@@ -40,7 +41,7 @@ module Cb
           end
 
           uri = uri(criteria)
-          api_client.method(:"cb_#{http_method}").call(uri, options)
+          cb_client.method(:"cb_#{http_method}").call(uri, options)
         end
 
         def response(response_hash)
@@ -58,10 +59,6 @@ module Cb
             'HostSite' => host_site,
             'Content-Type' => 'application/json'
           }
-        end
-
-        def api_client
-          Cb::Utils::Api.instance
         end
       end
     end

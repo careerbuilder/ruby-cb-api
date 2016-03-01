@@ -20,7 +20,7 @@ module Cb
       end
 
       def job_details_criteria
-        Cb::Criteria::Job::Details.new
+        Cb::Criteria::Job::Details
       end
 
       def category

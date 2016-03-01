@@ -9,14 +9,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 require 'json'
-
+require_relative 'base'
 module Cb
   module Clients
-    class Education
+    class Education < Base
       def self.get_for(country)
         Cb::Utils::Country.is_valid? country ? country : 'US'
-        my_api = Cb::Utils::Api.instance
-        json_hash = my_api.cb_get(Cb.configuration.uri_education_code, query: { countrycode: country })
+        json_hash = cb_client.cb_get(Cb.configuration.uri_education_code, query: { countrycode: country })
 
         codes = []
         if json_hash.key?('ResponseEducationCodes')
@@ -26,10 +25,10 @@ module Cb
               codes << Cb::Models::Education.new(education)
             end
           end
-          my_api.append_api_responses(codes, json_hash['ResponseEducationCodes'])
+          cb_client.append_api_responses(codes, json_hash['ResponseEducationCodes'])
         end
 
-        my_api.append_api_responses(codes, json_hash)
+        cb_client.append_api_responses(codes, json_hash)
       end
     end
   end

@@ -8,24 +8,15 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
-require 'json'
-require_relative 'base'
-module Cb
-  module Clients
-    class Job < Base
-      class << self
-        def find_by_criteria(criteria)
-          query = cb_client.class.criteria_to_hash(criteria)
-          json_response = cb_client.cb_get(Cb.configuration.uri_job_find, query: query)
-          Responses::Job::Singular.new(json_response)
-        end
+require 'httparty'
+require 'observer'
 
-        def find_by_did(did)
-          criteria = Cb::Criteria::Job::Details.new
-          criteria.did = did
-          criteria.show_custom_values = true
-          find_by_criteria(criteria)
-        end
+module Cb
+  module Utils
+    class NilResponse
+      def initialize ;end
+      def nil?
+        true
       end
     end
   end

@@ -12,21 +12,12 @@ require 'spec_helper'
 
 module Cb
   describe Clients::EmployeeTypes do
-    let(:client_under_test) { Clients::EmployeeTypes.new }
-    let(:cb_api_client)     { (Cb.api_client.new) }
-
     before(:each) do
       allow(cb_api_client).to receive(:cb_get).and_return('bananas' => '4life')
       allow(Cb.api_client).to receive(:new).and_return(cb_api_client)
       response = double(Responses::EmployeeTypes::Search)
       allow(response).to receive(:class).and_return Responses::EmployeeTypes::Search
       allow(Responses::EmployeeTypes::Search).to receive(:new).and_return(response)
-    end
-
-    context '#new' do
-      it 'returns a type of Cb::Clients::EmployeeTypes' do
-        expect(Clients::EmployeeTypes.new.class).to eq Cb::Clients::EmployeeTypes
-      end
     end
 
     def returns_response_object(method, *args)

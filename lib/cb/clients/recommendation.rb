@@ -9,15 +9,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 require 'json'
-
+require_relative 'base'
 module Cb
   module Clients
-    class Recommendation
+    class Recommendation < Base
       def self.for_job(*args)
-        my_api = Cb::Utils::Api.instance
         hash = normalize_args(args)
         hash = set_hash_defaults(hash)
-        json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_job,
+        json_hash = cb_client.cb_get(Cb.configuration.uri_recommendation_for_job,
                                   query: hash)
 
         jobs = []
@@ -28,20 +27,19 @@ module Cb
 
             jobs = create_jobs json_hash, 'Job'
 
-            my_api.append_api_responses(jobs, json_hash['ResponseRecommendJob']['Request'])
+            cb_client.append_api_responses(jobs, json_hash['ResponseRecommendJob']['Request'])
           end
 
-          my_api.append_api_responses(jobs, json_hash['ResponseRecommendJob'])
+          cb_client.append_api_responses(jobs, json_hash['ResponseRecommendJob'])
         end
 
-        my_api.append_api_responses(jobs, json_hash)
+        cb_client.append_api_responses(jobs, json_hash)
       end
 
       def self.for_user(*args)
-        my_api = Cb::Utils::Api.instance
         hash = normalize_args(args)
         hash = set_hash_defaults(hash)
-        json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_user,
+        json_hash = cb_client.cb_get(Cb.configuration.uri_recommendation_for_user,
                                   query: hash)
 
         jobs = []
@@ -53,18 +51,17 @@ module Cb
 
             jobs = create_jobs json_hash, 'User'
 
-            my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser']['Request'])
+            cb_client.append_api_responses(jobs, json_hash['ResponseRecommendUser']['Request'])
           end
 
-          my_api.append_api_responses(jobs, json_hash['ResponseRecommendUser'])
+          cb_client.append_api_responses(jobs, json_hash['ResponseRecommendUser'])
         end
 
-        my_api.append_api_responses(jobs, json_hash)
+        cb_client.append_api_responses(jobs, json_hash)
       end
 
       def self.for_company(company_did)
-        my_api = Cb::Utils::Api.instance
-        json_hash = my_api.cb_get(Cb.configuration.uri_recommendation_for_company, query: { CompanyDID: company_did })
+        json_hash = cb_client.cb_get(Cb.configuration.uri_recommendation_for_company, query: { CompanyDID: company_did })
         jobs = []
         if json_hash
           api_jobs = json_hash.fetch('Results', {}).fetch('JobRecommendation', {}).fetch('Jobs', {})
@@ -74,9 +71,9 @@ module Cb
               jobs << Models::Job.new(cur_job)
             end
           end
-          my_api.append_api_responses(jobs, json_hash.fetch('Results', {}).fetch('JobRecommendation', {}))
-          my_api.append_api_responses(jobs, json_hash.fetch('Results', {}))
-          my_api.append_api_responses(jobs, json_hash)
+          cb_client.append_api_responses(jobs, json_hash.fetch('Results', {}).fetch('JobRecommendation', {}))
+          cb_client.append_api_responses(jobs, json_hash.fetch('Results', {}))
+          cb_client.append_api_responses(jobs, json_hash)
         end
       end
 
