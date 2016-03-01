@@ -28,7 +28,7 @@ module Cb
 
         def retrieve(external_id, _test_mode = false)
           cb_client = Cb::Utils::Api.instance
-          json_hash = my_api.cb_post Cb.configuration.uri_user_retrieve, body: build_retrieve_request(external_id, true)
+          json_hash = cb_client.cb_post Cb.configuration.uri_user_retrieve, body: build_retrieve_request(external_id, true)
           if json_hash.key? 'ResponseUserInfo'
             if json_hash['ResponseUserInfo'].key? 'UserInfo'
               user = Models::User.new json_hash['ResponseUserInfo']['UserInfo']
