@@ -73,8 +73,8 @@ module Cb
     end
 
     context '#get' do
-      let(:data) { [cover_letter,cover_letter,cover_letter] }
       context 'asking for all cover letters' do
+        let(:data) { [cover_letter,cover_letter,cover_letter] }
         it 'performs a get and returns the results hash' do
           stub = stub_request(:get, uri).
               with(:headers => headers).
@@ -90,7 +90,39 @@ module Cb
       end
 
       context 'asking for a specific cover letter' do
+        let(:data){ cover_letter }
+        let(:uri) { "https://api.careerbuilder.com/consumer/coverletters/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
+        it 'performs a get and returns the coverletter asked for' do
+          stub = stub_request(:get, uri).
+              with(:headers => headers).
+              to_return(:status => 200, :body => response.to_json)
+
+          response = Cb::Clients::CoverLetters.get(id: 'id', oauth_token: 'token')
+          expect(stub).to have_been_requested
+          expect(response.class).to eq(Hash)
+          expect(response['data'].class).to eq(Array)
+          expect(response['data'].length).to eq(1)
+          expect(response['data'][0]).to eq(cover_letter)
+        end
+      end
+
+      context 'when the cover letter is not found' do
+        let(:data){ { 'type' => '404', 'message' => 'Could not find the cover letter specified', 'code' => '404' } }
+        let(:uri) { "https://api.careerbuilder.com/consumer/coverletters/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+
+        it 'returns the error hash' do
+          stub = stub_request(:get, uri).
+              with(:headers => headers).
+              to_return(:status => 404, :body => response.to_json)
+
+          response = Cb::Clients::CoverLetters.get(id: 'id', oauth_token: 'token')
+          expect(stub).to have_been_requested
+          expect(response.class).to eq(Hash)
+          expect(response['data'].class).to eq(Array)
+          expect(response['data'].length).to eq(1)
+          expect(response['data'][0]).to eq(data)
+        end
       end
     end
 
