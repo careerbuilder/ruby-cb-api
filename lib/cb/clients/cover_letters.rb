@@ -38,7 +38,8 @@ module Cb
       def self.headers(args)
         {
             'Accept' => 'application/json',
-            'Authorization' => "Bearer #{ args[:oauth_token] }"
+            'Authorization' => "Bearer #{ args[:oauth_token] }",
+            'Content-Type' => 'application/json'
         }
       end
 

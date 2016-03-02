@@ -41,6 +41,7 @@ module Cb
           'Accept'=>'application/json',
           'Accept-Encoding'=>'deflate, gzip',
           'Authorization'=>'Bearer token',
+          'Content-Type' => 'application/json',
           'Developerkey'=> Cb.configuration.dev_key
       }
     end
