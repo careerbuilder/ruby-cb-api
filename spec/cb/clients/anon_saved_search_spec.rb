@@ -11,7 +11,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Clients::AnonSavedSearch.new do
+  describe Cb::Clients::AnonSavedSearch do
     before :each do
       @args = {
         'EmailAddress' => 'test@test.com',
