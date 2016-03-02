@@ -15,9 +15,7 @@ module Cb
       def self.get(args={})
         uri = Cb.configuration.uri_cover_letters
         uri += "/#{ args[:id] }" if args[:id]
-        json = cb_client.cb_get(uri,
-                                headers: CoverLetters.headers(args))
-        JSON.parse(json, symbolize_names: true)
+        cb_client.cb_get(uri, headers: headers(args))
       end
 
       def self.create(args={})
@@ -28,10 +26,9 @@ module Cb
 
       def self.delete(args={})
         uri = "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
-        json = cb_client.cb_delete(uri,
-                                   body: CoverLetter.body(args),
-                                   headers: CoverLetters.headers(args))
-        JSON.parse(json, symbolize_names: true)
+        cb_client.cb_delete(uri,
+                            body: CoverLetter.body(args),
+                            headers: CoverLetters.headers(args))
       end
 
       def self.update(args={})

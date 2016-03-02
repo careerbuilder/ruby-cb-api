@@ -12,15 +12,28 @@ require 'spec_helper'
 
 module Cb
   describe Cb::Clients::CoverLetters do
-    let(:data) { {id: 'id', name: 'name', text: 'text'} }
+    let(:uri) {"https://api.careerbuilder.com/consumer/coverletters?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+    let(:post_data) { {'text' => 'text', 'name' => 'name'} }
+    let(:cover_letter) do
+      {
+          'id' => 'id', 'name' => 'name', 'text' => 'text',
+          'created_data' => '2016-03-02T14:29:30.617998-05:00', 'modified_date' => '2016-03-02T14:29:30.617998-05:00'
+      }
+    end
     let(:response) do
       {
-          'data' => [
-              data
-          ],
+          'data' => [ data ].flatten,
           'page' => 1,
           'page_size' => 1,
           'total' => 1
+      }
+    end
+    let(:error_response) do
+      {
+          'errors' => [ data ].flatten,
+          'page' => -1,
+          'page_size' => 0,
+          'total' => 0
       }
     end
     let(:headers) do
@@ -28,23 +41,57 @@ module Cb
           'Accept'=>'application/json',
           'Accept-Encoding'=>'deflate, gzip',
           'Authorization'=>'Bearer token',
-          'Developerkey'=>'ruby-cb-api'
+          'Developerkey'=> Cb.configuration.dev_key
       }
     end
+
     context '#create' do
-      it 'performs a put with a coverletter in json format' do
-        stub = stub_request(:put, "https://api.careerbuilder.com/consumer/coverletters?developerkey=ruby-cb-api&outputjson=true").
-            with(:body => "{\"text\":\"text\",\"name\":\"name\"}",
-                 :headers => headers).
-            to_return(:status => 200, :body => response.to_json)
-        response = Cb::Clients::CoverLetters.create(name: 'name', text: 'text', oauth_token: 'token')
-        expect(stub).to have_been_requested
-        expect(response.class).to eq(Hash)
-        expect(response['data'].class).to eq(Array)
-        expect(response['data'][0]).to eq(data)
+      let(:data){ cover_letter }
+      context 'when posting succeeds' do
+        it 'performs a put with a coverletter in json format' do
+          stub = stub_request(:put, uri).
+              with(:body => post_data.to_json, :headers => headers).
+              to_return(:status => 200, :body => response.to_json)
+          response = Cb::Clients::CoverLetters.create(name: 'name', text: 'text', oauth_token: 'token')
+          expect(stub).to have_been_requested
+          expect(response.class).to eq(Hash)
+          expect(response['data'].class).to eq(Array)
+          expect(response['data'][0]).to eq(data)
+        end
       end
 
-      
+      context 'when there is an error' do
+        let(:data) { { 'type' => '500', 'message' => 'Some kind of error happened', 'code' => '500' } }
+        it 'returns the error hash' do
+          stub_request(:put, uri).
+              with(:body => post_data.to_json, :headers => headers).
+              to_return(:status => 500, :body => error_response.to_json)
+          response = Cb::Clients::CoverLetters.create(name: 'name', text: 'text', oauth_token: 'token')
+          expect(response['errors'][0]).to eq(data)
+        end
+      end
+    end
+
+    context '#get' do
+      let(:data) { [cover_letter,cover_letter,cover_letter] }
+      context 'asking for all cover letters' do
+        it 'performs a get and returns the results hash' do
+          stub = stub_request(:get, uri).
+              with(:headers => headers).
+              to_return(:status => 200, :body => response.to_json)
+
+          response = Cb::Clients::CoverLetters.get(oauth_token: 'token')
+          expect(stub).to have_been_requested
+          expect(response.class).to eq(Hash)
+          expect(response['data'].class).to eq(Array)
+          expect(response['data'].length).to eq(3)
+          expect(response['data'][0]).to eq(cover_letter)
+        end
+      end
+
+      context 'asking for a specific cover letter' do
+
+      end
     end
 
   end
