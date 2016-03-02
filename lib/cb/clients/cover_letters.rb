@@ -26,17 +26,12 @@ module Cb
 
       def self.delete(args={})
         uri = "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
-        cb_client.cb_delete(uri,
-                            body: CoverLetter.body(args),
-                            headers: CoverLetters.headers(args))
+        cb_client.cb_delete(uri, body: body(args), headers: headers(args))
       end
 
       def self.update(args={})
         uri = "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
-        json = cb_client.cb_delete(uri,
-                                   body: CoverLetter.body(args),
-                                   headers: CoverLetters.headers(args))
-        JSON.parse(json, symbolize_names: true)
+        cb_client.cb_post(uri, body: body(args), headers: headers(args))
       end
 
       private

@@ -114,9 +114,29 @@ module Cb
         it 'returns the error hash' do
           stub = stub_request(:get, uri).
               with(:headers => headers).
-              to_return(:status => 404, :body => response.to_json)
+              to_return(:status => 404, :body => error_response.to_json)
 
           response = Cb::Clients::CoverLetters.get(id: 'id', oauth_token: 'token')
+          expect(stub).to have_been_requested
+          expect(response.class).to eq(Hash)
+          expect(response['errors'].class).to eq(Array)
+          expect(response['errors'].length).to eq(1)
+          expect(response['errors'][0]).to eq(data)
+        end
+      end
+    end
+
+    context '#delete' do
+      context 'asking for a specific cover letter' do
+        let(:data){ 'The cover letter was deleted successfully' }
+        let(:uri) { "https://api.careerbuilder.com/consumer/coverletters/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+
+        it 'performs a get and returns the coverletter asked for' do
+          stub = stub_request(:delete, uri).
+              with(:headers => headers).
+              to_return(:status => 200, :body => response.to_json)
+
+          response = Cb::Clients::CoverLetters.delete(id: 'id', oauth_token: 'token')
           expect(stub).to have_been_requested
           expect(response.class).to eq(Hash)
           expect(response['data'].class).to eq(Array)
@@ -124,7 +144,63 @@ module Cb
           expect(response['data'][0]).to eq(data)
         end
       end
+
+      context 'when an error occurs' do
+        let(:data){ { 'type' => '500', 'message' => 'Could not find the cover letter specified', 'code' => '404' } }
+        let(:uri) { "https://api.careerbuilder.com/consumer/coverletters/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+
+        it 'returns the error hash' do
+          stub = stub_request(:delete, uri).
+              with(:headers => headers).
+              to_return(:status => 500, :body => error_response.to_json)
+
+          response = Cb::Clients::CoverLetters.delete(id: 'id', oauth_token: 'token')
+          expect(stub).to have_been_requested
+          expect(response.class).to eq(Hash)
+          expect(response['errors'].class).to eq(Array)
+          expect(response['errors'].length).to eq(1)
+          expect(response['errors'][0]).to eq(data)
+        end
+      end
     end
 
+    context '#update' do
+      let(:post_data) { {'id' => 'id','text' => 'text', 'name' => 'name'} }
+      context 'when updating an existing coverletter' do
+        let(:data){ cover_letter }
+        let(:uri) { "https://api.careerbuilder.com/consumer/coverletters/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+
+        it 'performs a post and returns the updated coverletter asked for' do
+          stub = stub_request(:post, uri).
+              with(:body => post_data.to_json , :headers => headers).
+              to_return(:status => 200, :body => response.to_json)
+
+          response = Cb::Clients::CoverLetters.update(id: 'id',name: 'name', text: 'text', oauth_token: 'token')
+          expect(stub).to have_been_requested
+          expect(response.class).to eq(Hash)
+          expect(response['data'].class).to eq(Array)
+          expect(response['data'].length).to eq(1)
+          expect(response['data'][0]).to eq(data)
+        end
+      end
+
+      context 'when an error occurs' do
+        let(:data){ { 'type' => '500', 'message' => 'Could not find the cover letter specified', 'code' => '404' } }
+        let(:uri) { "https://api.careerbuilder.com/consumer/coverletters/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+
+        it 'returns the error hash' do
+          stub = stub_request(:post, uri).
+              with(:body => post_data.to_json, :headers => headers).
+              to_return(:status => 500, :body => error_response.to_json)
+
+          response = Cb::Clients::CoverLetters.update(id: 'id',name: 'name', text: 'text', oauth_token: 'token')
+          expect(stub).to have_been_requested
+          expect(response.class).to eq(Hash)
+          expect(response['errors'].class).to eq(Array)
+          expect(response['errors'].length).to eq(1)
+          expect(response['errors'][0]).to eq(data)
+        end
+      end
+    end
   end
 end
