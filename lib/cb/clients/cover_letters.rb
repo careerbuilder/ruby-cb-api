@@ -12,20 +12,21 @@ require_relative 'base'
 module Cb
   module Clients
     class CoverLetters < Base
-      def self.get(*args)
-        json = cb_client.cb_get(Cb.configuration.uri_cover_letters,
+      def self.get(args={})
+        uri = Cb.configuration.uri_cover_letters
+        uri += "/#{ args[:id] }" if args[:id]
+        json = cb_client.cb_get(uri,
                                 headers: CoverLetters.headers(args))
         JSON.parse(json, symbolize_names: true)
       end
 
-      def self.create(*args)
-        json = cb_client.cb_put(Cb.configuration.uri_cover_letters,
-                                body: CoverLetter.body(args),
-                                headers: CoverLetters.headers(args))
-        JSON.parse(json, symbolize_names: true)
+      def self.create(args={})
+        cb_client.cb_put(Cb.configuration.uri_cover_letters,
+                         body: body(args),
+                         headers: headers(args))
       end
 
-      def self.delete(*args)
+      def self.delete(args={})
         uri = "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
         json = cb_client.cb_delete(uri,
                                    body: CoverLetter.body(args),
@@ -33,7 +34,7 @@ module Cb
         JSON.parse(json, symbolize_names: true)
       end
 
-      def self.update(*args)
+      def self.update(args={})
         uri = "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
         json = cb_client.cb_delete(uri,
                                    body: CoverLetter.body(args),
@@ -42,14 +43,14 @@ module Cb
       end
 
       private
-      def headers(*args)
+      def self.headers(args)
         {
-            'Accept' => 'application/json;',
+            'Accept' => 'application/json',
             'Authorization' => "Bearer #{ args[:oauth_token] }"
         }
       end
 
-      def body(*args)
+      def self.body(args)
         body = Hash.new
         body[:id] = args[:id] if args[:id]
         body[:text] = args[:text] if args[:text]
