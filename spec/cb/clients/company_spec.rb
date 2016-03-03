@@ -25,8 +25,8 @@ module Cb
         cb_api_client = double(Cb::Utils::Api)
         expect(cb_api_client).to receive(:cb_get).with(Cb.configuration.uri_company_find, query_hash).and_return({})
         allow(cb_api_client).to receive(:append_api_responses)
-        allow(Cb::Utils::Api).to receive(:new).and_return(cb_api_client)
 
+        allow(Cb::Clients::Company).to receive(:cb_client).and_return(cb_api_client)
         Cb::Clients::Company.find_by_did(target_did)
       end
 

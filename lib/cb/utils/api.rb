@@ -73,6 +73,10 @@ module Cb
       end
 
       def append_api_responses(obj, resp)
+        #As of ruby 2.2 nil is frozen so stop monkey patching it please -jyeary
+        if obj.nil? && obj.frozen?
+          obj = Cb::Utils::NilResponse.new
+        end
         meta_class = ensure_non_nil_metavalues(obj)
 
         resp.each do |api_key, api_value|
@@ -92,7 +96,6 @@ module Cb
             meta_class.instance_variable_set(:"@#{meta_name}", api_value)
           end
         end
-
         obj.class.send(:attr_reader, 'api_error')
         obj.instance_variable_set(:@api_error, @api_error)
 

@@ -27,6 +27,10 @@ module Cb
         Cb::Clients::Category
       end
 
+      def cover_letters
+        Cb::Clients::CoverLetters
+      end
+
       def industry
         Cb::Clients::Industry
       end

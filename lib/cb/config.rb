@@ -63,6 +63,7 @@ module Cb
       @uri_application_form ||= '/cbapi/job/:did/applicationform'
       @uri_company_find ||= '/Employer/CompanyDetails'
       @uri_countries ||= '/consumer/datalist/countries'
+      @uri_cover_letters ||= '/consumer/coverletters'
       @uri_cover_letter_list ||= '/v1/coverletter/list'
       @uri_cover_letter_retrieve ||= '/coverletter/retrieve'
       @uri_cover_letter_update ||= '/coverletter/edit'

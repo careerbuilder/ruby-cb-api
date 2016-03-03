@@ -11,7 +11,7 @@
 require 'spec_helper'
 
 module Cb
-  describe Cb::Clients::AnonSavedSearch.new do
+  describe Cb::Clients::AnonSavedSearch do
     before :each do
       @args = {
         'EmailAddress' => 'test@test.com',
@@ -49,11 +49,11 @@ module Cb
           end
 
           it 'the Cb module convenience method' do
-            assert_no_error_on_model { Cb.anon_saved_search.new.create @args }
+            assert_no_error_on_model { Cb.anon_saved_search.create @args }
           end
 
           it 'the anonymous saved search api client directly' do
-            assert_no_error_on_model { Cb::Clients::AnonSavedSearch.new.create @args }
+            assert_no_error_on_model { Cb::Clients::AnonSavedSearch.create @args }
           end
         end
       end
@@ -77,7 +77,7 @@ module Cb
         end
 
         it 'should successfully delete an anonymous saved search' do
-          response = Cb.anon_saved_search.new.delete @args
+          response = Cb.anon_saved_search.delete @args
           expect(response.model.status).to eq 'Success'
         end
       end

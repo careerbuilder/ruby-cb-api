@@ -29,7 +29,10 @@ module Cb
       end
 
       context 'when everything is working correctly' do
-        let(:external_app) { Cb::Models::ApplicationExternal.new(job_did: 'did', email: 'bogus@bogus.org', ipath: 'bogus', site_id: 'bogus') }
+        let(:external_app) { Cb::Models::ApplicationExternal.new(job_did: 'did',
+                                                                 email: 'bogus@bogus.org',
+                                                                 ipath: 'bogus',
+                                                                 site_id: 'bogus') }
 
         it 'the same application object is returned that is supplied for input' do
           stub_api_call_to_return({})
@@ -57,20 +60,9 @@ module Cb
         end
 
         context 'when posting to the API' do
-          before(:each) do
-            @mock_api = double(Cb::Utils::Api)
-            allow(@mock_api).to receive(:cb_post)
-            allow(@mock_api).to receive(:append_api_responses)
-            allow(Cb::Utils::Api).to receive(:new).and_return @mock_api
-          end
-
-          it 'converts the application to xml' do
-            expect(@mock_api).to receive(:cb_post).with(kind_of(String), body: external_app.to_xml).and_return({})
-            submit_app(external_app)
-          end
-
-          it 'posts to the application external API endpoint' do
-            expect(@mock_api).to receive(:cb_post).with(Cb.configuration.uri_application_external, kind_of(Hash)).and_return({})
+          it 'posts the application as xml' do
+            stub_request(:post, uri_stem(Cb.configuration.uri_application_external))
+                .with(body: external_app.to_xml)
             submit_app(external_app)
           end
         end
