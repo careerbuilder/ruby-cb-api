@@ -2,7 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
-
+* 20.1.0 Remove Migration ID field from resume listing model.
 * 20.0.0 Refactoring of the clients.  Breaking changes to AnonSavedSearch, EmployeeTypes, SavedSearch
 * 19.1.1 No functional differences, some code cleanup
 * 19.1.0 Add Migration ID field to resume listing model.
