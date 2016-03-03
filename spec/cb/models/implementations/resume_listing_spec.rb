@@ -16,7 +16,6 @@ module Cb
       let(:resume_listing) { Models::ResumeListing.new(resume_list_hash) }
       let(:resume_list_hash) do
         {
-          'MigrationID' => 'migrationID',
           'Title' => 'Software Engineer',
           'ExternalID' => 'externalID',
           'HostSite' => 'US',
@@ -27,24 +26,9 @@ module Cb
 
       it { expect(resume_listing.title).to eq('Software Engineer') }
       it { expect(resume_listing.external_id).to eq('externalID') }
-      it { expect(resume_listing.migration_id).to eq('migrationID') }
       it { expect(resume_listing.host_site).to eq('US') }
       it { expect(resume_listing.modified_dt).to eq('2/16/2016 11:08:11 AM') }
       it { expect(resume_listing.visibility).to eq('Private') }
-
-      context 'listing does not contain a migration ID' do
-        let(:resume_list_hash) do
-          {
-              'Title' => 'Software Engineer',
-              'ExternalID' => 'externalID',
-              'HostSite' => 'US',
-              'ModifiedDT' => '2/16/2016 11:08:11 AM',
-              'Visibility' => 'Private'
-          }
-        end
-
-        it { expect(resume_listing.migration_id.nil?).to be(true) }
-      end
     end
   end
 end
