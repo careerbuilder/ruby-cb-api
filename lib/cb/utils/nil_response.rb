@@ -15,9 +15,16 @@ module Cb
   module Utils
     class NilResponse
       def initialize ;end
+
       def nil?
         true
       end
+
+      # We used to monkey patch Nil to respond to all methods on the api client
+      def method_missing(m, *args, &block)
+        return nil
+      end
+
     end
   end
 end
