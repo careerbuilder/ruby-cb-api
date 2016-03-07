@@ -20,7 +20,7 @@ module Cb
         true
       end
 
-      # We used to monkey patch Nil to reponds to all methods on the api client
+      # We used to monkey patch Nil to responds to all methods on the api client
       def method_missing(m, *args, &block)
         return nil
       end
