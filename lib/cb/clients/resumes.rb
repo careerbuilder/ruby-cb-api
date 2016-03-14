@@ -15,7 +15,7 @@ module Cb
       def self.get(args={})
         uri = Cb.configuration.uri_resumes
         uri << "?site=#{ args[:site] }" if args[:site]
-        cb_client.cb_get(uri, headers: headers(args))
+        cb_client.cb_get(uri, headers: auth_code_flow_headers(args))
       end
     end
   end
