@@ -1,4 +1,4 @@
-# Copyright 2015 CareerBuilder, LLC
+# Copyright 2016 CareerBuilder, LLC
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -14,7 +14,7 @@ module Cb
     class CoverLetters < Base
       def self.get(args={})
         uri = Cb.configuration.uri_cover_letters
-        uri += "/#{ args[:id] }" if args[:id]
+        uri << "/#{ args[:id] }" if args[:id]
         cb_client.cb_get(uri, headers: headers(args))
       end
 
@@ -35,13 +35,6 @@ module Cb
       end
 
       private
-      def self.headers(args)
-        {
-            'Accept' => 'application/json',
-            'Authorization' => "Bearer #{ args[:oauth_token] }",
-            'Content-Type' => 'application/json'
-        }
-      end
 
       def self.body(args)
         body = Hash.new
