@@ -1,4 +1,4 @@
-# Copyright 2015 CareerBuilder, LLC
+# Copyright 2016 CareerBuilder, LLC
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -16,15 +16,6 @@ module Cb
         uri = Cb.configuration.uri_job_insights
         uri += "/#{ args[:id] }" if args[:id]
         cb_client.cb_get(uri, headers: headers(args))
-      end
-
-      private
-      def self.headers(args)
-        {
-            'Accept' => 'application/json',
-            'Authorization' => "Bearer #{ args[:oauth_token] }",
-            'Content-Type' => 'application/json'
-        }
       end
     end
   end
