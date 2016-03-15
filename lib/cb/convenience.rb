@@ -11,44 +11,12 @@
 module Cb
   module Convenience
     module ClassMethods
+      def anon_saved_search
+        Cb::Clients::AnonSavedSearch
+      end
+
       def api_client
         Cb::Utils::Api
-      end
-
-      def job
-        Cb::Clients::Job
-      end
-
-      def job_details_criteria
-        Cb::Criteria::Job::Details.new
-      end
-
-      def category
-        Cb::Clients::Category
-      end
-
-      def cover_letters
-        Cb::Clients::CoverLetters
-      end
-
-      def industry
-        Cb::Clients::Industry
-      end
-
-      def company
-        Cb::Clients::Company
-      end
-
-      def education_code
-        Cb::Clients::Education
-      end
-
-      def employee_types
-        Cb::Clients::EmployeeTypes
-      end
-
-      def recommendation
-        Cb::Clients::Recommendation
       end
 
       def application
@@ -59,20 +27,60 @@ module Cb
         Cb::Clients::ApplicationExternal
       end
 
+      def category
+        Cb::Clients::Category
+      end
+
       def country
         Cb::Utils::Country
       end
 
-      def user
-        Cb::Clients::User
+      def company
+        Cb::Clients::Company
+      end
+
+      def cover_letters
+        Cb::Clients::CoverLetters
+      end
+
+      def education_code
+        Cb::Clients::Education
+      end
+
+      def email_subscription
+        Cb::Clients::EmailSubscription
+      end
+
+      def employee_types
+        Cb::Clients::EmployeeTypes
+      end
+
+      def industry
+        Cb::Clients::Industry
+      end
+
+      def job
+        Cb::Clients::Job
       end
 
       def job_branding
         Cb::Clients::JobBranding
       end
 
-      def email_subscription
-        Cb::Clients::EmailSubscription
+      def job_details_criteria
+        Cb::Criteria::Job::Details.new
+      end
+
+      def job_insights
+        Cb::Clients::JobInsights
+      end
+
+      def language_codes
+        Cb::Clients::LanguageCodes
+      end
+
+      def recommendation
+        Cb::Clients::Recommendation
       end
 
       def saved_search
@@ -83,12 +91,8 @@ module Cb
         Cb::Clients::TalentNetwork
       end
 
-      def anon_saved_search
-        Cb::Clients::AnonSavedSearch
-      end
-
-      def language_codes
-        Cb::Clients::LanguageCodes
+      def user
+        Cb::Clients::User
       end
     end
   end

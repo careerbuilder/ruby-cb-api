@@ -74,6 +74,7 @@ module Cb
       @uri_job_branding ||= '/branding'
       @uri_job_category_search ||= '/v1/categories'
       @uri_job_find ||= '/v3/Job'
+      @uri_job_insights ||= '/consumer/job-insights'
       @uri_job_industry_search ||= '/v1/industrycodes'
       @uri_job_search ||= '/consumer/jobs/search/'
       @uri_languages ||= '/consumer/datalist/languages'
