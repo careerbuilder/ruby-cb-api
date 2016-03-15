@@ -13,8 +13,7 @@ module Cb
   module Clients
     class JobInsights < Base
       def self.get(args={})
-        uri = Cb.configuration.uri_job_insights
-        uri += "/#{ args[:id] }" if args[:id]
+        uri = "#{ Cb.configuration.uri_job_insights }/#{ args[:id] }"
         cb_client.cb_get(uri, headers: headers(args))
       end
     end
