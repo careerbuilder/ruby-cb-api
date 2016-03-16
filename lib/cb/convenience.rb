@@ -1,4 +1,4 @@
-# Copyright 2015 CareerBuilder, LLC
+# Copyright 2016 CareerBuilder, LLC
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -81,6 +81,10 @@ module Cb
 
       def recommendation
         Cb::Clients::Recommendation
+      end
+
+      def resumes
+        Cb::Clients::Resumes
       end
 
       def saved_search

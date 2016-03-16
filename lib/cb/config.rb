@@ -1,4 +1,4 @@
-# Copyright 2015 CareerBuilder, LLC
+# Copyright 2016 CareerBuilder, LLC
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -88,6 +88,7 @@ module Cb
       @uri_resume_delete ||= '/cbapi/resumes/:resume_hash'
       @uri_resume_post ||= '/consumer/resumedocuments'
       @uri_resume_list ||= '/v3/resume/list'
+      @uri_resumes ||= '/consumer/resumes'
       @uri_resume_language_codes ||= '/v1/languagecodes'
       @uri_resume_education ||= '/consumer/datalist/ResumeEducation'
       @uri_saved_search_retrieve ||= '/cbapi/savedsearches/:did'
