@@ -11,16 +11,18 @@
 module Cb
   module Clients
     class Base
-      def self.cb_client
-        @cb_client ||= Cb::Utils::Api.instance
-      end
+      class << self
+        def cb_client
+          @cb_client ||= Cb::Utils::Api.instance
+        end
 
-      def self.headers(args)
-        {
-            'Accept' => 'application/json',
-            'Authorization' => "Bearer #{ args[:oauth_token] }",
-            'Content-Type' => 'application/json'
-        }
+        def headers(args)
+          {
+             'Accept' => 'application/json',
+             'Authorization' => "Bearer #{ args[:oauth_token] }",
+             'Content-Type' => 'application/json'
+          }
+        end
       end
     end
   end
