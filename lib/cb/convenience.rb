@@ -82,7 +82,7 @@ module Cb
       def recommendation
         Cb::Clients::Recommendation
       end
-      
+
       def resumes
         Cb::Clients::Resumes
       end

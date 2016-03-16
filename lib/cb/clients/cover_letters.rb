@@ -12,38 +12,36 @@ require_relative 'base'
 module Cb
   module Clients
     class CoverLetters < Base
-      class << self
-        def get(args={})
-          uri = Cb.configuration.uri_cover_letters
-          uri << "/#{ args[:id] }" if args[:id]
-          cb_client.cb_get(uri, headers: auth_code_flow_headers(args))
-        end
+      def self.get(args={})
+        uri = Cb.configuration.uri_cover_letters
+        uri << "/#{ args[:id] }" if args[:id]
+        cb_client.cb_get(uri, headers: auth_code_flow_headers(args))
+      end
 
-        def create(args={})
-          cb_client.cb_put(Cb.configuration.uri_cover_letters,
-                           body: body(args),
-                           headers: auth_code_flow_headers(args))
-        end
+      def self.create(args={})
+        cb_client.cb_put(Cb.configuration.uri_cover_letters,
+                         body: body(args),
+                         headers: auth_code_flow_headers(args))
+      end
 
-        def delete(args={})
-          uri = "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
-          cb_client.cb_delete(uri, body: body(args), headers: auth_code_flow_headers(args))
-        end
+      def self.delete(args={})
+        uri = "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
+        cb_client.cb_delete(uri, body: body(args), headers: auth_code_flow_headers(args))
+      end
 
-        def update(args={})
-          uri = "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
-          cb_client.cb_post(uri, body: body(args), headers: auth_code_flow_headers(args))
-        end
+      def self.update(args={})
+        uri = "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
+        cb_client.cb_post(uri, body: body(args), headers: auth_code_flow_headers(args))
+      end
 
-        private
+      private
 
-        def body(args)
-          body = Hash.new
-          body[:id] = args[:id] if args[:id]
-          body[:text] = args[:text] if args[:text]
-          body[:name] = args[:name] if args[:name]
-          body.to_json
-        end
+      def self.body(args)
+        body = Hash.new
+        body[:id] = args[:id] if args[:id]
+        body[:text] = args[:text] if args[:text]
+        body[:name] = args[:name] if args[:name]
+        body.to_json
       end
     end
   end
