@@ -38,7 +38,7 @@ module Cb
       }
     end
 
-    context '#get' do
+    describe '#get' do
       context 'asking for a specific job insights report' do
         let(:response) { JSON.parse File.read('spec/support/response_stubs/job_insights.json') }
         let(:uri) { "https://api.careerbuilder.com/consumer/job-insights/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
