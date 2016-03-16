@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 20.3.0 Add new resume list API (/consumer/resumes)
 * 20.2.1 `class << self` for classes with all class methods. DRY up the URI building for Cover Letter Update & Delete.
 * 20.2.0 Adding job insights client
 * 20.1.1 Having nil reponses behave more like we did pre ruby 2.2 so as not to break downstream peeps
