@@ -88,7 +88,6 @@ module Cb
       @uri_resume_delete ||= '/cbapi/resumes/:resume_hash'
       @uri_resume_post ||= '/consumer/resumedocuments'
       @uri_resume_list ||= '/v3/resume/list'
-      @uri_resumes ||= '/consumer/resumes'
       @uri_resume_language_codes ||= '/v1/languagecodes'
       @uri_resume_education ||= '/consumer/datalist/ResumeEducation'
       @uri_saved_search_retrieve ||= '/cbapi/savedsearches/:did'

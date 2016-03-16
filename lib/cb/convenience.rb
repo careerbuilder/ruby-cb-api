@@ -83,10 +83,6 @@ module Cb
         Cb::Clients::Recommendation
       end
 
-      def resumes
-        Cb::Clients::Resumes
-      end
-
       def saved_search
         Cb::Clients::SavedSearch
       end
