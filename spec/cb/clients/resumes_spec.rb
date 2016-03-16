@@ -39,6 +39,16 @@ module Cb
 
       it { expect(stub).to have_been_requested }
       it { is_expected.to eq api_response }
+
+      context 'When given a site' do
+        let(:expected_additional_param) { 'site=US' }
+        let(:uri) { "https://api.careerbuilder.com/consumer/resumes?developerkey=#{ Cb.configuration.dev_key }&outputjson=true&#{ expected_additional_param }" }
+
+        subject { Cb::Clients::Resumes.get(site: 'US', oauth_token: 'token') }
+
+        it { expect(stub).to have_been_requested }
+        it { is_expected.to eq api_response }
+      end
     end
   end
 end
