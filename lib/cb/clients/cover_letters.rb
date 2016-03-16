@@ -26,16 +26,18 @@ module Cb
         end
 
         def delete(args={})
-          uri = "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
-          cb_client.cb_delete(uri, body: body(args), headers: headers(args))
+          cb_client.cb_delete(uri_with_id(args), body: body(args), headers: headers(args))
         end
 
         def update(args={})
-          uri = "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
-          cb_client.cb_post(uri, body: body(args), headers: headers(args))
+          cb_client.cb_post(uri_with_id(args), body: body(args), headers: headers(args))
         end
 
         private
+
+        def uri_with_id(args)
+          "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
+        end
 
         def body(args)
           body = Hash.new
