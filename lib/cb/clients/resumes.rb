@@ -14,7 +14,7 @@ module Cb
     class Resumes < Base
       def self.get(args={})
         uri = Cb.configuration.uri_resumes
-        opts ||= { site: args[:site] } if args[:site]
+        opts = args[:site] ? { site: args[:site] } : { }
         cb_client.cb_get(uri, headers: headers(args), query: opts)
       end
     end
