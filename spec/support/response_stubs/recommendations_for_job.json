@@ -1,0 +1,35 @@
+{
+  "JobDID": "J3G4QV5ZZV8DWNFT041",
+  "Title": "Sous Chef",
+  "Relevancy": "1",
+  "Location": {
+    "State": "DC",
+    "City": "Washington"
+  },
+  "Company": {
+    "CompanyName": "The Capital Grille",
+    "CompanyDetailsURL": "nil",
+    "CompanyDID": "nil"
+  },
+  "JobDetailsURL": "http://api.careerbuilder.com/v1/joblink?TrackingID&DID=J3G4QV5ZZV8DWNFT041",
+  "JobServiceURL": "http://api.careerbuilder.com/v1/job?DID=J3G4QV5ZZV8DWNFT041",
+  "SimilarJobsURL": "http://www.careerbuilder.com/jobs/similarjobs.aspx?ipath=JELO&job_did=J3G4QV5ZZV8DWNFT041",
+  "ONet": "35-1011.00",
+  "ONetFriendlyTitle": "Chefs and Head Cooks",
+  "HostSite": "US",
+  "PostingDate": "3/3/2016 12:00:00 AM",
+  "CanBeQuickApplied": "False",
+  "MatcherType": "CX",
+  "EducationRequired": "Not Specified",
+  "Skills": "nil",
+  "EmploymentType": "Full-Time",
+  "ExperienceRequired": "Not Specified",
+  "Pay": "$55k - $70k/year",
+  "Categories": {
+    "Category": ["JN035", "JN040"]
+  },
+  "JobLevel": "4",
+  "ApplyRequirements": {
+    "ApplyRequirement": "IsExternal"
+  }
+}
