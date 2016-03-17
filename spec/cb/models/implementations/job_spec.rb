@@ -29,13 +29,13 @@ module Cb::Models
     # to the set of mappings below and it will test itself for you!
     context 'predicate methods:' do
       response_to_model_mappings = [
-          { api_field: 'HasQuestionnaire',    predicate_method: :has_questionnaire? },
-          { api_field: 'CanBeQuickApplied',   predicate_method: :can_be_quick_applied? },
-          { api_field: 'ManagesOthers',       predicate_method: :manages_others? },
-          { api_field: 'IsScreenerApply',     predicate_method: :screener_apply? },
-          { api_field: 'IsSharedJob',         predicate_method: :shared_job? },
-          { api_field: 'RelocationCovered',   predicate_method: :relocation_covered? },
-          { api_field: 'ExternalApplication', predicate_method: :external_application? }
+        { api_field: 'HasQuestionnaire',    predicate_method: :has_questionnaire? },
+        { api_field: 'CanBeQuickApplied',   predicate_method: :can_be_quick_applied? },
+        { api_field: 'ManagesOthers',       predicate_method: :manages_others? },
+        { api_field: 'IsScreenerApply',     predicate_method: :screener_apply? },
+        { api_field: 'IsSharedJob',         predicate_method: :shared_job? },
+        { api_field: 'RelocationCovered',   predicate_method: :relocation_covered? },
+        { api_field: 'ExternalApplication', predicate_method: :external_application? }
       ]
 
       response_to_model_mappings.each do |mapping|
