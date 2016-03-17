@@ -1,4 +1,4 @@
-# Copyright 2015 CareerBuilder, LLC
+# Copyright 2016 CareerBuilder, LLC
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -74,8 +74,8 @@ module Cb
       @uri_job_branding ||= '/branding'
       @uri_job_category_search ||= '/v1/categories'
       @uri_job_find ||= '/v3/Job'
-      @uri_job_insights ||= '/consumer/job-insights'
       @uri_job_industry_search ||= '/v1/industrycodes'
+      @uri_job_insights ||= '/consumer/job-insights'
       @uri_job_search ||= '/consumer/jobs/search/'
       @uri_languages ||= '/consumer/datalist/languages'
       @uri_recommendation_for_job ||= '/v1/Recommendations/ForJob'
@@ -90,6 +90,7 @@ module Cb
       @uri_resume_list ||= '/v3/resume/list'
       @uri_resume_language_codes ||= '/v1/languagecodes'
       @uri_resume_education ||= '/consumer/datalist/ResumeEducation'
+      @uri_resumes ||= '/consumer/resumes'
       @uri_saved_search_retrieve ||= '/cbapi/savedsearches/:did'
       @uri_saved_search_create ||= '/v2/savedsearch/create'
       @uri_saved_search_update ||= '/cbapi/SavedSearches'
