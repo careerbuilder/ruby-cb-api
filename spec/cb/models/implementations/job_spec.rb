@@ -68,24 +68,23 @@ module Cb::Models
               expect(job.send(predicate_method)).to be_falsey
             end
           end
-        end
-      end
-    end
 
-    describe 'set_model_properties' do
-      let(:response_stub) do
-        full_response = JSON.parse(File.read('spec/support/response_stubs/recommendations_for_job.json'))
-        full_response
-      end
+          context 'when the response json comes back correctly' do
+            let(:response_stub) do
+              full_response = JSON.parse(File.read('spec/support/response_stubs/recommendations_for_job.json'))
+              recommend_job_response = full_response['ResponseRecommendJob']
+              recommend_job_response['RecommendJobResults']['RecommendJobResult'].first
+            end
 
-      context 'when the response json comes back correctly' do
-        it 'initializes model without exception' do
-          Cb::Models::Job.new(response_stub)
-        end
+            it 'initializes model without exception' do
+              Cb::Models::Job.new(response_stub)
+            end
 
-        it 'parses fields correctly' do
-          model = Cb::Models::Job.new(response_stub)
-          expect(model.posting_date).to eq '3/3/2016 12:00:00 AM'
+            it 'parses fields correctly' do
+              model = Cb::Models::Job.new(response_stub)
+              expect(model.posting_date).to eq '2/19/2016 12:00:00 AM'
+            end
+          end
         end
       end
     end

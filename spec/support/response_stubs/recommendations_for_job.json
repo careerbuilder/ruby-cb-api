@@ -1,35 +1,192 @@
 {
-  "JobDID": "J3G4QV5ZZV8DWNFT041",
-  "Title": "Sous Chef",
-  "Relevancy": "1",
-  "Location": {
-    "State": "DC",
-    "City": "Washington"
-  },
-  "Company": {
-    "CompanyName": "The Capital Grille",
-    "CompanyDetailsURL": "nil",
-    "CompanyDID": "nil"
-  },
-  "JobDetailsURL": "http://api.careerbuilder.com/v1/joblink?TrackingID&DID=J3G4QV5ZZV8DWNFT041",
-  "JobServiceURL": "http://api.careerbuilder.com/v1/job?DID=J3G4QV5ZZV8DWNFT041",
-  "SimilarJobsURL": "http://www.careerbuilder.com/jobs/similarjobs.aspx?ipath=JELO&job_did=J3G4QV5ZZV8DWNFT041",
-  "ONet": "35-1011.00",
-  "ONetFriendlyTitle": "Chefs and Head Cooks",
-  "HostSite": "US",
-  "PostingDate": "3/3/2016 12:00:00 AM",
-  "CanBeQuickApplied": "False",
-  "MatcherType": "CX",
-  "EducationRequired": "Not Specified",
-  "Skills": "nil",
-  "EmploymentType": "Full-Time",
-  "ExperienceRequired": "Not Specified",
-  "Pay": "$55k - $70k/year",
-  "Categories": {
-    "Category": ["JN035", "JN040"]
-  },
-  "JobLevel": "4",
-  "ApplyRequirements": {
-    "ApplyRequirement": "IsExternal"
+  "ResponseRecommendJob": {
+    "Errors": "nil",
+    "Request": {
+      "DeveloperKey": "",
+      "SiteID": "nil",
+      "CoBrand": "nil",
+      "JobDID": "J9063C6D5MTV0Q8V6WK",
+      "CountLimit": "5",
+      "MinQualityLimit": "0",
+      "RequestSource": "rechq",
+      "RequestEvidenceID": "a444e31e-e34d-4b5c-bc8c-ec6975933cd0"
+    },
+    "TimeResponseSent": "3/17/2016 3:33:19 PM",
+    "TimeElapsed": "0.4992",
+    "RecommendJobResults": {
+      "RecommendJobResult": [{
+        "JobDID": "JHQ2WF74PK8690FJQHM",
+        "Title": "Housekeeper/Laundry Aide",
+        "Relevancy": "1",
+        "Location": {
+          "State": "MD",
+          "City": "Timonium"
+        },
+        "Company": {
+          "CompanyName": "Lorien Health Systems",
+          "CompanyDetailsURL": "http://www.careerbuilder.com/jobs/company/cht0x96xq0gpbgbqv7v/lorien-health-systems?sc_cmp1=13_JobRes_ComDet",
+          "CompanyDID": "CHT0X96XQ0GPBGBQV7V"
+        },
+        "JobDetailsURL": "http://api.careerbuilder.com/v1/joblink?TrackingID&DID=JHQ2WF74PK8690FJQHM",
+        "JobServiceURL": "http://api.careerbuilder.com/v1/job?DID=JHQ2WF74PK8690FJQHM",
+        "SimilarJobsURL": "http://www.careerbuilder.com/jobs/similarjobs.aspx?ipath=bbb&job_did=JHQ2WF74PK8690FJQHM",
+        "ONet": "37-2012.00",
+        "ONetFriendlyTitle": "Maids and Housekeeping Cleaners",
+        "HostSite": "US",
+        "PostingDate": "2/19/2016 12:00:00 AM",
+        "CanBeQuickApplied": "False",
+        "MatcherType": "CX",
+        "EducationRequired": "Not Specified",
+        "Skills": "nil",
+        "EmploymentType": "Full-Time",
+        "ExperienceRequired": "Not Specified",
+        "Pay": "N/A",
+        "Categories": {
+          "Category": ["JN010", "JN023", "JN017", "JN040"]
+        },
+        "JobLevel": "2",
+        "ApplyRequirements": {
+          "ApplyRequirement": "HasScreener"
+        }
+      }, {
+        "JobDID": "J3F4T96L8QJRS47XD00",
+        "Title": "Housekeeper",
+        "Relevancy": "1",
+        "Location": {
+          "State": "MD",
+          "City": "Severna Park"
+        },
+        "Company": {
+          "CompanyName": "nil",
+          "CompanyDetailsURL": "nil",
+          "CompanyDID": "nil"
+        },
+        "JobDetailsURL": "http://api.careerbuilder.com/v1/joblink?TrackingID&DID=J3F4T96L8QJRS47XD00",
+        "JobServiceURL": "http://api.careerbuilder.com/v1/job?DID=J3F4T96L8QJRS47XD00",
+        "SimilarJobsURL": "http://www.careerbuilder.com/jobs/similarjobs.aspx?ipath=ll&job_did=J3F4T96L8QJRS47XD00",
+        "ONet": "37-2012.00",
+        "ONetFriendlyTitle": "Maids and Housekeeping Cleaners",
+        "HostSite": "US",
+        "PostingDate": "3/2/2016 12:00:00 AM",
+        "CanBeQuickApplied": "False",
+        "MatcherType": "CX",
+        "EducationRequired": "Not Specified",
+        "Skills": "nil",
+        "EmploymentType": "Full-Time",
+        "ExperienceRequired": "Not Specified",
+        "Pay": "N/A",
+        "Categories": {
+          "Category": ["JN010", "JN040", "JN017"]
+        },
+        "JobLevel": "2",
+        "ApplyRequirements": {
+          "ApplyRequirement": "NoOnlineApply"
+        }
+      }, {
+        "JobDID": "J3F7TB6X9W3LZX5MDN1",
+        "Title": "HOUSE CLEANING SERVICE",
+        "Relevancy": "1",
+        "Location": {
+          "State": "MD",
+          "City": "Annapolis"
+        },
+        "Company": {
+          "CompanyName": "nil",
+          "CompanyDetailsURL": "nil",
+          "CompanyDID": "nil"
+        },
+        "JobDetailsURL": "http://api.careerbuilder.com/v1/joblink?TrackingID&DID=J3F7TB6X9W3LZX5MDN1",
+        "JobServiceURL": "http://api.careerbuilder.com/v1/job?DID=J3F7TB6X9W3LZX5MDN1",
+        "SimilarJobsURL": "http://www.careerbuilder.com/jobs/similarjobs.aspx?ipath=gh&job_did=J3F7TB6X9W3LZX5MDN1",
+        "ONet": "37-2012.00",
+        "ONetFriendlyTitle": "Maids and Housekeeping Cleaners",
+        "HostSite": "US",
+        "PostingDate": "3/5/2016 12:00:00 AM",
+        "CanBeQuickApplied": "False",
+        "MatcherType": "CX",
+        "EducationRequired": "Not Specified",
+        "Skills": "nil",
+        "EmploymentType": "Full-Time",
+        "ExperienceRequired": "Not Specified",
+        "Pay": "N/A",
+        "Categories": {
+          "Category": ["JN013", "JN022"]
+        },
+        "JobLevel": "2",
+        "ApplyRequirements": {
+          "ApplyRequirement": "NoOnlineApply"
+        }
+      }, {
+        "JobDID": "J3J85B6DP6Y702QQ6DR",
+        "Title": "Housekeeping Job Fair March 4th 9am-12pm",
+        "Relevancy": "1",
+        "Location": {
+          "State": "MD",
+          "City": "Parkville"
+        },
+        "Company": {
+          "CompanyName": "Erickson Living",
+          "CompanyDetailsURL": "http://www.careerbuilder.com/jobs/company/c8g3035vts4gq2zccrb/erickson-living?sc_cmp1=13_JobRes_ComDet",
+          "CompanyDID": "C8G3035VTS4GQ2ZCCRB"
+        },
+        "JobDetailsURL": "http://api.careerbuilder.com/v1/joblink?TrackingID&DID=J3J85B6DP6Y702QQ6DR",
+        "JobServiceURL": "http://api.careerbuilder.com/v1/job?DID=J3J85B6DP6Y702QQ6DR",
+        "SimilarJobsURL": "http://www.careerbuilder.com/jobs/similarjobs.aspx?ipath=lo&job_did=J3J85B6DP6Y702QQ6DR",
+        "ONet": "99-9999.99",
+        "ONetFriendlyTitle": "Unclassified",
+        "HostSite": "US",
+        "PostingDate": "2/23/2016 12:00:00 AM",
+        "CanBeQuickApplied": "True",
+        "MatcherType": "CX",
+        "EducationRequired": "Not Specified",
+        "Skills": "nil",
+        "EmploymentType": "Full-Time",
+        "ExperienceRequired": "Not Specified",
+        "Pay": "N/A",
+        "Categories": {
+          "Category": ["JN035", "JN017", "JN040"]
+        },
+        "JobLevel": "2",
+        "ApplyRequirements": {
+          "ApplyRequirement": "CanBulkApply"
+        }
+      }, {
+        "JobDID": "J3L09Y6VJ4Q2YZR0ZBC",
+        "Title": "Laundry Attendant - Part Time",
+        "Relevancy": "1",
+        "Location": {
+          "State": "MD",
+          "City": "Bel Air"
+        },
+        "Company": {
+          "CompanyName": "Homewood Suites",
+          "CompanyDetailsURL": "http://www.careerbuilder.com/jobs/company/chn0wq6kh9zbcky90pl/homewood-suites?sc_cmp1=13_JobRes_ComDet",
+          "CompanyDID": "CHN0WQ6KH9ZBCKY90PL"
+        },
+        "JobDetailsURL": "http://api.careerbuilder.com/v1/joblink?TrackingID&DID=J3L09Y6VJ4Q2YZR0ZBC",
+        "JobServiceURL": "http://api.careerbuilder.com/v1/job?DID=J3L09Y6VJ4Q2YZR0ZBC",
+        "SimilarJobsURL": "http://www.careerbuilder.com/jobs/similarjobs.aspx?ipath=jj&job_did=J3L09Y6VJ4Q2YZR0ZBC",
+        "ONet": "37-2012.00",
+        "ONetFriendlyTitle": "Maids and Housekeeping Cleaners",
+        "HostSite": "US",
+        "PostingDate": "3/5/2016 12:00:00 AM",
+        "CanBeQuickApplied": "False",
+        "MatcherType": "CX",
+        "EducationRequired": "Not Specified",
+        "Skills": "nil",
+        "EmploymentType": "Part-Time",
+        "ExperienceRequired": "Not Specified",
+        "Pay": "N/A",
+        "Categories": {
+          "Category": ["JN003", "JN040", "JN017"]
+        },
+        "JobLevel": "2",
+        "ApplyRequirements": {
+          "ApplyRequirement": "IsExternal"
+        }
+      }]
+    },
+    "SearchMetaData": {
+    }
   }
 }
