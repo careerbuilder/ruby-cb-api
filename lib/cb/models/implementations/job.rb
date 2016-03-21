@@ -20,7 +20,7 @@ module Cb
                     :location, :distance, :latitude, :longitude, :location_formatted, :location_metro_city,
                     :description, :requirements, :employment_type,
                     :details_url, :service_url, :similar_jobs_url, :apply_url,
-                    :begin_date, :end_date, :posted_date, :posted_time,
+                    :begin_date, :end_date, :posted_date, :posted_time, :posting_date,
                     :relevancy, :state, :city, :zip,
                     :can_be_quick_applied, :apply_requirements,
                     :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id,
@@ -177,6 +177,7 @@ module Cb
         @state                        = args['LocationState'] || ''
         @city                         = args['LocationCity'] || ''
         @zip                          = args['LocationPostalCode'] || ''
+        @posting_date                 = args['PostingDate'] || ''
 
         @company_name            = figure_out_company_info(args['Company'], args['Company'], 'CompanyName')
         @company_details_url     = figure_out_company_info(args['CompanyDetailsURL'], args['Company'], 'CompanyDetailsURL')
