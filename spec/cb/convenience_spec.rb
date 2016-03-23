@@ -58,6 +58,12 @@ module Cb
       end
     end
 
+    describe '#cover_letters' do
+      it 'returns the cover letter api client class' do
+        expect_method_to_return_class(:cover_letters, Cb::Clients::CoverLetters)
+      end
+    end
+
     describe '#education_code' do
       it 'returns the education api client class' do
         expect_method_to_return_class(:education_code, Cb::Clients::Education)
