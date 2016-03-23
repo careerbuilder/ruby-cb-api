@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 20.5.0 Adding resume insights client
 * 20.4.0 Add posting_date to recommendations for job model.
 * 20.3.0 Add new resume list API (/consumer/resumes)
 * 20.2.1 `class << self` for classes with all class methods. DRY up the URI building for Cover Letter Update & Delete.
