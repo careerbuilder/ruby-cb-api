@@ -35,7 +35,7 @@ module Cb
     end
 
     describe '#job_insights' do
-      it 'returns the job api client class' do
+      it 'returns the job insight api client class' do
         expect_method_to_return_class(:job_insights, Cb::Clients::JobInsights)
       end
     end
@@ -67,6 +67,12 @@ module Cb
     describe '#recommendation' do
       it 'returns the recommendation api client class' do
         expect_method_to_return_class(:recommendation, Cb::Clients::Recommendation)
+      end
+    end
+
+    describe '#resume_insights' do
+      it 'returns the resume insight api client class' do
+        expect_method_to_return_class(:resume_insights, Cb::Clients::ResumeInsights)
       end
     end
 
