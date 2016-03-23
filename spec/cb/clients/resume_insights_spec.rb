@@ -23,41 +23,39 @@ module Cb
         }
       end
 
+      before do
+        stub
+        subject
+      end
+
       describe '#keywords' do
         let(:uri) { "https://api.careerbuilder.com/consumer/insights/keywords/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
-        context 'asking for a specific top 10 keyword list by id' do
+        subject { Cb::Clients::ResumeInsights.keywords(id: 'id', oauth_token: 'token') }
+
+        context 'successfully returns a keyword list by id' do
           let(:response) { JSON.parse File.read('spec/support/response_stubs/resume_insights/keywords.json') }
-
-          it 'performs a get and returns the job report asked for' do
-            stub = stub_request(:get, uri).
-              with(:headers => headers).
-              to_return(:status => 200, :body => response.to_json)
-
-            response = Cb::Clients::ResumeInsights.keywords(id: 'id', oauth_token: 'token')
-            expect(stub).to have_been_requested
-            expect(response.class).to eq(Hash)
-            expect(response['data'].class).to eq(Array)
-            expect(response['data'].length).to eq(10)
+          let(:stub) do
+            stub_request(:get, uri)
+              .with(headers: headers)
+              .to_return(status: 200, body: response.to_json)
           end
+
+          it { expect(stub).to have_been_requested }
+          it { is_expected.to eq response }
         end
 
         context 'when keywords are not found for a given id' do
           let(:data){ { 'type' => '404', 'message' => 'Document not found', 'code' => '404' } }
           let(:response) { { 'errors' => [ data ].flatten }.merge({ 'page' => -1, 'page_size' => -1, 'total' => 0 }) }
-
-          it 'returns the error hash' do
-            stub = stub_request(:get, uri).
+          let(:stub) do
+            stub_request(:get, uri).
               with(:headers => headers).
               to_return(:status => 404, :body => response.to_json)
-
-            response = Cb::Clients::ResumeInsights.keywords(id: 'id', oauth_token: 'token')
-            expect(stub).to have_been_requested
-            expect(response.class).to eq(Hash)
-            expect(response['errors'].class).to eq(Array)
-            expect(response['errors'].length).to eq(1)
-            expect(response['errors'][0]).to eq(data)
           end
+
+          it { expect(stub).to have_been_requested }
+          it { is_expected.to eq response }
         end
       end
     end
