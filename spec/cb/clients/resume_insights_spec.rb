@@ -21,8 +21,6 @@ module Cb
         'Developerkey'=> Cb.configuration.dev_key
       }
     end
-    let(:response_template) { { 'page' => -1, 'page_size' => -1, 'total' => 0 } }
-    let(:success_response) { { 'data' => [ data ].flatten }.merge(response_template) }
 
     describe '#keywords' do
       let(:uri) { "https://api.careerbuilder.com/consumer/insights/keywords/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
@@ -43,8 +41,8 @@ module Cb
         end
       end
 
-      context 'when the job insights report is not found' do
-        let(:data){ { 'type' => '404', 'message' => 'Could not find the cover letter specified', 'code' => '404' } }
+      context 'when keywords are not found for a given id' do
+        let(:data){ { 'type' => '404', 'message' => 'Document not found', 'code' => '404' } }
         let(:response) { { 'errors' => [ data ].flatten }.merge({ 'page' => -1, 'page_size' => -1, 'total' => 0 }) }
 
         it 'returns the error hash' do
