@@ -87,6 +87,10 @@ module Cb
         Cb::Clients::Resumes
       end
 
+      def resume_insights
+        Cb::Clients::ResumeInsights
+      end
+
       def saved_search
         Cb::Clients::SavedSearch
       end

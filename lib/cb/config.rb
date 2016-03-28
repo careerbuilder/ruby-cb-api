@@ -77,6 +77,7 @@ module Cb
       @uri_job_industry_search ||= '/v1/industrycodes'
       @uri_job_insights ||= '/consumer/job-insights'
       @uri_job_search ||= '/consumer/jobs/search/'
+      @uri_keyword_insights ||= '/consumer/insights/keywords'
       @uri_languages ||= '/consumer/datalist/languages'
       @uri_recommendation_for_job ||= '/v1/Recommendations/ForJob'
       @uri_recommendation_for_user ||= '/v1/Recommendations/ForUser'
