@@ -91,6 +91,10 @@ module Cb
         Cb::Clients::ResumeInsights
       end
 
+      def saved_jobs
+        Cb::Clients::SavedJobs
+      end
+
       def saved_search
         Cb::Clients::SavedSearch
       end

@@ -99,6 +99,7 @@ module Cb
       @uri_saved_search_list ||= '/cbapi/savedsearches'
       @uri_subscription_retrieve ||= '/v2/user/subscription/retrieve'
       @uri_subscription_modify ||= '/v2/user/subscription'
+      @uri_saved_job ||= '/consumer/saved-jobs'
       @uri_saved_job_search_create ||= '/v2/savedsearch/create'
       @uri_state_list ||= '/ajax/citysuggest.aspx'
       @uri_tn_join_questions ||= '/talentnetwork/config/join/questions'

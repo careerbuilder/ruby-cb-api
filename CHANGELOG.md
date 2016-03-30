@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 20.6.0 Add new saved jobs API (/consumer/saved-jobs)
 * 20.5.0 Adding resume insights client
 * 20.4.0 Add posting_date to recommendations for job model.
 * 20.3.0 Add new resume list API (/consumer/resumes)
@@ -65,4 +66,4 @@ Version History
 * 13.0.1 This change is to turn off metadata parsing and raise exception if the api response does not contain metadata.
     * This means we can optionally control wether or not a specific API call expects metadata to come back   
 * 13.0.0 Adds a new resume recommendations call and removes the old one *(BREAKING)*
-    * https://github.com/cbdr/ruby-cb-api/pull/154/files
+    * https://github.com/careerbuilder/ruby-cb-api/pull/154/files
