@@ -40,7 +40,7 @@ module Cb
         end
 
         def body(args)
-          body = Hash.new
+          body = []
           body[:id] = args[:id] if args[:id]
           body[:job_id] = args[:job_id] if args[:job_id]
           body[:job_title] = args[:job_title] if args[:job_title]
