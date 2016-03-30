@@ -77,7 +77,7 @@ module Cb
     end
 
     context '#get' do
-      context 'asking for all cover letters' do
+      context 'asking for all saved jobs' do
         let(:data) { [saved_job,saved_job,saved_job] }
         it 'performs a get and returns the results hash' do
           stub = stub_request(:get, uri).
@@ -93,7 +93,7 @@ module Cb
         end
       end
 
-      context 'asking for a specific cover letter' do
+      context 'asking for a specific saved job' do
         let(:data){ saved_job }
         let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
@@ -111,8 +111,8 @@ module Cb
         end
       end
 
-      context 'when the cover letter is not found' do
-        let(:data){ { 'type' => '404', 'message' => 'Could not find the cover letter specified', 'code' => '404' } }
+      context 'when the saved job is not found' do
+        let(:data){ { 'type' => '404', 'message' => 'Could not find the saved job specified', 'code' => '404' } }
         let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
         it 'returns the error hash' do
@@ -131,8 +131,8 @@ module Cb
     end
 
     context '#delete' do
-      context 'asking for a specific cover letter' do
-        let(:data){ 'The cover letter was deleted successfully' }
+      context 'asking for a specific saved job' do
+        let(:data){ 'The saved job was deleted successfully' }
         let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
         it 'performs a get and returns the coverletter asked for' do
@@ -150,7 +150,7 @@ module Cb
       end
 
       context 'when an error occurs' do
-        let(:data){ { 'type' => '500', 'message' => 'Could not find the cover letter specified', 'code' => '404' } }
+        let(:data){ { 'type' => '500', 'message' => 'Could not find the saved job specified', 'code' => '404' } }
         let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
         it 'returns the error hash' do
@@ -170,7 +170,7 @@ module Cb
 
     context '#update' do
       let(:post_data) { {'id' => 'id','notes' => 'notes'} }
-      context 'when updating an existing coverletter' do
+      context 'when updating an existing saved job' do
         let(:data){ saved_job }
         let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
