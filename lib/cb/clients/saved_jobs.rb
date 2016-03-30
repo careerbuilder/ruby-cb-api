@@ -13,23 +13,23 @@ module Cb
   module Clients
     class SavedJobs < Base
       class << self
-        def get(args={})
+        def get(args = {})
           uri = Cb.configuration.uri_saved_job
           uri += "/#{ args[:id] }" if args[:id]
           cb_client.cb_get(uri, headers: headers(args))
         end
 
-        def create(args={})
+        def create(args = {})
           cb_client.cb_put(Cb.configuration.uri_saved_job,
                            body: body(args),
                            headers: headers(args))
         end
 
-        def delete(args={})
+        def delete(args = {})
           cb_client.cb_delete(uri_with_id(args), body: body(args), headers: headers(args))
         end
 
-        def update(args={})
+        def update(args = {})
           cb_client.cb_post(uri_with_id(args), body: body(args), headers: headers(args))
         end
 
@@ -40,7 +40,7 @@ module Cb
         end
 
         def body(args)
-          body = []
+          body = {}
           body[:id] = args[:id] if args[:id]
           body[:job_id] = args[:job_id] if args[:job_id]
           body[:job_title] = args[:job_title] if args[:job_title]
