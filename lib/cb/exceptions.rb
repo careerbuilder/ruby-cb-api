@@ -11,7 +11,12 @@
 module Cb
   class IncomingParamIsWrongTypeException < StandardError; end
   class ExpectedResponseFieldMissing < StandardError; end
-  class ApiResponseError < StandardError; end
+  class ApiResponseError < StandardError
+    attr_accessor :raw_response, :response, :code
+  end
   class ServiceUnavailableError < ApiResponseError; end
   class UnauthorizedError < ApiResponseError; end
+  class DocumentNotFoundError < ApiResponseError; end
+  class BadRequestError < ApiResponseError; end
+  class ServerError < ApiResponseError; end
 end
