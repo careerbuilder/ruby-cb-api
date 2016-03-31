@@ -13,15 +13,7 @@ require 'spec_helper'
 module Cb
   module Clients
     describe ResumeInsights do
-      let(:headers) do
-        {
-          'Accept'=>'application/json',
-          'Accept-Encoding'=>'deflate, gzip',
-          'Authorization'=>'Bearer token',
-          'Content-Type' => 'application/json',
-          'Developerkey'=> Cb.configuration.dev_key
-        }
-      end
+      include_context :stub_api_following_standards
 
       before do
         stub
@@ -46,6 +38,7 @@ module Cb
         end
 
         context 'when keywords are not found for a given id' do
+          subject { Cb::Clients::ResumeInsights }
           let(:data){ { 'type' => '404', 'message' => 'Document not found', 'code' => '404' } }
           let(:response) { { 'errors' => [ data ].flatten }.merge({ 'page' => -1, 'page_size' => -1, 'total' => 0 }) }
           let(:stub) do
@@ -54,8 +47,13 @@ module Cb
               to_return(:status => 404, :body => response.to_json)
           end
 
-          it { expect(stub).to have_been_requested }
-          it { is_expected.to eq response }
+          it do
+            begin
+              subject.keywords(id: 'id', oauth_token: 'token')
+            rescue Cb::DocumentNotFoundError => error
+              expect_api_to_error(error, stub)
+            end
+          end
         end
       end
     end
