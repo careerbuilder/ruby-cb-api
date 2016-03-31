@@ -67,8 +67,12 @@ module Cb
           stub_request(:put, uri).
               with(:body => post_data.to_json, :headers => headers).
               to_return(:status => 500, :body => error_response.to_json)
-          response = Cb::Clients::CoverLetters.create(name: 'name', text: 'text', oauth_token: 'token')
-          expect(response['errors'][0]).to eq(data)
+          begin
+            Cb.cover_letters.create(name: 'name', text: 'text', oauth_token: 'token')
+            expect(false).to eq(true)
+          rescue Cb::ServerError => error
+            expect(error.response['errors'][0]).to eq(data)
+          end
         end
       end
     end
@@ -116,13 +120,17 @@ module Cb
           stub = stub_request(:get, uri).
               with(:headers => headers).
               to_return(:status => 404, :body => error_response.to_json)
+          begin
+            Cb::Clients::CoverLetters.get(id: 'id', oauth_token: 'token')
+            expect(false).to eq(true)
+          rescue Cb::DocumentNotFoundError => error
+            expect(stub).to have_been_requested
+            expect(error.response.class).to eq(Hash)
+            expect(error.response['errors'].class).to eq(Array)
+            expect(error.response['errors'].length).to eq(1)
+            expect(error.response['errors'][0]).to eq(data)
+          end
 
-          response = Cb::Clients::CoverLetters.get(id: 'id', oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['errors'].class).to eq(Array)
-          expect(response['errors'].length).to eq(1)
-          expect(response['errors'][0]).to eq(data)
         end
       end
     end
@@ -155,12 +163,16 @@ module Cb
               with(:headers => headers).
               to_return(:status => 500, :body => error_response.to_json)
 
-          response = Cb::Clients::CoverLetters.delete(id: 'id', oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['errors'].class).to eq(Array)
-          expect(response['errors'].length).to eq(1)
-          expect(response['errors'][0]).to eq(data)
+          begin
+            Cb::Clients::CoverLetters.delete(id: 'id', oauth_token: 'token')
+            expect(false).to eq(true)
+          rescue Cb::ServerError => error
+            expect(stub).to have_been_requested
+            expect(error.response.class).to eq(Hash)
+            expect(error.response['errors'].class).to eq(Array)
+            expect(error.response['errors'].length).to eq(1)
+            expect(error.response['errors'][0]).to eq(data)
+          end
         end
       end
     end
@@ -194,12 +206,16 @@ module Cb
               with(:body => post_data.to_json, :headers => headers).
               to_return(:status => 500, :body => error_response.to_json)
 
-          response = Cb::Clients::CoverLetters.update(id: 'id',name: 'name', text: 'text', oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['errors'].class).to eq(Array)
-          expect(response['errors'].length).to eq(1)
-          expect(response['errors'][0]).to eq(data)
+          begin
+            Cb::Clients::CoverLetters.update(id: 'id',name: 'name', text: 'text', oauth_token: 'token')
+            expect(false).to eq(true)
+          rescue Cb::ServerError => error
+            expect(stub).to have_been_requested
+            expect(error.response.class).to eq(Hash)
+            expect(error.response['errors'].class).to eq(Array)
+            expect(error.response['errors'].length).to eq(1)
+            expect(error.response['errors'][0]).to eq(data)
+          end
         end
       end
     end
