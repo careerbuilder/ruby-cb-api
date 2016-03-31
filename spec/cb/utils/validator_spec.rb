@@ -63,6 +63,24 @@ module Cb
         expect { ResponseValidator.validate(response) }.to raise_error(Cb::ServiceUnavailableError)
       end
 
+      it 'when status code is 500' do
+        allow(response.response).to receive(:body).and_return('{"errors":[]}')
+        allow(response).to receive(:code).and_return 500
+        expect { ResponseValidator.validate(response) }.to raise_error(Cb::ServerError)
+      end
+
+      it 'when status code is 403' do
+        allow(response.response).to receive(:body).and_return('{"errors":[]}')
+        allow(response).to receive(:code).and_return 403
+        expect { ResponseValidator.validate(response) }.to raise_error(Cb::BadRequestError)
+      end
+
+      it 'when status code is 404' do
+        allow(response.response).to receive(:body).and_return('{"errors":[]}')
+        allow(response).to receive(:code).and_return 404
+        expect { ResponseValidator.validate(response) }.to raise_error(Cb::DocumentNotFoundError)
+      end
+
       it 'when simulation flag is turned on via ENV' do
         allow(ENV).to receive(:[]).and_return 'true'
         allow(response.response).to receive(:body).and_return('{"errors":[]}')
