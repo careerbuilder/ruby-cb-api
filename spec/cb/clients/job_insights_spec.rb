@@ -12,65 +12,37 @@ require 'spec_helper'
 
 module Cb
   describe Cb::Clients::JobInsights do
-    let(:response) do
-      {
-          'data' => [ data ].flatten,
-          'page' => 1,
-          'page_size' => 1,
-          'total' => 1
-      }
-    end
-    let(:error_response) do
-      {
-          'errors' => [ data ].flatten,
-          'page' => -1,
-          'page_size' => 0,
-          'total' => 0
-      }
-    end
-    let(:headers) do
-      {
-          'Accept'=>'application/json',
-          'Accept-Encoding'=>'deflate, gzip',
-          'Authorization'=>'Bearer token',
-          'Content-Type' => 'application/json',
-          'Developerkey'=> Cb.configuration.dev_key
-      }
-    end
+    include_context :stub_api_following_standards
+
+    let(:data) { JSON.parse File.read('spec/support/response_stubs/job_insights.json') }
+    let(:uri) { "https://api.careerbuilder.com/consumer/job-insights/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
     describe '#get' do
       context 'asking for a specific job insights report' do
-        let(:response) { JSON.parse File.read('spec/support/response_stubs/job_insights.json') }
-        let(:uri) { "https://api.careerbuilder.com/consumer/job-insights/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
-
         it 'performs a get and returns the job report asked for' do
           stub = stub_request(:get, uri).
               with(:headers => headers).
               to_return(:status => 200, :body => response.to_json)
 
           response = Cb::Clients::JobInsights.get(id: 'id', oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['data'].class).to eq(Array)
-          expect(response['data'].length).to eq(1)
+          expect_api_to_succeed_and_return_model(response, stub)
         end
       end
 
       context 'when the job insights report is not found' do
-        let(:data){ { 'type' => '404', 'message' => 'Could not find the cover letter specified', 'code' => '404' } }
-        let(:uri) { "https://api.careerbuilder.com/consumer/job-insights/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+        let(:data){ { 'type' => '404', 'message' => 'Could not find the specified job report', 'code' => '404' } }
 
         it 'returns the error hash' do
           stub = stub_request(:get, uri).
               with(:headers => headers).
               to_return(:status => 404, :body => error_response.to_json)
+          begin
+            Cb::Clients::JobInsights.get(id: 'id', oauth_token: 'token')
+            expect(false).to eq(true)
+          rescue Cb::DocumentNotFoundError => error
+            expect_api_to_error(error, stub)
+          end
 
-          response = Cb::Clients::JobInsights.get(id: 'id', oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['errors'].class).to eq(Array)
-          expect(response['errors'].length).to eq(1)
-          expect(response['errors'][0]).to eq(data)
         end
       end
     end
