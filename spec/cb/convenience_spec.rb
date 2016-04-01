@@ -46,6 +46,12 @@ module Cb
       end
     end
 
+    describe '#browser_id' do
+      it 'returns the browser id api client class' do
+        expect_method_to_return_class(:browser_id, Cb::Clients::BrowserID)
+      end
+    end
+
     describe '#category' do
       it 'returns the category api client class' do
         expect_method_to_return_class(:category, Cb::Clients::Category)
