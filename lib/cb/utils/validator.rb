@@ -24,7 +24,7 @@ module Cb
       def raise_response_code_errors(response)
         code = response.code rescue nil
         fail_with_error_details(response, Cb::ServiceUnavailableError) if code == 503 || simulate_auth_outage?
-        fail_with_error_details(response, Cb::UnauthorizedError) if code == 401
+        fail_with_error_details(response, Cb::UnauthorizedError) if code == 401 || code == 403
         fail_with_error_details(response, Cb::DocumentNotFoundError) if code == 404
         fail_with_error_details(response, Cb::BadRequestError) if code && code >= 400 && code < 500
         fail_with_error_details(response, Cb::ServerError) if code && code >= 500

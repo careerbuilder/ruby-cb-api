@@ -71,7 +71,7 @@ module Cb
 
       it 'when status code is 403' do
         allow(response.response).to receive(:body).and_return('{"errors":[]}')
-        allow(response).to receive(:code).and_return 403
+        allow(response).to receive(:code).and_return 400
         expect { ResponseValidator.validate(response) }.to raise_error(Cb::BadRequestError)
       end
 
