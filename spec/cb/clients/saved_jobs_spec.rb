@@ -14,7 +14,7 @@ module Cb
   describe Cb::Clients::SavedJobs do
     include_context :stub_api_following_standards
 
-    let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+    let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
     let(:post_data) { { 'job_id' => 'J1234567891234567890', 'notes' => 'these are my notes' } }
     let(:saved_job) do
       {
@@ -25,10 +25,9 @@ module Cb
 
       }
     end
-    let(:data) { saved_job }
+    let(:data) { [saved_job] }
 
     context '#create' do
-      let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
       context 'when posting succeeds' do
         it 'performs a put with a saved-job in json format' do
           stub = stub_request(:put, uri)
@@ -40,7 +39,7 @@ module Cb
       end
 
       context 'when there is an error' do
-        let(:data) { { 'type' => '500', 'message' => 'Some kind of error happened', 'code' => '500' } }
+        let(:data) { [{ 'type' => '500', 'message' => 'Some kind of error happened', 'code' => '500' }] }
         it 'returns the error hash' do
           stub = stub_request(:put, uri)
           .with(body: post_data.to_json, headers: headers)
@@ -65,15 +64,13 @@ module Cb
           .to_return(status: 200, body: response.to_json)
 
           response = Cb::Clients::SavedJobs.get(oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['data'].class).to eq(Array)
-          expect(response['data'].length).to eq(3)
-          expect(response['data'][0]).to eq(saved_job)
+          expect_api_to_succeed_and_return_model(response, stub)
         end
       end
 
       context 'asking for a specific saved job' do
+        let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+
         it 'performs a get and returns the coverletter asked for' do
           stub = stub_request(:get, uri)
           .with(headers: headers)
@@ -85,13 +82,12 @@ module Cb
       end
 
       context 'when the saved job is not found' do
-        let(:data) { { 'type' => '404', 'message' => 'Could not find the saved job specified', 'code' => '404' } }
+        let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
         it 'returns the error hash' do
           stub = stub_request(:get, uri)
-          .with(headers: headers)
-          .to_return(status: 404, body: error_response.to_json)
-
+                 .with(headers: headers)
+                 .to_return(status: 404, body: error_response.to_json)
           begin
             Cb::Clients::SavedJobs.get(id: 'id', oauth_token: 'token')
             expect(false).to eq(true)
@@ -103,8 +99,10 @@ module Cb
     end
 
     context '#delete' do
+      let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+
       context 'asking for a specific saved job' do
-        let(:data) { 'The saved job was deleted successfully' }
+        let(:data) { ['The saved job was deleted successfully'] }
 
         it 'performs a get and returns the coverletter asked for' do
           stub = stub_request(:delete, uri)
@@ -117,7 +115,7 @@ module Cb
       end
 
       context 'when an error occurs' do
-        let(:data) { { 'type' => '500', 'message' => 'Could not find the saved job specified', 'code' => '404' } }
+        let(:data) { [{ 'type' => '500', 'message' => 'Could not find the saved job specified', 'code' => '404' }] }
 
         it 'returns the error hash' do
           stub = stub_request(:delete, uri)
@@ -136,8 +134,9 @@ module Cb
 
     context '#update' do
       let(:post_data) { { 'id' => 'id', 'notes' => 'notes' } }
-      context 'when updating an existing saved job' do
+      let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
+      context 'when updating an existing saved job' do
         it 'performs a post and returns the updated coverletter asked for' do
           stub = stub_request(:post, uri)
           .with(body: post_data.to_json, headers: headers)
@@ -149,7 +148,7 @@ module Cb
       end
 
       context 'when an error occurs' do
-        let(:data) { { 'type' => '500', 'message' => 'Could not find the saved job specified', 'code' => '404' } }
+        let(:data) { [{ 'type' => '500', 'message' => 'Could not find the saved job specified', 'code' => '404' }] }
 
         it 'returns the error hash' do
           stub = stub_request(:post, uri)

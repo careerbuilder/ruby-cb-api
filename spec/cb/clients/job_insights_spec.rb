@@ -14,7 +14,7 @@ module Cb
   describe Cb::Clients::JobInsights do
     include_context :stub_api_following_standards
 
-    let(:data) { JSON.parse File.read('spec/support/response_stubs/job_insights.json') }
+    let(:data) { [JSON.parse( File.read('spec/support/response_stubs/job_insights.json'))] }
     let(:uri) { "https://api.careerbuilder.com/consumer/job-insights/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
     describe '#get' do
@@ -30,7 +30,7 @@ module Cb
       end
 
       context 'when the job insights report is not found' do
-        let(:data){ { 'type' => '404', 'message' => 'Could not find the specified job report', 'code' => '404' } }
+        let(:data){ [{ 'type' => '404', 'message' => 'Could not find the specified job report', 'code' => '404' }] }
 
         it 'returns the error hash' do
           stub = stub_request(:get, uri).
@@ -42,7 +42,6 @@ module Cb
           rescue Cb::DocumentNotFoundError => error
             expect_api_to_error(error, stub)
           end
-
         end
       end
     end
