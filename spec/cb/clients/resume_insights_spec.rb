@@ -38,7 +38,7 @@ module Cb
         end
 
         context 'when keywords are not found for a given id' do
-          let(:data){ { 'type' => '404', 'message' => 'Document not found', 'code' => '404' } }
+          let(:data){ [{ 'type' => '404', 'message' => 'Document not found', 'code' => '404' }] }
           let(:response) { { 'errors' => [ data ].flatten }.merge({ 'page' => -1, 'page_size' => -1, 'total' => 0 }) }
           let(:stub) do
             stub_request(:get, uri).

@@ -13,6 +13,7 @@ require 'spec_helper'
 module Cb
   describe Cb::Clients::CoverLetters do
     include_context :stub_api_following_standards
+
     let(:uri) { "https://api.careerbuilder.com/consumer/coverletters/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
     let(:post_data) { {'text' => 'text', 'name' => 'name'} }
     let(:cover_letter) do
@@ -21,12 +22,12 @@ module Cb
           'created_data' => '2016-03-02T14:29:30.617998-05:00', 'modified_date' => '2016-03-02T14:29:30.617998-05:00'
       }
     end
-    let(:data){ cover_letter }
+    let(:data){ [cover_letter] }
 
     context '#create' do
       let(:uri) {"https://api.careerbuilder.com/consumer/coverletters?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
-      let(:data){ cover_letter }
+      let(:data){ [cover_letter] }
       context 'when posting succeeds' do
         it 'performs a put with a coverletter in json format' do
           stub = stub_request(:put, uri).
@@ -38,13 +39,13 @@ module Cb
       end
 
       context 'when there is an error' do
-        let(:data) { { 'type' => '500', 'message' => 'Some kind of error happened', 'code' => '500' } }
+        let(:data) { [{ 'type' => '500', 'message' => 'Some kind of error happened', 'code' => '500' }] }
         it 'returns the error hash' do
           stub_request(:put, uri).
               with(:body => post_data.to_json, :headers => headers).
               to_return(:status => 500, :body => error_response.to_json)
           response = Cb::Clients::CoverLetters.create(name: 'name', text: 'text', oauth_token: 'token')
-          expect(response['errors'][0]).to eq(data)
+          expect(response['errors']).to eq(data)
         end
       end
     end
@@ -60,11 +61,7 @@ module Cb
               to_return(:status => 200, :body => response.to_json)
 
           response = Cb::Clients::CoverLetters.get(oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['data'].class).to eq(Array)
-          expect(response['data'].length).to eq(3)
-          expect(response['data'][0]).to eq(cover_letter)
+          expect_api_to_succeed_and_return_model(response, stub)
         end
       end
 
@@ -82,7 +79,7 @@ module Cb
       end
 
       context 'when the cover letter is not found' do
-        let(:data){ { 'type' => '404', 'message' => 'Could not find the cover letter specified', 'code' => '404' } }
+        let(:data){ [{ 'type' => '404', 'message' => 'Could not find the cover letter specified', 'code' => '404' }] }
         let(:uri) { "https://api.careerbuilder.com/consumer/coverletters/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
         it 'returns the error hash' do
@@ -92,17 +89,14 @@ module Cb
 
           response = Cb::Clients::CoverLetters.get(id: 'id', oauth_token: 'token')
           expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['errors'].class).to eq(Array)
-          expect(response['errors'].length).to eq(1)
-          expect(response['errors'][0]).to eq(data)
+          expect(response['errors']).to eq(data)
         end
       end
     end
 
     context '#delete' do
       context 'asking for a specific cover letter' do
-        let(:data){ 'The cover letter was deleted successfully' }
+        let(:data){ ['The cover letter was deleted successfully'] }
 
         it 'performs a get and returns the coverletter asked for' do
           stub = stub_request(:delete, uri).
@@ -115,7 +109,7 @@ module Cb
       end
 
       context 'when an error occurs' do
-        let(:data){ { 'type' => '500', 'message' => 'Could not find the cover letter specified', 'code' => '404' } }
+        let(:data){ [{ 'type' => '500', 'message' => 'Could not find the cover letter specified', 'code' => '404' }] }
 
         it 'returns the error hash' do
           stub = stub_request(:delete, uri).
@@ -124,10 +118,7 @@ module Cb
 
           response = Cb::Clients::CoverLetters.delete(id: 'id', oauth_token: 'token')
           expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['errors'].class).to eq(Array)
-          expect(response['errors'].length).to eq(1)
-          expect(response['errors'][0]).to eq(data)
+          expect(response['errors']).to eq(data)
         end
       end
     end
@@ -147,7 +138,7 @@ module Cb
       end
 
       context 'when an error occurs' do
-        let(:data){ { 'type' => '500', 'message' => 'Could not find the cover letter specified', 'code' => '404' } }
+        let(:data){ [{ 'type' => '500', 'message' => 'Could not find the cover letter specified', 'code' => '404' }] }
      
         it 'returns the error hash' do
           stub = stub_request(:post, uri).
@@ -156,10 +147,7 @@ module Cb
 
           response = Cb::Clients::CoverLetters.update(id: 'id',name: 'name', text: 'text', oauth_token: 'token')
           expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['errors'].class).to eq(Array)
-          expect(response['errors'].length).to eq(1)
-          expect(response['errors'][0]).to eq(data)
+          expect(response['errors']).to eq(data)
         end
       end
     end
