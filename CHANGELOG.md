@@ -2,7 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
-* 21.0.0 Removing old coverletters version, expanding the types of exceptions that can be returned
+* 21.0.0 Removing old coverletters version,remove old resume list, expanding the types of exceptions that can be returned
 * 20.6.0 Add new saved jobs API (/consumer/saved-jobs)
 * 20.5.0 Adding resume insights client
 * 20.4.0 Add posting_date to recommendations for job model.
