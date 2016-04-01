@@ -44,11 +44,6 @@ module Cb
 
             Cb::Requests::Company::Find => Cb::Responses::Company::Find,
 
-            Cb::Requests::CoverLetter::List => Cb::Responses::CoverLetter::List,
-            Cb::Requests::CoverLetter::Retrieve => Cb::Responses::CoverLetter::Retrieve,
-            Cb::Requests::CoverLetter::Update => Cb::Responses::CoverLetter::Update,
-            Cb::Requests::CoverLetter::Delete => Cb::Responses::CoverLetter::Delete,
-
             Cb::Requests::Education::Get => Cb::Responses::Education::Get,
 
             Cb::Requests::EmailSubscription::Retrieve => Cb::Responses::EmailSubscription::Response,
@@ -64,7 +59,6 @@ module Cb
             Cb::Requests::Resumes::Put => Cb::Responses::Resume,
             Cb::Requests::Resumes::Delete => Cb::Responses::Resume,
             Cb::Requests::Resumes::Post => Cb::Responses::ResumeDocument,
-            Cb::Requests::Resumes::List => Cb::Responses::ResumeList,
             Cb::Requests::Resumes::LanguageCodes => Cb::Responses::LanguageCodes,
 
             Cb::Requests::User::ChangePassword => Cb::Responses::User::ChangePassword,
