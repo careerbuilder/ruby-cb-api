@@ -59,6 +59,7 @@ module Cb
       @uri_application_create ||= '/cbapi/application/'
       @uri_application_external ||= '/v1/application/external'
       @uri_application_form ||= '/cbapi/job/:did/applicationform'
+      @uri_browser_id ||= '/consumer/browser-id'
       @uri_company_find ||= '/Employer/CompanyDetails'
       @uri_countries ||= '/consumer/datalist/countries'
       @uri_cover_letters ||= '/consumer/coverletters'
