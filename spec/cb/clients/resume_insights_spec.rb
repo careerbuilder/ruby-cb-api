@@ -13,15 +13,7 @@ require 'spec_helper'
 module Cb
   module Clients
     describe ResumeInsights do
-      let(:headers) do
-        {
-          'Accept'=>'application/json',
-          'Accept-Encoding'=>'deflate, gzip',
-          'Authorization'=>'Bearer token',
-          'Content-Type' => 'application/json',
-          'Developerkey'=> Cb.configuration.dev_key
-        }
-      end
+      include_context :stub_api_following_standards
 
       before do
         stub
