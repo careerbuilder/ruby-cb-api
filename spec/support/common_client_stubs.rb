@@ -2,7 +2,7 @@ shared_context :stub_api_following_standards do
   let(:response) do
     {
         'data' => data,
-        'page' => data.length,
+        'page' => 1,
         'page_size' => data.length,
         'total' => data.length
     }
