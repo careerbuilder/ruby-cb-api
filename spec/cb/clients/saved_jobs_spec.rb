@@ -12,6 +12,8 @@ require 'spec_helper'
 
 module Cb
   describe Cb::Clients::SavedJobs do
+    include_context :stub_api_following_standards
+
     let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
     let(:post_data) { { 'job_id' => 'J1234567891234567890', 'notes' => 'these are my notes' } }
     let(:saved_job) do
@@ -23,55 +25,28 @@ module Cb
 
       }
     end
-    let(:response) do
-      {
-        'data' => [data].flatten,
-        'page' => 1,
-        'page_size' => 1,
-        'total' => 1
-      }
-    end
-    let(:error_response) do
-      {
-        'errors' => [data].flatten,
-        'page' => -1,
-        'page_size' => 0,
-        'total' => 0
-      }
-    end
-    let(:headers) do
-      {
-        'Accept' => 'application/json',
-        'Accept-Encoding' => 'deflate, gzip',
-        'Authorization' => 'Bearer token',
-        'Content-Type' => 'application/json',
-        'Developerkey' => Cb.configuration.dev_key
-      }
-    end
 
     context '#create' do
-      let(:data) { saved_job }
+      let(:data) { [saved_job] }
       context 'when posting succeeds' do
         it 'performs a put with a saved-job in json format' do
           stub = stub_request(:put, uri)
                  .with(body: post_data.to_json, headers: headers)
                  .to_return(status: 200, body: response.to_json)
           response = Cb::Clients::SavedJobs.create(job_id: 'J1234567891234567890', notes: 'these are my notes', oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['data'].class).to eq(Array)
-          expect(response['data'][0]).to eq(data)
+          expect_api_to_succeed_and_return_model(response, stub)
         end
       end
 
       context 'when there is an error' do
-        let(:data) { { 'type' => '500', 'message' => 'Some kind of error happened', 'code' => '500' } }
+        let(:data) { [{ 'type' => '500', 'message' => 'Some kind of error happened', 'code' => '500' }] }
         it 'returns the error hash' do
-          stub_request(:put, uri)
+          stub = stub_request(:put, uri)
             .with(body: post_data.to_json, headers: headers)
             .to_return(status: 500, body: error_response.to_json)
           response = Cb::Clients::SavedJobs.create(job_id: 'J1234567891234567890', notes: 'these are my notes', oauth_token: 'token')
-          expect(response['errors'][0]).to eq(data)
+          expect(stub).to have_been_requested
+          expect(response['errors']).to eq(data)
         end
       end
     end
@@ -85,16 +60,12 @@ module Cb
                  .to_return(status: 200, body: response.to_json)
 
           response = Cb::Clients::SavedJobs.get(oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['data'].class).to eq(Array)
-          expect(response['data'].length).to eq(3)
-          expect(response['data'][0]).to eq(saved_job)
+          expect_api_to_succeed_and_return_model(response, stub)
         end
       end
 
       context 'asking for a specific saved job' do
-        let(:data) { saved_job }
+        let(:data) { [saved_job] }
         let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
         it 'performs a get and returns the coverletter asked for' do
@@ -103,16 +74,12 @@ module Cb
                  .to_return(status: 200, body: response.to_json)
 
           response = Cb::Clients::SavedJobs.get(id: 'id', oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['data'].class).to eq(Array)
-          expect(response['data'].length).to eq(1)
-          expect(response['data'][0]).to eq(saved_job)
+          expect_api_to_succeed_and_return_model(response, stub)
         end
       end
 
       context 'when the saved job is not found' do
-        let(:data) { { 'type' => '404', 'message' => 'Could not find the saved job specified', 'code' => '404' } }
+        let(:data) { [{ 'type' => '404', 'message' => 'Could not find the saved job specified', 'code' => '404' }] }
         let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
         it 'returns the error hash' do
@@ -122,17 +89,14 @@ module Cb
 
           response = Cb::Clients::SavedJobs.get(id: 'id', oauth_token: 'token')
           expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['errors'].class).to eq(Array)
-          expect(response['errors'].length).to eq(1)
-          expect(response['errors'][0]).to eq(data)
+          expect(response['errors']).to eq(data)
         end
       end
     end
 
     context '#delete' do
       context 'asking for a specific saved job' do
-        let(:data) { 'The saved job was deleted successfully' }
+        let(:data) { ['The saved job was deleted successfully'] }
         let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
         it 'performs a get and returns the coverletter asked for' do
@@ -141,16 +105,12 @@ module Cb
                  .to_return(status: 200, body: response.to_json)
 
           response = Cb::Clients::SavedJobs.delete(id: 'id', oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['data'].class).to eq(Array)
-          expect(response['data'].length).to eq(1)
-          expect(response['data'][0]).to eq(data)
+          expect_api_to_succeed_and_return_model(response, stub)
         end
       end
 
       context 'when an error occurs' do
-        let(:data) { { 'type' => '500', 'message' => 'Could not find the saved job specified', 'code' => '404' } }
+        let(:data) { [{ 'type' => '500', 'message' => 'Could not find the saved job specified', 'code' => '404' }] }
         let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
         it 'returns the error hash' do
@@ -160,10 +120,7 @@ module Cb
 
           response = Cb::Clients::SavedJobs.delete(id: 'id', oauth_token: 'token')
           expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['errors'].class).to eq(Array)
-          expect(response['errors'].length).to eq(1)
-          expect(response['errors'][0]).to eq(data)
+          expect(response['errors']).to eq(data)
         end
       end
     end
@@ -171,7 +128,7 @@ module Cb
     context '#update' do
       let(:post_data) { { 'id' => 'id', 'notes' => 'notes' } }
       context 'when updating an existing saved job' do
-        let(:data) { saved_job }
+        let(:data) { [saved_job] }
         let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
         it 'performs a post and returns the updated coverletter asked for' do
@@ -180,16 +137,12 @@ module Cb
                  .to_return(status: 200, body: response.to_json)
 
           response = Cb::Clients::SavedJobs.update(id: 'id', notes: 'notes', oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['data'].class).to eq(Array)
-          expect(response['data'].length).to eq(1)
-          expect(response['data'][0]).to eq(data)
+          expect_api_to_succeed_and_return_model(response, stub)
         end
       end
 
       context 'when an error occurs' do
-        let(:data) { { 'type' => '500', 'message' => 'Could not find the saved job specified', 'code' => '404' } }
+        let(:data) { [{ 'type' => '500', 'message' => 'Could not find the saved job specified', 'code' => '404' }] }
         let(:uri) { "https://api.careerbuilder.com/consumer/saved-jobs/id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
 
         it 'returns the error hash' do
@@ -199,10 +152,7 @@ module Cb
 
           response = Cb::Clients::SavedJobs.update(id: 'id', notes: 'notes', oauth_token: 'token')
           expect(stub).to have_been_requested
-          expect(response.class).to eq(Hash)
-          expect(response['errors'].class).to eq(Array)
-          expect(response['errors'].length).to eq(1)
-          expect(response['errors'][0]).to eq(data)
+          expect(response['errors']).to eq(data)
         end
       end
     end
