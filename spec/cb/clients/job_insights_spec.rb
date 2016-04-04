@@ -36,9 +36,12 @@ module Cb
           stub = stub_request(:get, uri).
               with(:headers => headers).
               to_return(:status => 404, :body => error_response.to_json)
-          response = Cb::Clients::JobInsights.get(id: 'id', oauth_token: 'token')
-          expect(stub).to have_been_requested
-          expect(response['errors']).to eq(data)
+          begin
+            Cb::Clients::JobInsights.get(id: 'id', oauth_token: 'token')
+            expect(false).to eq(true)
+          rescue Cb::DocumentNotFoundError => error
+            expect_api_to_error(error, stub)
+          end
         end
       end
     end

@@ -3,8 +3,8 @@ shared_context :stub_api_following_standards do
     {
         'data' => data,
         'page' => 1,
-        'page_size' => 1,
-        'total' => 1
+        'page_size' => data.length,
+        'total' => data.length
     }
   end
   let(:error_response) do

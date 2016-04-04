@@ -29,8 +29,8 @@ module Cb
           let(:response) { JSON.parse File.read('spec/support/response_stubs/resume_insights/keywords.json') }
           let(:stub) do
             stub_request(:get, uri)
-              .with(headers: headers)
-              .to_return(status: 200, body: response.to_json)
+            .with(headers: headers)
+            .to_return(status: 200, body: response.to_json)
           end
 
           it { expect(stub).to have_been_requested }
@@ -38,16 +38,22 @@ module Cb
         end
 
         context 'when keywords are not found for a given id' do
+          subject { Cb::Clients::ResumeInsights }
           let(:data){ [{ 'type' => '404', 'message' => 'Document not found', 'code' => '404' }] }
           let(:response) { { 'errors' => [ data ].flatten }.merge({ 'page' => -1, 'page_size' => -1, 'total' => 0 }) }
           let(:stub) do
             stub_request(:get, uri).
-              with(:headers => headers).
-              to_return(:status => 404, :body => response.to_json)
+                with(:headers => headers).
+                to_return(:status => 404, :body => response.to_json)
           end
 
-          it { expect(stub).to have_been_requested }
-          it { is_expected.to eq response }
+          it do
+            begin
+              subject.keywords(id: 'id', oauth_token: 'token')
+            rescue Cb::DocumentNotFoundError => error
+              expect_api_to_error(error, stub)
+            end
+          end
         end
       end
     end
