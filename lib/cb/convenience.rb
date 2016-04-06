@@ -27,6 +27,10 @@ module Cb
         Cb::Clients::ApplicationExternal
       end
 
+      def browser_id
+        Cb::Clients::BrowserID
+      end
+
       def category
         Cb::Clients::Category
       end
