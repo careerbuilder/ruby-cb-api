@@ -65,7 +65,7 @@ module Cb
     end
 
     describe '#data_list' do
-      it 'returns the cover letter api client class' do
+      it 'returns the data list api client class' do
         expect_method_to_return_class(:data_list, Cb::Clients::DataList)
       end
     end
