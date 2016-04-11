@@ -40,17 +40,12 @@ module Cb
 
             Cb::Requests::ApplicationExternal::SubmitApplication => Cb::Responses::ApplicationExternal::SubmitApplication,
 
-            Cb::Requests::Category::Search => Cb::Responses::Category::Search,
-
             Cb::Requests::Company::Find => Cb::Responses::Company::Find,
-
-            Cb::Requests::Education::Get => Cb::Responses::Education::Get,
 
             Cb::Requests::EmailSubscription::Retrieve => Cb::Responses::EmailSubscription::Response,
             Cb::Requests::EmailSubscription::Modify => Cb::Responses::EmailSubscription::Response,
 
             Cb::Requests::Job::Report => Cb::Responses::Job::Report,
-
             Cb::Requests::JobSearch::Get => Cb::Responses::Job::Search,
 
             Cb::Requests::Recommendations::Resume => Cb::Responses::Recommendations,
@@ -59,16 +54,12 @@ module Cb
             Cb::Requests::Resumes::Put => Cb::Responses::Resume,
             Cb::Requests::Resumes::Delete => Cb::Responses::Resume,
             Cb::Requests::Resumes::Post => Cb::Responses::ResumeDocument,
-            Cb::Requests::Resumes::LanguageCodes => Cb::Responses::LanguageCodes,
 
             Cb::Requests::User::ChangePassword => Cb::Responses::User::ChangePassword,
             Cb::Requests::User::CheckExisting => Cb::Responses::User::CheckExisting,
             Cb::Requests::User::Delete => Cb::Responses::User::Delete,
             Cb::Requests::User::Retrieve => Cb::Responses::User::Retrieve,
-            Cb::Requests::User::TemporaryPassword => Cb::Responses::User::TemporaryPassword,
-
-            Cb::Requests::WorkStatus::List => Cb::Responses::WorkStatus::List,
-            Cb::Requests::State::Get => Cb::Responses::State
+            Cb::Requests::User::TemporaryPassword => Cb::Responses::User::TemporaryPassword
           }.merge response_hash_extension
         end
       end
