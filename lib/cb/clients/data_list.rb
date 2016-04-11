@@ -19,6 +19,8 @@ module Cb
           cb_client.cb_get(uri, headers: headers(args), query: query_strings(args))
         end
 
+        private
+        
         def query_strings(args)
           qs = {}
           qs[:countrycode] = args[:country_code] if args[:country_code]
