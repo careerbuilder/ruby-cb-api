@@ -20,7 +20,7 @@ module Cb
         end
 
         private
-        
+
         def query_strings(args)
           qs = {}
           qs[:countrycode] = args[:country_code] if args[:country_code]
