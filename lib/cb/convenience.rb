@@ -55,6 +55,10 @@ module Cb
         Cb::Clients::EmployeeTypes
       end
 
+      def expired_job
+        Cb::Clients::ExpiredJob
+      end
+
       def industry
         Cb::Clients::Industry
       end
