@@ -26,6 +26,14 @@ module Cb
           qs[:countrycode] = args[:country_code] if args[:country_code]
           qs
         end
+
+        def headers(args)
+          {
+              'Accept' => 'application/json;version=2.0',
+              'Authorization' => "Bearer #{ args[:oauth_token] }",
+              'Content-Type' => 'application/json'
+          }
+        end
       end
     end
   end
