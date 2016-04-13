@@ -14,6 +14,15 @@ module Cb
   describe Cb::Clients::DataList do
     include_context :stub_api_following_standards
 
+    let(:headers) do
+      {
+          'Accept'=>'application/json;version=2.0',
+          'Accept-Encoding'=>'deflate, gzip',
+          'Authorization'=>'Bearer token',
+          'Content-Type' => 'application/json',
+          'Developerkey'=> Cb.configuration.dev_key
+      }
+    end
     let(:uri) { 'https://api.careerbuilder.com/consumer/datalist/countries?countrycode=US&developerkey=mydevkey&outputjson=true' }
     let(:data) { [JSON.parse( File.read('spec/support/response_stubs/data_list_countries.json'))] }
     let(:stub) { stub_request(:get, uri).with(headers: headers).to_return(status: 200, body: response.to_json) }
