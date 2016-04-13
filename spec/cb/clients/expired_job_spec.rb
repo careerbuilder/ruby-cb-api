@@ -14,18 +14,16 @@ module Cb
   describe Cb::Clients::ExpiredJob do
     let(:headers) do
       {
-        'Accept' => 'application/json',
-###
-### karen do i need this token?
-###
-        'Authorization' => 'Bearer token',
-        'Content-Type' => 'application/json',
-        'Developerkey' => Cb.configuration.dev_key
+        'Accept'=>'application/json', 
+        'Accept-Encoding'=>'deflate, gzip', 
+        'Authorization'=>'Bearer', 
+        'Content-Type'=>'application/json', 
+        'Developerkey'=> Cb.configuration.dev_key
       }
     end
 
     describe '#get' do
-      let(:uri) { "https://api.careerbuilder.com/v1/job/expired?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+      let(:uri) { "https://api.careerbuilder.com/v1/job/expired?JobDID=blah&developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
       let(:api_response) { JSON.parse File.read('spec/support/response_stubs/expired_job.json') }
       let(:stub) do
         stub_request(:get, uri).
@@ -33,7 +31,7 @@ module Cb
           to_return(status: 200, body: api_response.to_json)
       end
 
-      subject { Cb::Clients::ExpiredJob.get(job_did: 'J123') }
+      subject { Cb::Clients::ExpiredJob.get(job_did: 'blah') }
 
       before do
         stub
