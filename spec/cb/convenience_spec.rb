@@ -46,9 +46,9 @@ module Cb
       end
     end
 
-    describe '#category' do
-      it 'returns the category api client class' do
-        expect_method_to_return_class(:category, Cb::Clients::Category)
+    describe '#browser_id' do
+      it 'returns the browser id api client class' do
+        expect_method_to_return_class(:browser_id, Cb::Clients::BrowserID)
       end
     end
 
@@ -64,9 +64,9 @@ module Cb
       end
     end
 
-    describe '#education_code' do
-      it 'returns the education api client class' do
-        expect_method_to_return_class(:education_code, Cb::Clients::Education)
+    describe '#data_list' do
+      it 'returns the data list api client class' do
+        expect_method_to_return_class(:data_list, Cb::Clients::DataList)
       end
     end
 
@@ -113,12 +113,6 @@ module Cb
     describe '#application' do
       it 'returns the job branding api client class' do
         expect_method_to_return_class(:job_branding, Cb::Clients::JobBranding)
-      end
-    end
-
-    describe '#employee_types' do
-      it 'returns the email subscription api client class' do
-        expect_method_to_return_class(:employee_types, Cb::Clients::EmployeeTypes)
       end
     end
 

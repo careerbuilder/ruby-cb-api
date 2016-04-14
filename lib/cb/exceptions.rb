@@ -1,4 +1,4 @@
-# Copyright 2015 CareerBuilder, LLC
+# Copyright 2016 CareerBuilder, LLC
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,7 +11,12 @@
 module Cb
   class IncomingParamIsWrongTypeException < StandardError; end
   class ExpectedResponseFieldMissing < StandardError; end
-  class ApiResponseError < StandardError; end
+  class ApiResponseError < StandardError
+    attr_accessor :raw_response, :response, :code
+  end
   class ServiceUnavailableError < ApiResponseError; end
   class UnauthorizedError < ApiResponseError; end
+  class DocumentNotFoundError < ApiResponseError; end
+  class BadRequestError < ApiResponseError; end
+  class ServerError < ApiResponseError; end
 end

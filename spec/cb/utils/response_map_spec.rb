@@ -31,35 +31,11 @@ module Cb
         expect(response_map.response_for(request_namespace::Modify)).to eq(response_namespace::Response)
       end
 
-      it 'should test education methods' do
-        request_namespace = Cb::Requests::Education
-        response_namespace = Cb::Responses::Education
-
-        expect(response_map.response_for(request_namespace::Get)).to eq(response_namespace::Get)
-      end
-
       it 'should test company methods' do
         request_namespace = Cb::Requests::Company
         response_namespace = Cb::Responses::Company
 
         expect(response_map.response_for(request_namespace::Find)).to eq(response_namespace::Find)
-      end
-
-      it 'should test cover letter methods' do
-        request_namespace = Cb::Requests::CoverLetter
-        response_namespace = Cb::Responses::CoverLetter
-
-        expect(response_map.response_for(request_namespace::List)).to eq(response_namespace::List)
-        expect(response_map.response_for(request_namespace::Retrieve)).to eq(response_namespace::Retrieve)
-        expect(response_map.response_for(request_namespace::Update)).to eq(response_namespace::Update)
-        expect(response_map.response_for(request_namespace::Delete)).to eq(response_namespace::Delete)
-      end
-
-      it 'should test category methods' do
-        request_namespace = Cb::Requests::Category
-        response_namespace = Cb::Responses::Category
-
-        expect(response_map.response_for(request_namespace::Search)).to eq(response_namespace::Search)
       end
 
       it 'should test application external methods' do
@@ -98,20 +74,12 @@ module Cb
         expect(response_map.response_for(request_namespace::TemporaryPassword)).to eq(response_namespace::TemporaryPassword)
       end
 
-      it 'should test resumes work status methods' do
-        request_namespace = Cb::Requests::WorkStatus
-        response_namespace = Cb::Responses::WorkStatus
-
-        expect(response_map.response_for(request_namespace::List)).to eq(response_namespace::List)
-      end
-
       it 'maps resume to the correct response object' do
         request_namespace = Cb::Requests::Resumes
         response_namespace = Cb::Responses
 
         expect(response_map.response_for(request_namespace::Get)).to eq(response_namespace::Resume)
         expect(response_map.response_for(request_namespace::Post)).to eq(response_namespace::ResumeDocument)
-        expect(response_map.response_for(request_namespace::LanguageCodes)). to eq(response_namespace::LanguageCodes)
       end
 
       it 'should map resume recommendations to the correct response object' do
