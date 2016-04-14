@@ -12,6 +12,7 @@ require_relative 'base'
 module Cb
   module Clients
     class ExpiredJob < Base
+      # http://api.careerbuilder.com/ExpiredJobInfo.aspx
       def self.get(args={})
         uri = Cb.configuration.uri_job_expired
         query_params = { 'JobDID' => args[:job_did] }

@@ -22,25 +22,43 @@ module Cb
       }
     end
 
+    let(:uri) { "https://api.careerbuilder.com/v1/job/expired?JobDID=blah&developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+    let(:stub) do
+      stub_request(:get, uri).
+        with(headers: headers).
+        to_return(status: 200, body: api_response.to_json)
+      end
+
+    subject { Cb::Clients::ExpiredJob.get(job_did: 'blah') }
+
+    before do
+      stub
+      subject
+    end
+
     describe '#get' do
-      let(:uri) { "https://api.careerbuilder.com/v1/job/expired?JobDID=blah&developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
-      let(:api_response) { JSON.parse File.read('spec/support/response_stubs/expired_job.json') }
-      let(:stub) do
-        stub_request(:get, uri).
-          with(headers: headers).
-          to_return(status: 200, body: api_response.to_json)
+      shared_examples_for :an_expired_job_api do
+        it { expect(stub).to have_been_requested }
+        it { is_expected.to eq api_response }
+      end
+  
+      context 'Job DID is expired' do
+        let(:api_response) { JSON.parse File.read('spec/support/response_stubs/expired_job.json') }
+
+        it_behaves_like :an_expired_job_api
       end
 
-      subject { Cb::Clients::ExpiredJob.get(job_did: 'blah') }
+      context 'Job DID is not expired' do
+        let(:api_response) { JSON.parse File.read('spec/support/response_stubs/nonexpired_job.json') }
 
-      before do
-        stub
-        subject
+        it_behaves_like :an_expired_job_api
       end
+ 
+      context 'Job DID is not valid' do
+        let(:api_response) { JSON.parse File.read('spec/support/response_stubs/invalid_job.json') }
 
-      it { expect(stub).to have_been_requested }
-      it { is_expected.to eq api_response }
-
+        it_behaves_like :an_expired_job_api
+      end
     end
   end
 end
