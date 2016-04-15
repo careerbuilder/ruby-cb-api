@@ -27,8 +27,8 @@ module Cb
         Cb::Clients::ApplicationExternal
       end
 
-      def category
-        Cb::Clients::Category
+      def browser_id
+        Cb::Clients::BrowserID
       end
 
       def country
@@ -43,20 +43,12 @@ module Cb
         Cb::Clients::CoverLetters
       end
 
-      def education_code
-        Cb::Clients::Education
+      def data_list
+        Cb::Clients::DataList
       end
 
       def email_subscription
         Cb::Clients::EmailSubscription
-      end
-
-      def employee_types
-        Cb::Clients::EmployeeTypes
-      end
-
-      def industry
-        Cb::Clients::Industry
       end
 
       def job
@@ -73,10 +65,6 @@ module Cb
 
       def job_insights
         Cb::Clients::JobInsights
-      end
-
-      def language_codes
-        Cb::Clients::LanguageCodes
       end
 
       def recommendation

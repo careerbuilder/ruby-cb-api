@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "key": "ws",
+      "value": "Samoa"
+    },
+    {
+      "key": "us",
+      "value": "United States"
+    },
+    {
+      "key": "is",
+      "value": "Iceland"
+    }
+  ],
+  "total": 3,
+  "page_size": 3,
+  "page": 1
+}
