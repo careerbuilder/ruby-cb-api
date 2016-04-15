@@ -2,7 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
-* 22.0.0 JobSearch calls gets the args[:HostSite] instead of args[:host_site]
+* 21.0.1 JobSearch calls gets the args[:HostSite] in addition to args[:host_site]
 * 21.0.0 Add browser id api, Add datalists, Removing old data apis, Removing old coverletters version,remove old resume list, expanding the types of exceptions that can be returned
 * 20.6.0 Add new saved jobs API (/consumer/saved-jobs)
 * 20.5.0 Adding resume insights client
