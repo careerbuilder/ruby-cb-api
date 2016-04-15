@@ -2,7 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
-* 21.2.0 Add expired job API (/v1/job/expired)
+* 21.1.0 Add expired job API (/v1/job/expired)
 * 21.0.0 Add browser id api, Add datalists, Removing old data apis, Removing old coverletters version,remove old resume list, expanding the types of exceptions that can be returned
 * 20.6.0 Add new saved jobs API (/consumer/saved-jobs)
 * 20.5.0 Adding resume insights client
