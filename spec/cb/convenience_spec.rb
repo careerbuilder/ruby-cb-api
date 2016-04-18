@@ -70,6 +70,12 @@ module Cb
       end
     end
 
+    describe '#expired_job' do
+      it 'returns the expired job api client class' do
+        expect_method_to_return_class(:expired_job, Cb::Clients::ExpiredJob)
+      end
+    end
+
     describe '#recommendation' do
       it 'returns the recommendation api client class' do
         expect_method_to_return_class(:recommendation, Cb::Clients::Recommendation)

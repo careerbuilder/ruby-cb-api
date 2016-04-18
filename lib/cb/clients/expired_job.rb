@@ -8,6 +8,16 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
+require_relative 'base'
 module Cb
-  VERSION = '21.1.0'
+  module Clients
+    class ExpiredJob < Base
+      # http://api.careerbuilder.com/ExpiredJobInfo.aspx
+      def self.get(args={})
+        uri = Cb.configuration.uri_job_expired
+        query_params = { 'JobDID' => args[:job_did] }
+        cb_client.cb_get(uri, headers: headers(args), query: query_params)
+      end
+    end
+  end
 end

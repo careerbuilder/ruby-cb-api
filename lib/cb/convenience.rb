@@ -51,6 +51,10 @@ module Cb
         Cb::Clients::EmailSubscription
       end
 
+      def expired_job
+        Cb::Clients::ExpiredJob
+      end
+
       def job
         Cb::Clients::Job
       end
