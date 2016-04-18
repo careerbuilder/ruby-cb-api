@@ -23,7 +23,23 @@ describe Cb::Requests::JobSearch::Get do
   end
   
   context '#headers' do
-    it { expect(job_search.headers).to eq(headers) }
+    context 'defaults to Cb.configuration.host_site' do
+      it { expect(job_search.headers).to eq(headers) }
+    end
+    
+    context 'HostSite in args' do
+      let(:argument_hash) { { some_arg: 'some_arg', host_site: 'UK' } }
+      let(:headers) { {'HostSite' => 'UK', 'Accept' => 'application/json;version=3.0', 'fake_header' => 'fake'} }
+
+      it { expect(job_search.headers).to eq(headers)}
+    end
+    
+    context 'host_site in args' do
+      let(:argument_hash) { { some_arg: 'some_arg', host_site: 'IE' } }
+      let(:headers) { {'HostSite' => 'IE', 'Accept' => 'application/json;version=3.0', 'fake_header' => 'fake'} }
+
+      it { expect(job_search.headers).to eq(headers)}
+    end
   end
 
 end
