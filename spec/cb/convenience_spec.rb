@@ -139,5 +139,11 @@ module Cb
         expect_method_to_return_class(:anon_saved_search, Cb::Clients::AnonSavedSearch)
       end
     end
+
+    describe '#user_rpofile' do
+      it 'returns the TN api client class' do
+        expect_method_to_return_class(:user_profile, Cb::Clients::UserProfile)
+      end
+    end
   end
 end

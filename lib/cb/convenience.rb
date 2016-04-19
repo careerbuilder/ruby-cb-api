@@ -98,6 +98,10 @@ module Cb
       def user
         Cb::Clients::User
       end
+
+      def user_profile
+        Cb::Clients::UserProfile
+      end
     end
   end
 end
