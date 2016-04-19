@@ -94,9 +94,10 @@ module Cb
       @uri_tn_join_form_branding ||= '/talentnetwork/config/layout/branding'
       @uri_tn_member_create ||= '/talentnetwork/member/create'
       @uri_user_change_password ||= '/v2/User/ChangePW'
-      @uri_user_delete ||= '/v2/User/delete'
-      @uri_user_retrieve ||= '/v2/user/retrieve'
       @uri_user_check_existing ||= '/v2/user/checkexisting'
+      @uri_user_delete ||= '/v2/User/delete'
+      @uri_user_profile ||= '/consumer/user-profile'
+      @uri_user_retrieve ||= '/v2/user/retrieve'
       @uri_user_temp_password ||= '/v1/user/temporarypassword'
     end
 
