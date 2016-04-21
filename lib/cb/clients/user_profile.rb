@@ -8,6 +8,16 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
+require_relative 'base'
 module Cb
-  VERSION = '21.2.0'
+  module Clients
+    class UserProfile < Base
+      class << self
+        # https://careerbuilder.readme.io/docs/consumeruser-profile
+        def get(args={})
+          cb_client.cb_get(Cb.configuration.uri_user_profile, headers: headers(args))
+        end
+      end
+    end
+  end
 end
