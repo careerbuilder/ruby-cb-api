@@ -1,3 +1,4 @@
+require 'spec_helper'
 # Copyright 2015 CareerBuilder, LLC
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -81,6 +82,7 @@ module Cb
 
       let(:model_hashes) { [{ 'huzzah' => 'thangs' }] }
       let(:valid_input_hash) { { 'ResponseStuff' => { 'stuff' => model_hashes } } }
+      let(:other_input_hash) { { 'ResponseStuff' => { 'other_stuff' => model_hashes } } }
       let(:errored_input_hash) { { 'ResponseStuff' => { 'errors' => { 'error' => ['oh noes!', 'bah!'] }, :stuff => model_hashes } } }
 
       context 'when the input hash has all fields and all methods overridden' do
@@ -115,6 +117,15 @@ module Cb
           # #errors delegates to a different object with its own suite of tests
           it 'returns an errors object' do
             expect(DumbValidResponse.new(valid_input_hash).respond_to?(:errors)).to eq true
+          end
+        end
+        
+        context 'missing required field' do
+          it 'throws ExpectedResponseFieldMissing with specific error message' do
+            expect{DumbValidResponse.new(other_input_hash)}.
+                to raise_error(Cb::ExpectedResponseFieldMissing) do |ex|
+              expect(ex.message).to eql("Response field missing 'stuff' for Cb::DumbValidResponse")
+            end
           end
         end
       end

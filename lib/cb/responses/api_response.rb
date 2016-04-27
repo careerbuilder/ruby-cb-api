@@ -49,7 +49,7 @@ module Cb
       def required_response_field(field_name, parent_hash)
         fail ArgumentError.new("field_name can't be nil!")  if field_name.nil?
         fail ArgumentError.new("parent_hash can't be nil!") if parent_hash.nil?
-        fail ExpectedResponseFieldMissing.new(field_name) unless parent_hash.key?(field_name)
+        fail ExpectedResponseFieldMissing.new("Response field missing '#{field_name}' for #{self.class.name}") unless parent_hash.key?(field_name)
       end
 
       private
