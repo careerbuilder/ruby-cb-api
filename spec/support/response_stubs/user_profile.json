@@ -1,0 +1,30 @@
+{
+  "data": [
+    {
+      "user_id": "U8K8986XXXXXXXXXXX",
+      "user_email": "user@example.com",
+      "first_name": "Lance",
+      "last_name": "Hardwood",
+      "site": "US",
+      "work_status": "CTNS",
+      "user_type": "JobSeeker",
+      "gender": "U",
+      "created_date": "2011-12-21T18:26:59.73",
+      "modified_date": "2016-03-15T11:11:03.603",
+      "last_login_date": "2016-03-15T11:11:03.603",
+      "street_address": "123 Main St",
+      "street_address2": "",
+      "postal_code": "30306",
+      "city": "Atlanta",
+      "state": "GA",
+      "country": "US",
+      "phone": "+1234567890",
+      "legacy_oauth_token": "ecxxxxxxxxxxxxxxxxxxxxx",
+      "partner_id": "Oxxxxxxxxxxxxxxxxxxxxxxxxxxxx=",
+      "external_id": "X8K8986XXXXXXXXXXX"
+    }
+  ],
+  "total": 1,
+  "page_size": 1,
+  "page": 1
+}

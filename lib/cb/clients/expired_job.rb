@@ -8,21 +8,15 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
+require_relative 'base'
 module Cb
   module Clients
-    class Base
-      class << self
-        def cb_client
-          @cb_client ||= Cb::Utils::Api.instance
-        end
-
-        def headers(args)
-          {
-             'Accept' => 'application/json',
-             'Authorization' => "Bearer #{ args[:oauth_token] }",
-             'Content-Type' => 'application/json'
-          }
-        end
+    class ExpiredJob < Base
+      # http://api.careerbuilder.com/ExpiredJobInfo.aspx
+      def self.get(args={})
+        uri = Cb.configuration.uri_job_expired
+        query_params = { 'JobDID' => args[:job_did] }
+        cb_client.cb_get(uri, headers: headers(args), query: query_params)
       end
     end
   end

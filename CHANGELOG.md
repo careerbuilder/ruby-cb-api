@@ -2,6 +2,16 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 21.2.0 Add User Profile API (/consumer/user-profile)
+* 21.1.0 Add expired job API (/v1/job/expired)
+* 21.0.1 JobSearch calls gets the args[:HostSite] in addition to args[:host_site]
+* 21.0.0 Add browser id api, Add datalists, Removing old data apis, Removing old coverletters version,remove old resume list, expanding the types of exceptions that can be returned
+* 20.6.0 Add new saved jobs API (/consumer/saved-jobs)
+* 20.5.0 Adding resume insights client
+* 20.4.0 Add posting_date to recommendations for job model.
+* 20.3.0 Add new resume list API (/consumer/resumes)
+* 20.2.1 `class << self` for classes with all class methods. DRY up the URI building for Cover Letter Update & Delete.
+* 20.2.0 Adding job insights client
 * 20.1.1 Having nil reponses behave more like we did pre ruby 2.2 so as not to break downstream peeps
 * 20.1.0 Remove Migration ID field from resume listing model.
 * 20.0.0 Refactoring of the clients.  Breaking changes to AnonSavedSearch, EmployeeTypes, SavedSearch
@@ -60,4 +70,4 @@ Version History
 * 13.0.1 This change is to turn off metadata parsing and raise exception if the api response does not contain metadata.
     * This means we can optionally control wether or not a specific API call expects metadata to come back   
 * 13.0.0 Adds a new resume recommendations call and removes the old one *(BREAKING)*
-    * https://github.com/cbdr/ruby-cb-api/pull/154/files
+    * https://github.com/careerbuilder/ruby-cb-api/pull/154/files

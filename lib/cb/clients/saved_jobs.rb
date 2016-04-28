@@ -11,39 +11,43 @@
 require_relative 'base'
 module Cb
   module Clients
-    class CoverLetters < Base
+    class SavedJobs < Base
       class << self
-        def get(args={})
-          uri = Cb.configuration.uri_cover_letters
+        def get(args = {})
+          uri = Cb.configuration.uri_saved_job
           uri += "/#{ args[:id] }" if args[:id]
           cb_client.cb_get(uri, headers: headers(args))
         end
 
-        def create(args={})
-          cb_client.cb_put(Cb.configuration.uri_cover_letters,
+        def create(args = {})
+          cb_client.cb_put(Cb.configuration.uri_saved_job,
                            body: body(args),
                            headers: headers(args))
         end
 
-        def delete(args={})
+        def delete(args = {})
           cb_client.cb_delete(uri_with_id(args), body: body(args), headers: headers(args))
         end
 
-        def update(args={})
+        def update(args = {})
           cb_client.cb_post(uri_with_id(args), body: body(args), headers: headers(args))
         end
 
         private
 
         def uri_with_id(args)
-          "#{ Cb.configuration.uri_cover_letters }/#{ args[:id] }"
+          "#{ Cb.configuration.uri_saved_job }/#{ args[:id] }"
         end
 
         def body(args)
-          body = Hash.new
+          body = {}
           body[:id] = args[:id] if args[:id]
-          body[:text] = args[:text] if args[:text]
-          body[:name] = args[:name] if args[:name]
+          body[:job_id] = args[:job_id] if args[:job_id]
+          body[:job_title] = args[:job_title] if args[:job_title]
+          body[:notes] = args[:notes] if args[:notes]
+          body[:status] = args[:status] if args[:status]
+          body[:application_date] = args[:application_date] if args[:application_date]
+          body[:site] = args[:site] if args[:site]
           body.to_json
         end
       end

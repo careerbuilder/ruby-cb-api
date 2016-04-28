@@ -1,4 +1,4 @@
-# Copyright 2015 CareerBuilder, LLC
+# Copyright 2016 CareerBuilder, LLC
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,44 +11,12 @@
 module Cb
   module Convenience
     module ClassMethods
+      def anon_saved_search
+        Cb::Clients::AnonSavedSearch
+      end
+
       def api_client
         Cb::Utils::Api
-      end
-
-      def job
-        Cb::Clients::Job
-      end
-
-      def job_details_criteria
-        Cb::Criteria::Job::Details.new
-      end
-
-      def category
-        Cb::Clients::Category
-      end
-
-      def cover_letters
-        Cb::Clients::CoverLetters
-      end
-
-      def industry
-        Cb::Clients::Industry
-      end
-
-      def company
-        Cb::Clients::Company
-      end
-
-      def education_code
-        Cb::Clients::Education
-      end
-
-      def employee_types
-        Cb::Clients::EmployeeTypes
-      end
-
-      def recommendation
-        Cb::Clients::Recommendation
       end
 
       def application
@@ -59,20 +27,64 @@ module Cb
         Cb::Clients::ApplicationExternal
       end
 
+      def browser_id
+        Cb::Clients::BrowserID
+      end
+
       def country
         Cb::Utils::Country
       end
 
-      def user
-        Cb::Clients::User
+      def company
+        Cb::Clients::Company
+      end
+
+      def cover_letters
+        Cb::Clients::CoverLetters
+      end
+
+      def data_list
+        Cb::Clients::DataList
+      end
+
+      def email_subscription
+        Cb::Clients::EmailSubscription
+      end
+
+      def expired_job
+        Cb::Clients::ExpiredJob
+      end
+
+      def job
+        Cb::Clients::Job
       end
 
       def job_branding
         Cb::Clients::JobBranding
       end
 
-      def email_subscription
-        Cb::Clients::EmailSubscription
+      def job_details_criteria
+        Cb::Criteria::Job::Details.new
+      end
+
+      def job_insights
+        Cb::Clients::JobInsights
+      end
+
+      def recommendation
+        Cb::Clients::Recommendation
+      end
+
+      def resumes
+        Cb::Clients::Resumes
+      end
+
+      def resume_insights
+        Cb::Clients::ResumeInsights
+      end
+
+      def saved_jobs
+        Cb::Clients::SavedJobs
       end
 
       def saved_search
@@ -83,12 +95,12 @@ module Cb
         Cb::Clients::TalentNetwork
       end
 
-      def anon_saved_search
-        Cb::Clients::AnonSavedSearch
+      def user
+        Cb::Clients::User
       end
 
-      def language_codes
-        Cb::Clients::LanguageCodes
+      def user_profile
+        Cb::Clients::UserProfile
       end
     end
   end
