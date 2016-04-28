@@ -83,7 +83,6 @@ module Cb
       let(:model_hashes) { [{ 'huzzah' => 'thangs' }] }
       let(:valid_input_hash) { { 'ResponseStuff' => { 'stuff' => model_hashes } } }
       let(:other_input_hash) { { 'ResponseStuff' => { 'other_stuff' => model_hashes } } }
-      let(:errored_input_hash) { { 'ResponseStuff' => { 'errors' => { 'error' => ['oh noes!', 'bah!'] }, :stuff => model_hashes } } }
 
 
 
