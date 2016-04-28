@@ -2,7 +2,6 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
-* 20.1.2 Updated Missing Required Field error in api_response to have a better error message.
 * 20.1.1 Having nil reponses behave more like we did pre ruby 2.2 so as not to break downstream peeps
 * 20.1.0 Remove Migration ID field from resume listing model.
 * 20.0.0 Refactoring of the clients.  Breaking changes to AnonSavedSearch, EmployeeTypes, SavedSearch
