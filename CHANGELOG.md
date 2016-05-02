@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 21.3.2 Follow style guide more closely and use `.first` + return empty string when no errors node
 * 21.3.1 Add error message to error raised from API
 * 21.3.0 Add better error message to MissingRequiredField error in api_response
 * 21.2.0 Add User Profile API (/consumer/user-profile)
