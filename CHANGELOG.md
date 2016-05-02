@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 21.3.1 Add error message to error raised from API
 * 21.3.0 Add better error message to MissingRequiredField error in api_response
 * 21.2.0 Add User Profile API (/consumer/user-profile)
 * 21.1.0 Add expired job API (/v1/job/expired)
