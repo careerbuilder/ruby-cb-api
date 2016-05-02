@@ -64,9 +64,12 @@ module Cb
       end
 
       it 'when status code is 500' do
-        allow(response.response).to receive(:body).and_return('{"errors":[]}')
+        allow(response.response).to receive(:body).and_return('{"errors":["Something went terribly wrong."]}')
         allow(response).to receive(:code).and_return 500
-        expect { ResponseValidator.validate(response) }.to raise_error(Cb::ServerError)
+        expect { ResponseValidator.validate(response) }.to raise_error do |error|
+          expect(error.message).to eq 'Something went terribly wrong.'
+          expect(error).to be_a Cb::ServerError
+        end
       end
 
       it 'when status code is 403' do

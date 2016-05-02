@@ -31,10 +31,12 @@ module Cb
       end
 
       def fail_with_error_details(response, error_type)
-        error = error_type.new
+        processed_response = process_response_body(response)
+        error_message = processed_response['errors'] ? processed_response['errors'][0] : nil
+        error = error_type.new(error_message)
         error.code = response.code rescue nil
         error.raw_response = response
-        error.response = process_response_body(response)
+        error.response = processed_response
         fail error
       end
 
