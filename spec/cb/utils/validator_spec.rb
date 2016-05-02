@@ -72,6 +72,15 @@ module Cb
         end
       end
 
+      it 'when status code is 500 without errors node' do
+        allow(response.response).to receive(:body).and_return('{}')
+        allow(response).to receive(:code).and_return 500
+        expect { ResponseValidator.validate(response) }.to raise_error do |error|
+          expect(error.message).to eq ''
+          expect(error).to be_a Cb::ServerError
+        end
+      end
+
       it 'when status code is 403' do
         allow(response.response).to receive(:body).and_return('{"errors":[]}')
         allow(response).to receive(:code).and_return 400

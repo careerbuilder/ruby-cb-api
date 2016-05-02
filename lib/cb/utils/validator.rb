@@ -32,7 +32,7 @@ module Cb
 
       def fail_with_error_details(response, error_type)
         processed_response = process_response_body(response)
-        error_message = processed_response['errors'] ? processed_response['errors'][0] : nil
+        error_message = processed_response['errors'] ? processed_response['errors'].first : ''
         error = error_type.new(error_message)
         error.code = response.code rescue nil
         error.raw_response = response
