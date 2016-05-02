@@ -32,8 +32,7 @@ module Cb
 
       def fail_with_error_details(response, error_type)
         processed_response = process_response_body(response)
-        error_message = processed_response['errors'] ? processed_response['errors'].first : ''
-        error = error_type.new(error_message)
+        error = error_type.new(error_message(processed_response))
         error.code = response.code rescue nil
         error.raw_response = response
         error.response = processed_response
@@ -63,6 +62,16 @@ module Cb
         MultiXml.parse(body, KeepRoot: true)
       rescue MultiXml::ParseError
         nil
+      end
+
+      def error_message(processed_response)
+        if processed_response['errors']
+          processed_response['errors']
+        elsif processed_response['Errors']
+          processed_response['Errors']
+        else
+          ''
+        end
       end
     end
   end
