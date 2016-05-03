@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 21.3.4 Code cleanup - no change in functionality
 * 21.3.3 Get whole error node, not just first. Check for 'Errors' instead of just 'errors'
 * 21.3.2 Follow style guide more closely and use `.first` + return empty string when no errors node
 * 21.3.1 Add error message to error raised from API
