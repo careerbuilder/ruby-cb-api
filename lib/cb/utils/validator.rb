@@ -65,13 +65,7 @@ module Cb
       end
 
       def error_message(processed_response)
-        if processed_response['errors']
-          processed_response['errors']
-        elsif processed_response['Errors']
-          processed_response['Errors']
-        else
-          ''
-        end
+        processed_response.fetch('errors', processed_response.fetch('Errors', ''))
       end
     end
   end
