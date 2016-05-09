@@ -12,7 +12,7 @@ require 'spec_helper'
 
 module Cb
   describe ResponseValidator do
-    let(:response)          { double(HTTParty::Response, response: response_property, code: response_cody) }
+    let(:response)          { double(HTTParty::Response, response: response_property, code: response_code) }
     let(:response_property) { double('HTTParty::Response.response', body: response_body) }
     let(:response_body)     { nil }
     let(:response_code)     { 200 }
