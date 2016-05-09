@@ -101,6 +101,17 @@ module Cb
           end
         end
       end
+
+      context 'with a capital E in errors' do
+        let(:response_body) { '{"Errors":["Something went terribly wrong."]}' }
+
+        it 'populates error message from the json response' do
+          expect { validation }.to raise_error do |error|
+            expect(error.message).to eq '["Something went terribly wrong."]'
+            expect(error).to be_a Cb::ServerError
+          end
+        end
+      end
     end
 
     context 'when there are json parsing errors' do
