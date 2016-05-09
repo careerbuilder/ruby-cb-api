@@ -17,11 +17,12 @@ module Cb
     let(:response_body)     { nil }
     let(:response_code)     { 200 }
 
+    subject(:validation) { ResponseValidator.validate(response) }
+
     context 'with an empty body' do
       let(:response_body) { '' }
 
       it 'returns an empty hash' do
-        validation = ResponseValidator.validate(response)
         expect(validation).to be_empty
       end
     end
@@ -30,7 +31,6 @@ module Cb
       let(:response_body) { 'json' }
 
       it 'returns an empty hash' do
-        validation = ResponseValidator.validate(response)
         expect(validation).to be_empty
       end
     end
@@ -39,7 +39,6 @@ module Cb
       let(:response_body) { nil }
 
       it 'returns an empty hash' do
-        validation = ResponseValidator.validate(response)
         expect(validation).to be_empty
       end
     end
@@ -51,31 +50,31 @@ module Cb
       context 'of 400' do
         let(:response_code) { 400 }
 
-        it { expect{ ResponseValidator.validate(response) }.to raise_error(Cb::BadRequestError) }
+        it { expect { validation }.to raise_error(Cb::BadRequestError) }
       end
 
       context 'of 401' do
         let(:response_code) { 401 }
 
-        it { expect{ ResponseValidator.validate(response) }.to raise_error(Cb::UnauthorizedError) }
+        it { expect { validation }.to raise_error(Cb::UnauthorizedError) }
       end
 
       context 'of 404' do
         let(:response_code) { 404 }
 
-        it { expect{ ResponseValidator.validate(response) }.to raise_error(Cb::DocumentNotFoundError) }
+        it { expect { validation }.to raise_error(Cb::DocumentNotFoundError) }
       end
 
       context 'of 503' do
         let(:response_code) { 503 }
 
-        it { expect { ResponseValidator.validate(response) }.to raise_error(Cb::ServiceUnavailableError) }
+        it { expect { validation }.to raise_error(Cb::ServiceUnavailableError) }
       end
 
       context 'of 500' do
         let(:response_code) { 503 }
 
-        it { expect { ResponseValidator.validate(response) }.to raise_error(Cb::ServiceUnavailableError) }
+        it { expect { validation }.to raise_error(Cb::ServiceUnavailableError) }
       end
 
       context 'with valid json content' do
@@ -83,7 +82,7 @@ module Cb
         let(:response_body) { '{"TestJson":{"Test":"True"}}' }
 
         it 'returns the parsed json on the exception' do
-          expect{ ResponseValidator.validate(response) }.to raise_error do |error|
+          expect { validation }.to raise_error do |error|
             expect(error.response).to be_a Hash
             expect(error.response).to have_key 'TestJson'
             expect(error.response['TestJson']).to eq({ 'Test' => 'True' })
@@ -96,14 +95,14 @@ module Cb
         let(:response_body) { '<!DOCTYPE html></html>' }
 
         it 'returns an empty hash on the exception' do
-          expect{ ResponseValidator.validate(response) }.to raise_error do |error|
+          expect { validation }.to raise_error do |error|
             expect(error.response).to be_empty
           end
         end
       end
 
       it 'populates error message from the json response' do
-        expect { ResponseValidator.validate(response) }.to raise_error do |error|
+        expect { validation }.to raise_error do |error|
           expect(error.message).to eq '["Something went terribly wrong."]'
           expect(error).to be_a Cb::ServerError
         end
@@ -119,7 +118,6 @@ module Cb
         let(:response_body) { '<yo><this><isxml>yay</isxml></this></yo>' }
 
         it 'returns a hash of the XML' do
-          validation = ResponseValidator.validate(response)
           expect(validation).to eq({ 'yo' => { 'this' => { 'isxml' => 'yay' } } })
         end
       end
@@ -128,7 +126,6 @@ module Cb
         let(:response_body) { 'yay not json' }
 
         it 'returns an empty hash' do
-          validation = ResponseValidator.validate(response)
           expect(validation).to be_empty
         end
       end
@@ -139,7 +136,7 @@ module Cb
         allow(ENV).to receive(:[]).with('SIMULATE_AUTH_OUTAGE').and_return true
       end
 
-      it { expect { ResponseValidator.validate(response) }.to raise_error(Cb::ServiceUnavailableError) }
+      it { expect { validation }.to raise_error(Cb::ServiceUnavailableError) }
     end
   end
 end
