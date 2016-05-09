@@ -12,127 +12,136 @@ require 'spec_helper'
 
 module Cb
   describe ResponseValidator do
-    let(:response)          { double(HTTParty::Response) }
-    let(:response_property) { double('HTTParty::Response.response') }
+    let(:response)          { double(HTTParty::Response, response: response_property, code: response_code) }
+    let(:response_property) { double('HTTParty::Response.response', body: response_body) }
+    let(:response_body)     { nil }
+    let(:response_code)     { 200 }
 
-    before :each do
-      allow(response).to receive(:response).and_return(response_property)
-      allow(response).to receive(:code).and_return(200)
-    end
+    subject(:validation) { ResponseValidator.validate(response) }
 
-    it 'should return empty hash when body is empty' do
-      allow(response.response).to receive(:body).and_return('')
-      validation = ResponseValidator.validate(response)
-      expect(validation.empty?).to be_truthy
-    end
+    context 'with an empty body' do
+      let(:response_body) { '' }
 
-    it 'should return empty hash when body is improper json/xml' do
-      allow(response.response).to receive(:body).and_return('json')
-      validation = ResponseValidator.validate(response)
-      expect(validation.empty?).to be_truthy
-    end
-
-    it 'should return empty hash when response is nil' do
-      response = nil
-      validation = ResponseValidator.validate(response)
-      expect(validation.empty?).to be_truthy
-    end
-
-    it 'should raise DocumentNotFound error if url is invalid' do
-      allow(response.response).to receive(:body).and_return('<!DOCTYPE html></html>')
-      allow(response).to receive(:code).and_return 404
-      expect { ResponseValidator.validate(response) }.to raise_error(Cb::DocumentNotFoundError)
-    end
-
-    it 'should return a full json hash when response status is not 200 and content is json' do
-      allow(response.response).to receive(:body).and_return('{"TestJson":{"Test":"True"}}')
-      validation = ResponseValidator.validate(response)
-      expect(validation.empty?).to be_falsey
-    end
-
-    it 'should return a blank json hash when status is not 200 and content is html' do
-      allow(response.response).to receive(:body).and_return('<!DOCTYPE html></html>')
-      validation = ResponseValidator.validate(response)
-      expect(validation.empty?).to be_truthy
-    end
-
-    context 'raises a ServiceUnavailableError' do
-      it 'when status code is 503' do
-        allow(response.response).to receive(:body).and_return('{"errors":[]}')
-        allow(response).to receive(:code).and_return 503
-        expect { ResponseValidator.validate(response) }.to raise_error(Cb::ServiceUnavailableError)
+      it 'returns an empty hash' do
+        expect(validation).to be_empty
       end
+    end
 
-      it 'when status code is 500' do
-        allow(response.response).to receive(:body).and_return('{"errors":["Something went terribly wrong."]}')
-        allow(response).to receive(:code).and_return 500
-        expect { ResponseValidator.validate(response) }.to raise_error do |error|
+    context 'with an invalid body' do
+      let(:response_body) { 'json' }
+
+      it 'returns an empty hash' do
+        expect(validation).to be_empty
+      end
+    end
+
+    context 'with a nil body' do
+      let(:response_body) { nil }
+
+      it 'returns an empty hash' do
+        expect(validation).to be_empty
+      end
+    end
+
+    context 'with an unsuccessful response status' do
+      let(:response_code) { 500 }
+      let(:response_body) { '{"errors":["Something went terribly wrong."]}' }
+
+      it 'populates error message from the json response' do
+        expect { validation }.to raise_error do |error|
           expect(error.message).to eq '["Something went terribly wrong."]'
           expect(error).to be_a Cb::ServerError
         end
       end
 
-      it 'when status code is 500' do
-        allow(response.response).to receive(:body).and_return('{"Errors":["Something went terribly wrong."]}')
-        allow(response).to receive(:code).and_return 500
-        expect { ResponseValidator.validate(response) }.to raise_error do |error|
-          expect(error.message).to eq '["Something went terribly wrong."]'
-          expect(error).to be_a Cb::ServerError
+      it { expect { validation }.to raise_error(Cb::ServerError) }
+
+      context 'of 400' do
+        let(:response_code) { 400 }
+
+        it { expect { validation }.to raise_error(Cb::BadRequestError) }
+      end
+
+      context 'of 401' do
+        let(:response_code) { 401 }
+
+        it { expect { validation }.to raise_error(Cb::UnauthorizedError) }
+      end
+
+      context 'of 404' do
+        let(:response_code) { 404 }
+
+        it { expect { validation }.to raise_error(Cb::DocumentNotFoundError) }
+      end
+
+      context 'of 503' do
+        let(:response_code) { 503 }
+
+        it { expect { validation }.to raise_error(Cb::ServiceUnavailableError) }
+      end
+
+      context 'with valid json content' do
+        let(:response_body) { '{"TestJson":{"Test":"True"}}' }
+
+        it 'returns the parsed json on the exception' do
+          expect { validation }.to raise_error do |error|
+            expect(error.response).to be_a Hash
+            expect(error.response).to have_key 'TestJson'
+            expect(error.response['TestJson']).to eq({ 'Test' => 'True' })
+          end
         end
       end
 
-      it 'when status code is 500 without errors node' do
-        allow(response.response).to receive(:body).and_return('{}')
-        allow(response).to receive(:code).and_return 500
-        expect { ResponseValidator.validate(response) }.to raise_error do |error|
-          expect(error.message).to eq ''
-          expect(error).to be_a Cb::ServerError
+      context 'with html content' do
+        let(:response_body) { '<!DOCTYPE html></html>' }
+
+        it 'returns an empty hash on the exception' do
+          expect { validation }.to raise_error do |error|
+            expect(error.response).to be_empty
+          end
         end
       end
 
-      it 'when status code is 403' do
-        allow(response.response).to receive(:body).and_return('{"errors":[]}')
-        allow(response).to receive(:code).and_return 400
-        expect { ResponseValidator.validate(response) }.to raise_error(Cb::BadRequestError)
-      end
+      context 'with a capital E in errors' do
+        let(:response_body) { '{"Errors":["Something went terribly wrong."]}' }
 
-      it 'when status code is 404' do
-        allow(response.response).to receive(:body).and_return('{"errors":[]}')
-        allow(response).to receive(:code).and_return 404
-        expect { ResponseValidator.validate(response) }.to raise_error(Cb::DocumentNotFoundError)
-      end
-
-      it 'when simulation flag is turned on via ENV' do
-        allow(ENV).to receive(:[]).and_return 'true'
-        allow(response.response).to receive(:body).and_return('{"errors":[]}')
-        expect { ResponseValidator.validate(response) }.to raise_error(Cb::ServiceUnavailableError)
+        it 'populates error message from the json response' do
+          expect { validation }.to raise_error do |error|
+            expect(error.message).to eq '["Something went terribly wrong."]'
+            expect(error).to be_a Cb::ServerError
+          end
+        end
       end
     end
 
-    it 'should raise an UnauthorizedError when status code is 401' do
-      allow(response.response).to receive(:body).and_return('{"errors":[]}')
-      allow(response).to receive(:code).and_return(401)
-      expect { ResponseValidator.validate(response) }.to raise_error(Cb::UnauthorizedError)
-    end
+    context 'when there are json parsing errors' do
+      before do
+        allow(JSON).to receive(:parse).and_raise JSON::ParserError
+      end
 
-    context 'when there are JSON parsing errors' do
-      context 'and the content payload is not XML' do
+      context 'with an XML body' do
+        let(:response_body) { '<yo><this><isxml>yay</isxml></this></yo>' }
+
+        it 'returns a hash of the XML' do
+          expect(validation).to eq({ 'yo' => { 'this' => { 'isxml' => 'yay' } } })
+        end
+      end
+
+      context 'with a non-XML body' do
+        let(:response_body) { 'yay not json' }
+
         it 'returns an empty hash' do
-          allow(response.response).to receive(:body).and_return('yay not json')
-          validation = ResponseValidator.validate(response)
-          expect(validation).to eq Hash.new
+          expect(validation).to be_empty
         end
+      end
+    end
+
+    context 'when SIMULATE_AUTH_OUTAGE flag is enabled' do
+      before do
+        allow(ENV).to receive(:[]).with('SIMULATE_AUTH_OUTAGE').and_return true
       end
 
-      context 'and the content payload is XML' do
-        it 'returns the XML hashified' do
-          xml = '<yo><this><isxml>yay</isxml></this></yo>'
-          allow(response.response).to receive(:body).and_return(xml)
-          validation = ResponseValidator.validate(response)
-          expect(validation).to be_an_instance_of Hash
-          expect(validation).to eq('yo' => { 'this' => { 'isxml' => 'yay' } })
-        end
-      end
+      it { expect { validation }.to raise_error(Cb::ServiceUnavailableError) }
     end
   end
 end
