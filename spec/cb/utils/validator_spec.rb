@@ -47,6 +47,15 @@ module Cb
       let(:response_code) { 500 }
       let(:response_body) { '{"errors":["Something went terribly wrong."]}' }
 
+      it 'populates error message from the json response' do
+        expect { validation }.to raise_error do |error|
+          expect(error.message).to eq '["Something went terribly wrong."]'
+          expect(error).to be_a Cb::ServerError
+        end
+      end
+
+      it { expect { validation }.to raise_error(Cb::ServiceUnavailableError) }
+
       context 'of 400' do
         let(:response_code) { 400 }
 
@@ -92,15 +101,6 @@ module Cb
           end
         end
       end
-
-      it 'populates error message from the json response' do
-        expect { validation }.to raise_error do |error|
-          expect(error.message).to eq '["Something went terribly wrong."]'
-          expect(error).to be_a Cb::ServerError
-        end
-      end
-
-      it { expect { validation }.to raise_error(Cb::ServiceUnavailableError) }
     end
 
     context 'when there are json parsing errors' do
