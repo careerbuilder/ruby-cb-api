@@ -65,13 +65,13 @@ module Cb
         it { expect { validation }.to raise_error(Cb::DocumentNotFoundError) }
       end
 
-      context 'of 503' do
-        let(:response_code) { 503 }
+      context 'of 500' do
+        let(:response_code) { 500 }
 
         it { expect { validation }.to raise_error(Cb::ServiceUnavailableError) }
       end
 
-      context 'of 500' do
+      context 'of 503' do
         let(:response_code) { 503 }
 
         it { expect { validation }.to raise_error(Cb::ServiceUnavailableError) }
