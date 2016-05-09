@@ -54,7 +54,7 @@ module Cb
         end
       end
 
-      it { expect { validation }.to raise_error(Cb::ServiceUnavailableError) }
+      it { expect { validation }.to raise_error(Cb::ServerError) }
 
       context 'of 400' do
         let(:response_code) { 400 }
