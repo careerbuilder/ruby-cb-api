@@ -2,7 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
-* 21.4.0 Add begin_date_time and end_date_time to Cb::Models::Job
+* 21.3.5 Add begin_date_time and end_date_time to Cb::Models::Job
 * 21.3.4 Code cleanup - no change in functionality
 * 21.3.3 Get whole error node, not just first. Check for 'Errors' instead of just 'errors'
 * 21.3.2 Follow style guide more closely and use `.first` + return empty string when no errors node
