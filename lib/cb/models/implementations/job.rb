@@ -20,7 +20,7 @@ module Cb
                     :location, :distance, :latitude, :longitude, :location_formatted, :location_metro_city,
                     :description, :requirements, :employment_type,
                     :details_url, :service_url, :similar_jobs_url, :apply_url,
-                    :begin_date, :end_date, :posted_date, :posted_time, :posting_date,
+                    :begin_date, :begin_date_time, :end_date, :end_date_time, :posted_date, :posted_time, :posting_date,
                     :relevancy, :state, :city, :zip,
                     :can_be_quick_applied, :apply_requirements,
                     :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id,
@@ -156,7 +156,9 @@ module Cb
         @description                  = args['Description'] || args['JobDescription'] || ''
         @requirements                 = args['JobRequirements'] || ''
         @begin_date                   = args['BeginDate'] || ''
+        @begin_date_time              = args['BeginDateTime'] || ''
         @end_date                     = args['EndDate'] || ''
+        @end_date_time                = args['EndDateTime'] || ''
         @has_questionnaire            = args['HasQuestionnaire'] || ''
 
         # Application

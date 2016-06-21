@@ -22,6 +22,40 @@ module Cb::Models
           job = Job.new job_hash
           expect(job.apply_requirements).to eq(['noonlineapply'])
         end
+        
+        describe '#begin_date_time' do
+          subject { Job.new(job_hash).begin_date_time }
+          context 'BeginDateTime provided' do
+            let(:job_hash) do
+              { 'BeginDateTime' => '2016-05-26T03:59:59.0000000Z' }
+            end
+            it { is_expected.to eq '2016-05-26T03:59:59.0000000Z' }
+          end
+          
+          context 'BeginDateTime not provided' do
+            let(:job_hash) do
+              { }
+            end
+            it { is_expected.to eq '' }
+          end
+        end
+        
+        describe '#end_date_time' do
+          subject { Job.new(job_hash).end_date_time }
+          context 'EndDateTime provided' do
+            let(:job_hash) do
+              { 'EndDateTime' => '2016-05-26T03:59:59.0000000Z' }
+            end
+            it { is_expected.to eq '2016-05-26T03:59:59.0000000Z' }
+          end
+          
+          context 'EndDateTime not provided' do
+            let(:job_hash) do
+              { }
+            end
+            it { is_expected.to eq '' }
+          end
+        end
       end
     end
 
