@@ -16,10 +16,13 @@ Gem::Specification.new do |s|
   s.files        = Dir['{lib}/**/*', 'LICENSE', '*.md']
   s.require_path = 'lib'
 
-  s.add_dependency 'httparty', '~> 0.11'
+  s.add_dependency 'faraday', '~> 0.9'
   s.add_dependency 'json', '~> 1.7', '>= 1.7.7'
   s.add_dependency 'nori', '~> 2.2'
   s.add_dependency 'nokogiri', '~> 1.0'
+  s.add_dependency 'typhoeus', '~> 1.0'
+  s.add_dependency 'faraday_middleware', '~> 0.1'
+  s.add_dependency 'multi_xml'
 
   s.add_development_dependency 'rake', '>= 0.8.7'
   s.add_development_dependency 'webmock', '~> 1.9'

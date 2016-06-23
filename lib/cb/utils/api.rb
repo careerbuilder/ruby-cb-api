@@ -8,15 +8,14 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
-require 'httparty'
+require 'faraday'
+require 'faraday_middleware'
 require 'observer'
 
 module Cb
   module Utils
     class Api
-      include HTTParty, Observable
-
-      base_uri 'https://api.careerbuilder.com'
+      include Observable
 
       def self.instance
         api = Cb::Utils::Api.new
@@ -30,12 +29,19 @@ module Cb
       end
 
       def initialize
-        self.class.default_params developerkey: Cb.configuration.dev_key,
-                                  outputjson: Cb.configuration.use_json.to_s
+        @connection = Faraday.new base_uri, {
+          request: {
+            timeout: Cb.configuration.time_out,
+            open_timeout: Cb.configuration.time_out
+          }
+        } do |builder|
+            builder.use ::Middleware::Errors
+            builder.use ::FaradayMiddleware::ParseXml,  :content_type => /\bxml$/
+            builder.use ::FaradayMiddleware::ParseJson, :content_type => /\bjson$/
 
-        self.class.default_timeout Cb.configuration.time_out
-        self.class.headers.merge! ({ 'developerkey' => Cb.configuration.dev_key })
-        self.class.headers.merge! ({ 'accept-encoding' => 'deflate, gzip' }) unless Cb.configuration.debug_api
+            builder.use :gzip
+            builder.adapter Faraday.default_adapter
+          end
       end
 
       def cb_get(path, options = {}, &block)
@@ -64,12 +70,17 @@ module Cb
         ensure
           cb_event(:"cb_#{ http_method }_after", path, options, api_caller, response, Time.now.to_f - start_time, &block)
         end
-        validate_response(response)
+        response.body
       end
 
       def execute_http_request(http_method, uri, path, options = {})
-        self.class.base_uri(uri || Cb.configuration.base_uri)
-        self.class.method(http_method).call(path, options)
+        request = @connection.build_request(http_method) do |req|
+          req.url(path) if path
+          req.headers.update(options[:headers]) if options.include? :headers
+          req.body = body if options.include? :body
+          req.params = query_params(options[:query])
+        end
+        @connection.builder.build_response(@connection, request)
       end
 
       def append_api_responses(obj, resp)
@@ -123,6 +134,13 @@ module Cb
 
       private
 
+      def query_params(params=nil)
+        {
+          'developerkey' => Cb.configuration.dev_key,
+          'output-json' => Cb.configuration.use_json.to_s
+        }.merge! params
+      end
+
       def find_api_caller(call_list)
         filename_regex = /.*\.rb/
         linenum_regex = /:.*:in `/
@@ -134,12 +152,6 @@ module Cb
 
       def use_this_api_caller?(calling_file)
         (calling_file == __FILE__ || calling_file.include?('/lib/cb/client.rb')) ? false : true
-      end
-
-      def validate_response(response)
-        validated_response = ResponseValidator.validate(response)
-        set_api_error(validated_response)
-        validated_response
       end
 
       def api_call_model(api_call_type, path, options, api_caller, response, time_elapsed)
@@ -173,6 +185,10 @@ module Cb
       def format_hash_key(api_hash_key)
         return '' unless api_hash_key.respond_to?(:snakecase)
         api_hash_key.snakecase
+      end
+
+      def base_uri
+        Cb.configuration.base_uri
       end
     end
   end
