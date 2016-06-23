@@ -1,5 +1,5 @@
 module Middleware
-  class Errors
+  class Errors < Faraday::Middleware
     def call(request_env)
       @app.call(request_env).on_complete do |response_env|
         code = response_env[:status]

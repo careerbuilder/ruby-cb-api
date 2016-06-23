@@ -10,6 +10,8 @@
 # See the License for the specific language governing permissions and limitations under the License.
 require 'faraday'
 require 'faraday_middleware'
+require 'middleware/errors'
+require 'middleware/timing'
 require 'observer'
 
 module Cb
@@ -18,24 +20,25 @@ module Cb
       include Observable
 
       def self.instance
-        api = Cb::Utils::Api.new
-        Cb.configuration.observers.each do |class_name|
-          api.add_observer(class_name.new)
-        end
-        if Cb.configuration.debug_api && !Cb.configuration.observers.include?(Cb::Utils::ConsoleObserver)
-          api.add_observer(Cb::Utils::ConsoleObserver.new)
-        end
-        api
+        Cb::Utils::Api.new
       end
 
       def initialize
+        @observers = []
+        Cb.configuration.observers.each do |class_name|
+          @observers << class_name.new
+        end
+        if Cb.configuration.debug_api && !Cb.configuration.observers.include?(Cb::Utils::ConsoleObserver)
+          observers << Cb::Utils::ConsoleObserver.new
+        end
         @connection = Faraday.new base_uri, {
           request: {
             timeout: Cb.configuration.time_out,
             open_timeout: Cb.configuration.time_out
           }
         } do |builder|
-            builder.use ::Middleware::Errors
+            builder.use(Middleware::Timing, { observers: @observers })
+            builder.use Middleware::Errors
             builder.use ::FaradayMiddleware::ParseXml,  :content_type => /\bxml$/
             builder.use ::FaradayMiddleware::ParseJson, :content_type => /\bjson$/
 
@@ -61,15 +64,7 @@ module Cb
       end
 
       def timed_http_request(http_method, uri, path, options = {}, &block)
-        api_caller = find_api_caller(caller)
-        response = nil
-        start_time = Time.now.to_f
-        cb_event(:"cb_#{ http_method }_before", path, options, api_caller, response, 0.0, &block)
-        begin
-          response = execute_http_request(http_method, uri, path, options)
-        ensure
-          cb_event(:"cb_#{ http_method }_after", path, options, api_caller, response, Time.now.to_f - start_time, &block)
-        end
+        response = execute_http_request(http_method, uri, path, options)
         response.body
       end
 
@@ -139,30 +134,6 @@ module Cb
           'developerkey' => Cb.configuration.dev_key,
           'output-json' => Cb.configuration.use_json.to_s
         }.merge! params
-      end
-
-      def find_api_caller(call_list)
-        filename_regex = /.*\.rb/
-        linenum_regex = /:.*:in `/
-        filename, method_name = call_list.find { |l| use_this_api_caller?(l[filename_regex]) }[0..-2].split(linenum_regex)
-        simplified_filename = filename.include?('/lib/') ? filename[/\/lib\/.*/] : filename
-        simplified_filename = simplified_filename.include?('/app/') ? simplified_filename[/\/app\/.*/] : simplified_filename
-        { file: simplified_filename, method: method_name }
-      end
-
-      def use_this_api_caller?(calling_file)
-        (calling_file == __FILE__ || calling_file.include?('/lib/cb/client.rb')) ? false : true
-      end
-
-      def api_call_model(api_call_type, path, options, api_caller, response, time_elapsed)
-        Cb::Models::ApiCall.new(api_call_type, path, options, api_caller, response, time_elapsed)
-      end
-
-      def cb_event(api_call_type, path, options, api_caller, response, time_elapsed, &block)
-        call_model = api_call_model(api_call_type, path, options, api_caller, response, time_elapsed)
-        block.call(call_model) if block_given?
-        changed(true)
-        notify_observers(call_model)
       end
 
       def ensure_non_nil_metavalues(obj)
