@@ -6,7 +6,7 @@ module Middleware
 
     def initialize(app = nil, options = {})
       super(app)
-      options[:observers].each do |observer|
+      options.fetch(:observers, []).map(&:new).each do |observer|
         add_observer(observer)
       end
     end

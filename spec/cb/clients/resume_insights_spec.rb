@@ -30,7 +30,7 @@ module Cb
           let(:stub) do
             stub_request(:get, uri)
             .with(headers: headers)
-            .to_return(status: 200, body: response.to_json)
+            .to_return(status: 200, body: response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
           end
 
           it { expect(stub).to have_been_requested }
@@ -44,7 +44,7 @@ module Cb
           let(:stub) do
             stub_request(:get, uri).
                 with(:headers => headers).
-                to_return(:status => 404, :body => response.to_json)
+                to_return(:status => 404, :body => response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
           end
 
           it do

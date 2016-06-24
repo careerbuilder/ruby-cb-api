@@ -16,7 +16,7 @@ module Cb
 
     let(:uri) {"https://api.careerbuilder.com/consumer/browser-id?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
     let(:data) { ['X1D1ED1AB1C2E2ACB376040B85C9CA434932CB4DB65BA1F3E7ABF98C2F08A384F471F98FEC9F8ADD9788DE91F3E6DD4E84'] }
-    let(:stub) { stub_request(:get, uri).with(headers: headers).to_return(status: 200, body: response.to_json) }
+    let(:stub) { stub_request(:get, uri).with(headers: headers).to_return(status: 200, body: response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"}) }
     subject { Cb::Clients::BrowserID.get(oauth_token: 'token') }
 
     before do

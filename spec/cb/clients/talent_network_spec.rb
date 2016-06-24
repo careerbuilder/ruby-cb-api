@@ -15,7 +15,7 @@ module Cb
     context '.tn_job_information' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_tn_job_info))
-          .to_return(body: { Response: {} }.to_json)
+          .to_return(body: { Response: {} }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should retrieve the tn job information with a good job DID' do
@@ -29,7 +29,7 @@ module Cb
     context '.join_form_questions' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_tn_join_questions))
-          .to_return(body: { JoinQuestions: [{}] }.to_json)
+          .to_return(body: { JoinQuestions: [{}] }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should retrieve the form questions given a valid tn DID' do
@@ -43,7 +43,7 @@ module Cb
     context '.join_form_branding' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_tn_join_form_branding))
-          .to_return(body: { Branding: {} }.to_json)
+          .to_return(body: { Branding: {} }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should retrieve branding information for a valid tn DID' do
@@ -57,7 +57,7 @@ module Cb
     context '.join_form_geography' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_tn_join_form_geo))
-          .to_return(body: { Countries: {}, States: {} }.to_json)
+          .to_return(body: { Countries: {}, States: {} }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should retrieve the geo dropdown list info for join form questions' do
@@ -74,7 +74,7 @@ module Cb
       before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_tn_member_create))
           .with(body: anything)
-          .to_return(body: { Errors: [] }.to_json)
+          .to_return(body: { Errors: [] }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should successfully create a tn member' do

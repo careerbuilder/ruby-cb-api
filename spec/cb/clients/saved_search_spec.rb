@@ -17,7 +17,7 @@ module Cb
       before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_create))
           .with(body: anything)
-          .to_return(body: { SavedJobSearch: { Errors: nil, SavedSearch: {} } }.to_json)
+          .to_return(body: { SavedJobSearch: { Errors: nil, SavedSearch: {} } }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should return a saved search retrieve response' do
@@ -37,7 +37,7 @@ module Cb
           stub_request(:put, uri_stem(Cb.configuration.uri_saved_search_update))
             .with(body: anything,
                   headers: { 'developerkey' => Cb.configuration.dev_key, 'Content-Type' => 'application/json', 'HostSite' => 'GR' })
-            .to_return(body: { Errors: nil, Results: [{ SavedSearchParameters: {} }] }.to_json)
+            .to_return(body: { Errors: nil, Results: [{ SavedSearchParameters: {} }] }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
         end
 
         it 'should update the saved search created in this test' do
@@ -59,7 +59,7 @@ module Cb
           stub_request(:put, uri_stem(Cb.configuration.uri_saved_search_update))
             .with(body: anything,
                   headers: { 'developerkey' => Cb.configuration.dev_key, 'Content-Type' => 'application/json', 'HostSite' => 'US' })
-            .to_return(body: { Errors: nil, Results: [{ SavedSearchParameters: {} }] }.to_json)
+            .to_return(body: { Errors: nil, Results: [{ SavedSearchParameters: {} }] }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
         end
 
         it 'should update the saved search created in this test' do
@@ -95,7 +95,7 @@ module Cb
       context 'with no results' do
         before do
           stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_list))
-            .to_return(body: Mocks::SavedSearch.empty_list.to_json)
+            .to_return(body: Mocks::SavedSearch.empty_list.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
         end
 
         it 'should return an array of saved searches' do
@@ -139,7 +139,7 @@ module Cb
       before :each do
         stub_request(:delete, 'https://api.careerbuilder.com/cbapi/savedsearches/xid?UserOAuthToken=oauth&developerkey=mydevkey&outputjson=true')
           .with(headers: { 'Accept-Encoding' => 'deflate, gzip', 'Developerkey' => 'mydevkey', 'Hostsite' => 'host site' })
-          .to_return(body: { Errors: nil, Status: 'Success' }.to_json)
+          .to_return(body: { Errors: nil, Status: 'Success' }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should delete a saved search without error' do

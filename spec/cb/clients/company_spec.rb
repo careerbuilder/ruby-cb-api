@@ -14,7 +14,7 @@ module Cb
   describe Cb::Clients::Company do
     def stub_api_response_to_return(content)
       stub_request(:get, uri_stem(Cb.configuration.uri_company_find))
-        .to_return(body: content.to_json)
+        .to_return(body: content.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
     end
 
     context '.find_by_did' do

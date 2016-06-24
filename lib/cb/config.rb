@@ -44,6 +44,7 @@ module Cb
       @host_site            = Cb.country.US
       @test_resources       = false
       @observers            = []
+      @faraday_adapter      = Faraday.default_adapter
       set_default_api_uris
       set_attr_accessors
     end

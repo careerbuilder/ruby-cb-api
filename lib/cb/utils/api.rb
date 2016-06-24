@@ -17,34 +17,20 @@ require 'observer'
 module Cb
   module Utils
     class Api
-      include Observable
-
       def self.instance
         Cb::Utils::Api.new
       end
 
       def initialize
-        @observers = []
-        Cb.configuration.observers.each do |class_name|
-          @observers << class_name.new
-        end
-        if Cb.configuration.debug_api && !Cb.configuration.observers.include?(Cb::Utils::ConsoleObserver)
-          observers << Cb::Utils::ConsoleObserver.new
-        end
-        @connection = Faraday.new base_uri, {
-          request: {
-            timeout: Cb.configuration.time_out,
-            open_timeout: Cb.configuration.time_out
-          }
-        } do |builder|
-            builder.use(Middleware::Timing, { observers: @observers })
-            builder.use Middleware::Errors
-            builder.use ::FaradayMiddleware::ParseXml,  :content_type => /\bxml$/
-            builder.use ::FaradayMiddleware::ParseJson, :content_type => /\bjson$/
+        @connection = Faraday.new base_uri, connection_options do |builder|
+          builder.use(Middleware::Timing, { observers: observers })
+          builder.use Middleware::Errors
+          builder.use ::FaradayMiddleware::ParseXml,  :content_type => /\bxml$/
+          builder.use ::FaradayMiddleware::ParseJson, :content_type => /\bjson$/
 
-            builder.use :gzip
-            builder.adapter Faraday.default_adapter
-          end
+          builder.use :gzip
+          builder.adapter Cb.configuration.faraday_adapter
+        end
       end
 
       def cb_get(path, options = {}, &block)
@@ -65,14 +51,15 @@ module Cb
 
       def timed_http_request(http_method, uri, path, options = {}, &block)
         response = execute_http_request(http_method, uri, path, options)
+        binding.pry
         response.body
       end
 
       def execute_http_request(http_method, uri, path, options = {})
         request = @connection.build_request(http_method) do |req|
-          req.url(path) if path
+          req.url(path)
           req.headers.update(options[:headers]) if options.include? :headers
-          req.body = body if options.include? :body
+          req.body = options[:body] if options.include? :body
           req.params = query_params(options[:query])
         end
         @connection.builder.build_response(@connection, request)
@@ -129,11 +116,26 @@ module Cb
 
       private
 
-      def query_params(params=nil)
+      def query_params(params={})
         {
           'developerkey' => Cb.configuration.dev_key,
           'output-json' => Cb.configuration.use_json.to_s
-        }.merge! params
+        }.merge! params.to_h
+      end
+
+      def connection_options
+        {
+          request: {
+            timeout: Cb.configuration.time_out,
+            open_timeout: Cb.configuration.time_out
+          }
+        }
+      end
+
+      def observers
+        observers = Cb.configuration.observers
+        observers << Cb::Utils::ConsoleObserver.new if Cb.configuration.debug_api && !Cb.configuration.observers.include?(Cb::Utils::ConsoleObserver)
+        observers
       end
 
       def ensure_non_nil_metavalues(obj)

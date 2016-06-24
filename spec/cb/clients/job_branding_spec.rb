@@ -19,7 +19,7 @@ module Cb
           CompanyInfo: { Buttons: nil, Container: nil, Content: nil, Headings: nil } } } }
 
         stub_request(:get, uri_stem(Cb.configuration.uri_job_branding))
-          .to_return(body: content.to_json)
+          .to_return(body: content.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should return valid job branding schema' do

@@ -16,7 +16,7 @@ module Cb
     describe '#find_by_criteria' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_job_find))
-          .to_return(body: { ResponseJob: { Job: {} } }.to_json)
+          .to_return(body: { ResponseJob: { Job: {} } }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       let(:criteria) { Cb::Criteria::Job::Details.new }

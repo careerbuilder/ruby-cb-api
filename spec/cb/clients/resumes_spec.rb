@@ -27,7 +27,7 @@ module Cb
       let(:stub) do
         stub_request(:get, uri).
           with(headers: headers).
-          to_return(status: 200, body: api_response.to_json)
+          to_return(status: 200, body: api_response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       subject { Cb::Clients::Resumes.get(oauth_token: 'token') }

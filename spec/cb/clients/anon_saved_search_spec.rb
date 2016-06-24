@@ -31,7 +31,7 @@ module Cb
       def stub_api_request
         stub_request(:post, uri_stem(Cb.configuration.uri_anon_saved_search_create))
           .with(body: anything)
-          .to_return(body: @response_body.to_json)
+          .to_return(body: @response_body.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       context 'when everything is working smoothly' do
@@ -64,7 +64,7 @@ module Cb
         def stub_api_request
           stub_request(:post, uri_stem(Cb.configuration.uri_anon_saved_search_delete.to_s))
             .with(body: anything)
-            .to_return(body: { 'Errors' => '', 'Status' => 'Success' }.to_json)
+            .to_return(body: { 'Errors' => '', 'Status' => 'Success' }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
         end
 
         before :each do

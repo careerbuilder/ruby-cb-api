@@ -21,7 +21,7 @@ module Cb
 
       def stub_api_call_to_return(body_content)
         stub_request(:post, uri_stem(Cb.configuration.uri_application_external)).with(body: anything)
-          .to_return(body: body_content.to_json)
+          .to_return(body: body_content.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       def submit_app(app)

@@ -46,7 +46,7 @@ module Cb
     context '.for_job' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_job))
-          .to_return(body: { ResponseRecommendJob: { Request: {}, RecommendJobResults: { RecommendJobResult: api_job_result_collection } } }.to_json)
+          .to_return(body: { ResponseRecommendJob: { Request: {}, RecommendJobResults: { RecommendJobResult: api_job_result_collection } } }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       include_context :for_job
@@ -81,7 +81,7 @@ module Cb
     context '.for_user' do
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_user))
-          .to_return(body: { ResponseRecommendUser: { Request: {}, RecommendJobResults: { RecommendJobResult: api_job_result_collection } } }.to_json)
+          .to_return(body: { ResponseRecommendUser: { Request: {}, RecommendJobResults: { RecommendJobResult: api_job_result_collection } } }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       include_context :for_user
@@ -96,7 +96,7 @@ module Cb
     context '.for_company' do
       before do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
-          .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: api_job_result_collection } } } }.to_json)
+          .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: api_job_result_collection } } } }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it_behaves_like :for_company
@@ -105,7 +105,7 @@ module Cb
     context '.for_company when CompanyJob is not an array' do
       before do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
-            .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: Hash.new } } } }.to_json)
+            .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: Hash.new } } } }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it_behaves_like :for_company
@@ -114,7 +114,7 @@ module Cb
     context '.for_company when CompanyJob is nil' do
       before do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
-            .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: nil } } } }.to_json)
+            .to_return(body: { Results: { JobRecommendation: { Jobs: { CompanyJob: nil } } } }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should get not have any recommendations' do
@@ -129,7 +129,7 @@ module Cb
     context '.for_company without results' do
       before do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
-          .to_return(body: '')
+          .to_return(body: '', headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it do
@@ -142,7 +142,7 @@ module Cb
     context '.for_company with nil Jobs' do
       before do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_company))
-            .to_return(body: { Results: { JobRecommendation: { Jobs: nil  } } }.to_json)
+            .to_return(body: { Results: { JobRecommendation: { Jobs: nil  } } }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should return []' do

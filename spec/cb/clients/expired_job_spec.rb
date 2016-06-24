@@ -13,12 +13,12 @@ require 'spec_helper'
 module Cb
   describe Cb::Clients::ExpiredJob do
     include_context :stub_api_following_standards
- 
+
     let(:uri) { "https://api.careerbuilder.com/v1/job/expired?JobDID=blah&developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
     let(:stub) do
       stub_request(:get, uri).
         with(headers: headers).
-        to_return(status: 200, body: api_response.to_json)
+        to_return(status: 200, body: api_response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
     subject { Cb::Clients::ExpiredJob.get(job_did: 'blah', oauth_token: 'token') }
@@ -29,7 +29,7 @@ module Cb
     end
 
     describe '#get' do
-  
+
       context 'Job DID is expired' do
         let(:api_response) { JSON.parse File.read('spec/support/response_stubs/expired_job.json') }
 
@@ -43,7 +43,7 @@ module Cb
         it { expect(stub).to have_been_requested }
         it { is_expected.to eq api_response }
       end
- 
+
       context 'Job DID is not valid' do
         let(:api_response) { JSON.parse File.read('spec/support/response_stubs/invalid_job.json') }
 

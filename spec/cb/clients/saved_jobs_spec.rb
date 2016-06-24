@@ -32,7 +32,7 @@ module Cb
         it 'performs a put with a saved-job in json format' do
           stub = stub_request(:put, uri)
           .with(body: post_data.to_json, headers: headers)
-          .to_return(status: 200, body: response.to_json)
+          .to_return(status: 200, body: response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
           response = Cb::Clients::SavedJobs.create(job_id: 'J1234567891234567890', notes: 'these are my notes', oauth_token: 'token')
           expect_api_to_succeed_and_return_model(response, stub)
         end
@@ -43,7 +43,7 @@ module Cb
         it 'returns the error hash' do
           stub = stub_request(:put, uri)
           .with(body: post_data.to_json, headers: headers)
-          .to_return(status: 500, body: error_response.to_json)
+          .to_return(status: 500, body: error_response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
           begin
             Cb::Clients::SavedJobs.create(job_id: 'J1234567891234567890', notes: 'these are my notes', oauth_token: 'token')
             expect(false).to eq(true)
@@ -61,7 +61,7 @@ module Cb
         it 'performs a get and returns the results hash' do
           stub = stub_request(:get, uri)
           .with(headers: headers)
-          .to_return(status: 200, body: response.to_json)
+          .to_return(status: 200, body: response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
 
           response = Cb::Clients::SavedJobs.get(oauth_token: 'token')
           expect_api_to_succeed_and_return_model(response, stub)
@@ -74,7 +74,7 @@ module Cb
         it 'performs a get and returns the coverletter asked for' do
           stub = stub_request(:get, uri)
           .with(headers: headers)
-          .to_return(status: 200, body: response.to_json)
+          .to_return(status: 200, body: response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
 
           response = Cb::Clients::SavedJobs.get(id: 'id', oauth_token: 'token')
           expect_api_to_succeed_and_return_model(response, stub)
@@ -87,7 +87,7 @@ module Cb
         it 'returns the error hash' do
           stub = stub_request(:get, uri)
                  .with(headers: headers)
-                 .to_return(status: 404, body: error_response.to_json)
+                 .to_return(status: 404, body: error_response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
           begin
             Cb::Clients::SavedJobs.get(id: 'id', oauth_token: 'token')
             expect(false).to eq(true)
@@ -107,7 +107,7 @@ module Cb
         it 'performs a get and returns the coverletter asked for' do
           stub = stub_request(:delete, uri)
           .with(headers: headers)
-          .to_return(status: 200, body: response.to_json)
+          .to_return(status: 200, body: response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
 
           response = Cb::Clients::SavedJobs.delete(id: 'id', oauth_token: 'token')
           expect_api_to_succeed_and_return_model(response, stub)
@@ -120,7 +120,7 @@ module Cb
         it 'returns the error hash' do
           stub = stub_request(:delete, uri)
           .with(headers: headers)
-          .to_return(status: 500, body: error_response.to_json)
+          .to_return(status: 500, body: error_response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
 
           begin
             Cb::Clients::SavedJobs.delete(id: 'id', oauth_token: 'token')
@@ -140,7 +140,7 @@ module Cb
         it 'performs a post and returns the updated coverletter asked for' do
           stub = stub_request(:post, uri)
           .with(body: post_data.to_json, headers: headers)
-          .to_return(status: 200, body: response.to_json)
+          .to_return(status: 200, body: response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
 
           response = Cb::Clients::SavedJobs.update(id: 'id', notes: 'notes', oauth_token: 'token')
           expect_api_to_succeed_and_return_model(response, stub)
@@ -153,7 +153,7 @@ module Cb
         it 'returns the error hash' do
           stub = stub_request(:post, uri)
           .with(body: post_data.to_json, headers: headers)
-          .to_return(status: 500, body: error_response.to_json)
+          .to_return(status: 500, body: error_response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
           begin
             Cb::Clients::SavedJobs.update(id: 'id', notes: 'notes', oauth_token: 'token')
             expect(false).to eq(true)

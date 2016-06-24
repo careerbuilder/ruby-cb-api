@@ -22,7 +22,7 @@ module Cb
         it 'performs a get and returns the job report asked for' do
           stub = stub_request(:get, uri).
               with(:headers => headers).
-              to_return(:status => 200, :body => response.to_json)
+              to_return(:status => 200, :body => response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
 
           response = Cb::Clients::JobInsights.get(id: 'id', oauth_token: 'token')
           expect_api_to_succeed_and_return_model(response, stub)
@@ -35,7 +35,7 @@ module Cb
         it 'returns the error hash' do
           stub = stub_request(:get, uri).
               with(:headers => headers).
-              to_return(:status => 404, :body => error_response.to_json)
+              to_return(:status => 404, :body => error_response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
           begin
             Cb::Clients::JobInsights.get(id: 'id', oauth_token: 'token')
             expect(false).to eq(true)

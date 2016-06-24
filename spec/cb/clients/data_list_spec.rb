@@ -25,7 +25,7 @@ module Cb
     end
     let(:uri) { 'https://api.careerbuilder.com/consumer/datalist/countries?countrycode=US&developerkey=mydevkey&outputjson=true' }
     let(:data) { [JSON.parse( File.read('spec/support/response_stubs/data_list_countries.json'))] }
-    let(:stub) { stub_request(:get, uri).with(headers: headers).to_return(status: 200, body: response.to_json) }
+    let(:stub) { stub_request(:get, uri).with(headers: headers).to_return(status: 200, body: response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"}) }
     subject { Cb::Clients::DataList.get(oauth_token: 'token', country_code: 'US', list: 'countries') }
 
     before do
