@@ -74,7 +74,6 @@ module Cb
 
         resp.each do |api_key, api_value|
           meta_name = format_hash_key(api_key)
-          binding.pry
           unless meta_name.empty?
             if meta_name == 'errors' && api_value.is_a?(Hash)
               api_value = api_value.values
@@ -157,8 +156,14 @@ module Cb
       end
 
       def format_hash_key(api_hash_key)
-        return '' unless api_hash_key.respond_to?(:snakecase)
-        api_hash_key.snakecase
+        snake_case(api_hash_key)
+      end
+
+      def snake_case(input)
+        return input.downcase if input.match(/\A[A-Z]+\z/)
+        input.gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2').
+        gsub(/([a-z])([A-Z])/, '\1_\2').
+        downcase
       end
 
       def base_uri
