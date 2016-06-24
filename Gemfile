@@ -7,5 +7,7 @@ group :test do
   gem 'dotenv', '~> 0.10.0'
 end
 
+gem 'pry-byebug'
+
 gemspec
 

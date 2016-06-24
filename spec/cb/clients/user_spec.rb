@@ -15,7 +15,7 @@ module Cb
     describe '#temporary_password' do
       before do
         stub_request(:get, uri_stem(Cb.configuration.uri_user_temp_password))
-          .to_return(body: { Errors: [], TemporaryPassword: 'hotdogs!' }.to_json)
+          .to_return(body: { Errors: [], TemporaryPassword: 'hotdogs!' }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'requires a single param (external id)' do
@@ -44,7 +44,7 @@ module Cb
       end
 
       before do
-        stub_request(:post, uri_stem(Cb.configuration.uri_user_check_existing)).to_return(body: body.to_json)
+        stub_request(:post, uri_stem(Cb.configuration.uri_user_check_existing)).to_return(body: body.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       context 'positive tests' do
@@ -135,11 +135,12 @@ module Cb
       before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_user_retrieve))
           .with(body: anything)
-          .to_return(body: { ResponseUserInfo: { Errors: nil, Status: 'Success (Test)', UserInfo: {} } }.to_json)
+          .to_return(body: { ResponseUserInfo: { Errors: nil, Status: 'Success (Test)', UserInfo: {} } }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should retrieve a user' do
         user = Cb.user.retrieve 'XRHP5HT66R55L6RVP6R9', true
+        binding.pry
         expect(user.cb_response.errors.nil?).to be true
         expect(user.cb_response.status).to be == 'Success (Test)'
         expect(user.nil?).to be false
@@ -151,7 +152,7 @@ module Cb
       before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_user_delete))
           .with(body: anything)
-          .to_return(body: { ResponseUserDelete: { Request: {}, Status: 'Success (Test)' } }.to_json)
+          .to_return(body: { ResponseUserDelete: { Request: {}, Status: 'Success (Test)' } }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should delete a user', vcr: { cassette_name: 'user/delete/success' } do

@@ -51,7 +51,7 @@ module Cb
 
       def timed_http_request(http_method, uri, path, options = {}, &block)
         response = execute_http_request(http_method, uri, path, options)
-        binding.pry
+        set_api_error(response.body)
         response.body
       end
 
@@ -74,6 +74,7 @@ module Cb
 
         resp.each do |api_key, api_value|
           meta_name = format_hash_key(api_key)
+          binding.pry
           unless meta_name.empty?
             if meta_name == 'errors' && api_value.is_a?(Hash)
               api_value = api_value.values

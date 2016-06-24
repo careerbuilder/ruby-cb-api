@@ -14,16 +14,20 @@ module Middleware
     private
 
     def fail_with_error_details(response, error_type)
-      # processed_response = process_response_body(response)
-      error = error_type.new()
-      error.code = response_env[:status] rescue nil
-      # error.raw_response = response
-      # error.response = processed_response
+      processed_response = response.body
+      error = error_type.new(error_message(processed_response))
+      error.code = response.status rescue nil
+      error.raw_response = response
+      error.response = processed_response
       fail error
     end
 
     def simulate_auth_outage?
       ENV['SIMULATE_AUTH_OUTAGE'].to_s.downcase == 'true'
+    end
+
+    def error_message(processed_response)
+      processed_response.fetch('errors', processed_response.fetch('Errors', ''))
     end
   end
 end
