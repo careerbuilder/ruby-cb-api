@@ -17,7 +17,7 @@ module Cb
     let(:headers) do
       {
           'Accept'=>'application/json;version=2.0',
-          'Accept-Encoding'=>'deflate, gzip',
+          'Accept-Encoding'=>'gzip,deflate',
           'Authorization'=>'Bearer token',
           'Content-Type' => 'application/json',
           'Developerkey'=> Cb.configuration.dev_key

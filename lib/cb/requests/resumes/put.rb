@@ -48,7 +48,7 @@ module Cb
         private
 
         def extract_work_experience
-          return [] if args[:work_experience].blank?
+          return [] if args[:work_experience].empty?
           args[:work_experience].collect do |experience|
             {
               jobTitle: experience[:job_title],
@@ -64,7 +64,7 @@ module Cb
 
         def extract_salary_information
           salary = args[:salary_information]
-          return {} if salary.blank?
+          return {} if salary.empty?
           {
             mostRecentPayAmount: salary[:most_recent_pay_amount],
             perHourOrPerYear: salary[:per_hour_or_per_year],
@@ -76,7 +76,7 @@ module Cb
         end
 
         def extract_educations
-          return [] if args[:educations].blank?
+          return [] if args[:educations].empty?
           args[:educations].collect do |education|
             {
               schoolName: education[:school_name],
@@ -89,7 +89,7 @@ module Cb
 
         def extract_skills_and_qualifications
           skills = args[:skills_and_qualifications]
-          return {} if skills.blank?
+          return {} if skills.empty?
           {
             accreditationsAndCertifications: skills[:accreditations_and_certifications],
             languagesSpoken: skills[:languages_spoken],
@@ -111,7 +111,7 @@ module Cb
 
         def extract_government_and_military
           government = args[:government_and_military]
-          return {} if government.blank?
+          return {} if government.empty?
           {
             hasSecurityClearance: government[:has_security_clearance],
             militaryExperience: government[:military_experience]

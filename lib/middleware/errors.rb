@@ -1,3 +1,5 @@
+require 'faraday'
+
 module Middleware
   class Errors < Faraday::Middleware
     def call(request_env)

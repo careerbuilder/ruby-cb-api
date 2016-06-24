@@ -53,7 +53,7 @@ module Cb
         {
           'developerkey' => Cb.configuration.dev_key,
           'Content-Type' => 'application/json',
-          'HostSite' => (host_site.blank? ? Cb.configuration.host_site : host_site)
+          'HostSite' => (host_site.empty? ? Cb.configuration.host_site : host_site)
         }
       end
 

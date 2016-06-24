@@ -18,7 +18,7 @@ shared_context :stub_api_following_standards do
   let(:headers) do
     {
         'Accept'=>'application/json',
-        'Accept-Encoding'=>'deflate, gzip',
+        'Accept-Encoding'=>'gzip,deflate',
         'Authorization'=>'Bearer token',
         'Content-Type' => 'application/json',
         'Developerkey'=> Cb.configuration.dev_key

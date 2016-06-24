@@ -21,7 +21,7 @@ module Cb
       it 'performs a get and returns the job report asked for' do
         stub = stub_request(:get, uri).
             with(:headers => headers).
-            to_return(:status => 200, :body => response.to_json)
+            to_return(:status => 200, :body => response.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
 
         response = Cb::Clients::UserProfile.get(oauth_token: 'token')
         expect_api_to_succeed_and_return_model(response, stub)

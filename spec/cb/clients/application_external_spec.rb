@@ -62,7 +62,7 @@ module Cb
         context 'when posting to the API' do
           it 'posts the application as xml' do
             stub_request(:post, uri_stem(Cb.configuration.uri_application_external))
-                .with(body: external_app.to_xml)
+                .with(body: external_app.to_xml).to_return(headers: { 'content-type' => "application/json;charset=UTF-8"})
             submit_app(external_app)
           end
         end

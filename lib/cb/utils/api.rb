@@ -12,6 +12,7 @@ require 'faraday'
 require 'faraday_middleware'
 require 'middleware/errors'
 require 'middleware/timing'
+require 'middleware/developerkey'
 require 'observer'
 
 module Cb
@@ -24,7 +25,10 @@ module Cb
       def initialize
         @connection = Faraday.new base_uri, connection_options do |builder|
           builder.use(Middleware::Timing, { observers: observers })
-          builder.use Middleware::Errors
+          builder.response :cb_errors
+          builder.response :default_response
+          builder.request :cb_devkey
+
           builder.use ::FaradayMiddleware::ParseXml,  :content_type => /\bxml$/
           builder.use ::FaradayMiddleware::ParseJson, :content_type => /\bjson$/
 
@@ -56,13 +60,17 @@ module Cb
       end
 
       def execute_http_request(http_method, uri, path, options = {})
+        (original_url, @connection.url_prefix) = @connection.url_prefix, uri if uri
+        @connection.url_prefix = uri if uri
         request = @connection.build_request(http_method) do |req|
           req.url(path)
           req.headers.update(options[:headers]) if options.include? :headers
           req.body = options[:body] if options.include? :body
           req.params = query_params(options[:query])
         end
-        @connection.builder.build_response(@connection, request)
+        response = @connection.builder.build_response(@connection, request)
+        @connection.url_prefix = original_url if uri
+        response
       end
 
       def append_api_responses(obj, resp)
@@ -119,7 +127,7 @@ module Cb
       def query_params(params={})
         {
           'developerkey' => Cb.configuration.dev_key,
-          'output-json' => Cb.configuration.use_json.to_s
+          'outputjson' => Cb.configuration.use_json.to_s
         }.merge! params.to_h
       end
 

@@ -81,7 +81,7 @@ module Cb
       context 'with results' do
         before do
           stub_request(:get, uri_stem(Cb.configuration.uri_saved_search_list))
-            .to_return(body: Mocks::SavedSearch.list.to_json)
+            .to_return(body: Mocks::SavedSearch.list.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
         end
 
         it 'should return an array of saved searches' do
@@ -126,7 +126,7 @@ module Cb
              }],
             'Errors' => [],
             'Timestamp' => '2014-03-25T15:29:27.8361791-04:00',
-            'Status' => 'YEY' }.to_json)
+            'Status' => 'YEY' }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 
       it 'should return a saved search model' do
@@ -138,7 +138,7 @@ module Cb
     context '.delete' do
       before :each do
         stub_request(:delete, 'https://api.careerbuilder.com/cbapi/savedsearches/xid?UserOAuthToken=oauth&developerkey=mydevkey&outputjson=true')
-          .with(headers: { 'Accept-Encoding' => 'deflate, gzip', 'Developerkey' => 'mydevkey', 'Hostsite' => 'host site' })
+          .with(headers: { 'Accept-Encoding' => 'gzip,deflate', 'Developerkey' => 'mydevkey', 'Hostsite' => 'host site' })
           .to_return(body: { Errors: nil, Status: 'Success' }.to_json, headers: { 'content-type' => "application/json;charset=UTF-8"})
       end
 

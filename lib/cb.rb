@@ -14,6 +14,10 @@ require 'cb/models/implementations/branding/styles/css_adapter'
 require 'cb/exceptions'
 require 'cb/convenience'
 require 'cb/client'
+require 'middleware/errors'
+require 'middleware/timing'
+require 'middleware/developerkey'
+require 'middleware/default_response'
 
 def require_directory(relative_path)
   Dir[File.dirname(__FILE__) + relative_path].each { |file| require file }
@@ -34,4 +38,8 @@ module Cb
     @configuration ||= Cb::Config.new
     @configuration
   end
+
+  Faraday::Response.register_middleware cb_errors: Middleware::Errors
+  Faraday::Response.register_middleware default_response: Middleware::DefaultResponse
+  Faraday::Request.register_middleware cb_devkey: Middleware::Developerkey
 end
