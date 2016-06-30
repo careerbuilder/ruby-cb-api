@@ -25,7 +25,8 @@ module Cb
                     :can_be_quick_applied, :apply_requirements,
                     :divison, :industry, :location_street_1, :relocation_options, :location_street_2, :display_job_id,
                     :manages_others_string,
-                    :degree_required_code, :travel_required_code, :employment_type_code, :experience_required_code
+                    :degree_required_code, :travel_required_code, :employment_type_code, :experience_required_code,
+                    :jc_custom_fields
 
       attr_writer :external_application, :is_screener_apply,
                   :is_shared_job,
@@ -180,6 +181,8 @@ module Cb
         @city                         = args['LocationCity'] || ''
         @zip                          = args['LocationPostalCode'] || ''
         @posting_date                 = args['PostingDate'] || ''
+
+        @jc_custom_fields             = args['JCCustomField'] || ''
 
         @company_name            = figure_out_company_info(args['Company'], args['Company'], 'CompanyName')
         @company_details_url     = figure_out_company_info(args['CompanyDetailsURL'], args['Company'], 'CompanyDetailsURL')
