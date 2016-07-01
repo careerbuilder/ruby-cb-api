@@ -56,6 +56,23 @@ module Cb::Models
             it { is_expected.to eq '' }
           end
         end
+
+        describe '#jc_custom_fields' do
+          subject { Job.new(job_hash).jc_custom_fields }
+          context 'JCCustomField provided' do
+            let(:job_hash) do
+              { 'JCCustomField' => 'EAAgentNumber:04C4294;EAAgencyNumber:R1655352' }
+            end
+            it { is_expected.to eq 'EAAgentNumber:04C4294;EAAgencyNumber:R1655352' }
+          end
+
+          context 'JCCustomField not provided' do
+            let(:job_hash) do
+              { }
+            end
+            it { is_expected.to eq '' }
+          end
+        end
       end
     end
 
