@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 21.4.1 Update test for Ruby 2.3.1. `ArgumentError`'s error message changed from "wrong number of arguments (0 for 1)" to "wrong number of arguments (given 0, expected 1)" in Ruby 2.3.0.
 * 21.4.0 Add jc_custom_fields to Cb::Models::Job
 * 21.3.5 Add begin_date_time and end_date_time to Cb::Models::Job
 * 21.3.4 Code cleanup - no change in functionality
