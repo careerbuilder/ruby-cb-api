@@ -1,4 +1,4 @@
-# Copyright 2015 CareerBuilder, LLC
+# Copyright 2016 CareerBuilder, LLC
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -20,7 +20,9 @@ module Cb
 
       it 'requires a single param (external id)' do
         expect { Cb.user.temporary_password }.to raise_error(ArgumentError) do |arg_error|
-          expect(arg_error.message).to eq 'wrong number of arguments (0 for 1)'
+          # Ruby < 2.3.0 - "wrong number of arguments (0 for 1)"
+          # Ruby >= 2.3.0 - "wrong number of arguments (given 0, expected 1)"
+          expect(arg_error.message).to match /wrong number of arguments \((0 for 1|given 0, expected 1)\)/
         end
       end
 
