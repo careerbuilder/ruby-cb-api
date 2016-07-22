@@ -16,8 +16,7 @@ module Cb
       class << self
         def find_by_criteria(criteria)
           query = cb_client.class.criteria_to_hash(criteria)
-          json_response = cb_client.cb_get(Cb.configuration.uri_job_find, query: query)
-          Responses::Job::Singular.new(json_response)
+          cb_client.cb_get(Cb.configuration.uri_job_find, query: query)
         end
 
         def find_by_did(did)
