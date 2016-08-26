@@ -108,7 +108,11 @@ module Cb
         # Job Skin Related
         @job_skin                     = args.key?('JobSkin') && !args['JobSkin'].nil? ? args['JobSkin']['#cdata-section'] : ''
         @job_skin_did                 = args['JobSkinDID'] || ''
-        @job_branding                 = @job_skin_did.empty? ? '' : Cb.job_branding.find_by_id(job_skin_did)
+        begin
+          @job_branding                 = @job_skin_did.empty? ? '' : Cb.job_branding.find_by_id(job_skin_did)
+        rescue Cb::BadRequestError
+          @job_branding                 = ''
+        end
         @job_tracking_url             = args['JobTrackingURL'] || ''
         @display_job_id               = args['DisplayJobID'] || ''
 
