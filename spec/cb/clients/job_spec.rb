@@ -22,14 +22,8 @@ module Cb
       let(:criteria) { Cb::Criteria::Job::Details.new }
 
       context 'when a criteria object is the input param' do
-        it 'returns a single job model' do
-          response = Cb::Clients::Job.find_by_criteria(criteria)
-          expect(response.model).to be_an_instance_of Cb::Models::Job
-        end
-
-        it 'returns a single job model' do
-          response = Cb::Clients::Job.find_by_criteria(criteria)
-          expect(response.model).to be_an_instance_of Cb::Models::Job
+        it 'returns a hash' do
+          expect(response.model).to be_a Hash
         end
       end
     end
