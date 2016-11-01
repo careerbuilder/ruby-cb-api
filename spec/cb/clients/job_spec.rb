@@ -23,7 +23,8 @@ module Cb
 
       context 'when a criteria object is the input param' do
         it 'returns a hash' do
-          expect(response.model).to be_a Hash
+          response = Cb::Clients::Job.find_by_criteria(criteria)
+          expect(response).to be_a Hash
         end
       end
     end
