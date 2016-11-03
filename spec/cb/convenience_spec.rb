@@ -40,12 +40,6 @@ module Cb
       end
     end
 
-    describe '#job_detail_criteria' do
-      it 'returns an instance of the job search criteria class' do
-        expect_method_to_return_type_of_class(:job_details_criteria, Cb::Criteria::Job::Details)
-      end
-    end
-
     describe '#browser_id' do
       it 'returns the browser id api client class' do
         expect_method_to_return_class(:browser_id, Cb::Clients::BrowserID)
