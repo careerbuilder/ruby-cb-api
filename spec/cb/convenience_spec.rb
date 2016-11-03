@@ -81,6 +81,12 @@ module Cb
         expect_method_to_return_class(:resume_insights, Cb::Clients::ResumeInsights)
       end
     end
+    
+    describe '#saved_jobs' do
+      it 'returns the saved jobs api client class' do
+        expect_method_to_return_class(:saved_jobs, Cb::Clients::SavedJobs)
+      end
+    end
 
     describe '#resumes' do
       it { expect_method_to_return_class(:resumes, Cb::Clients::Resumes) }
