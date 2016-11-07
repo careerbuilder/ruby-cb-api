@@ -11,11 +11,27 @@
 require 'spec_helper'
 
 describe Cb::Utils::Api do
+  let(:api_util) { Cb::Utils:: Api }
+  
   context '#initialize' do
     it 'sets default gzip headers' do
-      client = Cb::Utils::Api.new
+      client = api_util.new
       expect(client.class.headers).to have_key('accept-encoding')
       expect(client.class.headers['accept-encoding']).to eq('deflate, gzip')
     end
+  end
+  
+  context '#criteria_to_hash' do
+    let(:criteria) { Cb::Criteria::User::ChangePassword.new({ external_id: 'something', old_password: 'old', new_password: 'new', test: 'true' }) }
+    let(:hash) { { 'ExternalId' => 'something', 'OldPassword' => 'old', 'NewPassword' => 'new', 'Test' => 'true' } }
+
+    it{ expect(api_util.criteria_to_hash(criteria)).to include(hash) }
+  end
+  
+  context '#camelize' do
+    let(:input) { 'external_id' }
+    let(:output) { 'ExternalId' }
+    
+    it{ expect(api_util.camelize(input)).to eql(output) }
   end
 end
