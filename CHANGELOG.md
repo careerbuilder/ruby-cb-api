@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 22.1.0 Headers can be set on api instantiation.
 * 22.0.0 Return a hash from Job rather than a model
 * 21.4.2 Catch branding exceptions so that we don't blow up the job details call.  The side effect of a second API call is silly anyway
 * 21.4.1 Update test for Ruby 2.3.1. `ArgumentError`'s error message changed from "wrong number of arguments (0 for 1)" to "wrong number of arguments (given 0, expected 1)" in Ruby 2.3.0.
