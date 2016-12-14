@@ -15,7 +15,7 @@ module Cb
       class << self
         def get(args={})
           response = cb_client.cb_get(Cb.configuration.uri_job_find, query: args)
-          Errors.new(response)
+          Cb::Responses::Errors.new(response)
           response
         end
       end
