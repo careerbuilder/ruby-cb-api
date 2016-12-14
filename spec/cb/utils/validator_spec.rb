@@ -112,6 +112,16 @@ module Cb
           end
         end
       end
+
+      context 'when the errors node is inside ResponseUserCreate' do
+        let(:response_body)  { '{"ResponseUserCreate":{ "Errors" : "Everything broke" }}' }
+
+        it 'sets the error message to the value of the errors node' do
+          expect { validation }.to raise_error do |error|
+            expect(error.message).to eq 'Everything broke'
+          end
+        end
+      end
     end
 
     context 'when there are json parsing errors' do

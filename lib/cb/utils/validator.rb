@@ -65,7 +65,7 @@ module Cb
       end
 
       def error_message(processed_response)
-        processed_response.fetch('errors', processed_response.fetch('Errors', ''))
+        processed_response.fetch('errors', processed_response.fetch('Errors', processed_response.dig("ResponseUserCreate", "Errors") || ''))
       end
     end
   end
