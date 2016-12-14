@@ -18,8 +18,8 @@ module Cb
 
       base_uri 'https://api.careerbuilder.com'
 
-      def self.instance
-        api = Cb::Utils::Api.new
+      def self.instance(headers: {})
+        api = Cb::Utils::Api.new(headers: headers)
         Cb.configuration.observers.each do |class_name|
           api.add_observer(class_name.new)
         end
@@ -29,13 +29,14 @@ module Cb
         api
       end
 
-      def initialize
+      def initialize(headers: {})
         self.class.default_params developerkey: Cb.configuration.dev_key,
                                   outputjson: Cb.configuration.use_json.to_s
 
         self.class.default_timeout Cb.configuration.time_out
         self.class.headers.merge! ({ 'developerkey' => Cb.configuration.dev_key })
         self.class.headers.merge! ({ 'accept-encoding' => 'deflate, gzip' }) unless Cb.configuration.debug_api
+        self.class.headers.merge! headers
       end
 
       def cb_get(path, options = {}, &block)
