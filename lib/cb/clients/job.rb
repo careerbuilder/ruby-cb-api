@@ -14,7 +14,9 @@ module Cb
     class Job < Base
       class << self
         def get(args={})
-          cb_client.cb_get(Cb.configuration.uri_job_find, query: args)
+          response = cb_client.cb_get(Cb.configuration.uri_job_find, query: args)
+          Errors.new(response)
+          response
         end
       end
     end
