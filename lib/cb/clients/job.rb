@@ -15,7 +15,7 @@ module Cb
       class << self
         def get(args={})
           response = cb_client.cb_get(Cb.configuration.uri_job_find, query: args)
-          Cb::Responses::Errors.new(response)
+          Cb::Responses::Errors.new(response.fetch('ResponseJob')) unless response.nil?
           response
         end
       end
