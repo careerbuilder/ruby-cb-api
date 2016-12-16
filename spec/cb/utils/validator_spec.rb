@@ -114,11 +114,11 @@ module Cb
       end
 
       context 'when the errors node is inside ResponseUserCreate' do
-        let(:response_body)  { '{"ResponseUserCreate":{ "Errors" : "Everything broke" }}' }
+        let(:response_body)  { '{ "ResponseUserCreate": { "Errors":{"Error": "Everything Broke" }} }' }
 
         it 'sets the error message to the value of the errors node' do
           expect { validation }.to raise_error do |error|
-            expect(error.message).to eq 'Everything broke'
+            expect(error.message).to eq "{\"Error\"=>\"Everything Broke\"}"
           end
         end
       end
