@@ -65,7 +65,6 @@ module Cb
       end
 
       def error_message(processed_response)
-        binding.pry
         processed_response.fetch('errors', processed_response.fetch('Errors', processed_response.dig(processed_response.keys.first, "Errors") || ''))
       end
     end
