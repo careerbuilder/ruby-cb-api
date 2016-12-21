@@ -65,7 +65,12 @@ module Cb
       end
 
       def error_message(processed_response)
-        processed_response.fetch('errors', processed_response.fetch('Errors', processed_response.dig(processed_response.keys.first, "Errors") || ''))
+        if processed_response.keys.count > 1
+          processed_response['errors'] || processed_response['Errors'] || ''
+        else
+          nested_response = processed_response[processed_response.keys.first]
+          nested_response['errors'] || nested_response['Errors'] || ''
+        end
       end
     end
   end
