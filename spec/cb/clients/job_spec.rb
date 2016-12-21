@@ -14,7 +14,7 @@ module Cb
   describe Cb::Clients::Job do
 
     describe '#get' do
-      let(:response) { { ResponseJob: inner_nodes}.to_json }
+      let(:response) { { ResponseJob: inner_nodes }.to_json }
       let(:inner_nodes) { { Job: {} } }
 
       before :each do

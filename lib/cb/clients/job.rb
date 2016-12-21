@@ -23,7 +23,7 @@ module Cb
         
         def not_found_check(response)
           return if response.nil?
-          errors = Cb::Responses::Errors.new(response.fetch('ResponseJob'), false).parsed.join(',')
+          errors = Cb::Responses::Errors.new(response['ResponseJob'], false).parsed.join
           raise Cb::DocumentNotFoundError, errors if errors.downcase.include? 'job was not found'
         end
       end
