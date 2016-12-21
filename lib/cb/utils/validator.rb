@@ -74,7 +74,7 @@ module Cb
       end
 
       def errors_node_next_level(processed_response)
-        processed_response['errors'] || processed_response['Errors']
+        processed_response&.[]('errors') || processed_response&.[]('Errors')
       end
     end
   end
