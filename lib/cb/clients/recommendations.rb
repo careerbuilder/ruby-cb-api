@@ -22,9 +22,9 @@ module Cb
 
           {
             jobs: create_jobs(json_hash, 'Job'),
-            request: json_hash.dig('ResponseRecommendJob', 'Request'),
-            recid: json_hash.dig('ResponseRecommendJob', 'Request', 'RequestEvidenceID'),
-            errors: json_hash.dig('ResponseRecommendJob', 'Errors')
+            request: json_hash['ResponseRecommendJob']['Request'],
+            recid: json_hash['ResponseRecommendJob']['Request']['RequestEvidenceID'],
+            errors: json_hash['ResponseRecommendJob']['Errors']
           }
         end
 
@@ -36,9 +36,9 @@ module Cb
 
           {
             jobs: create_jobs(json_hash, 'User'),
-            request: json_hash.dig('ResponseRecommendUser', 'Request'),
-            recid: json_hash.dig('ResponseRecommendUser', 'Request', 'RequestEvidenceID'),
-            errors: json_hash.dig('ResponseRecommendUser', 'Errors')
+            request: json_hash['ResponseRecommendUser']['Request'],
+            recid: json_hash['ResponseRecommendUser']['Request']['RequestEvidenceID'],
+            errors: json_hash['ResponseRecommendUser']['Errors']
           }
         end
 
