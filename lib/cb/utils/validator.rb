@@ -32,11 +32,12 @@ module Cb
 
       def fail_with_error_details(response, error_type)
         processed_response = process_response_body(response)
+        raise error_type unless processed_response
         error = error_type.new(error_message(processed_response))
         error.code = response.code rescue nil
         error.raw_response = response
         error.response = processed_response
-        fail error
+        raise error
       end
 
       def simulate_auth_outage?
@@ -65,16 +66,12 @@ module Cb
       end
 
       def error_message(processed_response)
-        if errors_node_next_level(processed_response)
-          errors_node_next_level(processed_response) || ''
-        else
-          nested_response = processed_response[processed_response.keys.first]
-          errors_node_next_level(nested_response) || ''
-        end
+        find_errors_node(processed_response) || ''
       end
 
-      def errors_node_next_level(processed_response)
-        processed_response&.[]('errors') || processed_response&.[]('Errors')
+      def find_errors_node(processed_response)
+        nested_hash = processed_response[processed_response.keys.first]
+        processed_response['errors'] || processed_response['Errors'] || nested_hash['errors'] || nested_hash['Errors']
       end
     end
   end
