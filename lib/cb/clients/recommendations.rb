@@ -62,13 +62,9 @@ module Cb
         end
 
         def create_jobs(json_hash, type)
-          jobs = []
-
-          [json_hash["ResponseRecommend#{type}"]['RecommendJobResults']['RecommendJobResult']].flatten.each do |api_job|
-            jobs << Models::Job.new(api_job)
+          [json_hash["ResponseRecommend#{type}"]['RecommendJobResults']['RecommendJobResult']].flatten.map do |api_job|
+            Models::Job.new(api_job)
           end
-
-          jobs
         end
       end
     end
