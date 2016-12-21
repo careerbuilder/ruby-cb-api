@@ -65,12 +65,16 @@ module Cb
       end
 
       def error_message(processed_response)
-        if processed_response.keys.count > 1
-          processed_response['errors'] || processed_response['Errors'] || ''
+        if errors_node_next_level(processed_response)
+          errors_node_next_level(processed_response) || ''
         else
           nested_response = processed_response[processed_response.keys.first]
-          nested_response['errors'] || nested_response['Errors'] || ''
+          errors_node_next_level(nested_response) || ''
         end
+      end
+
+      def errors_node_next_level(processed_response)
+        processed_response['errors'] || processed_response['Errors']
       end
     end
   end
