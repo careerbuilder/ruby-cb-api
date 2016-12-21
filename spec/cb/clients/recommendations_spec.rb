@@ -14,7 +14,7 @@ require 'support/mocks/oauth_token'
 module Cb
   describe Cb::Clients::Recommendations do
     context '.for_job' do
-      before :each do
+      before do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_job))
           .to_return(body: { ResponseRecommendJob: { Request: { RequestEvidenceID: 'abc-123' }, RecommendJobResults: { RecommendJobResult: [{ did: 1 }, { did: 2 }] }, Errors: ['Error1', 'Error2'] } }.to_json)
       end
@@ -26,10 +26,20 @@ module Cb
       it { expect(recs[:recid]).to eq 'abc-123' }
       it { expect(recs[:jobs].count).to eq 2 }
       it { expect(recs[:jobs]).to all(be_a Cb::Models::Job) }
+
+      context 'with a single hash result' do
+        before do
+          stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_job))
+            .to_return(body: { ResponseRecommendJob: { Request: { RequestEvidenceID: 'abc-123' }, RecommendJobResults: { RecommendJobResult: { did: 1 } }, Errors: ['Error1', 'Error2'] } }.to_json)
+        end
+
+        it { expect(recs[:jobs]).to be_an Array }
+
+      end
     end
 
     context '.for_user' do
-      before :each do
+      before do
         stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_user))
           .to_return(body: { ResponseRecommendUser: { Request: { RequestEvidenceID: 'abc-123' }, RecommendJobResults: { RecommendJobResult: [{ did: 1 }, { did: 2 }] }, Errors: ['Error1', 'Error2'] } }.to_json)
       end
@@ -41,6 +51,15 @@ module Cb
       it { expect(recs[:recid]).to eq 'abc-123' }
       it { expect(recs[:jobs].count).to eq 2 }
       it { expect(recs[:jobs]).to all(be_a Cb::Models::Job) }
+
+      context 'with a single hash result' do
+        before do
+          stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_user))
+          .to_return(body: { ResponseRecommendUser: { Request: { RequestEvidenceID: 'abc-123' }, RecommendJobResults: { RecommendJobResult: { did: 1 } }, Errors: ['Error1', 'Error2'] } }.to_json)
+        end
+
+        it { expect(recs[:jobs]).to be_an Array }
+      end
     end
   end
 end
