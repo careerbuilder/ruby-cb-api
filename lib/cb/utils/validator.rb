@@ -32,7 +32,6 @@ module Cb
 
       def fail_with_error_details(response, error_type)
         processed_response = process_response_body(response)
-        raise error_type unless processed_response
         error = error_type.new(error_message(processed_response))
         error.code = response.code rescue nil
         error.raw_response = response
@@ -66,6 +65,7 @@ module Cb
       end
 
       def error_message(processed_response)
+        return '' if processed_response.empty?
         find_errors_node(processed_response) || ''
       end
 
