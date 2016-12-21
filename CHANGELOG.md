@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 22.2.1 Add error checking and raising back on Job call
 * 22.2.0 Add new Recommendations client (alongside existing Recommendation client) that returns a hash
 * 22.1.0 Headers can be set on api instantiation.
 * 22.0.0 Return a hash from Job rather than a model

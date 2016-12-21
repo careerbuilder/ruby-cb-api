@@ -14,7 +14,17 @@ module Cb
     class Job < Base
       class << self
         def get(args={})
-          cb_client.cb_get(Cb.configuration.uri_job_find, query: args)
+          response = cb_client.cb_get(Cb.configuration.uri_job_find, query: args)
+          not_found_check(response)
+          response
+        end
+        
+        private
+        
+        def not_found_check(response)
+          return if response.nil?
+          errors = Cb::Responses::Errors.new(response['ResponseJob'], false).parsed.join
+          raise Cb::DocumentNotFoundError, errors if errors.downcase.include? 'job was not found'
         end
       end
     end
