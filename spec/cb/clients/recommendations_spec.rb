@@ -36,6 +36,16 @@ module Cb
         it { expect(recs[:jobs]).to be_an Array }
 
       end
+
+      context 'with no recs' do
+        before do
+          stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_job))
+            .to_return(body: { ResponseRecommendJob: { Request: { RequestEvidenceID: 'abc-123' }, Errors: ['Error1', 'Error2'] } }.to_json)
+        end
+
+        it { expect{ recs }.not_to raise_error }
+
+      end
     end
 
     context '.for_user' do
@@ -59,6 +69,16 @@ module Cb
         end
 
         it { expect(recs[:jobs]).to be_an Array }
+      end
+
+      context 'with no recs' do
+        before do
+          stub_request(:get, uri_stem(Cb.configuration.uri_recommendation_for_job))
+            .to_return(body: { ResponseRecommendUser: { Request: { RequestEvidenceID: 'abc-123' }, Errors: ['Error1', 'Error2'] } }.to_json)
+        end
+
+        it { expect{ recs }.not_to raise_error }
+
       end
     end
   end

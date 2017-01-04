@@ -65,6 +65,8 @@ module Cb
           [json_hash["ResponseRecommend#{type}"]['RecommendJobResults']['RecommendJobResult']].flatten.map do |api_job|
             Models::Job.new(api_job)
           end
+        rescue NoMethodError
+          []
         end
       end
     end
