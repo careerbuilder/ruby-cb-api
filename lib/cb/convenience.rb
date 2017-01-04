@@ -63,10 +63,6 @@ module Cb
         Cb::Clients::JobBranding
       end
 
-      def job_details_criteria
-        Cb::Criteria::Job::Details.new
-      end
-
       def job_insights
         Cb::Clients::JobInsights
       end

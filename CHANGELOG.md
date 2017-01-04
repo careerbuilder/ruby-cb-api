@@ -2,6 +2,11 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 22.3.0 Update validator to handle errors node being nested in the response.
+* 22.2.1 Add error checking and raising back on Job call
+* 22.2.0 Add new Recommendations client (alongside existing Recommendation client) that returns a hash
+* 22.1.0 Headers can be set on api instantiation.
+* 22.0.0 Return a hash from Job rather than a model
 * 21.4.2 Catch branding exceptions so that we don't blow up the job details call.  The side effect of a second API call is silly anyway
 * 21.4.1 Update test for Ruby 2.3.1. `ArgumentError`'s error message changed from "wrong number of arguments (0 for 1)" to "wrong number of arguments (given 0, expected 1)" in Ruby 2.3.0.
 * 21.4.0 Add jc_custom_fields to Cb::Models::Job
@@ -77,6 +82,6 @@ Version History
 * 14.0.1 Introduced a changelog (finally)
 * 14.0.0 Rename location_code / zip to postal_code on the Cb::Models::User model to be more i18n friendly
 * 13.0.1 This change is to turn off metadata parsing and raise exception if the api response does not contain metadata.
-    * This means we can optionally control wether or not a specific API call expects metadata to come back   
+    * This means we can optionally control wether or not a specific API call expects metadata to come back
 * 13.0.0 Adds a new resume recommendations call and removes the old one *(BREAKING)*
     * https://github.com/careerbuilder/ruby-cb-api/pull/154/files

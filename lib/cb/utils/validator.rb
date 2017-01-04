@@ -36,7 +36,7 @@ module Cb
         error.code = response.code rescue nil
         error.raw_response = response
         error.response = processed_response
-        fail error
+        raise error
       end
 
       def simulate_auth_outage?
@@ -65,7 +65,13 @@ module Cb
       end
 
       def error_message(processed_response)
-        processed_response.fetch('errors', processed_response.fetch('Errors', ''))
+        return '' if processed_response.empty?
+        find_errors_node(processed_response) || ''
+      end
+
+      def find_errors_node(processed_response)
+        nested_hash = processed_response[processed_response.keys.first]
+        processed_response['errors'] || processed_response['Errors'] || nested_hash['errors'] || nested_hash['Errors']
       end
     end
   end

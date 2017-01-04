@@ -13,42 +13,30 @@ require 'spec_helper'
 module Cb
   describe Cb::Clients::Job do
 
-    describe '#find_by_criteria' do
+    describe '#get' do
+      let(:response) { { ResponseJob: inner_nodes }.to_json }
+      let(:inner_nodes) { { Job: {} } }
+
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_job_find))
-          .to_return(body: { ResponseJob: { Job: {} } }.to_json)
+          .to_return(body: response)
       end
 
-      let(:criteria) { Cb::Criteria::Job::Details.new }
+      let(:args) { { did: 'someDID'} }
 
-      context 'when a criteria object is the input param' do
-        it 'returns a single job model' do
-          response = Cb::Clients::Job.find_by_criteria(criteria)
-          expect(response.model).to be_an_instance_of Cb::Models::Job
-        end
-
-        it 'returns a single job model' do
-          response = Cb::Clients::Job.find_by_criteria(criteria)
-          expect(response.model).to be_an_instance_of Cb::Models::Job
-        end
+      it 'returns a hash' do
+        response = Cb::Clients::Job.get(args)
+        expect(response).to be_a Hash
       end
-    end
 
-    context '#find_by_did' do
-      context 'when a string job did is input' do
-        let(:criteria) { double(Cb::Criteria::Job::Details) }
+      context 'raises an error if errors node contains key phrase' do
+        let(:inner_nodes) { { Errors: { Error: 'job was not found' } } }
+        it { expect{ Cb::Clients::Job.get(args) }.to raise_error Cb::DocumentNotFoundError }
+      end
 
-        before(:each) { allow(Cb::Criteria::Job::Details).to receive(:new).and_return(criteria) }
-
-        it 'constructs a criteria object, sets the input did, and calls #find_by_criteria' do
-          did = 'fake-did'
-
-          expect(Cb::Clients::Job).to receive(:find_by_criteria).with(criteria)
-          expect(criteria).to receive(:did=).with(did)
-          expect(criteria).to receive(:show_custom_values=).with(true)
-
-          Cb::Clients::Job.find_by_did(did)
-        end
+      context 'not raise an error if errors node does not contain key phrase' do
+        let(:inner_nodes) { { Errors: { Error: 'job was found' } } }
+        it { expect{ Cb::Clients::Job.get(args) }.not_to raise_error Cb::DocumentNotFoundError }
       end
     end
   end
