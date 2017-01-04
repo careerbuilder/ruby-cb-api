@@ -14,7 +14,7 @@ module Cb
       class Form < ApiResponseModel
         attr_reader :job_did, :job_title, :is_shared_apply, :question_list, :requirements,
                     :degree_required, :travel_required, :experience_required, :external_application,
-                    :total_questions, :total_required_questions, :is_two_step_apply
+                    :total_questions, :total_required_questions, :is_two_step_apply, :is_dynamic_screener
 
         protected
 
@@ -37,6 +37,8 @@ module Cb
           @experience_required      = api_response['ExperienceRequired']
           @external_application     = api_response['ExternalApplication']
           @is_two_step_apply        = api_response['IsTwoStepApply']
+          @is_dynamic_screener      = api_response['IsDynamicScreener']
+
           @question_list            = extracted_questions
         end
 
