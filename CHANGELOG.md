@@ -2,6 +2,8 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 22.3.2 Add is_dynamic_screener to application form API 
+* 22.3.1 Return an empty array for NoMethodError on recs.
 * 22.3.0 Update validator to handle errors node being nested in the response.
 * 22.2.1 Add error checking and raising back on Job call
 * 22.2.0 Add new Recommendations client (alongside existing Recommendation client) that returns a hash
