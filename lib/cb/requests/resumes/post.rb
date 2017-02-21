@@ -28,7 +28,8 @@ module Cb
             privacySetting: args[:privacy_setting],
             resumeFileData: args[:resume_file_data],
             resumeFileName: args[:resume_file_name],
-            hostSite: args[:host_site]
+            hostSite: args[:host_site],
+            entryPath: args[:entry_path]
           }.to_json
         end
 
