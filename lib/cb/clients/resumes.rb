@@ -42,7 +42,7 @@ module Cb
 
         def headers(args = {})
           {
-            'HostSite' => args[:host_site] || args[:HostSite] || Cb.configuration.host_site,
+            'HostSite' => args[:host_site] || Cb.configuration.host_site,
             'Content-Type' => 'application/json;version=1.0',
             'Authorization' => "Bearer #{ args[:oauth_token] }"
           }
