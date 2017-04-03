@@ -13,11 +13,11 @@ module Cb
   module Clients
     class EmailSubscriptions < Base
       class << self
-        def retrieve(args = {})
+        def get(args = {})
           cb_client.cb_get(Cb.configuration.uri_subscription_retrieve, query: query(args), headers: headers(args))
         end
 
-        def modify(args = {})
+        def post(args = {})
           @unsubscribe_all = args[:unsubscribe_all]
           cb_client.cb_post(Cb.configuration.uri_subscription_modify, body: body(args), headers: post_headers(args))
         end
