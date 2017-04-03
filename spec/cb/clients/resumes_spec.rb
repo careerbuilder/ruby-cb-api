@@ -51,5 +51,46 @@ module Cb
         it { is_expected.to eq api_response }
       end
     end
+
+    describe '#post' do
+      subject { Cb::Clients::Resumes.post(oauth_token: 'token', desired_job_title: 'Ur Mom', privacy_setting: 'Public', resume_file_data: 'DATA', resume_file_name: 'UrMom.doc', host_site: 'US', entry_path: 'WAT') }
+
+      let(:url) { "https://api.careerbuilder.com/consumer/resumedocuments?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+      let(:expected_body) do
+        "{\"desiredJobTitle\":\"Ur Mom\",\"privacySetting\":\"Public\",\"resumeFileData\":\"DATA\",\"resumeFileName\":\"UrMom.doc\",\"hostSite\":\"US\",\"entryPath\":\"WAT\"}"
+      end
+
+      let(:stub) do
+        stub_request(:post, url).
+          with(headers: headers, body: expected_body).
+          to_return(status: 200, body: {}.to_json)
+      end
+
+      before do
+        stub
+        subject
+      end
+
+      it { expect(stub).to have_been_requested }
+    end
+
+    describe '#delete' do
+      subject { Cb::Clients::Resumes.delete(oauth_token: 'token', resume_hash: 'scattered_smothered_covered', external_user_id: 'Ext') }
+
+      let(:url) { "https://api.careerbuilder.com/cbapi/resumes/scattered_smothered_covered?developerkey=#{ Cb.configuration.dev_key }&externalUserId=Ext&outputjson=true" }
+
+      let(:stub) do
+        stub_request(:delete, url).
+          with(headers: headers).
+          to_return(status: 200, body: {}.to_json)
+      end
+
+      before do
+        stub
+        subject
+      end
+
+      it { expect(stub).to have_been_requested }
+    end
   end
 end
