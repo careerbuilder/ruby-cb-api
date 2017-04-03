@@ -12,10 +12,41 @@ require_relative 'base'
 module Cb
   module Clients
     class Resumes < Base
-      def self.get(args={})
-        uri = Cb.configuration.uri_resumes
-        query_params = args[:site] ? { site: args[:site] } : { }
-        cb_client.cb_get(uri, headers: headers(args), query: query_params)
+      class << self
+        def get(args = {})
+          uri = Cb.configuration.uri_resumes
+          query_params = args[:site] ? { site: args[:site] } : {}
+          cb_client.cb_get(uri, headers: headers(args), query: query_params)
+        end
+
+        def post(args = {})
+          cb_client.cb_post(Cb.configuration.uri_resume_post, body: post_body(args), headers: headers(args))
+        end
+
+        def delete(args = {})
+          cb_client.cb_delete(Cb.configuration.uri_resume_delete.gsub(':resume_hash', args[:resume_hash].to_s), query: { externalUserId: args[:external_user_id] }, headers: headers(args))
+        end
+
+        private
+
+        def post_body(args = {})
+          {
+            desiredJobTitle: args[:desired_job_title],
+            privacySetting: args[:privacy_setting],
+            resumeFileData: args[:resume_file_data],
+            resumeFileName: args[:resume_file_name],
+            hostSite: args[:host_site],
+            entryPath: args[:entry_path]
+          }.to_json
+        end
+
+        def headers(args = {})
+          {
+            'HostSite' => args[:host_site] || args[:HostSite] || Cb.configuration.host_site,
+            'Content-Type' => 'application/json;version=1.0',
+            'Authorization' => "Bearer #{ args[:oauth_token] }"
+          }
+        end
       end
     end
   end
