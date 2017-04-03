@@ -13,18 +13,34 @@ module Cb
   module Clients
     class Job < Base
       class << self
-        def get(args={})
+        def get(args = {})
           response = cb_client.cb_get(Cb.configuration.uri_job_find, query: args)
           not_found_check(response)
           response
         end
-        
+
+        def report(args = {})
+          cb_client.cb_post(Cb.configuration.uri_report_job, body: report_body(args))
+        end
+
         private
-        
+
         def not_found_check(response)
           return if response.nil?
           errors = Cb::Responses::Errors.new(response['ResponseJob'], false).parsed.join
           raise Cb::DocumentNotFoundError, errors if errors.downcase.include? 'job was not found'
+        end
+
+        def report_body(args = {})
+          <<-eos
+          <Request>
+            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+            <JobDID>#{args[:job_id]}</JobDID>
+            <UserID>#{args[:user_id]}</UserID>
+            <ReportType>#{args[:report_type]}</ReportType>
+            <Comments>#{args[:comments]}</Comments>
+          </Request>
+          eos
         end
       end
     end
