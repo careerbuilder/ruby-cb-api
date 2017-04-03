@@ -24,7 +24,7 @@ module Cb
         end
 
         def delete(args = {})
-          cb_client.cb_delete(Cb.configuration.uri_resume_delete.gsub(':resume_hash', args[:resume_hash].to_s), query: { externalUserId: args[:external_user_id] }, headers: headers(args))
+          cb_client.cb_delete(Cb.configuration.uri_resume_delete.sub(':resume_hash', args[:resume_hash].to_s), query: { externalUserId: args[:external_user_id] }, headers: headers(args))
         end
 
         private
