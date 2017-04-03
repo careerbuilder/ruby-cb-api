@@ -28,7 +28,7 @@ module Cb
         end
 
         def put(args = {})
-          cb_client.cb_put(Cb.configuration.uri_resume_put.gsub(':resume_hash', args[:resume_hash].to_s), headers: headers(args), body: put_body(args)
+          cb_client.cb_put(Cb.configuration.uri_resume_put.gsub(':resume_hash', args[:resume_hash].to_s), headers: headers(args), body: put_body(args))
         end
 
         private
