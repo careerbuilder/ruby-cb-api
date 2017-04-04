@@ -62,21 +62,21 @@ module Cb
           to_return(status: 200, body: {}.to_json)
       end
       let(:expected_body) do
-<<eos
-<Request>
-<DeveloperKey>#{ Cb.configuration.dev_key }</DeveloperKey>
-<ExternalID>Uzer</ExternalID>
-<Hostsite>US</Hostsite>
-<CareerResources>false</CareerResources>
-<ProductSponsorInfo>true</ProductSponsorInfo>
-<ApplicantSurveyInvites>false</ApplicantSurveyInvites>
-<JobRecs>true</JobRecs>
-<DJR>true</DJR>
-<ResumeViewed>false</ResumeViewed>
-<ApplicationViewed>false</ApplicationViewed>
-<UnsubscribeAll>false</UnsubscribeAll>
-</Request>
-eos
+        <<-eos.gsub /^\s+/, ""
+        <Request>
+        <DeveloperKey>#{ Cb.configuration.dev_key }</DeveloperKey>
+        <ExternalID>Uzer</ExternalID>
+        <Hostsite>US</Hostsite>
+        <CareerResources>false</CareerResources>
+        <ProductSponsorInfo>true</ProductSponsorInfo>
+        <ApplicantSurveyInvites>false</ApplicantSurveyInvites>
+        <JobRecs>true</JobRecs>
+        <DJR>true</DJR>
+        <ResumeViewed>false</ResumeViewed>
+        <ApplicationViewed>false</ApplicationViewed>
+        <UnsubscribeAll>false</UnsubscribeAll>
+        </Request>
+        eos
       end
 
       before do
@@ -89,21 +89,21 @@ eos
       context 'with unsubscribe_all true' do
         let(:params) { { oauth_token: 'token', external_id: 'Uzer', career_resources: true, unsubscribe_all: true } }
         let(:expected_body) do
-<<eos
-<Request>
-<DeveloperKey>#{ Cb.configuration.dev_key }</DeveloperKey>
-<ExternalID>Uzer</ExternalID>
-<Hostsite>US</Hostsite>
-<CareerResources>false</CareerResources>
-<ProductSponsorInfo>false</ProductSponsorInfo>
-<ApplicantSurveyInvites>false</ApplicantSurveyInvites>
-<JobRecs>false</JobRecs>
-<DJR>false</DJR>
-<ResumeViewed>false</ResumeViewed>
-<ApplicationViewed>false</ApplicationViewed>
-<UnsubscribeAll>true</UnsubscribeAll>
-</Request>
-eos
+          <<-eos.gsub /^\s+/, ""
+          <Request>
+          <DeveloperKey>#{ Cb.configuration.dev_key }</DeveloperKey>
+          <ExternalID>Uzer</ExternalID>
+          <Hostsite>US</Hostsite>
+          <CareerResources>false</CareerResources>
+          <ProductSponsorInfo>false</ProductSponsorInfo>
+          <ApplicantSurveyInvites>false</ApplicantSurveyInvites>
+          <JobRecs>false</JobRecs>
+          <DJR>false</DJR>
+          <ResumeViewed>false</ResumeViewed>
+          <ApplicationViewed>false</ApplicationViewed>
+          <UnsubscribeAll>true</UnsubscribeAll>
+          </Request>
+          eos
       end
 
         it { expect(stub).to have_been_requested }

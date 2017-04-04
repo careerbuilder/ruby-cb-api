@@ -36,21 +36,21 @@ module Cb
         end
 
         def body(args = {})
-<<eos
-<Request>
-<DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-<ExternalID>#{args[:external_id]}</ExternalID>
-<Hostsite>#{args[:host_site] || Cb.configuration.host_site}</Hostsite>
-<CareerResources>#{validate args[:career_resources]}</CareerResources>
-<ProductSponsorInfo>#{validate args[:product_sponsor_info]}</ProductSponsorInfo>
-<ApplicantSurveyInvites>#{validate args[:applicant_survey_invites]}</ApplicantSurveyInvites>
-<JobRecs>#{validate args[:job_recs]}</JobRecs>
-<DJR>#{validate args[:djr]}</DJR>
-<ResumeViewed>#{validate args[:resume_viewed]}</ResumeViewed>
-<ApplicationViewed>#{validate args[:application_viewed]}</ApplicationViewed>
-<UnsubscribeAll>#{args[:unsubscribe_all]}</UnsubscribeAll>
-</Request>
-eos
+          <<-eos.gsub /^\s+/, ""
+          <Request>
+            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
+            <ExternalID>#{args[:external_id]}</ExternalID>
+            <Hostsite>#{args[:host_site] || Cb.configuration.host_site}</Hostsite>
+            <CareerResources>#{validate args[:career_resources]}</CareerResources>
+            <ProductSponsorInfo>#{validate args[:product_sponsor_info]}</ProductSponsorInfo>
+            <ApplicantSurveyInvites>#{validate args[:applicant_survey_invites]}</ApplicantSurveyInvites>
+            <JobRecs>#{validate args[:job_recs]}</JobRecs>
+            <DJR>#{validate args[:djr]}</DJR>
+            <ResumeViewed>#{validate args[:resume_viewed]}</ResumeViewed>
+            <ApplicationViewed>#{validate args[:application_viewed]}</ApplicationViewed>
+            <UnsubscribeAll>#{args[:unsubscribe_all]}</UnsubscribeAll>
+          </Request>
+          eos
         end
 
         def validate(value)

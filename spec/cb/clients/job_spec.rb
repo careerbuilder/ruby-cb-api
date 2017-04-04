@@ -39,5 +39,44 @@ module Cb
         it { expect{ Cb::Clients::Job.get(args) }.not_to raise_error Cb::DocumentNotFoundError }
       end
     end
+
+    describe '#report' do
+      subject { Cb::Clients::Job.report(params) }
+
+      let(:headers) do
+        {
+          'Accept-Encoding' => 'deflate, gzip',
+          'Developerkey' => Cb.configuration.dev_key
+        }
+      end
+
+      let(:params) { { job_id: 'job_id', user_id: 'user_id', report_type: 'report_type', comments: 'comments' } }
+      let(:uri) { "https://api.careerbuilder.com/v1/job/report?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+      let(:expected_body) do
+        <<-eos.gsub /^\s+/, ""
+        <Request>
+          <DeveloperKey>#{ Cb.configuration.dev_key }</DeveloperKey>
+          <JobDID>job_id</JobDID>
+          <UserID>user_id</UserID>
+          <ReportType>report_type</ReportType>
+          <Comments>comments</Comments>
+        </Request>
+        eos
+      end
+
+      let(:stub) do
+        stub_request(:post, uri).
+          with(headers: headers, body: expected_body).
+          to_return(status: 200, body: {}.to_json)
+      end
+
+
+      before do
+        stub
+        subject
+      end
+
+      it { expect(stub).to have_been_requested }
+    end
   end
 end

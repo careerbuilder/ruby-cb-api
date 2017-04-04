@@ -32,7 +32,7 @@ module Cb
         end
 
         def report_body(args = {})
-          <<-eos
+          <<-eos.gsub /^\s+/, ""
           <Request>
             <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
             <JobDID>#{args[:job_id]}</JobDID>
