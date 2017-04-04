@@ -64,7 +64,7 @@ module Cb
       let(:expected_body) do
 <<eos
 <Request>
-<DeveloperKey>ruby-cb-api</DeveloperKey>
+<DeveloperKey>#{ Cb.configuration.dev_key }</DeveloperKey>
 <ExternalID>Uzer</ExternalID>
 <Hostsite>US</Hostsite>
 <CareerResources>false</CareerResources>
@@ -91,7 +91,7 @@ eos
         let(:expected_body) do
 <<eos
 <Request>
-<DeveloperKey>ruby-cb-api</DeveloperKey>
+<DeveloperKey>#{ Cb.configuration.dev_key }</DeveloperKey>
 <ExternalID>Uzer</ExternalID>
 <Hostsite>US</Hostsite>
 <CareerResources>false</CareerResources>
