@@ -44,7 +44,7 @@ module Cb
     describe '::legacy_get' do
       let(:uri) { "https://api.careerbuilder.com/v2/jobsearch?developerkey=#{ Cb.configuration.dev_key }&keywords=Ruby&location=Rubyland&outputjson=true" }
       let(:headers) do
-        { 'Accept-Encoding'=>'deflate, gzip', 'Developerkey'=> Cb.configuration.dev_key }
+        { 'Accept-Encoding' => 'deflate, gzip', 'Developerkey' => Cb.configuration.dev_key }
       end
 
       let!(:request_stub) do
