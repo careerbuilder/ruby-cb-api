@@ -18,8 +18,7 @@ module Cb
         end
 
         def legacy_get(args = {})
-          options = query(args).merge(developerkey: Cb.configuration.dev_key)
-          cb_client.cb_get(Cb.configuration.uri_legacy_job_search, query: options)
+          cb_client.cb_get(Cb.configuration.uri_legacy_job_search, query: query(args))
         end
 
         private
