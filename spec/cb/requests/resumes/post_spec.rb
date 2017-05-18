@@ -29,7 +29,8 @@ module Cb
           privacySetting: nil,
           resumeFileData: nil,
           resumeFileName: nil,
-          hostSite: nil
+          hostSite: nil,
+          entryPath: nil
         }.to_json
       end
 
@@ -48,7 +49,8 @@ module Cb
           resume_file_data: 'binaryData',
           resume_file_name: 'fileName',
           host_site: 'US',
-          three_scale_token: 'token'
+          three_scale_token: 'token',
+          entry_path: 'entry-path'
         }
       end
 
@@ -66,7 +68,8 @@ module Cb
           privacySetting: 'privacySetting',
           resumeFileData: 'binaryData',
           resumeFileName: 'fileName',
-          hostSite: 'US'
+          hostSite: 'US',
+          entryPath: 'entry-path'
         }.to_json
       end
 

@@ -13,43 +13,70 @@ require 'spec_helper'
 module Cb
   describe Cb::Clients::Job do
 
-    describe '#find_by_criteria' do
+    describe '#get' do
+      let(:response) { { ResponseJob: inner_nodes }.to_json }
+      let(:inner_nodes) { { Job: {} } }
+
       before :each do
         stub_request(:get, uri_stem(Cb.configuration.uri_job_find))
-          .to_return(body: { ResponseJob: { Job: {} } }.to_json)
+          .to_return(body: response)
       end
 
-      let(:criteria) { Cb::Criteria::Job::Details.new }
+      let(:args) { { did: 'someDID'} }
 
-      context 'when a criteria object is the input param' do
-        it 'returns a single job model' do
-          response = Cb::Clients::Job.find_by_criteria(criteria)
-          expect(response.model).to be_an_instance_of Cb::Models::Job
-        end
+      it 'returns a hash' do
+        response = Cb::Clients::Job.get(args)
+        expect(response).to be_a Hash
+      end
 
-        it 'returns a single job model' do
-          response = Cb::Clients::Job.find_by_criteria(criteria)
-          expect(response.model).to be_an_instance_of Cb::Models::Job
-        end
+      context 'raises an error if errors node contains key phrase' do
+        let(:inner_nodes) { { Errors: { Error: 'job was not found' } } }
+        it { expect{ Cb::Clients::Job.get(args) }.to raise_error Cb::DocumentNotFoundError }
+      end
+
+      context 'not raise an error if errors node does not contain key phrase' do
+        let(:inner_nodes) { { Errors: { Error: 'job was found' } } }
+        it { expect{ Cb::Clients::Job.get(args) }.not_to raise_error Cb::DocumentNotFoundError }
       end
     end
 
-    context '#find_by_did' do
-      context 'when a string job did is input' do
-        let(:criteria) { double(Cb::Criteria::Job::Details) }
+    describe '#report' do
+      subject { Cb::Clients::Job.report(params) }
 
-        before(:each) { allow(Cb::Criteria::Job::Details).to receive(:new).and_return(criteria) }
-
-        it 'constructs a criteria object, sets the input did, and calls #find_by_criteria' do
-          did = 'fake-did'
-
-          expect(Cb::Clients::Job).to receive(:find_by_criteria).with(criteria)
-          expect(criteria).to receive(:did=).with(did)
-          expect(criteria).to receive(:show_custom_values=).with(true)
-
-          Cb::Clients::Job.find_by_did(did)
-        end
+      let(:headers) do
+        {
+          'Accept-Encoding' => 'deflate, gzip',
+          'Developerkey' => Cb.configuration.dev_key
+        }
       end
+
+      let(:params) { { job_id: 'job_id', user_id: 'user_id', report_type: 'report_type', comments: 'comments' } }
+      let(:uri) { "https://api.careerbuilder.com/v1/job/report?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
+      let(:expected_body) do
+        <<-eos.gsub /^\s+/, ""
+        <Request>
+          <DeveloperKey>#{ Cb.configuration.dev_key }</DeveloperKey>
+          <JobDID>job_id</JobDID>
+          <UserID>user_id</UserID>
+          <ReportType>report_type</ReportType>
+          <Comments>comments</Comments>
+        </Request>
+        eos
+      end
+
+      let(:stub) do
+        stub_request(:post, uri).
+          with(headers: headers, body: expected_body).
+          to_return(status: 200, body: {}.to_json)
+      end
+
+
+      before do
+        stub
+        subject
+      end
+
+      it { expect(stub).to have_been_requested }
     end
   end
 end
