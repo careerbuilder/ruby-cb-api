@@ -12,7 +12,12 @@ require 'spec_helper'
 
 module Cb
   describe Cb::Clients::JobSearch do
-    describe '#get' do
+    describe '::get' do
+      before do
+        request_stub
+        subject
+      end
+
       subject { Cb::Clients::JobSearch.get(oauth_token: 'token', keywords: 'Kanye West', location: 'Chi-town') }
 
       let(:headers) do
@@ -27,19 +32,31 @@ module Cb
       end
 
       let(:uri) { "https://api.careerbuilder.com/consumer/jobs/search/?developerkey=#{ Cb.configuration.dev_key }&keywords=Kanye%20West&location=Chi-town&outputjson=true" }
-      let(:stub) do
+      let(:request_stub) do
         stub_request(:get, uri).
           with(headers: headers).
           to_return(status: 200, body: {}.to_json)
       end
 
+      it { expect(request_stub).to have_been_requested }
+    end
 
-      before do
-        stub
-        subject
+    describe '::legacy_get' do
+      let(:uri) { "https://api.careerbuilder.com/v2/jobsearch?developerkey=#{ Cb.configuration.dev_key }&keywords=Ruby&location=Rubyland&outputjson=true" }
+      let(:headers) do
+        { 'Accept-Encoding' => 'deflate, gzip', 'Developerkey' => Cb.configuration.dev_key }
       end
 
-      it { expect(stub).to have_been_requested }
+      let!(:request_stub) do
+        stub_request(:get, uri).
+          with(headers: headers).
+          to_return(status: 200, body: {}.to_json)
+      end
+
+      it do
+        Cb::Clients::JobSearch.legacy_get({ keywords: 'Ruby', location: 'Rubyland' })
+        expect(request_stub).to have_been_requested
+      end
     end
   end
 end

@@ -68,6 +68,7 @@ module Cb
       @uri_job_find ||= '/v3/Job'
       @uri_job_insights ||= '/consumer/job-insights'
       @uri_job_search ||= '/consumer/jobs/search/'
+      @uri_legacy_job_search ||= '/v2/jobsearch'
       @uri_keyword_insights ||= '/consumer/insights/keywords'
       @uri_recommendation_for_job ||= '/v1/Recommendations/ForJob'
       @uri_recommendation_for_user ||= '/v1/Recommendations/ForUser'

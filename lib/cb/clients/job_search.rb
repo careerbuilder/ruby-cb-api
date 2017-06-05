@@ -17,6 +17,10 @@ module Cb
           cb_client.cb_get(Cb.configuration.uri_job_search, query: query(args), headers: headers(args))
         end
 
+        def legacy_get(args = {})
+          cb_client.cb_get(Cb.configuration.uri_legacy_job_search, query: query(args))
+        end
+
         private
 
         def headers(args = {})

@@ -36,7 +36,7 @@ module Cb
 
       context 'not raise an error if errors node does not contain key phrase' do
         let(:inner_nodes) { { Errors: { Error: 'job was found' } } }
-        it { expect{ Cb::Clients::Job.get(args) }.not_to raise_error Cb::DocumentNotFoundError }
+        it { expect{ Cb::Clients::Job.get(args) }.not_to raise_error }
       end
     end
 
