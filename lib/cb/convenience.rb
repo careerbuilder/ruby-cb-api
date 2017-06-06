@@ -47,10 +47,6 @@ module Cb
         Cb::Clients::DataList
       end
 
-      def email_subscription
-        Cb::Clients::EmailSubscription
-      end
-
       def expired_job
         Cb::Clients::ExpiredJob
       end
