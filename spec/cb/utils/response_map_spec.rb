@@ -23,14 +23,6 @@ module Cb
         expect(response_map.response_for(:response_hash_extension_not_implemented)).to eq(true)
       end
 
-      it 'should test education methods' do
-        request_namespace = Cb::Requests::EmailSubscription
-        response_namespace = Cb::Responses::EmailSubscription
-
-        expect(response_map.response_for(request_namespace::Retrieve)).to eq(response_namespace::Response)
-        expect(response_map.response_for(request_namespace::Modify)).to eq(response_namespace::Response)
-      end
-
       it 'should test company methods' do
         request_namespace = Cb::Requests::Company
         response_namespace = Cb::Responses::Company

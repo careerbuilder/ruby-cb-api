@@ -42,9 +42,6 @@ module Cb
 
             Cb::Requests::Company::Find => Cb::Responses::Company::Find,
 
-            Cb::Requests::EmailSubscription::Retrieve => Cb::Responses::EmailSubscription::Response,
-            Cb::Requests::EmailSubscription::Modify => Cb::Responses::EmailSubscription::Response,
-
             Cb::Requests::Job::Report => Cb::Responses::Job::Report,
             Cb::Requests::JobSearch::Get => Cb::Responses::Job::Search,
 
