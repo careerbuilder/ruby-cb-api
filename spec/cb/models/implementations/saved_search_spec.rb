@@ -91,33 +91,60 @@ module Cb
         end
       end
 
-      describe '#create_to_xml' do
+      # describe '#create_to_xml' do
+        # before do
+          # saved_search.host_site = 'US'
+          # saved_search.cobrand = 'AOLer'
+          # saved_search.search_name = 'Yolo'
+          # add_search_params
+          # saved_search.search_parameters = search_parameters
+          # saved_search.is_daily_email = true
+          # saved_search.external_user_id = 'BigMoomGuy'
+          # Cb.configuration.dev_key = 'who dat'
+        # end
+        # it 'serialized correctly' do
+          # xml = saved_search.create_to_xml
+          # expect(xml).to eq <<-eos
+          # <Request>
+            # <HostSite>US</HostSite>
+            # <Cobrand>AOLer</Cobrand>
+            # <SearchName>Yolo</SearchName>
+            # #{search_parameters.to_xml}
+            # <IsDailyEmail>TRUE</IsDailyEmail>
+            # <ExternalUserID>BigMoomGuy</ExternalUserID>
+            # <DeveloperKey>who dat</DeveloperKey>
+          # </Request>
+          # eos
+        # end
+      # end
+
+      describe '#create_to_json' do
         before do
           saved_search.host_site = 'US'
           saved_search.cobrand = 'AOLer'
           saved_search.search_name = 'Yolo'
           add_search_params
           saved_search.search_parameters = search_parameters
-          saved_search.is_daily_email = true
-          saved_search.external_user_id = 'BigMoomGuy'
+          saved_search.is_daily_email = false
+          saved_search.email_delivery_day = 'NONE'
+          saved_search.user_oauth_token = 'My token, mmhmmm yes'
           Cb.configuration.dev_key = 'who dat'
         end
         it 'serialized correctly' do
-          xml = saved_search.create_to_xml
-          expect(xml).to eq <<-eos
-          <Request>
-            <HostSite>US</HostSite>
-            <Cobrand>AOLer</Cobrand>
-            <SearchName>Yolo</SearchName>
-            #{search_parameters.to_xml}
-            <IsDailyEmail>TRUE</IsDailyEmail>
-            <ExternalUserID>BigMoomGuy</ExternalUserID>
-            <DeveloperKey>who dat</DeveloperKey>
-          </Request>
-          eos
+          json = saved_search.create_to_json
+          expect(json).to eq ({
+            'SiteID' => '',
+            'Cobrand' => 'AOLer',
+            'EmailDeliveryDay' => 'NONE',
+            'IsDailyEmail' => "FALSE",
+            'userOAuthToken' => 'My token, mmhmmm yes',
+            'HostSite' => 'US',
+            'SearchName' => 'Yolo',
+            'SavedSearchParameters' => search_parameters.to_hash
+          }.to_json)
         end
       end
-
+      
       describe '#create_anon_to_xml' do
         before do
           saved_search.host_site = 'US'
@@ -171,6 +198,7 @@ module Cb
             'HostSite' => 'US',
             'SiteID' => '',
             'Cobrand' => 'AOLer',
+            'EmailDeliveryDay' => 'FRIDAY, GET DOWN ON IT',
             'IsDailyEmail' => true,
             'userOAuthToken' => 'My token, mmhmmm yes',
             'SavedSearchParameters' => search_parameters.to_hash
@@ -185,10 +213,10 @@ module Cb
             'HostSite' => 'US',
             'SiteID' => '',
             'Cobrand' => 'AOLer',
+            'EmailDeliveryDay' => 'FRIDAY, GET DOWN ON IT',
             'IsDailyEmail' => false,
             'userOAuthToken' => 'My token, mmhmmm yes',
-            'SavedSearchParameters' => search_parameters.to_hash,
-            'EmailDeliveryDay' => 'FRIDAY, GET DOWN ON IT'
+            'SavedSearchParameters' => search_parameters.to_hash
           }.to_json)
         end
       end
