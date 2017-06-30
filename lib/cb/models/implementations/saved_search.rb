@@ -36,18 +36,19 @@ module Cb
         @search_parameters          = SearchParameters.new(args['SavedSearchParameters'] || {})
       end
 
-      def create_to_xml
-        <<-eos
-          <Request>
-            <HostSite>#{host_site}</HostSite>
-            <Cobrand>#{cobrand}</Cobrand>
-            <SearchName>#{search_name}</SearchName>
-            #{search_parameters.to_xml}
-            <IsDailyEmail>#{is_daily_email.to_s.upcase}</IsDailyEmail>
-            <ExternalUserID>#{external_user_id}</ExternalUserID>
-            <DeveloperKey>#{Cb.configuration.dev_key}</DeveloperKey>
-          </Request>
-        eos
+      def create_to_json
+        hash = {
+          'SiteID' => site_id,
+          'Cobrand' => cobrand,
+          'EmailDeliveryDay' => email_delivery_day,
+          'IsDailyEmail' => is_daily_email.to_s.upcase,
+          'userOAuthToken' => user_oauth_token,
+          'HostSite' => host_site,
+          'SearchName' => search_name,
+          'SavedSearchParameters' => search_parameters.to_hash
+        }
+        hash['EmailDeliveryDay'] = email_delivery_day unless is_daily_email
+        hash.to_json
       end
 
       def create_anon_to_xml
@@ -74,6 +75,7 @@ module Cb
           'HostSite' => host_site,
           'SiteID' => site_id,
           'Cobrand' => cobrand,
+          'EmailDeliveryDay' => email_delivery_day,
           'IsDailyEmail' => is_daily_email,
           'userOAuthToken' => user_oauth_token,
           'SavedSearchParameters' => search_parameters.to_hash
