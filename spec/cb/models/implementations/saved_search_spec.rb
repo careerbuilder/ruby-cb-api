@@ -91,33 +91,6 @@ module Cb
         end
       end
 
-      # describe '#create_to_xml' do
-        # before do
-          # saved_search.host_site = 'US'
-          # saved_search.cobrand = 'AOLer'
-          # saved_search.search_name = 'Yolo'
-          # add_search_params
-          # saved_search.search_parameters = search_parameters
-          # saved_search.is_daily_email = true
-          # saved_search.external_user_id = 'BigMoomGuy'
-          # Cb.configuration.dev_key = 'who dat'
-        # end
-        # it 'serialized correctly' do
-          # xml = saved_search.create_to_xml
-          # expect(xml).to eq <<-eos
-          # <Request>
-            # <HostSite>US</HostSite>
-            # <Cobrand>AOLer</Cobrand>
-            # <SearchName>Yolo</SearchName>
-            # #{search_parameters.to_xml}
-            # <IsDailyEmail>TRUE</IsDailyEmail>
-            # <ExternalUserID>BigMoomGuy</ExternalUserID>
-            # <DeveloperKey>who dat</DeveloperKey>
-          # </Request>
-          # eos
-        # end
-      # end
-
       describe '#create_to_json' do
         before do
           saved_search.host_site = 'US'
@@ -144,7 +117,7 @@ module Cb
           }.to_json)
         end
       end
-      
+
       describe '#create_anon_to_xml' do
         before do
           saved_search.host_site = 'US'
