@@ -41,13 +41,12 @@ module Cb
           'SiteID' => site_id,
           'Cobrand' => cobrand,
           'EmailDeliveryDay' => email_delivery_day,
-          'IsDailyEmail' => is_daily_email.to_s.upcase,
           'userOAuthToken' => user_oauth_token,
           'HostSite' => host_site,
           'SearchName' => search_name,
           'SavedSearchParameters' => search_parameters.to_hash
         }
-        hash['EmailDeliveryDay'] = email_delivery_day unless is_daily_email
+        hash['EmailDeliveryDay'] = email_delivery_day.to_s.upcase unless is_daily_email
         hash.to_json
       end
 
