@@ -13,9 +13,9 @@ module Cb
   module Clients
     class SavedSearch < Base
       def self.create(saved_search)
-        body = saved_search.create_to_xml
-        json = cb_client.cb_post(Cb.configuration.uri_saved_search_create, body: body)
-        singular_model_response(json, saved_search.external_user_id)
+        body = saved_search.create_to_json
+        json = cb_client.cb_post(Cb.configuration.uri_saved_search_create, body: body, headers: create_headers)
+        Responses::SavedSearch::Create.new(json)
       end
 
       def self.update(saved_search)
@@ -56,6 +56,13 @@ module Cb
           'HostSite' => (host_site.blank? ? Cb.configuration.host_site : host_site)
         }
       end
+      
+      def self.create_headers
+        {
+          'developerkey' => Cb.configuration.dev_key,
+          'Content-Type' => 'application/json'
+        }
+      end
 
       def self.retrieve_query(oauth_token)
         {
@@ -70,12 +77,6 @@ module Cb
           useroauthtoken: oauth_token,
           hostsite: hostsite
         }
-      end
-
-      def self.singular_model_response(json_hash, external_user_id = nil, external_id = nil)
-        json_hash['ExternalUserID'] = external_user_id unless external_user_id.nil?
-        json_hash['ExternalID'] = external_id unless external_id.nil?
-        Responses::SavedSearch::Singular.new(json_hash)
       end
 
       def self.replace_uri_field(uri_string, field, replacement)
