@@ -28,7 +28,6 @@ module Cb
                                         'ExternalUserID' => @external_user_id, 'SearchName' => search_name,
                                         'HostSite' => 'US', 'EmailDeliveryDay' => email_frequency)
 
-        response = Cb.saved_search.create(model)
         expect(Cb.saved_search.create(model).class).to eq Cb::Responses::SavedSearch::Create
       end
     end
