@@ -40,8 +40,6 @@ module Cb
         hash = {
           'SiteID' => site_id,
           'Cobrand' => cobrand,
-          'EmailDeliveryDay' => email_delivery_day,
-          'IsDailyEmail' => is_daily_email,
           'userOAuthToken' => user_oauth_token,
           'HostSite' => host_site,
           'SearchName' => search_name,
