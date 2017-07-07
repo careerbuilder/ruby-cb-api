@@ -96,8 +96,6 @@ module Cb
           saved_search.host_site = 'US'
           saved_search.cobrand = 'AOLer'
           saved_search.search_name = 'Yolo'
-          saved_search.is_daily_email = true
-          saved_search.email_delivery_day = 'Today!'
           add_search_params
           saved_search.search_parameters = search_parameters
           saved_search.user_oauth_token = 'My token, mmhmmm yes'
@@ -108,8 +106,6 @@ module Cb
           expect(json).to eq ({
             'SiteID' => '',
             'Cobrand' => 'AOLer',
-            'EmailDeliveryDay' => 'Today!',
-            'IsDailyEmail' => true,
             'userOAuthToken' => 'My token, mmhmmm yes',
             'HostSite' => 'US',
             'SearchName' => 'Yolo',
