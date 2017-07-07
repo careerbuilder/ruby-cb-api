@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 22.6.1 Minor fixes on saved search tests.
 * 22.6.0 Move saved search create to new API. Request changes from XML to JSON.
 * 22.5.0 Add clients side-by-side existing requests.
 * 22.4.0 Add optional resume POST param: entry_path
