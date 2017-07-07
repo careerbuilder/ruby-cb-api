@@ -20,7 +20,7 @@ module Cb
           .to_return(body: { Results: [{ SavedSearchParameters: {} }], Errors: nil }.to_json)
       end
 
-      it 'should return a saved search retrieve response' do
+      it 'should return a saved search create response' do
         email_frequency = 'None'
         is_daily_email = false
         search_name = 'Fake Job Search 1'
