@@ -17,17 +17,19 @@ module Cb
       before :each do
         stub_request(:post, uri_stem(Cb.configuration.uri_saved_search_create))
           .with(body: anything)
-          .to_return(body: { SavedJobSearch: { Errors: nil, SavedSearch: {} } }.to_json)
+          .to_return(body: { Results: [{ SavedSearchParameters: {} }], Errors: nil }.to_json)
       end
 
       it 'should return a saved search retrieve response' do
         email_frequency = 'None'
+        is_daily_email = false
         search_name = 'Fake Job Search 1'
-        model = Models::SavedSearch.new('DeveloperKey' => Cb.configuration.dev_key, 'IsDailyEmail' => email_frequency,
+        model = Models::SavedSearch.new('DeveloperKey' => Cb.configuration.dev_key, 'IsDailyEmail' => is_daily_email,
                                         'ExternalUserID' => @external_user_id, 'SearchName' => search_name,
-                                        'HostSite' => @host_site)
+                                        'HostSite' => 'US', 'EmailDeliveryDay' => email_frequency)
 
-        expect(Cb.saved_search.create(model).class).to eq Responses::SavedSearch::Singular
+        response = Cb.saved_search.create(model)
+        expect(Cb.saved_search.create(model).class).to eq Cb::Responses::SavedSearch::Create
       end
     end
 
