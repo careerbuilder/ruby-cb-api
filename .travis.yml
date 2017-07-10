@@ -2,14 +2,20 @@ language: ruby
 cache: bundler
 sudo: false
 rvm:
-- 2.3.1
-- 2.2
-- 2.1
+- 2.3
 notifications:
   email: false
   hipchat:
     rooms:
-      secure: g6Ve1qDiVR9VHOJwXVr4iXEMZNfLUL2iBlGzF9XVNySJxYmPOpfOhb+GjN2vefTvloZVgRvTeXE/9rldk6OPseXqMCuLP8wbXm3TeKQDhsjeyWQt4oXUKk5PePZK83PJiv7VnW09eRIwPkUhFWOeCV8qZxREHseyxz8VZllfUN4=
+      secure: KbZjr/brG9QE4jeqOXHXlDDmnLRy/yE8flTtv9xsKn5jUxJXMXp8NO37Yl/K2L957J2xbI/U1p6kABM5oi0W5MGtlu5yLrzNoA97YecUs7z/ynRVHf3FcFM5VhcmVTQI89cZ2Z+/oj0DBuodc+dEo4Qs61LTwEKZCOijAxzQDQo=
   template:
-        - '%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}'
+  - "%{repository}#%{build_number} (%{branch} - %{commit} : %{author}): %{message}"
   notify: true
+deploy:
+  provider: rubygems
+  api_key:
+    secure: ct0p0GoB7SUlhddoxaKaifPPtP/B0cIwaiGRnN9SHMzJH5rRNr8WRDA0/RyrpiGatrTlLolUWZpuz437oXpwUbOFoLJGvHSg6S/DA8VPqXmo0G41XwGw7TbN1APcM3zybJSymvnQ99T8wAb3AQYYnwt15VrI8lVj5/3Mdk4aDLA=
+  gem: cb-api
+  on:
+    branch: master
+    repo: careerbuilder/ruby-cb-api
