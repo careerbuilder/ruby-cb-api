@@ -11,7 +11,7 @@
 require 'spec_helper'
 
 describe Cb::Utils::Api do
-  let(:api_util) { Cb::Utils:: Api }
+  let(:api_util) { Cb::Utils::Api }
   
   context '#initialize' do
     it 'sets default gzip headers' do
