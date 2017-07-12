@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 22.6.3 Added fields to update resume api call to allow replace resume
 * 22.6.2 Updating just to test rubygems publishing from travis
 * 22.6.1 Minor fixes on saved search tests.
 * 22.6.0 Move saved search create to new API. Request changes from XML to JSON.
