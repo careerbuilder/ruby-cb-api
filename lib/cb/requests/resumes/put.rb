@@ -41,7 +41,10 @@ module Cb
             educations: extract_educations,
             skillsAndQualifications: extract_skills_and_qualifications,
             relocations: extract_relocations,
-            governmentAndMilitary: extract_government_and_military
+            governmentAndMilitary: extract_government_and_military,
+            resumeFileData: args[:resume_file_data],
+            resumeFileName: args[:resume_file_name],
+            replaceEducationAndExperience: args[:replace_education_and_experience] == 'true'
           }.to_json
         end
 
