@@ -99,9 +99,9 @@ module Cb
 
       let(:url) { "https://api.careerbuilder.com/cbapi/resumes/scattered_smothered_covered?developerkey=#{ Cb.configuration.dev_key }&outputjson=true" }
       let(:expected_body) do
-        '{"userIdentifier":"Thing","resumeHash":"scattered_smothered_covered","desiredJobTitle":"Ur Mom","privacySetting":"Public","workExperience":[],"salaryInformation":{},"educations":[],"skillsAndQualifications":{},"relocations":[],"governmentAndMilitary":{}}'
+        '{"userIdentifier":"Thing","resumeHash":"scattered_smothered_covered","desiredJobTitle":"Ur Mom","privacySetting":"Public","workExperience":[],"salaryInformation":{},"educations":[],"skillsAndQualifications":{},"relocations":[],"governmentAndMilitary":{},"resumeFileData":"someFileData","resumeFileName":"someFileName","replaceEducationAndExperience":true}'
       end
-      let(:params) { { user_identifier: 'Thing', oauth_token: 'token', desired_job_title: 'Ur Mom', privacy_setting: 'Public', host_site: 'US', resume_hash: 'scattered_smothered_covered' } }
+      let(:params) { { user_identifier: 'Thing', oauth_token: 'token', desired_job_title: 'Ur Mom', privacy_setting: 'Public', host_site: 'US', resume_hash: 'scattered_smothered_covered', resume_file_data: 'someFileData', resume_file_name: 'someFileName', replace_education_and_experience: 'true' } }
 
       let(:stub) do
         stub_request(:put, url).
@@ -166,7 +166,7 @@ module Cb
           }
         end
 
-        let(:expected_body) { "{\"userIdentifier\":\"Thing\",\"resumeHash\":\"scattered_smothered_covered\",\"desiredJobTitle\":\"Ur Mom\",\"privacySetting\":\"Public\",\"workExperience\":[{\"jobTitle\":\"King\",\"companyName\":\"Waffle House\",\"employmentType\":\"Royal\",\"startDate\":\"Beginning of Time\",\"endDate\":\"Present\",\"currentlyEmployedHere\":true,\"id\":1337}],\"salaryInformation\":{\"mostRecentPayAmount\":\"100 million\",\"perHourOrPerYear\":\"per_year\",\"currencyCode\":null,\"workExperienceId\":1337,\"annualBonus\":\"infinite\",\"annualCommission\":\"hash browns\"},\"educations\":[{\"schoolName\":\"School of Hard Knocks\",\"majorOrProgram\":\"Life\",\"degree\":\"Yes\",\"graduationDate\":\"Ongoing\"}],\"skillsAndQualifications\":{\"accreditationsAndCertifications\":\"All\",\"languagesSpoken\":\"Elvish, Elvisish\",\"hasManagementExperience\":\"Yes\",\"sizeOfTeamManaged\":\"6 billion\"},\"relocations\":[{\"city\":\"The Moon\",\"adminArea\":\"The Moon\",\"countryCode\":\"MOON\"}],\"governmentAndMilitary\":{\"hasSecurityClearance\":true,\"militaryExperience\":\"commander in chief\"}}" }
+        let(:expected_body) { "{\"userIdentifier\":\"Thing\",\"resumeHash\":\"scattered_smothered_covered\",\"desiredJobTitle\":\"Ur Mom\",\"privacySetting\":\"Public\",\"workExperience\":[{\"jobTitle\":\"King\",\"companyName\":\"Waffle House\",\"employmentType\":\"Royal\",\"startDate\":\"Beginning of Time\",\"endDate\":\"Present\",\"currentlyEmployedHere\":true,\"id\":1337}],\"salaryInformation\":{\"mostRecentPayAmount\":\"100 million\",\"perHourOrPerYear\":\"per_year\",\"currencyCode\":null,\"workExperienceId\":1337,\"annualBonus\":\"infinite\",\"annualCommission\":\"hash browns\"},\"educations\":[{\"schoolName\":\"School of Hard Knocks\",\"majorOrProgram\":\"Life\",\"degree\":\"Yes\",\"graduationDate\":\"Ongoing\"}],\"skillsAndQualifications\":{\"accreditationsAndCertifications\":\"All\",\"languagesSpoken\":\"Elvish, Elvisish\",\"hasManagementExperience\":\"Yes\",\"sizeOfTeamManaged\":\"6 billion\"},\"relocations\":[{\"city\":\"The Moon\",\"adminArea\":\"The Moon\",\"countryCode\":\"MOON\"}],\"governmentAndMilitary\":{\"hasSecurityClearance\":true,\"militaryExperience\":\"commander in chief\"},\"resumeFileData\":null,\"resumeFileName\":null,\"replaceEducationAndExperience\":false}" }
 
         it { expect(stub).to have_been_requested }
       end
