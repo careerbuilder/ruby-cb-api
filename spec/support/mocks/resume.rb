@@ -113,7 +113,10 @@ module Mocks
             {
               has_security_clearance: false,
               military_experience: ''
-            }
+            },
+          resumeFileData: nil,
+          resumeFileName: nil,
+          replaceEducationAndExperience: false
         }
       end
 
@@ -214,7 +217,10 @@ module Mocks
           'governmentAndMilitary' =>             {
             'hasSecurityClearance' => false,
             'militaryExperience' => ''
-          }
+          },
+          'resumeFileData' => nil,
+          'resumeFileName' => nil,
+          'replaceEducationAndExperience' => false
         }
       end
     end
