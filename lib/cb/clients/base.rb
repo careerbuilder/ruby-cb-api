@@ -12,8 +12,8 @@ module Cb
   module Clients
     class Base
       class << self
-        def cb_client(headers: {})
-          @cb_client ||= Cb::Utils::Api.instance(headers: headers)
+        def cb_client(headers: {}, use_default_params: true)
+          @cb_client ||= Cb::Utils::Api.instance(headers: headers, use_default_params: use_default_params)
         end
 
         def headers(args)
