@@ -30,11 +30,7 @@ module Cb
       end
 
       def initialize(headers: {}, use_default_params: true)
-        if use_default_params
-          self.class.default_params developerkey: Cb.configuration.dev_key,
-                                    outputjson: Cb.configuration.use_json.to_s
-        end
-
+        self.class.default_params add_default_params if use_default_params
         self.class.default_timeout Cb.configuration.time_out
         h = { 'developerkey' => Cb.configuration.dev_key }
         h.merge! ({ 'accept-encoding' => 'deflate, gzip' }) unless Cb.configuration.debug_api
@@ -177,6 +173,13 @@ module Cb
       def format_hash_key(api_hash_key)
         return '' unless api_hash_key.respond_to?(:snakecase)
         api_hash_key.snakecase
+      end
+
+      def add_default_params
+        {
+            developerkey: Cb.configuration.dev_key,
+            outputjson: Cb.configuration.use_json.to_s
+        }
       end
     end
   end
