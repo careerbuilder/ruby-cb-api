@@ -14,6 +14,14 @@ describe Cb::Utils::Api do
   let(:api_util) { Cb::Utils::Api }
   
   context '#initialize' do
+    it 'does not set the default params' do
+      client = api_util.new(use_default_params: false)
+      expect(client.class.default_params).to eq({})
+    end
+    it 'sets the default params' do
+      client = api_util.new
+      expect(client.class.default_params).to eq({ developerkey: "ruby-cb-api", outputjson: "true" })
+    end
     it 'sets default gzip headers' do
       client = api_util.new
       expect(client.class.headers).to have_key('accept-encoding')

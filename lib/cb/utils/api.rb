@@ -18,8 +18,8 @@ module Cb
 
       base_uri 'https://api.careerbuilder.com'
 
-      def self.instance(headers: {})
-        api = Cb::Utils::Api.new(headers: headers)
+      def self.instance(headers: {}, use_default_params: true)
+        api = Cb::Utils::Api.new(headers: headers, use_default_params: use_default_params)
         Cb.configuration.observers.each do |class_name|
           api.add_observer(class_name.new)
         end
@@ -29,10 +29,8 @@ module Cb
         api
       end
 
-      def initialize(headers: {})
-        self.class.default_params developerkey: Cb.configuration.dev_key,
-                                  outputjson: Cb.configuration.use_json.to_s
-
+      def initialize(headers: {}, use_default_params: true)
+        self.class.default_params add_default_params if use_default_params
         self.class.default_timeout Cb.configuration.time_out
         h = { 'developerkey' => Cb.configuration.dev_key }
         h.merge! ({ 'accept-encoding' => 'deflate, gzip' }) unless Cb.configuration.debug_api
@@ -175,6 +173,13 @@ module Cb
       def format_hash_key(api_hash_key)
         return '' unless api_hash_key.respond_to?(:snakecase)
         api_hash_key.snakecase
+      end
+
+      def add_default_params
+        {
+            developerkey: Cb.configuration.dev_key,
+            outputjson: Cb.configuration.use_json.to_s
+        }
       end
     end
   end
