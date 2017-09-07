@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 22.8.0 Allow optional override of Accept header
 * 22.7.0 Option to add default params to httparty calls
 * 22.6.4 Added fields to the resume put object to allow replace resume
 * 22.6.3 Added fields to update resume api call to allow replace resume
