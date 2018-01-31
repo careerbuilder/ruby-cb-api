@@ -139,6 +139,7 @@ module Cb
             <Cobrand>AOLer</Cobrand>
             <BrowserID>my_bid</BrowserID>
             <SessionID>my_sid</SessionID>
+            <SiteID></SiteID>
             <Test>false</Test>
             <EmailAddress>k@cb.moom</EmailAddress>
             <SearchName>Yolo</SearchName>
