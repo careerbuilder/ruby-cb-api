@@ -57,6 +57,7 @@ module Cb
             <Cobrand>#{cobrand}</Cobrand>
             <BrowserID>#{browser_id}</BrowserID>
             <SessionID>#{session_id}</SessionID>
+            <SiteID>#{site_id}</SiteID>
             <Test>false</Test>
             <EmailAddress>#{email_address}</EmailAddress>
             <SearchName>#{search_name}</SearchName>
