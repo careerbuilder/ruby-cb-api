@@ -15,6 +15,7 @@ module Cb
   module Utils
     class Api
       include HTTParty, Observable
+      ssl_version :TLS1_2
 
       base_uri 'https://api.careerbuilder.com'
 
