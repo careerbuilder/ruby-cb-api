@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 22.10.0 Updated uri_job_find endpoint
 * 22.9.0 Add SiteID to XML sent for Anonymous Saved Search
 * 22.8.0 Allow optional override of Accept header
 * 22.7.0 Option to add default params to httparty calls
