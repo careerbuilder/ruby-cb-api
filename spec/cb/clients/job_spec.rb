@@ -25,18 +25,18 @@ module Cb
       let(:args) { { did: 'someDID'} }
 
       it 'returns a hash' do
-        response = Cb::Clients::Job.get(args)
+        response = Cb::Clients::Job.get("token", args)
         expect(response).to be_a Hash
       end
 
       context 'raises an error if errors node contains key phrase' do
         let(:inner_nodes) { { Errors: { Error: 'job was not found' } } }
-        it { expect{ Cb::Clients::Job.get(args) }.to raise_error Cb::DocumentNotFoundError }
+        it { expect{ Cb::Clients::Job.get("token", args) }.to raise_error Cb::DocumentNotFoundError }
       end
 
       context 'not raise an error if errors node does not contain key phrase' do
         let(:inner_nodes) { { Errors: { Error: 'job was found' } } }
-        it { expect{ Cb::Clients::Job.get(args) }.not_to raise_error Cb::DocumentNotFoundError }
+        it { expect{ Cb::Clients::Job.get("token", args) }.not_to raise_error Cb::DocumentNotFoundError }
       end
     end
 
