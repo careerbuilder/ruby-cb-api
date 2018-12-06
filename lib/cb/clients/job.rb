@@ -14,7 +14,7 @@ module Cb
     class Job < Base
       class << self
         def get(args = {})
-          response = cb_client.cb_get(Cb.configuration.uri_job_find, query: args)
+          response = cb_client.cb_get(Cb.configuration.uri_job_find, query: args, headers: headers(args))
           not_found_check(response)
           response
         end
@@ -41,6 +41,12 @@ module Cb
             <Comments>#{args[:comments]}</Comments>
           </Request>
           eos
+        end
+
+        def headers(args = {})
+          {
+              'Authorization' => "Bearer #{ args[:oauth_token] }"
+          }
         end
       end
     end
