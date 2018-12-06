@@ -14,7 +14,7 @@ module Cb
     class Job < Base
       class << self
         def get(oauth_token, args = {})
-          response = cb_client.cb_get(Cb.configuration.uri_job_find, headers: headers(oauth_token), query: args)
+          response = cb_client.cb_get(uri_get(args[:did]), headers: headers(oauth_token), query: args)
           not_found_check(response)
           response
         end
@@ -24,6 +24,10 @@ module Cb
         end
 
         private
+
+        def uri_get job_id
+          "#{Cb.configuration.uri_job_find}/#{job_id}"
+        end
 
         def headers(oauth_token)
           {
