@@ -9,5 +9,5 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 module Cb
-  VERSION = '23.0.0'
+  VERSION = '23.0.1'
 end
