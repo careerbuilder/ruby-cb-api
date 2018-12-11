@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 23.0.1 Make did arg retrieval uppercase
 * 23.0.0 Add oauth token as param for retrieval of job
 * 22.10.0 Updated uri_job_find endpoint
 * 22.9.0 Add SiteID to XML sent for Anonymous Saved Search

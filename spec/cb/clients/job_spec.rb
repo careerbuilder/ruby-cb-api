@@ -22,7 +22,7 @@ module Cb
           .to_return(body: response)
       end
 
-      let(:args) { { did: 'someDID'} }
+      let(:args) { { Did: 'someDID'} }
 
       it 'returns a hash' do
         response = Cb::Clients::Job.get("token", args)
