@@ -26,6 +26,7 @@ module Mocks
                 start_date: '2009-09-01T00:00:00',
                 end_date: '2014-08-28T00:00:00',
                 currently_employed_here: true,
+                work_activities: 'blarg',
                 id: 'workexperienceID'
               },
               {
@@ -35,6 +36,7 @@ module Mocks
                 start_date: '2008-06-01T00:00:00',
                 end_date: '2009-09-01T00:00:00',
                 currently_employed_here: false,
+                work_activities: 'blarg',
                 id: 'workexperienceID'
               },
               {
@@ -44,6 +46,7 @@ module Mocks
                 start_date: '2006-09-01T00:00:00',
                 end_date: '2008-06-01T00:00:00',
                 currently_employed_here: false,
+                work_activities: 'blarg',
                 id: 'workexperienceID'
               },
               {
@@ -53,6 +56,7 @@ module Mocks
                 start_date: '2007-03-01T00:00:00',
                 end_date: '2007-05-31T00:00:00',
                 currently_employed_here: false,
+                work_activities: 'blarg',
                 id: 'workexperienceID'
               },
               {
@@ -62,6 +66,7 @@ module Mocks
                 start_date: '2006-03-01T00:00:00',
                 end_date: '2006-05-31T00:00:00',
                 currently_employed_here: false,
+                work_activities: 'blarg',
                 id: 'workexperienceID'
               }
             ],
@@ -134,6 +139,7 @@ module Mocks
               'startDate' => '2009-09-01T00:00:00',
               'endDate' => '2014-08-28T00:00:00',
               'currentlyEmployedHere' => true,
+              'experienceDetail' => 'blarg',
               'id' => 'workexperienceID'
             },
             {
@@ -143,6 +149,7 @@ module Mocks
               'startDate' => '2008-06-01T00:00:00',
               'endDate' => '2009-09-01T00:00:00',
               'currentlyEmployedHere' => false,
+              'experienceDetail' => 'blarg',
               'id' => 'workexperienceID'
             },
             {
@@ -152,6 +159,7 @@ module Mocks
               'startDate' => '2006-09-01T00:00:00',
               'endDate' => '2008-06-01T00:00:00',
               'currentlyEmployedHere' => false,
+              'experienceDetail' => 'blarg',
               'id' => 'workexperienceID'
             },
             {
@@ -161,6 +169,7 @@ module Mocks
               'startDate' => '2007-03-01T00:00:00',
               'endDate' => '2007-05-31T00:00:00',
               'currentlyEmployedHere' => false,
+              'experienceDetail' => 'blarg',
               'id' => 'workexperienceID'
             },
             {
@@ -170,6 +179,7 @@ module Mocks
               'startDate' => '2006-03-01T00:00:00',
               'endDate' => '2006-05-31T00:00:00',
               'currentlyEmployedHere' => false,
+              'experienceDetail' => 'blarg',
               'id' => 'workexperienceID'
             }
           ],
