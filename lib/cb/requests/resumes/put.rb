@@ -60,6 +60,7 @@ module Cb
               startDate: experience[:start_date],
               endDate: experience[:end_date],
               currentlyEmployedHere: experience[:currently_employed_here],
+              experienceDetail: experience[:work_activities],
               id: experience[:id]
             }
           end
