@@ -13,8 +13,8 @@ module Cb
   module Clients
     class Job < Base
       class << self
-        def get(oauth_token, args = {}, consumer_job_details = false)
-          response = cb_client.cb_get(uri_get(args[:Did], consumer_job_details), headers: headers(oauth_token), query: args)
+        def get(oauth_token, args = {}, use_v3_endpoint = false)
+          response = cb_client.cb_get(uri_get(args[:Did], use_v3_endpoint), headers: headers(oauth_token), query: args)
           not_found_check(response)
           response
         end
@@ -25,11 +25,11 @@ module Cb
 
         private
 
-        def uri_get (job_id, consumer_job_details = false)
-          if consumer_job_details
-            "#{Cb.configuration.uri_job_find}/#{job_id}"
-          else
+        def uri_get (job_id, use_v3_endpoint)
+          if use_v3_endpoint
             Cb.configuration.uri_job_find_v3
+          else
+            "#{Cb.configuration.uri_job_find}/#{job_id}"
           end
         end
 
