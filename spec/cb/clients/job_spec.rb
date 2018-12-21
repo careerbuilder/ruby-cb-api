@@ -18,7 +18,7 @@ module Cb
       let(:inner_nodes) { { Job: {} } }
 
       before :each do
-        stub_request(:get, uri_stem(Cb.configuration.uri_job_find))
+        stub_request(:get, uri_stem(Cb.configuration.uri_job_find_v3))
           .to_return(body: response)
       end
 
