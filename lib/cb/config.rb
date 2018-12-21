@@ -66,7 +66,7 @@ module Cb
       @uri_job_branding ||= '/branding'
       @uri_job_expired ||= '/v1/job/expired'
       @uri_job_find ||= '/consumer/job/details'
-      @uri_job_find_v3 ||= 'v3/job'
+      @uri_job_find_v3 ||= '/v3/job'
       @uri_job_insights ||= '/consumer/job-insights'
       @uri_job_search ||= '/consumer/jobs/search/'
       @uri_keyword_insights ||= '/consumer/insights/keywords'
