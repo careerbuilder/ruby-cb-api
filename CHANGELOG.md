@@ -2,6 +2,7 @@ Version History
 ====
     * All Version bumps are required to update this file as well!!
 ----
+* 23.2.1 Patch missing backslash
 * 23.2.0 Add parameter for job get route
 * 23.0.1 Make did arg retrieval uppercase
 * 23.0.0 Add oauth token as param for retrieval of job
