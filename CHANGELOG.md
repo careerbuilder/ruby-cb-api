@@ -4,6 +4,7 @@ Version History
 ----
 * 23.2.1 Patch missing backslash
 * 23.2.0 Add parameter for job get route
+* 23.1.0 Add Resume Experience Work Activities Detail
 * 23.0.1 Make did arg retrieval uppercase
 * 23.0.0 Add oauth token as param for retrieval of job
 * 22.10.0 Updated uri_job_find endpoint
