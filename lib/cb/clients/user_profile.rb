@@ -15,7 +15,7 @@ module Cb
       class << self
         # https://careerbuilder.readme.io/docs/consumeruser-profile
         def get(args={})
-          cb_client.cb_get(Cb.configuration.uri_user_profile, headers: headers(args))
+          cb_client.cb_get(Cb.configuration.uri_user_profile, headers: headers(**args))
         end
       end
     end

@@ -53,7 +53,9 @@ module Cb
       end
 
       def try_parse_json(body)
-        JSON.parse(body)
+        json = JSON.parse(body)
+        json = try_parse_json(json) if json.is_a? String
+        json
       rescue JSON::ParserError
         nil
       end

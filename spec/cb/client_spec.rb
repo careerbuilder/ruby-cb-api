@@ -61,7 +61,7 @@ module Cb
 
         it 'should call the api using post' do
           expect(mock_api).to receive(:timed_http_request)
-            .with(:post, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
+            .with(:post, base_uri, 'parts unknown', { query: nil, headers: nil, body: nil })
             .and_return({})
 
           @client.execute(@request)
@@ -80,7 +80,7 @@ module Cb
 
         it 'should call the api using get' do
           expect(mock_api).to receive(:timed_http_request)
-            .with(:get, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
+            .with(:get, base_uri, 'parts unknown', { query: nil, headers: nil, body: nil })
             .and_return({})
 
           @client.execute(@request)
@@ -99,7 +99,7 @@ module Cb
 
         it 'should call the api using put' do
           expect(mock_api).to receive(:timed_http_request)
-            .with(:put, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
+            .with(:put, base_uri, 'parts unknown', { query: nil, headers: nil, body: nil })
             .and_return({})
 
           @client.execute(@request)
@@ -125,7 +125,7 @@ module Cb
 
         it 'should call the api using post' do
           expect(mock_api).to receive(:timed_http_request)
-            .with(:post, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
+            .with(:post, base_uri, 'parts unknown', { query: nil, headers: nil, body: nil })
             .and_yield('test')
             .and_return({})
 
@@ -145,7 +145,7 @@ module Cb
 
         it 'should call the api using get' do
           expect(mock_api).to receive(:timed_http_request)
-            .with(:get, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
+            .with(:get, base_uri, 'parts unknown', { query: nil, headers: nil, body: nil })
             .and_yield('test')
             .and_return({})
 
@@ -165,7 +165,7 @@ module Cb
 
         it 'should call the api using put' do
           expect(mock_api).to receive(:timed_http_request)
-            .with(:put, base_uri, 'parts unknown', query: nil, headers: nil, body: nil)
+            .with(:put, base_uri, 'parts unknown', { query: nil, headers: nil, body: nil })
             .and_yield('test')
             .and_return({})
 

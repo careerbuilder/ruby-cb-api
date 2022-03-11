@@ -16,7 +16,7 @@ module Cb
       def self.get(args={})
         uri = Cb.configuration.uri_job_expired
         query_params = { 'JobDID' => args[:job_did] }
-        cb_client.cb_get(uri, headers: headers(args), query: query_params)
+        cb_client.cb_get(uri, headers: headers(**args), query: query_params)
       end
     end
   end

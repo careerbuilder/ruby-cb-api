@@ -17,10 +17,12 @@ SimpleCov.start do
   add_group 'clients', 'lib/cb/clients'
   add_group 'criteria', 'lib/cb/criteria'
   add_group 'responses', 'lib/cb/responses'
-  formatter SimpleCov::Formatter::MultiFormatter[
-                SimpleCov::Formatter::HTMLFormatter,
-                CodeClimate::TestReporter::Formatter
-            ]
+  formatter SimpleCov::Formatter::MultiFormatter.new(
+    [
+      SimpleCov::Formatter::HTMLFormatter,
+      CodeClimate::TestReporter::Formatter
+    ]
+  )
 end
 
 require 'rubygems'

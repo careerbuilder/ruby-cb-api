@@ -16,11 +16,11 @@ module Cb
           @cb_client ||= Cb::Utils::Api.instance(headers: headers, use_default_params: use_default_params)
         end
 
-        def headers(args, accept_header: 'application/json')
+        def headers(accept_header: 'application/json', **args)
           {
-             'Accept' => accept_header,
-             'Authorization' => "Bearer #{ args[:oauth_token] }",
-             'Content-Type' => 'application/json'
+            'Accept' => accept_header,
+            'Authorization' => "Bearer #{args[:oauth_token]}",
+            'Content-Type' => 'application/json'
           }
         end
       end
