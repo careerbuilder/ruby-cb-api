@@ -15,7 +15,7 @@ module Cb
       class << self
         # https://careerbuilder.readme.io/docs/consumerbrowser-id
         def get(args={})
-          cb_client.cb_get(Cb.configuration.uri_browser_id, headers: headers(args))
+          cb_client.cb_get(Cb.configuration.uri_browser_id, headers: headers(**args))
         end
       end
     end

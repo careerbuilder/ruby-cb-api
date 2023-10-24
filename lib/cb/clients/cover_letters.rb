@@ -16,21 +16,21 @@ module Cb
         def get(args={})
           uri = Cb.configuration.uri_cover_letters
           uri += "/#{ args[:id] }" if args[:id]
-          cb_client.cb_get(uri, headers: headers(args))
+          cb_client.cb_get(uri, headers: headers(**args))
         end
 
         def create(args={})
           cb_client.cb_put(Cb.configuration.uri_cover_letters,
                            body: body(args),
-                           headers: headers(args))
+                           headers: headers(**args))
         end
 
         def delete(args={})
-          cb_client.cb_delete(uri_with_id(args), body: body(args), headers: headers(args))
+          cb_client.cb_delete(uri_with_id(args), body: body(args), headers: headers(**args))
         end
 
         def update(args={})
-          cb_client.cb_post(uri_with_id(args), body: body(args), headers: headers(args))
+          cb_client.cb_post(uri_with_id(args), body: body(args), headers: headers(**args))
         end
 
         private

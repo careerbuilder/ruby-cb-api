@@ -14,7 +14,7 @@ module Cb
     class ResumeInsights < Base
       def self.keywords(args={})
         uri = "#{ Cb.configuration.uri_keyword_insights }/#{ args[:id] }"
-        cb_client.cb_get(uri, headers: headers(args))
+        cb_client.cb_get(uri, headers: headers(**args))
       end
     end
   end

@@ -25,17 +25,17 @@ module Cb
       end
 
       it 'defaults Accept to application/json' do
-        headers = Cb::Clients::Base.headers({})
+        headers = Cb::Clients::Base.headers()
         expect(headers['Accept']).to eq 'application/json'
       end
 
       it 'accepts an optional param to change Accept header' do
-        headers = Cb::Clients::Base.headers({}, accept_header: 'application/json;version=1.1')
+        headers = Cb::Clients::Base.headers(accept_header: 'application/json;version=1.1')
         expect(headers['Accept']).to eq 'application/json;version=1.1'
       end
 
       it 'defaults Content-Type to application/json' do
-        headers = Cb::Clients::Base.headers({})
+        headers = Cb::Clients::Base.headers()
         expect(headers['Content-Type']).to eq 'application/json'
       end
     end

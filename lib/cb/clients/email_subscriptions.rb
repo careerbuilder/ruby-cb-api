@@ -14,7 +14,7 @@ module Cb
     class EmailSubscriptions < Base
       class << self
         def get(args = {})
-          cb_client.cb_get(Cb.configuration.uri_subscription_retrieve, query: query(args), headers: headers(args))
+          cb_client.cb_get(Cb.configuration.uri_subscription_retrieve, query: query(args), headers: headers(**args))
         end
 
         def post(args = {})
@@ -32,7 +32,7 @@ module Cb
         end
 
         def post_headers(args = {})
-          headers(args).merge('Content-Type' => 'application/xml')
+          headers(**args).merge('Content-Type' => 'application/xml')
         end
 
         def body(args = {})

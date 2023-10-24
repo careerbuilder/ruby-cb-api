@@ -14,7 +14,7 @@ module Cb
     class JobInsights < Base
       def self.get(args={})
         uri = "#{ Cb.configuration.uri_job_insights }/#{ args[:id] }"
-        cb_client.cb_get(uri, headers: headers(args))
+        cb_client.cb_get(uri, headers: headers(**args))
       end
     end
   end
